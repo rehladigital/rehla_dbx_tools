@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from .clients.account import AccountClient
 from .clients.workspace import WorkspaceClient
-from .config import AuthConfig, UnifiedConfig
+from .config import AuthConfig, CloudType, UnifiedConfig
 from .notebook_context import resolve_notebook_context
 
 
@@ -22,6 +22,11 @@ class DatabricksApiClient:
     @classmethod
     def from_env(cls) -> "DatabricksApiClient":
         return cls(UnifiedConfig.from_env())
+
+    @classmethod
+    def from_env_for_cloud(cls, cloud: CloudType) -> "DatabricksApiClient":
+        cfg = UnifiedConfig.from_env().with_cloud(cloud)
+        return cls(cfg)
 
     @classmethod
     def from_notebook_context(

@@ -34,6 +34,9 @@ if client.workspace is not None:
     jobs = client.workspace.list_jobs()
     df = jobs.to_pandas()
     print(df.head())
+
+# Force both workspace/account config to a target cloud
+client = DatabricksApiClient.from_env_for_cloud("azure")
 ```
 
 ## Notebook Context Bootstrap

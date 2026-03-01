@@ -463,3 +463,121 @@
 - Added regression tests for cloud inference behavior in `tests/test_config.py`.
 - Updated `docs/USAGE.md` to document fallback/inference behavior.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 5).
+
+## Run 6 (Cycle 6 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: centralize cloud host detection logic for reuse across config and public API.
+
+### Progress Notes
+
+- Added `src/databricks_api/cloud.py` with:
+  - `detect_cloud_from_host(...)`
+  - `is_host_cloud_aligned(...)`
+- Reused shared cloud detection helper in config validation path.
+
+## Run 7 (Cycle 7 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add strict-cloud-match switch for controlled rollout and migration scenarios.
+
+### Progress Notes
+
+- Added `strict_cloud_match` on `UnifiedConfig`.
+- Added env support:
+  - `DATABRICKS_STRICT_CLOUD_MATCH` (`true`/`false`, default `true`)
+- Added boolean parsing with validation for invalid values.
+
+## Run 8 (Cycle 8 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: harden account configuration validity for account-host scenarios.
+
+### Progress Notes
+
+- Added validation requiring `DATABRICKS_ACCOUNT_ID` when `DATABRICKS_ACCOUNT_HOST` is configured.
+- Added regression test coverage for missing account ID validation.
+
+## Run 9 (Cycle 9 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: support deterministic cloud override from already-loaded unified config.
+
+### Progress Notes
+
+- Added `UnifiedConfig.with_cloud(cloud)` to override both workspace/account cloud targets in one call.
+- Added regression test coverage for `with_cloud(...)`.
+
+## Run 10 (Cycle 10 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add client-level cloud override constructor for cross-cloud execution pipelines.
+
+### Progress Notes
+
+- Added `DatabricksApiClient.from_env_for_cloud(cloud)` to force both workspace/account cloud values.
+- Added regression test coverage in `tests/test_client.py`.
+
+## Run 11 (Cycle 11 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: expose cloud helpers and types through top-level package exports.
+
+### Progress Notes
+
+- Exported `CloudType`, `detect_cloud_from_host`, and `is_host_cloud_aligned` via:
+  - `databricks_api`
+  - `rehla_dbx_tools`
+  - `rehladigital_aws_dbx_tools` (compat namespace)
+- Added public-import regression test for cloud helper visibility.
+
+## Run 12 (Cycle 12 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: improve configuration robustness for strict-match setting parsing.
+
+### Progress Notes
+
+- Added explicit validation error path for invalid `DATABRICKS_STRICT_CLOUD_MATCH` values.
+- Added regression test for invalid strict-match env value.
+
+## Run 13 (Cycle 13 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: keep operator docs aligned with advanced cloud configuration controls.
+
+### Progress Notes
+
+- Updated `docs/USAGE.md` with strict-match env option and cloud-override examples.
+- Added `from_env_for_cloud("azure")` usage snippet.
+
+## Run 14 (Cycle 14 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: improve end-user discoverability of cloud-aware startup patterns.
+
+### Progress Notes
+
+- Updated `README.md` quick-start to include forced cloud-target example.
+- Synced docs with new cloud override semantics.
+
+## Run 15 (Cycle 15 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: finalize the run 6-15 hardening batch with full test validation and factual log updates.
+
+### Progress Notes
+
+- Full test suite passed after cumulative changes.
+- Validation: `43 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 15).

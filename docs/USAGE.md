@@ -41,6 +41,7 @@ Configuration precedence:
 - `DATABRICKS_OAUTH_SCOPE` (default `all-apis`)
 - `DATABRICKS_WORKSPACE_API_VERSION` (default `2.1`)
 - `DATABRICKS_CLOUD` (`aws`, `azure`, `gcp`; default `aws`)
+- `DATABRICKS_STRICT_CLOUD_MATCH` (`true`/`false`; default `true`)
 
 ### Account
 
@@ -57,6 +58,7 @@ Configuration precedence:
 Cloud-host alignment guardrail:
 - If host pattern clearly indicates a cloud (for example `*.azuredatabricks.net` or `*.gcp.databricks.com`), the corresponding cloud env value must match.
 - If cloud env values are omitted, cloud is inferred from host pattern when possible; otherwise fallback is `aws`.
+- Set `DATABRICKS_STRICT_CLOUD_MATCH=false` to allow mismatch during migration/debug scenarios.
 
 ## 3) Create Client from Environment
 
@@ -64,6 +66,12 @@ Cloud-host alignment guardrail:
 from rehla_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_env()
+```
+
+Force a cloud target for both workspace and account config:
+
+```python
+client = DatabricksApiClient.from_env_for_cloud("azure")
 ```
 
 ## 4) Create Client from Notebook Context

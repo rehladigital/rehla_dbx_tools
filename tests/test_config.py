@@ -19,6 +19,7 @@ def test_from_env_normalizes_host(monkeypatch):
 def test_from_env_reads_workspace_and_account_cloud(monkeypatch):
     monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
     monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_ID", "acc-123")
     monkeypatch.setenv("DATABRICKS_CLOUD", "azure")
     monkeypatch.setenv("DATABRICKS_ACCOUNT_CLOUD", "gcp")
 
@@ -65,9 +66,49 @@ def test_from_env_infers_workspace_cloud_from_host_when_unset(monkeypatch):
 def test_from_env_infers_account_cloud_from_host_when_unset(monkeypatch):
     monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
     monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_ID", "acc-123")
     monkeypatch.delenv("DATABRICKS_CLOUD", raising=False)
     monkeypatch.delenv("DATABRICKS_ACCOUNT_CLOUD", raising=False)
 
     cfg = UnifiedConfig.from_env()
 
     assert cfg.account.cloud == "gcp"
+
+
+def test_from_env_disables_strict_cloud_match_when_requested(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
+    monkeypatch.setenv("DATABRICKS_CLOUD", "aws")
+    monkeypatch.setenv("DATABRICKS_STRICT_CLOUD_MATCH", "false")
+
+    cfg = UnifiedConfig.from_env()
+
+    assert cfg.strict_cloud_match is False
+    assert cfg.workspace.cloud == "aws"
+
+
+def test_from_env_requires_account_id_when_account_host_is_set(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.cloud.databricks.com")
+    monkeypatch.delenv("DATABRICKS_ACCOUNT_ID", raising=False)
+
+    with pytest.raises(ValidationError):
+        UnifiedConfig.from_env()
+
+
+def test_with_cloud_overrides_workspace_and_account_cloud(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_ID", "acc-123")
+
+    cfg = UnifiedConfig.from_env().with_cloud("aws")
+
+    assert cfg.workspace.cloud == "aws"
+    assert cfg.account.cloud == "aws"
+
+
+def test_from_env_rejects_invalid_strict_cloud_match(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_STRICT_CLOUD_MATCH", "not-a-bool")
+
+    with pytest.raises(ValidationError):
+        UnifiedConfig.from_env()
