@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - 2026-03-01
+
+### Changed
+
+- Enforced read-only package mode across all modules:
+  - non-GET operations are blocked with explicit validation errors
+  - GET operations force pagination aggregation for DataFrame-first usage
+- Added package metadata helpers:
+  - `__version__`
+  - `__Help__`
+- Updated public exports and README with the read-only available tool surface.
+
+### Added
+
+- Regression tests for:
+  - read-only destructive-operation blocking
+  - forced pagination behavior on GET requests
+  - metadata helper exports in public namespace
+
 ## [1.1.2] - 2026-03-01
 
 ### Fixed

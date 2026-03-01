@@ -109,62 +109,54 @@ response = client.workspace.request_versioned(
 )
 ```
 
-## Expanded Convenience Wrappers
+## Read-Only Package Mode
+
+This package build is read-only by design:
+- Destructive HTTP methods (`POST`, `PATCH`, `PUT`, `DELETE`) are blocked.
+- GET requests force pagination aggregation for DataFrame-first workflows.
+
+### Version and help metadata
 
 ```python
-import getpass
+import rehla_dbx_tools as rdt
 
-if client.workspace is not None:
-    run = client.workspace.run_job_now(job_id=123)
-    runs = client.workspace.list_job_runs(job_id=123, active_only=True, limit=10)
-    run_export = client.workspace.export_job_run(run_id=987, views_to_export="CODE")
-    run_output = client.workspace.get_job_run_output(run_id=987)
-    run_submit = client.workspace.submit_job_run({"run_name": "ad-hoc-check"})
-    run_delete = client.workspace.delete_job_run(run_id=987)
-    job_permissions = client.workspace.get_job_permissions(job_id=123)
-    permission_levels = client.workspace.get_job_permission_levels(job_id=123)
-    permission_update = client.workspace.update_job_permissions(
-        job_id=123,
-        access_control_list=[{"group_name": "admins", "permission_level": "CAN_MANAGE"}],
-    )
-    cluster_permissions = client.workspace.get_cluster_permissions(cluster_id="0123-abc")
-    cluster_permission_levels = client.workspace.get_cluster_permission_levels(cluster_id="0123-abc")
-    repo_permissions = client.workspace.get_repo_permissions(repo_id=12345)
-    repo_permission_levels = client.workspace.get_repo_permission_levels(repo_id=12345)
-    repair = client.workspace.repair_job_run(run_id=987, rerun_all_failed_tasks=True)
-    cancel_all = client.workspace.cancel_all_job_runs(job_id=123, all_queued_runs=True)
-    cluster = client.workspace.get_cluster(cluster_id="0123-abc")
-    catalogs = client.workspace.list_catalogs(max_results=25)
-    warehouses = client.workspace.list_sql_warehouses()
-    dbfs_files = client.workspace.list_dbfs("dbfs:/tmp")
-    token = client.workspace.create_token(lifetime_seconds=3600, comment="ci-short-lived")
-    rotated_token = client.workspace.rotate_token(
-        token_id_to_revoke="old-token-id",
-        lifetime_seconds=3600,
-        comment="ci-rotation",
-    )
-    repos = client.workspace.list_repos(path_prefix="/Repos/team")
-    repo = client.workspace.get_repo(repo_id=12345)
-    client.workspace.put_secret(
-        scope="app-prod",
-        key="api-token",
-        string_value=getpass.getpass("Secret value: "),
-    )
-
-if client.account is not None:
-    ws = client.account.get_workspace(workspace_id=101)
-    creds = client.account.list_credentials()
-    storage_cfgs = client.account.list_storage_configurations()
-    networks = client.account.list_networks()
-    private_access = client.account.list_private_access_settings()
-    vpc_endpoints = client.account.list_vpc_endpoints()
-    cmks = client.account.list_customer_managed_keys()
-    users = client.account.list_users()
-    user = client.account.get_user("user-101")
-    groups = client.account.list_groups()
-    group = client.account.get_group("group-101")
-    budgets = client.account.list_budget_policies()
-    log_delivery_configs = client.account.list_log_delivery_configurations()
+print(rdt.__version__)
+print(rdt.__Help__)
 ```
+
+### Available read-only tools
+
+Workspace (`client.workspace`):
+- `list_jobs`, `get_job`
+- `list_job_runs`, `get_job_run`, `get_job_run_output`, `export_job_run`
+- `get_job_permissions`, `get_job_permission_levels`
+- `list_clusters`, `get_cluster`, `cluster_events`
+- `get_cluster_permissions`, `get_cluster_permission_levels`
+- `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`
+- `list_sql_warehouses`, `get_sql_warehouse`
+- `list_instance_pools`, `get_instance_pool`
+- `list_cluster_policies`, `get_cluster_policy`
+- `list_dbfs`, `get_dbfs_status`, `read_dbfs`
+- `list_repos`, `get_repo`
+- `list_secret_scopes`
+- `list_tokens`
+
+Client-level convenience:
+- `list_jobs`
+- `list_recent_job_runs`
+- `list_active_job_runs`
+
+Account (`client.account`):
+- `list_workspaces`, `get_workspace`
+- `list_credentials`
+- `list_storage_configurations`
+- `list_networks`
+- `list_private_access_settings`
+- `list_vpc_endpoints`
+- `list_customer_managed_keys`
+- `list_users`, `get_user`
+- `list_groups`, `get_group`
+- `list_budget_policies`, `get_budget_policy`
+- `list_log_delivery_configurations`, `get_log_delivery_configuration`
 
 For detailed setup and examples, see `docs/USAGE.md`.

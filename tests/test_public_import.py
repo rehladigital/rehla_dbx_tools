@@ -1,4 +1,4 @@
-from rehla_dbx_tools import DatabricksApiClient, detect_cloud_from_host
+from rehla_dbx_tools import DatabricksApiClient, __Help__, __version__, detect_cloud_from_host
 from rehla_dbx_tools.clients.workspace import WorkspaceClient
 from rehladigital_aws_dbx_tools import DatabricksApiClient as LegacyDatabricksApiClient
 
@@ -17,3 +17,8 @@ def test_legacy_namespace_remains_available_during_rename():
 
 def test_public_import_exposes_cloud_detection_helper():
     assert detect_cloud_from_host("https://adb-12345.6.azuredatabricks.net") == "azure"
+
+
+def test_public_import_exposes_version_and_help_metadata():
+    assert isinstance(__version__, str) and __version__
+    assert isinstance(__Help__, str) and "read-only" in __Help__.lower()

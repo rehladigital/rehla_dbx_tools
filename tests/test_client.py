@@ -3,6 +3,7 @@ import pytest
 from databricks_api.client import DatabricksApiClient
 from databricks_api.config import AccountConfig, AuthConfig, UnifiedConfig, WorkspaceConfig
 from databricks_api.exceptions import ValidationError
+from databricks_api.response import ApiResponse
 
 
 def test_client_allows_account_only_configuration():
@@ -129,3 +130,54 @@ def test_simple_uses_env_token_when_explicit_token_missing(monkeypatch):
 
     assert client.workspace is not None
     assert client.workspace.auth.token == "env-token"
+
+
+def test_read_only_mode_blocks_destructive_workspace_calls():
+    client = DatabricksApiClient.simple(
+        host="https://dbc-test.cloud.databricks.com",
+        token="workspace-token",
+    )
+    assert client.workspace is not None
+
+    with pytest.raises(ValidationError, match="Destructive operations are disabled"):
+        client.workspace.create_job({"name": "blocked"})
+
+
+def test_read_only_mode_blocks_destructive_account_calls():
+    client = DatabricksApiClient.simple(
+        host="https://dbc-test.cloud.databricks.com",
+        token="workspace-token",
+        account_host="https://accounts.cloud.databricks.com",
+        account_id="acc-123",
+    )
+    assert client.account is not None
+
+    with pytest.raises(ValidationError, match="Destructive operations are disabled"):
+        client.account.create_workspace({"workspace_name": "blocked"})
+
+
+def test_read_only_requests_force_pagination_for_get(monkeypatch):
+    client = DatabricksApiClient.simple(
+        host="https://dbc-test.cloud.databricks.com",
+        token="workspace-token",
+    )
+    assert client.workspace is not None
+
+    captured: dict[str, object] = {}
+
+    def _fake_http_request(method, path, params=None, json_body=None, paginate=False):
+        captured["method"] = method
+        captured["paginate"] = paginate
+        return ApiResponse(status_code=200, url=path, data={"jobs": []}, headers={})
+
+    monkeypatch.setattr(client.workspace.http, "request", _fake_http_request)
+
+    client.workspace.request_versioned(
+        "GET",
+        "jobs",
+        endpoint="list",
+        paginate=False,
+    )
+
+    assert captured["method"] == "GET"
+    assert captured["paginate"] is True
