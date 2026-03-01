@@ -265,3 +265,135 @@ def test_rotate_token_requires_non_empty_token_id_to_revoke():
     client = _workspace_client()
     with pytest.raises(ValidationError):
         client.rotate_token("")
+
+
+def test_sql_warehouse_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_sql_warehouses()
+        assert request_versioned.call_args.args == ("GET", "sql/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_sql_warehouse("wh-1")
+        assert request_versioned.call_args.args == ("GET", "sql/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
+
+        client.create_sql_warehouse({"name": "analytics-wh"})
+        assert request_versioned.call_args.args == ("POST", "sql/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "analytics-wh"}
+
+        client.edit_sql_warehouse("wh-1", {"cluster_size": "2X-Small"})
+        assert request_versioned.call_args.args == ("POST", "sql/warehouses/wh-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "edit"
+        assert request_versioned.call_args.kwargs["json_body"] == {"cluster_size": "2X-Small"}
+
+        client.delete_sql_warehouse("wh-1")
+        assert request_versioned.call_args.args == ("DELETE", "sql/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
+
+
+def test_instance_pool_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_instance_pools()
+        assert request_versioned.call_args.args == ("GET", "instance-pools")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+
+        client.get_instance_pool("pool-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "get"
+        assert request_versioned.call_args.kwargs["params"] == {"instance_pool_id": "pool-1"}
+
+        client.create_instance_pool({"instance_pool_name": "etl-pool"})
+        assert request_versioned.call_args.args == ("POST", "instance-pools")
+        assert request_versioned.call_args.kwargs["endpoint"] == "create"
+        assert request_versioned.call_args.kwargs["json_body"] == {"instance_pool_name": "etl-pool"}
+
+        client.edit_instance_pool("pool-1", {"min_idle_instances": 1})
+        assert request_versioned.call_args.kwargs["endpoint"] == "edit"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "instance_pool_id": "pool-1",
+            "min_idle_instances": 1,
+        }
+
+        client.delete_instance_pool("pool-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"instance_pool_id": "pool-1"}
+
+
+def test_cluster_policy_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_cluster_policies()
+        assert request_versioned.call_args.args == ("GET", "policies/clusters")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_cluster_policy("policy-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "get"
+        assert request_versioned.call_args.kwargs["params"] == {"policy_id": "policy-1"}
+
+        client.create_cluster_policy({"name": "job-policy"})
+        assert request_versioned.call_args.args == ("POST", "policies/clusters")
+        assert request_versioned.call_args.kwargs["endpoint"] == "create"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "job-policy"}
+
+        client.edit_cluster_policy("policy-1", {"name": "job-policy-v2"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "edit"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "policy_id": "policy-1",
+            "name": "job-policy-v2",
+        }
+
+        client.delete_cluster_policy("policy-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"policy_id": "policy-1"}
+
+
+def test_dbfs_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_dbfs("dbfs:/tmp")
+        assert request_versioned.call_args.args == ("GET", "dbfs")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "dbfs:/tmp"}
+
+        client.get_dbfs_status("dbfs:/tmp/file.txt")
+        assert request_versioned.call_args.kwargs["endpoint"] == "get-status"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "dbfs:/tmp/file.txt"}
+
+        client.read_dbfs("dbfs:/tmp/file.txt", offset=10, length=128)
+        assert request_versioned.call_args.kwargs["endpoint"] == "read"
+        assert request_versioned.call_args.kwargs["params"] == {
+            "path": "dbfs:/tmp/file.txt",
+            "offset": 10,
+            "length": 128,
+        }
+
+        client.delete_dbfs("dbfs:/tmp/file.txt")
+        assert request_versioned.call_args.args == ("POST", "dbfs")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "path": "dbfs:/tmp/file.txt",
+            "recursive": False,
+        }
+
+        client.mkdirs_dbfs("dbfs:/tmp/new-dir")
+        assert request_versioned.call_args.kwargs["endpoint"] == "mkdirs"
+        assert request_versioned.call_args.kwargs["json_body"] == {"path": "dbfs:/tmp/new-dir"}
+
+    with pytest.raises(ValidationError):
+        client.list_dbfs("")
+    with pytest.raises(ValidationError):
+        client.get_dbfs_status("")
+    with pytest.raises(ValidationError):
+        client.read_dbfs("", offset=0, length=1)
+    with pytest.raises(ValidationError):
+        client.read_dbfs("dbfs:/tmp/file.txt", offset=-1, length=1)
+    with pytest.raises(ValidationError):
+        client.read_dbfs("dbfs:/tmp/file.txt", offset=0, length=0)
+    with pytest.raises(ValidationError):
+        client.delete_dbfs("")
+    with pytest.raises(ValidationError):
+        client.mkdirs_dbfs("")

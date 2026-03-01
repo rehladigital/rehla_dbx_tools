@@ -29,6 +29,12 @@ All notable changes to this project will be documented in this file.
 - Added `DATABRICKS_STRICT_CLOUD_MATCH` with boolean validation and config-level strict match control.
 - Added `UnifiedConfig.with_cloud(...)` and `DatabricksApiClient.from_env_for_cloud(...)` cloud-override helpers.
 - Added account-host validation requiring `DATABRICKS_ACCOUNT_ID` when account host is configured.
+- Added workspace wrapper expansion:
+  - SQL warehouses lifecycle wrappers
+  - instance pools lifecycle wrappers
+  - cluster policies lifecycle wrappers
+  - DBFS list/status/read/delete/mkdirs wrappers with validation
+- Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01
 

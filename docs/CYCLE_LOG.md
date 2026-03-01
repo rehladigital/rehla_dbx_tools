@@ -581,3 +581,85 @@
 - Full test suite passed after cumulative changes.
 - Validation: `43 passed` via `pytest -q`.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 15).
+
+## Run 16 (Cycle 16 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: expand workspace SQL warehouse wrappers for analytics workflows.
+
+### Progress Notes
+
+- Added SQL warehouse wrappers:
+  - `list_sql_warehouses`
+  - `get_sql_warehouse`
+  - `create_sql_warehouse`
+  - `edit_sql_warehouse`
+  - `delete_sql_warehouse`
+- Added endpoint catalog/constants for SQL warehouse routes.
+
+## Run 17 (Cycle 17 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: expand instance-pool lifecycle wrappers for compute capacity management.
+
+### Progress Notes
+
+- Added instance pool wrappers:
+  - `list_instance_pools`
+  - `get_instance_pool`
+  - `create_instance_pool`
+  - `edit_instance_pool`
+  - `delete_instance_pool`
+- Added endpoint catalog/constants for instance-pool routes.
+
+## Run 18 (Cycle 18 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: expand cluster-policy wrappers for governance controls.
+
+### Progress Notes
+
+- Added cluster policy wrappers:
+  - `list_cluster_policies`
+  - `get_cluster_policy`
+  - `create_cluster_policy`
+  - `edit_cluster_policy`
+  - `delete_cluster_policy`
+- Added endpoint catalog/constants for cluster-policy routes.
+
+## Run 19 (Cycle 19 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add DBFS file-system wrappers and input validation guardrails.
+
+### Progress Notes
+
+- Added DBFS wrappers:
+  - `list_dbfs`
+  - `get_dbfs_status`
+  - `read_dbfs`
+  - `delete_dbfs`
+  - `mkdirs_dbfs`
+- Added path/offset/length validation for DBFS wrappers.
+- Added endpoint catalog/constants for DBFS routes.
+
+## Run 20 (Cycle 20 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: complete wrapper regression coverage and usage docs for new workspace capabilities.
+
+### Progress Notes
+
+- Expanded `tests/test_workspace_client.py` with behavior assertions for:
+  - SQL warehouses
+  - instance pools
+  - cluster policies
+  - DBFS wrappers and validation paths
+- Updated `README.md` and `docs/USAGE.md` with new workspace wrapper examples.
+- Validation: `47 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 20).

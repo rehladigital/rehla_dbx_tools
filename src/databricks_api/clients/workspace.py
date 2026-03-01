@@ -457,3 +457,201 @@ class WorkspaceClient(BaseDatabricksClient):
         )
         self.revoke_token(token_id=token_id_to_revoke, api_version=api_version)
         return created_token
+
+    def list_sql_warehouses(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "sql/warehouses",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_sql_warehouse(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "sql/warehouses",
+            endpoint=warehouse_id,
+            api_version=api_version,
+        )
+
+    def create_sql_warehouse(self, warehouse_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "sql/warehouses",
+            endpoint="",
+            api_version=api_version,
+            json_body=warehouse_spec,
+        )
+
+    def edit_sql_warehouse(self, warehouse_id: str, warehouse_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            f"sql/warehouses/{warehouse_id}",
+            endpoint="edit",
+            api_version=api_version,
+            json_body=warehouse_changes,
+        )
+
+    def delete_sql_warehouse(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "DELETE",
+            "sql/warehouses",
+            endpoint=warehouse_id,
+            api_version=api_version,
+        )
+
+    def list_instance_pools(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "instance-pools",
+            endpoint="list",
+            api_version=api_version,
+        )
+
+    def get_instance_pool(self, instance_pool_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "instance-pools",
+            endpoint="get",
+            api_version=api_version,
+            params={"instance_pool_id": instance_pool_id},
+        )
+
+    def create_instance_pool(self, instance_pool_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "instance-pools",
+            endpoint="create",
+            api_version=api_version,
+            json_body=instance_pool_spec,
+        )
+
+    def edit_instance_pool(
+        self,
+        instance_pool_id: str,
+        instance_pool_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        payload = {"instance_pool_id": instance_pool_id, **instance_pool_changes}
+        return self.request_versioned(
+            "POST",
+            "instance-pools",
+            endpoint="edit",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def delete_instance_pool(self, instance_pool_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "instance-pools",
+            endpoint="delete",
+            api_version=api_version,
+            json_body={"instance_pool_id": instance_pool_id},
+        )
+
+    def list_cluster_policies(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "policies/clusters",
+            endpoint="list",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_cluster_policy(self, policy_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "policies/clusters",
+            endpoint="get",
+            api_version=api_version,
+            params={"policy_id": policy_id},
+        )
+
+    def create_cluster_policy(self, policy_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "policies/clusters",
+            endpoint="create",
+            api_version=api_version,
+            json_body=policy_spec,
+        )
+
+    def edit_cluster_policy(self, policy_id: str, policy_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        payload = {"policy_id": policy_id, **policy_changes}
+        return self.request_versioned(
+            "POST",
+            "policies/clusters",
+            endpoint="edit",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def delete_cluster_policy(self, policy_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "policies/clusters",
+            endpoint="delete",
+            api_version=api_version,
+            json_body={"policy_id": policy_id},
+        )
+
+    def list_dbfs(self, path: str, api_version: str = "2.0") -> Any:
+        if not path or not str(path).strip():
+            raise ValidationError("path is required for DBFS list.")
+        return self.request_versioned(
+            "GET",
+            "dbfs",
+            endpoint="list",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def get_dbfs_status(self, path: str, api_version: str = "2.0") -> Any:
+        if not path or not str(path).strip():
+            raise ValidationError("path is required for DBFS get-status.")
+        return self.request_versioned(
+            "GET",
+            "dbfs",
+            endpoint="get-status",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def read_dbfs(self, path: str, *, offset: int = 0, length: int = 1048576, api_version: str = "2.0") -> Any:
+        if not path or not str(path).strip():
+            raise ValidationError("path is required for DBFS read.")
+        if offset < 0:
+            raise ValidationError("offset must be >= 0 for DBFS read.")
+        if length <= 0:
+            raise ValidationError("length must be > 0 for DBFS read.")
+        return self.request_versioned(
+            "GET",
+            "dbfs",
+            endpoint="read",
+            api_version=api_version,
+            params={"path": path, "offset": offset, "length": length},
+        )
+
+    def delete_dbfs(self, path: str, *, recursive: bool = False, api_version: str = "2.0") -> Any:
+        if not path or not str(path).strip():
+            raise ValidationError("path is required for DBFS delete.")
+        return self.request_versioned(
+            "POST",
+            "dbfs",
+            endpoint="delete",
+            api_version=api_version,
+            json_body={"path": path, "recursive": recursive},
+        )
+
+    def mkdirs_dbfs(self, path: str, api_version: str = "2.0") -> Any:
+        if not path or not str(path).strip():
+            raise ValidationError("path is required for DBFS mkdirs.")
+        return self.request_versioned(
+            "POST",
+            "dbfs",
+            endpoint="mkdirs",
+            api_version=api_version,
+            json_body={"path": path},
+        )

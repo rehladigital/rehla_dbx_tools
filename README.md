@@ -83,6 +83,8 @@ if client.workspace is not None:
     run = client.workspace.run_job_now(job_id=123)
     cluster = client.workspace.get_cluster(cluster_id="0123-abc")
     catalogs = client.workspace.list_catalogs(max_results=25)
+    warehouses = client.workspace.list_sql_warehouses()
+    dbfs_files = client.workspace.list_dbfs("dbfs:/tmp")
     token = client.workspace.create_token(lifetime_seconds=3600, comment="ci-short-lived")
     rotated_token = client.workspace.rotate_token(
         token_id_to_revoke="old-token-id",
