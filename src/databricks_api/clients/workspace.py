@@ -344,6 +344,60 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def get_object_permissions(self, object_type: str, object_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(object_type, "object_type")
+        self._require_non_empty_string(object_id, "object_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"{object_type}/{object_id}",
+            api_version=api_version,
+        )
+
+    def set_object_permissions(
+        self,
+        object_type: str,
+        object_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(object_type, "object_type")
+        self._require_non_empty_string(object_id, "object_id")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"{object_type}/{object_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_object_permissions(
+        self,
+        object_type: str,
+        object_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(object_type, "object_type")
+        self._require_non_empty_string(object_id, "object_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"{object_type}/{object_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_object_permission_levels(self, object_type: str, object_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(object_type, "object_type")
+        self._require_non_empty_string(object_id, "object_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"{object_type}/{object_id}/permissionLevels",
+            api_version=api_version,
+        )
+
     def get_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
         self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(

@@ -49,6 +49,36 @@ def test_workspace_lifecycle_wrappers_use_expected_methods_and_paths():
         assert request_account.call_args.kwargs["endpoint"] == "workspaces/101"
 
 
+def test_access_management_wrappers_use_expected_methods_and_paths():
+    client = AccountClient(
+        AccountConfig(
+            host="https://accounts.cloud.databricks.com",
+            account_id="acc-123",
+            auth=AuthConfig(token="token"),
+        )
+    )
+
+    with patch.object(client, "request_account", return_value="ok") as request_account:
+        client.get_assignable_roles_for_resource("accounts/acc-123")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["service"] == "iam"
+        assert request_account.call_args.kwargs["endpoint"] == "assignable-roles"
+        assert request_account.call_args.kwargs["params"] == {"resource": "accounts/acc-123"}
+
+        client.get_rule_set("accounts/acc-123/rule-sets/default")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["service"] == "access-control/rule-sets"
+        assert request_account.call_args.kwargs["endpoint"] == "accounts/acc-123/rule-sets/default"
+
+        client.update_rule_set(
+            "accounts/acc-123/rule-sets/default",
+            {"name": "default", "grant_rules": []},
+        )
+        assert request_account.call_args.args == ("PUT",)
+        assert request_account.call_args.kwargs["service"] == "access-control/rule-sets"
+        assert request_account.call_args.kwargs["endpoint"] == "accounts/acc-123/rule-sets/default"
+        assert request_account.call_args.kwargs["json_body"] == {"name": "default", "grant_rules": []}
+
 def test_credentials_and_storage_wrappers_use_expected_methods_and_paths():
     client = AccountClient(
         AccountConfig(

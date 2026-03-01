@@ -302,6 +302,46 @@ def test_cluster_wrappers_route_expected_methods_and_payloads():
         assert request_versioned.call_args.kwargs["endpoint"] == "clusters/c-1/permissionLevels"
 
 
+def test_generic_object_permission_wrappers_route_expected_methods_and_payloads():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.get_object_permissions("warehouses", "wh-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "warehouses/wh-1"
+
+        acl = [{"group_name": "data-team", "permission_level": "CAN_USE"}]
+        client.set_object_permissions("warehouses", "wh-1", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "warehouses/wh-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_object_permissions("warehouses", "wh-1", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "warehouses/wh-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_object_permission_levels("warehouses", "wh-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "warehouses/wh-1/permissionLevels"
+
+    with pytest.raises(ValidationError):
+        client.get_object_permissions("", "wh-1")
+    with pytest.raises(ValidationError):
+        client.get_object_permissions("warehouses", "")
+    with pytest.raises(ValidationError):
+        client.set_object_permissions("", "wh-1", [])
+    with pytest.raises(ValidationError):
+        client.set_object_permissions("warehouses", "", [])
+    with pytest.raises(ValidationError):
+        client.update_object_permissions("", "wh-1", [])
+    with pytest.raises(ValidationError):
+        client.update_object_permissions("warehouses", "", [])
+    with pytest.raises(ValidationError):
+        client.get_object_permission_levels("", "wh-1")
+    with pytest.raises(ValidationError):
+        client.get_object_permission_levels("warehouses", "")
+
+
 def test_catalog_repo_secret_token_wrappers_route_expected_calls():
     client = _workspace_client()
 

@@ -49,6 +49,38 @@ class AccountClient(BaseDatabricksClient):
             paginate=True,
         )
 
+    def get_assignable_roles_for_resource(self, resource: str, api_version: str = "2.0") -> Any:
+        if not resource or not str(resource).strip():
+            raise ValidationError("resource is required.")
+        return self.request_account(
+            "GET",
+            service="iam",
+            endpoint="assignable-roles",
+            api_version=api_version,
+            params={"resource": resource},
+        )
+
+    def get_rule_set(self, name: str, api_version: str = "2.0") -> Any:
+        if not name or not str(name).strip():
+            raise ValidationError("name is required.")
+        return self.request_account(
+            "GET",
+            service="access-control/rule-sets",
+            endpoint=name,
+            api_version=api_version,
+        )
+
+    def update_rule_set(self, name: str, rule_set_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        if not name or not str(name).strip():
+            raise ValidationError("name is required.")
+        return self.request_account(
+            "PUT",
+            service="access-control/rule-sets",
+            endpoint=name,
+            api_version=api_version,
+            json_body=rule_set_spec,
+        )
+
     def get_workspace(self, workspace_id: int, api_version: str = "2.0") -> Any:
         return self.request_account(
             "GET",

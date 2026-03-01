@@ -122,6 +122,7 @@ Workspace (`client.workspace`):
 - `list_jobs`, `get_job`
 - `list_job_runs`, `get_job_run`, `get_job_run_output`, `export_job_run`
 - `get_job_permissions`, `get_job_permission_levels`
+- `get_object_permissions`, `set_object_permissions`, `update_object_permissions`, `get_object_permission_levels`
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`
@@ -139,6 +140,7 @@ Client-level convenience:
 - `list_active_job_runs`
 
 Account (`client.account`):
+- `get_assignable_roles_for_resource`, `get_rule_set`, `update_rule_set`
 - `list_workspaces`, `get_workspace`
 - `list_credentials`
 - `list_storage_configurations`

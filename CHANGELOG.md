@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2026-03-01
+
+### Added
+
+- Access-management wrappers on account client:
+  - `get_assignable_roles_for_resource`
+  - `get_rule_set`
+  - `update_rule_set`
+- Generic permission wrappers on workspace client:
+  - `get_object_permissions`
+  - `set_object_permissions`
+  - `update_object_permissions`
+  - `get_object_permission_levels`
+- Endpoint catalog entries for access-management and generic object-permissions paths.
+- Regression coverage for the new wrappers in:
+  - `tests/test_account_client.py`
+  - `tests/test_workspace_client.py`
+
+### Changed
+
+- Updated README tool list to include newly added access-management and generic permissions methods.
+- Bumped package version from `1.2.1` to `1.2.2`.
+
 ## [1.2.1] - 2026-03-01
 
 ### Changed

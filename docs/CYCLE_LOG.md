@@ -1229,3 +1229,28 @@
   - `filelock` (2 advisories)
   - `pip` (3 advisories)
   - `setuptools` (3 advisories)
+
+## Run 62 (Cycle 62 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: execute first real all-tools implementation cycle with access-management and generic permission coverage.
+
+### Progress Notes
+
+- Added account access-management wrappers in `src/databricks_api/clients/account.py`:
+  - `get_assignable_roles_for_resource`
+  - `get_rule_set`
+  - `update_rule_set`
+- Added generic object permission wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_object_permissions`
+  - `set_object_permissions`
+  - `update_object_permissions`
+  - `get_object_permission_levels`
+- Expanded `src/databricks_api/endpoints/catalog.py` with corresponding access-management and permissions object keys.
+- Added and updated regression tests:
+  - `tests/test_account_client.py`
+  - `tests/test_workspace_client.py`
+- Updated `README.md` to list newly added methods under workspace/account tools.
+- Validation: `71 passed` via `py -m pytest -q`.
+- Prepared patch version bump to `1.2.2` with changelog updates for release.
