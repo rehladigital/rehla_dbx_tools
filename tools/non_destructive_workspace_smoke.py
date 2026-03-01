@@ -96,8 +96,13 @@ def main() -> int:
     _safe_call("list_instance_pools", workspace.list_instance_pools)
     _safe_call("list_cluster_policies", workspace.list_cluster_policies)
     repos_ok, repos_data = _safe_call("list_repos", lambda: workspace.list_repos(path_prefix="/"))
-    _safe_call("list_catalogs", lambda: workspace.list_catalogs(max_results=5))
-    _safe_call("list_schemas", lambda: workspace.list_schemas(max_results=5))
+    catalogs_ok, catalogs_data = _safe_call("list_catalogs", lambda: workspace.list_catalogs(max_results=5))
+    first_catalog = _first_from(catalogs_data, "catalogs")
+    if catalogs_ok and isinstance(first_catalog, dict) and first_catalog.get("name"):
+        catalog_name = str(first_catalog["name"])
+        _safe_call("list_schemas", lambda: workspace.list_schemas(catalog_name=catalog_name, max_results=5))
+    else:
+        _safe_call("list_schemas", lambda: workspace.list_schemas(max_results=5))
     _safe_call("list_tokens", workspace.list_tokens)
 
     first_job = _first_from(jobs_data, "jobs")
