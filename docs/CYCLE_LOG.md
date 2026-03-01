@@ -111,3 +111,18 @@
 - Updated docs to use `from rehladigital_aws_dbx_tools import DatabricksApiClient`.
 - Added import validation test `tests/test_public_import.py`.
 - Bumped version to `0.1.6`.
+
+## Cycle 7
+
+- Date: 2026-02-28
+- Objective: make package namespace fully match `rehladigital_aws_dbx_tools`.
+- Planned focus:
+  - full module namespace compatibility
+  - submodule import support
+  - release continuation
+
+### Progress Notes
+
+- Added compatibility module tree under `src/rehladigital_aws_dbx_tools/` for core modules, clients, and endpoints.
+- Added submodule import test coverage to ensure `rehladigital_aws_dbx_tools.clients.workspace` works.
+- Bumped version to `0.1.7`.

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.7] - 2026-02-28
+
+### Added
+
+- Full compatibility module tree under `rehladigital_aws_dbx_tools`:
+  - core modules (`client`, `config`, `auth`, `http_client`, `response`, `exceptions`, `notebook_context`)
+  - client subpackage modules
+  - endpoint and generated endpoint subpackage modules
+- Extended public import coverage test for submodule import path.
+
+### Changed
+
+- Bumped package version from `0.1.6` to `0.1.7`.
+
 ## [0.1.6] - 2026-02-28
 
 ### Added
