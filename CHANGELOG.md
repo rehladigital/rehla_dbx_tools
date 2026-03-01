@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.13] - 2026-03-01
+
+### Added
+
+- Model-serving wrappers on workspace client:
+  - `get_serving_endpoint_permissions`
+  - `set_serving_endpoint_permissions`
+  - `update_serving_endpoint_permissions`
+  - `get_serving_endpoint_permission_levels`
+  - `list_serving_endpoints`
+  - `create_serving_endpoint`
+  - `get_serving_endpoint`
+  - `update_serving_endpoint_config`
+  - `delete_serving_endpoint`
+  - `query_serving_endpoint`
+- Marketplace wrappers on workspace client:
+  - `list_marketplace_listings`
+  - `get_marketplace_listing`
+  - `search_marketplace_listings`
+  - `list_marketplace_installations`
+  - `install_marketplace_listing`
+  - `uninstall_marketplace_installation`
+- Endpoint catalog entries for model-serving and marketplace routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include model-serving and marketplace methods.
+- Bumped package version from `1.2.12` to `1.2.13`.
+
 ## [1.2.12] - 2026-03-01
 
 ### Added

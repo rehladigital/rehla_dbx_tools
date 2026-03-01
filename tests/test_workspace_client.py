@@ -432,6 +432,105 @@ def test_pipelines_and_query_history_wrappers_route_expected_calls_and_validatio
         client.get_pipeline_update("pipe-1", "")
     with pytest.raises(ValidationError):
         client.list_query_history(max_results=0)
+
+
+def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.get_serving_endpoint_permissions("fraud-model")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "serving-endpoints/fraud-model"
+
+        acl = [{"group_name": "ml-team", "permission_level": "CAN_QUERY"}]
+        client.set_serving_endpoint_permissions("fraud-model", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "serving-endpoints/fraud-model"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_serving_endpoint_permissions("fraud-model", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "serving-endpoints/fraud-model"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_serving_endpoint_permission_levels("fraud-model")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "serving-endpoints/fraud-model/permissionLevels"
+
+        client.list_serving_endpoints()
+        assert request_versioned.call_args.args == ("GET", "serving-endpoints")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_serving_endpoint({"name": "fraud-model"})
+        assert request_versioned.call_args.args == ("POST", "serving-endpoints")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model"}
+
+        client.get_serving_endpoint("fraud-model")
+        assert request_versioned.call_args.args == ("GET", "serving-endpoints")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model"
+
+        client.update_serving_endpoint_config("fraud-model", {"served_models": []})
+        assert request_versioned.call_args.args == ("PUT", "serving-endpoints")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model/config"
+        assert request_versioned.call_args.kwargs["json_body"] == {"served_models": []}
+
+        client.delete_serving_endpoint("fraud-model")
+        assert request_versioned.call_args.args == ("DELETE", "serving-endpoints")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model"
+
+        client.query_serving_endpoint("fraud-model", {"dataframe_split": {"columns": ["x"], "data": [[1.0]]}})
+        assert request_versioned.call_args.args == ("POST", "serving-endpoints")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model/invocations"
+
+        client.list_marketplace_listings()
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_marketplace_listing("listing-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == "listing-1"
+
+        client.search_marketplace_listings({"query": "llm"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-consumer/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == "search"
+        assert request_versioned.call_args.kwargs["json_body"] == {"query": "llm"}
+
+        client.list_marketplace_installations()
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/installations")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.install_marketplace_listing({"listing_id": "listing-1"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-consumer/installations")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"listing_id": "listing-1"}
+
+        client.uninstall_marketplace_installation("inst-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-consumer/installations")
+        assert request_versioned.call_args.kwargs["endpoint"] == "inst-1"
+
+    with pytest.raises(ValidationError):
+        client.get_serving_endpoint_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_serving_endpoint_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_serving_endpoint_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_serving_endpoint_permission_levels("")
+    with pytest.raises(ValidationError):
+        client.get_serving_endpoint("")
+    with pytest.raises(ValidationError):
+        client.update_serving_endpoint_config("", {})
+    with pytest.raises(ValidationError):
+        client.delete_serving_endpoint("")
+    with pytest.raises(ValidationError):
+        client.query_serving_endpoint("", {})
+    with pytest.raises(ValidationError):
+        client.get_marketplace_listing("")
+    with pytest.raises(ValidationError):
+        client.uninstall_marketplace_installation("")
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):

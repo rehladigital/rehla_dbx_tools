@@ -1468,3 +1468,21 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.12` with changelog updates for release.
+
+## Run 73 (Cycle 73 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: implement `marketplace` and `model-serving` wrappers with tests and release.
+
+### Progress Notes
+
+- Added model-serving wrappers in `src/databricks_api/clients/workspace.py`:
+  - permissions: `get_serving_endpoint_permissions`, `set_serving_endpoint_permissions`, `update_serving_endpoint_permissions`, `get_serving_endpoint_permission_levels`
+  - endpoint lifecycle/query: `list_serving_endpoints`, `create_serving_endpoint`, `get_serving_endpoint`, `update_serving_endpoint_config`, `delete_serving_endpoint`, `query_serving_endpoint`
+- Added marketplace wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `install_marketplace_listing`, `uninstall_marketplace_installation`
+- Updated `src/databricks_api/endpoints/catalog.py` with model-serving and marketplace endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.13` with changelog updates for release.

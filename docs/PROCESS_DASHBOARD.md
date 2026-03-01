@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 72
-- Remaining loops: 228
-- Current loop: 73 (queued)
+- Completed loops: 73
+- Remaining loops: 227
+- Current loop: 74 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 72
-- Current package version: 1.2.12
+- Last completed cycle: 73
+- Current package version: 1.2.13
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 73 on AWS track (round-robin sequence)
-2. Continue all-tools implementation for `marketplace` and `model-serving` families
+1. Execute run 74 on Azure track (round-robin sequence)
+2. Continue all-tools implementation for `genie` and `global-init-scripts` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.12` after commit/push and workflow verification
+4. Publish `1.2.13` after commit/push and workflow verification

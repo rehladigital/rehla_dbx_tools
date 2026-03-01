@@ -150,6 +150,9 @@ Workspace (`client.workspace`):
 - `get_pipeline_permissions`, `set_pipeline_permissions`, `update_pipeline_permissions`, `get_pipeline_permission_levels`
 - `list_pipelines`, `create_pipeline`, `get_pipeline`, `edit_pipeline`, `delete_pipeline`, `start_pipeline`, `stop_pipeline`, `list_pipeline_events`, `list_pipeline_updates`, `get_pipeline_update`
 - `list_query_history`
+- `get_serving_endpoint_permissions`, `set_serving_endpoint_permissions`, `update_serving_endpoint_permissions`, `get_serving_endpoint_permission_levels`
+- `list_serving_endpoints`, `create_serving_endpoint`, `get_serving_endpoint`, `update_serving_endpoint_config`, `delete_serving_endpoint`, `query_serving_endpoint`
+- `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `install_marketplace_listing`, `uninstall_marketplace_installation`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`

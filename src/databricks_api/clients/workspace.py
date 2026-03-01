@@ -2104,6 +2104,171 @@ class WorkspaceClient(BaseDatabricksClient):
             paginate=True,
         )
 
+    # Model Serving scope
+    def get_serving_endpoint_permissions(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"serving-endpoints/{endpoint_name}",
+            api_version=api_version,
+        )
+
+    def set_serving_endpoint_permissions(
+        self,
+        endpoint_name: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"serving-endpoints/{endpoint_name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_serving_endpoint_permissions(
+        self,
+        endpoint_name: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"serving-endpoints/{endpoint_name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_serving_endpoint_permission_levels(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"serving-endpoints/{endpoint_name}/permissionLevels",
+            api_version=api_version,
+        )
+
+    def list_serving_endpoints(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "serving-endpoints",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_serving_endpoint(self, endpoint_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "serving-endpoints",
+            endpoint="",
+            api_version=api_version,
+            json_body=endpoint_spec,
+        )
+
+    def get_serving_endpoint(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "GET",
+            "serving-endpoints",
+            endpoint=endpoint_name,
+            api_version=api_version,
+        )
+
+    def update_serving_endpoint_config(
+        self,
+        endpoint_name: str,
+        config_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "PUT",
+            "serving-endpoints",
+            endpoint=f"{endpoint_name}/config",
+            api_version=api_version,
+            json_body=config_changes,
+        )
+
+    def delete_serving_endpoint(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "DELETE",
+            "serving-endpoints",
+            endpoint=endpoint_name,
+            api_version=api_version,
+        )
+
+    def query_serving_endpoint(self, endpoint_name: str, query_payload: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "POST",
+            "serving-endpoints",
+            endpoint=f"{endpoint_name}/invocations",
+            api_version=api_version,
+            json_body=query_payload,
+        )
+
+    # Marketplace scope
+    def list_marketplace_listings(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/listings",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_marketplace_listing(self, listing_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(listing_id, "listing_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/listings",
+            endpoint=listing_id,
+            api_version=api_version,
+        )
+
+    def search_marketplace_listings(self, search_payload: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-consumer/listings",
+            endpoint="search",
+            api_version=api_version,
+            json_body=search_payload,
+        )
+
+    def list_marketplace_installations(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/installations",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def install_marketplace_listing(self, installation_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-consumer/installations",
+            endpoint="",
+            api_version=api_version,
+            json_body=installation_spec,
+        )
+
+    def uninstall_marketplace_installation(self, installation_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(installation_id, "installation_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-consumer/installations",
+            endpoint=installation_id,
+            api_version=api_version,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
