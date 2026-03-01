@@ -21,7 +21,7 @@ def test_public_import_exposes_cloud_detection_helper():
 
 def test_public_import_exposes_version_and_help_metadata():
     assert isinstance(__version__, str) and __version__
-    assert isinstance(__Help__, str) and "read-only" in __Help__.lower()
+    assert isinstance(__Help__, str) and "full databricks rest operations" in __Help__.lower()
 
 
 def test_public_import_exposes_simple_factories():

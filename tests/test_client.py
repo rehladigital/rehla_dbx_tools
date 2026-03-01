@@ -132,18 +132,31 @@ def test_simple_uses_env_token_when_explicit_token_missing(monkeypatch):
     assert client.workspace.auth.token == "env-token"
 
 
-def test_read_only_mode_blocks_destructive_workspace_calls():
+def test_workspace_allows_destructive_calls_when_requested(monkeypatch):
     client = DatabricksApiClient.simple(
         host="https://dbc-test.cloud.databricks.com",
         token="workspace-token",
     )
     assert client.workspace is not None
 
-    with pytest.raises(ValidationError, match="Destructive operations are disabled"):
-        client.workspace.create_job({"name": "blocked"})
+    captured: dict[str, object] = {}
+
+    def _fake_request_versioned(method, service, **kwargs):
+        captured["method"] = method
+        captured["service"] = service
+        captured["endpoint"] = kwargs.get("endpoint")
+        return ApiResponse(status_code=200, url="/api/2.1/jobs/create", data={}, headers={})
+
+    monkeypatch.setattr(client.workspace, "request_versioned", _fake_request_versioned)
+
+    client.workspace.create_job({"name": "allowed"})
+
+    assert captured["method"] == "POST"
+    assert captured["service"] == "jobs"
+    assert captured["endpoint"] == "create"
 
 
-def test_read_only_mode_blocks_destructive_account_calls():
+def test_account_allows_destructive_calls_when_requested(monkeypatch):
     client = DatabricksApiClient.simple(
         host="https://dbc-test.cloud.databricks.com",
         token="workspace-token",
@@ -152,8 +165,19 @@ def test_read_only_mode_blocks_destructive_account_calls():
     )
     assert client.account is not None
 
-    with pytest.raises(ValidationError, match="Destructive operations are disabled"):
-        client.account.create_workspace({"workspace_name": "blocked"})
+    captured: dict[str, object] = {}
+
+    def _fake_request_account(method, **kwargs):
+        captured["method"] = method
+        captured["endpoint"] = kwargs.get("endpoint")
+        return ApiResponse(status_code=200, url="/api/2.0/accounts/acc-123/workspaces", data={}, headers={})
+
+    monkeypatch.setattr(client.account, "request_account", _fake_request_account)
+
+    client.account.create_workspace({"workspace_name": "allowed"})
+
+    assert captured["method"] == "POST"
+    assert captured["endpoint"] == "workspaces"
 
 
 def test_read_only_requests_force_pagination_for_get(monkeypatch):

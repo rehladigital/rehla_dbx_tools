@@ -1,76 +1,94 @@
-# Plan: Complete Databricks Secret Scopes API Coverage
+# Main Plan: All API Scopes Execution TODO
 
 ## Goal
 
-Implement and verify full support for all Workspace Secret Scopes endpoints from Databricks API docs, with no omissions.
+Execute scope-by-scope implementation across the full Databricks API scope list in one main plan file, with all tool families visible as TODO items.
 
 Reference:
-- Databricks Workspace API Scopes: https://docs.databricks.com/api/workspace/api/scopes
-- Secret API index: https://docs.databricks.com/api/workspace/secrets/listscopes
+- Databricks Workspace API scopes: https://docs.databricks.com/api/workspace/api/scopes
 
-## Scope Coverage Matrix (Must Be Complete)
+## Execution Stages
 
-### Secret Scope Endpoints
+- [ ] research
+- [ ] plan
+- [ ] develop
+- [ ] implement
+- [ ] test
+- [ ] release
+- [ ] next
 
-- [ ] Create scope (`/api/2.0/secrets/scopes/create`)
-- [ ] Delete scope (`/api/2.0/secrets/scopes/delete`)
-- [ ] List scopes (`/api/2.0/secrets/scopes/list`)
+## Agent Handoff Rule
 
-### Secret Endpoints
+Before each stage, every agent must read:
+- `docs/LOOP_CONTEXT.md`
+- `docs/CYCLE_LOG.md`
+- `docs/PROCESS_DASHBOARD.md`
 
-- [ ] Put secret (`/api/2.0/secrets/put`)
-- [ ] Delete secret (`/api/2.0/secrets/delete`)
-- [ ] List secrets (`/api/2.0/secrets/list`)
-- [ ] Get secret (`/api/2.0/secrets/get`)*
+After each stage, update all three files with completed work and next queue.
 
-### ACL Endpoints
+## All Scopes TODO (Main Execution Index)
 
-- [ ] Put ACL (`/api/2.0/secrets/acls/put`)
-- [ ] Delete ACL (`/api/2.0/secrets/acls/delete`)
-- [ ] List ACLs (`/api/2.0/secrets/acls/list`)
-- [ ] Get ACL (`/api/2.0/secrets/acls/get`)
+Each line is a required scope family in the active execution backlog. Operation counts use the source list provided by user.
 
-*If Databricks behavior differs by cloud/workspace policy, document exact behavior and keep wrapper semantics aligned.
+- [ ] `access-management` (7 operations)
+- [ ] `dashboards` (19 operations)
+- [ ] `alerts` (5 operations)
+- [ ] `apps` (16 operations)
+- [ ] `authentication` (14 operations)
+- [ ] `cleanrooms` (20 operations)
+- [ ] `clusters` (35 operations)
+- [ ] `command-execution` (6 operations)
+- [ ] `dataquality` (11 operations)
+- [ ] `sql` (52 operations)
+- [ ] `workspace` (24 operations)
+- [ ] `sharing` (27 operations)
+- [ ] `files` (18 operations)
+- [ ] `genie` (17 operations)
+- [ ] `global-init-scripts` (5 operations)
+- [ ] `identity` (4 operations)
+- [ ] `instance-pools` (9 operations)
+- [ ] `instance-profiles` (4 operations)
+- [ ] `jobs` (23 operations)
+- [ ] `libraries` (4 operations)
+- [ ] `marketplace` (50 operations)
+- [ ] `mlflow` (75 operations)
+- [ ] `model-serving` (20 operations)
+- [ ] `networking` (6 operations)
+- [ ] `notifications` (5 operations)
+- [ ] `pipelines` (15 operations)
+- [ ] `postgres` (33 operations)
+- [ ] `qualitymonitor` (5 operations)
+- [ ] `query-history` (1 operation)
+- [ ] `scim` (23 operations)
+- [ ] `secrets` (11 operations)
+- [ ] `settings` (41 operations)
+- [ ] `tags` (10 operations)
+- [ ] `unity-catalog` (121 operations)
+- [ ] `vector-search` (17 operations)
 
-## Delivery Phases
+## Operation-Level TODO Expansion Rule
 
-### Phase 1 - API Wrapper Completion
+For each scope marked in progress, expand into operation-level checkboxes directly in this file under a new subsection:
 
-1. Add missing workspace client methods for all uncovered scope/secret/acl endpoints.
-2. Add consistent input validation (scope, key, principal, permission level, etc.).
-3. Ensure endpoint catalog/constants include every route.
+`### <scope>-operations`
 
-### Phase 2 - Test Completion
+Example:
 
-1. Add unit tests for every new wrapper:
-   - request path
-   - HTTP method
-   - payload/params shape
-   - validation failures
-2. Add negative coverage for empty/malformed identifiers.
-3. Add compatibility assertions through `rehla_dbx_tools` namespace.
+- [ ] list_<scope_item>
+- [ ] get_<scope_item>
+- [ ] create_<scope_item>
+- [ ] update_<scope_item>
+- [ ] delete_<scope_item> (if applicable)
 
-### Phase 3 - Docs + Examples
+## Notes For Current Release Cycle
 
-1. Update `README.md` and `docs/USAGE.md` with complete scopes examples.
-2. Add one practical AWS Databricks example per endpoint family:
-   - scope lifecycle
-   - secret lifecycle
-   - ACL lifecycle
-3. Include required permissions and expected response patterns.
-
-### Phase 4 - Non-Destructive Validation
-
-1. Validate read-only list/get operations against live workspace:
-   - list scopes
-   - list secrets
-   - list/get ACL
-2. Keep destructive operations opt-in and explicitly documented when run.
+- Delete operations are available in this package version.
+- Delete operations are not yet fully cycle-tested end-to-end in live validation.
 
 ## Exit Criteria
 
-- [ ] 100% endpoint coverage from Databricks Secret API index
-- [ ] All tests passing
-- [ ] Docs updated with examples for each endpoint family
-- [ ] Live non-destructive validation evidence recorded in cycle log
-- [ ] Release published with changelog entry referencing complete scope coverage
+- [ ] All scope families above have operation-level expansion sections.
+- [ ] Scope implementation status is tracked in this file.
+- [ ] README and usage docs reflect current operation support and test caveats.
+- [ ] Security scan results are recorded in cycle log before release.
+- [ ] PyPI publish is completed as the final release step.

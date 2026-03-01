@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2026-03-01
+
+### Changed
+
+- Removed read-only enforcement in base client request path so POST/PATCH/PUT/DELETE calls are supported again.
+- Updated package help metadata and README to reflect full operation support.
+- Added explicit release note that delete operations are available but not fully cycle-tested end-to-end yet.
+- Reworked plan/TODO docs to use main-plan-driven all-scope execution tracking with agent handoff continuity.
+
+### Security
+
+- Ran static and dependency security scans:
+  - Bandit: 4 low-severity findings (subprocess usage and broad exception handling patterns).
+  - pip-audit: environment package advisories for `filelock`, `pip`, and `setuptools`.
+
 ## [1.2.0] - 2026-03-01
 
 ### Changed

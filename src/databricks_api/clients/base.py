@@ -44,7 +44,6 @@ class BaseDatabricksClient:
         paginate: bool = False,
     ) -> ApiResponse:
         normalized_method = method.upper().strip()
-        self._enforce_read_only(normalized_method)
         return self.http.request(
             method=normalized_method,
             path=path,
@@ -65,7 +64,6 @@ class BaseDatabricksClient:
         paginate: bool = False,
     ) -> ApiResponse:
         normalized_method = method.upper().strip()
-        self._enforce_read_only(normalized_method)
         version = api_version or self.options.default_api_version
         if endpoint.startswith("/"):
             endpoint = endpoint[1:]
@@ -77,14 +75,6 @@ class BaseDatabricksClient:
             json_body=json_body,
             paginate=True,
         )
-
-    @staticmethod
-    def _enforce_read_only(method: str) -> None:
-        if method != "GET":
-            raise ValidationError(
-                "Destructive operations are disabled in this package build. "
-                "Only read-only GET operations are supported."
-            )
 
     def _build_token_provider(self) -> TokenProvider:
         auth_type = self.auth.auth_type

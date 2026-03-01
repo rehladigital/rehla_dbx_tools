@@ -17,10 +17,10 @@ except PackageNotFoundError:
         __version__ = "0.0.0-dev"
 
 __Help__ = (
-    "Rehla FlightDeck for Databricks (rehla_dbx_tools) is read-only by design in this build.\n"
+    "Rehla FlightDeck for Databricks (rehla_dbx_tools) supports full Databricks REST operations.\n"
     "Use dbx(host, token) or connect(host, token) for quick setup.\n"
     "Core helpers: list_jobs(), list_recent_job_runs(), list_active_job_runs().\n"
-    "Destructive HTTP methods (POST/PATCH/PUT/DELETE) are disabled."
+    "Delete operations are available but not fully validated in this release cycle."
 )
 
 __all__ = [

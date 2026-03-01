@@ -1,6 +1,6 @@
 # Rehla FlightDeck for Databricks
 
-Rehla FlightDeck for Databricks is a unified, read-only, DataFrame-first API layer for AWS Databricks workspace and account operations.
+Rehla FlightDeck for Databricks is a unified, DataFrame-first API layer for AWS Databricks workspace and account operations.
 
 ## About Rehla Digital Inc
 
@@ -100,11 +100,12 @@ response = client.workspace.request_versioned(
 )
 ```
 
-## Read-Only Package Mode
+## Operation Coverage Status
 
-This package build is read-only by design:
-- Destructive HTTP methods (`POST`, `PATCH`, `PUT`, `DELETE`) are blocked.
+This package build supports read and write operations through workspace and account clients.
 - GET requests force pagination aggregation for DataFrame-first workflows.
+- Delete operations are exposed for full API parity.
+- Delete operation paths are not yet fully cycle-validated end-to-end in live environments for this release.
 
 ### Version and help metadata
 
@@ -115,7 +116,7 @@ print(rdt.__version__)
 print(rdt.__Help__)
 ```
 
-### Available read-only tools
+### Available tools (current build)
 
 Workspace (`client.workspace`):
 - `list_jobs`, `get_job`
@@ -157,7 +158,7 @@ For detailed setup and examples, see `docs/USAGE.md`.
 - **Less boilerplate**: one-liner bootstrap (`dbx(...)` / `connect(...)`) for quick scripts.
 - **DataFrame-first**: normalized payloads and built-in Pandas/Spark conversion paths.
 - **Forced read pagination**: GET calls aggregate paginated records automatically for analysis workloads.
-- **Safer defaults**: this build blocks destructive operations by design.
+- **Broad API surface**: supports both read and mutation workflows from one client.
 - **Operational ergonomics**: host normalization, env aliases, browser-guided token flow, and Windows SSO helper.
 
 ## WordPress-Style Docs

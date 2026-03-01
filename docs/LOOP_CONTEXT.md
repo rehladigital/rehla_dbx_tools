@@ -30,6 +30,34 @@ keep on repeating till i interrupt and think how it can be improved, search onli
   - release manager
   - docs/quality reviewer
 
+## Multi-Agent Execution Stages
+
+Each cycle follows these stage options:
+
+1. research
+2. plan
+3. develop
+4. implement
+5. test
+6. release
+7. next
+
+PyPI publish is always the last step of the release stage after docs are updated.
+
+## Agent Handoff Contract (Must Follow)
+
+Before any stage starts, the active agent must:
+
+1. Read this file (`docs/LOOP_CONTEXT.md`).
+2. Read latest entries from `docs/CYCLE_LOG.md`.
+3. Read current progress board from `docs/PROCESS_DASHBOARD.md`.
+
+At stage completion, the active agent must update:
+
+1. What changed.
+2. What is pending.
+3. What the next stage agent must pick up.
+
 ## Context Preservation Rules
 
 At end of every cycle:

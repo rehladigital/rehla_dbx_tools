@@ -1205,3 +1205,27 @@
 - Verified package URL: `https://pypi.org/project/rehla-dbx-tools/1.1.0/`.
 - Updated dashboard/context for loop continuation from run 61.
 - Package version is now `1.1.0`.
+
+## Run 61 (Cycle 61 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: switch to all-operations execution plan, enforce agent handoff context, and run security scans.
+
+### Progress Notes
+
+- Updated main plan to all-scope execution mode in `docs/PLAN_SCOPES_API_COVERAGE.md`.
+- Updated `docs/TODO.md` to point to the main plan as single execution source.
+- Updated `docs/LOOP_CONTEXT.md` with mandatory multi-agent stage flow and handoff contract.
+- Removed read-only method blocking in `src/databricks_api/clients/base.py`.
+- Updated package metadata help string to reflect full operations support.
+- Updated `README.md` to document that delete operations are available but not fully cycle-tested yet.
+- Updated tests for new mutation-allowed behavior:
+  - `tests/test_client.py`
+  - `tests/test_public_import.py`
+- Validation: `69 passed` via `py -m pytest -q`.
+- Security scan (`bandit`) found 4 low-severity issues (subprocess usage and broad exception handling).
+- Dependency audit (`pip-audit`) found vulnerabilities in environment-level tools:
+  - `filelock` (2 advisories)
+  - `pip` (3 advisories)
+  - `setuptools` (3 advisories)
