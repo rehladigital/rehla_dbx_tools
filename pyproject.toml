@@ -3,8 +3,8 @@ requires = ["setuptools>=68.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rehladigital-aws-dbx-tools"
-version = "0.1.200"
+name = "rehla-dbx-tools"
+version = "1.0.0"
 description = "Production-focused Databricks API toolkit by Rehla Digital Inc for workspace and account automation on AWS."
 readme = "README.md"
 requires-python = ">=3.9"

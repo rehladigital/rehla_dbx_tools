@@ -6,15 +6,15 @@
 - Maintainer process: `docs/LOOP_MAINTAINER_AGENT.md`
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
-- Campaign target: 200 loops
-- Completed loops: 17
-- Remaining loops: 183
-- Current loop: 18 (queued)
+- Campaign target: 300 loops
+- Completed loops: 1
+- Remaining loops: 299
+- Current loop: 2 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 17
-- Current package version: 0.1.200
+- Last completed cycle: 1
+- Current package version: 1.0.0
 - Last pushed commit: `pending-this-cycle`
 
 ## Recent Releases
@@ -26,7 +26,7 @@
 
 ## Next Queue
 
-1. Implement cycle 18 with concrete wrapper/test additions
+1. Execute run 2 on Azure track (round-robin sequence)
 2. Keep cycle log strictly cycle-by-cycle with exact functionality deltas
 3. Continue reliability hardening (pagination/auth/pathing/token hygiene)
-4. Release next patch only after real cycle completion
+4. Enforce version/release checkpoints (major every 50, minor every 100)

@@ -17,7 +17,10 @@ keep on repeating till i interrupt and think how it can be improved, search onli
 ## Operating Contract
 
 - Direct pushes to `main`.
-- Patch version bump each successful release cycle.
+- Version policy for 300-cycle campaign:
+  - Start at `1.0.0`
+  - Major release milestone every 50 cycles
+  - Minor checkpoint every 100 cycles
 - Continuous loop runs until user interrupts.
 - Minimum team roles in each cycle:
   - planner/research
@@ -38,8 +41,8 @@ At end of every cycle:
 
 ## Current Focus Queue
 
-1. Continue from cycle 18 with concrete wrapper and test additions.
+1. Continue from run 2 with round-robin cloud assignment (AWS -> Azure -> GCP).
 2. Keep cycle logging strictly factual: list exact functionality added and changed each cycle.
 3. Keep tests synchronized with each wrapper batch.
-4. Keep release metadata/docs current for each patch bump.
+4. Keep release metadata/docs current for 50/100-cycle checkpoints.
 5. Continue context snapshots for long-run continuity.

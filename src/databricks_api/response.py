@@ -69,7 +69,7 @@ def to_spark_df(data: Any, spark_session: Any = None) -> Any:
         from pyspark.sql import SparkSession
     except Exception as exc:
         raise ValidationError(
-            "PySpark is not installed. Install with `pip install rehladigital-aws-dbx-tools[spark]`."
+            "PySpark is not installed. Install with `pip install rehla-dbx-tools[spark]`."
         ) from exc
 
     spark = spark_session or SparkSession.getActiveSession() or SparkSession.builder.getOrCreate()

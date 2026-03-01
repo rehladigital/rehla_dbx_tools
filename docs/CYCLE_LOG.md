@@ -373,3 +373,23 @@
   - Log delivery: `list_log_delivery_configurations`, `get_log_delivery_configuration`, `create_log_delivery_configuration`, `patch_log_delivery_configuration`, `delete_log_delivery_configuration`
 - Cycle 17: workspace token hygiene helper + tests
   - `rotate_token` helper added with validation coverage
+
+## Run 1 (Cycle 1 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: initialize 300-cycle campaign baseline and rename public package namespace to `rehla_dbx_tools`.
+
+### Progress Notes
+
+- Added new public package namespace tree under `src/rehla_dbx_tools/` with compatibility exports for:
+  - root package exports
+  - `clients` subpackage
+  - `endpoints` and generated endpoint subpackages
+- Kept legacy namespace `rehladigital_aws_dbx_tools` available for backward compatibility.
+- Updated docs/import examples to use:
+  - distribution: `rehla-dbx-tools`
+  - import namespace: `rehla_dbx_tools`
+- Updated import regression tests for new namespace and added legacy import compatibility assertion.
+- Updated campaign tracking docs for 300-cycle execution baseline.
+- Set package version to `1.0.0`.

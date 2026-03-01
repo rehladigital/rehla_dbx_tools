@@ -1,5 +1,6 @@
-from rehladigital_aws_dbx_tools import DatabricksApiClient
-from rehladigital_aws_dbx_tools.clients.workspace import WorkspaceClient
+from rehla_dbx_tools import DatabricksApiClient
+from rehla_dbx_tools.clients.workspace import WorkspaceClient
+from rehladigital_aws_dbx_tools import DatabricksApiClient as LegacyDatabricksApiClient
 
 
 def test_public_import_exposes_databricks_api_client():
@@ -8,3 +9,7 @@ def test_public_import_exposes_databricks_api_client():
 
 def test_public_submodule_import_exposes_workspace_client():
     assert WorkspaceClient is not None
+
+
+def test_legacy_namespace_remains_available_during_rename():
+    assert LegacyDatabricksApiClient is not None

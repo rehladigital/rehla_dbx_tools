@@ -9,13 +9,13 @@ This guide explains how to use the package for:
 ## Install
 
 ```bash
-pip install rehladigital-aws-dbx-tools
+pip install rehla-dbx-tools
 ```
 
 For Spark DataFrame conversion support:
 
 ```bash
-pip install "rehladigital-aws-dbx-tools[spark]"
+pip install "rehla-dbx-tools[spark]"
 ```
 
 ## 1) Configuration Model
@@ -55,7 +55,7 @@ Configuration precedence:
 ## 3) Create Client from Environment
 
 ```python
-from rehladigital_aws_dbx_tools import DatabricksApiClient
+from rehla_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_env()
 ```
@@ -65,7 +65,7 @@ client = DatabricksApiClient.from_env()
 When running inside Databricks, host/token can be inferred:
 
 ```python
-from rehladigital_aws_dbx_tools import DatabricksApiClient
+from rehla_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_notebook_context()
 ```
@@ -73,7 +73,7 @@ client = DatabricksApiClient.from_notebook_context()
 You can still pass explicit config to override values:
 
 ```python
-from rehladigital_aws_dbx_tools import DatabricksApiClient, UnifiedConfig
+from rehla_dbx_tools import DatabricksApiClient, UnifiedConfig
 
 cfg = UnifiedConfig.from_env()
 client = DatabricksApiClient.from_notebook_context(config=cfg)
@@ -280,7 +280,7 @@ Key exceptions:
 - `ValidationError` for config/input issues
 
 ```python
-from rehladigital_aws_dbx_tools import AuthError, ApiError, RateLimitError, ValidationError
+from rehla_dbx_tools import AuthError, ApiError, RateLimitError, ValidationError
 ```
 
 ## 11) Troubleshooting
@@ -306,7 +306,7 @@ Ensure both are set:
 Install spark extra:
 
 ```bash
-pip install "rehladigital-aws-dbx-tools[spark]"
+pip install "rehla-dbx-tools[spark]"
 ```
 
 ## 12) Suggested Usage Pattern

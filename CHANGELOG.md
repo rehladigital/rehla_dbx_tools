@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - 2026-03-01
+
+### Added
+
+- New public import namespace `rehla_dbx_tools` with compatibility export modules:
+  - root exports
+  - `clients` package modules
+  - `endpoints` and generated endpoint package modules
+- Import regression coverage for `rehla_dbx_tools` plus legacy-namespace compatibility assertion.
+
+### Changed
+
+- Set package/distribution identity to:
+  - distribution: `rehla-dbx-tools`
+  - import namespace: `rehla_dbx_tools`
+- Updated README/USAGE/RELEASE/install references to the new package naming.
+- Updated cycle tracking docs to start the 300-cycle campaign baseline.
+
 ## [0.1.200] - 2026-03-01
 
 ### Added
