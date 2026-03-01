@@ -1,0 +1,33 @@
+name: Non-Destructive Workspace Smoke
+
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DATABRICKS_HOST: ${{ secrets.DBX_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DBX_TOKEN }}
+      DATABRICKS_CLOUD: aws
+      DATABRICKS_STRICT_CLOUD_MATCH: false
+      PYTHONPATH: src
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Run non-destructive workspace smoke checks
+        run: |
+          python tools/non_destructive_workspace_smoke.py

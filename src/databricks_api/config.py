@@ -47,7 +47,7 @@ class UnifiedConfig:
 
     @staticmethod
     def from_env() -> "UnifiedConfig":
-        workspace_host = _normalize_host(os.getenv("DATABRICKS_HOST"))
+        workspace_host = _normalize_host(_first_env("DATABRICKS_HOST", "DBX_HOST"))
         account_host = _normalize_host(os.getenv("DATABRICKS_ACCOUNT_HOST"))
         workspace_cloud = _resolve_cloud(
             configured_cloud=os.getenv("DATABRICKS_CLOUD"),
@@ -63,7 +63,7 @@ class UnifiedConfig:
 
         workspace_auth = AuthConfig(
             auth_type=os.getenv("DATABRICKS_AUTH_TYPE", "auto"),  # type: ignore[arg-type]
-            token=os.getenv("DATABRICKS_TOKEN"),
+            token=_first_env("DATABRICKS_TOKEN", "DBX_TOKEN"),
             client_id=os.getenv("DATABRICKS_CLIENT_ID"),
             client_secret=os.getenv("DATABRICKS_CLIENT_SECRET"),
             oauth_scope=os.getenv("DATABRICKS_OAUTH_SCOPE", "all-apis"),
@@ -177,3 +177,11 @@ def _normalize_bool(value: Optional[str], default: bool) -> bool:
     if normalized in ("0", "false", "no", "n", "off"):
         return False
     raise ValidationError("DATABRICKS_STRICT_CLOUD_MATCH must be a boolean value.")
+
+
+def _first_env(*keys: str) -> Optional[str]:
+    for key in keys:
+        value = os.getenv(key)
+        if value is not None:
+            return value
+    return None

@@ -16,6 +16,13 @@ def test_from_env_normalizes_host(monkeypatch):
     assert cfg.workspace.host == "https://dbc-test.cloud.databricks.com"
 
 
+def test_from_env_uses_dbx_host_alias_when_databricks_host_missing(monkeypatch):
+    monkeypatch.delenv("DATABRICKS_HOST", raising=False)
+    monkeypatch.setenv("DBX_HOST", "dbc-test.cloud.databricks.com")
+    cfg = UnifiedConfig.from_env()
+    assert cfg.workspace.host == "https://dbc-test.cloud.databricks.com"
+
+
 def test_from_env_reads_workspace_and_account_cloud(monkeypatch):
     monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
     monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
@@ -112,3 +119,13 @@ def test_from_env_rejects_invalid_strict_cloud_match(monkeypatch):
 
     with pytest.raises(ValidationError):
         UnifiedConfig.from_env()
+
+
+def test_from_env_uses_dbx_token_alias_for_workspace_auth(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.delenv("DATABRICKS_TOKEN", raising=False)
+    monkeypatch.setenv("DBX_TOKEN", "dbx-token")
+
+    cfg = UnifiedConfig.from_env()
+
+    assert cfg.workspace.auth.token == "dbx-token"
