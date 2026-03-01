@@ -14,7 +14,7 @@
 ## Current Snapshot
 
 - Last completed cycle: 77
-- Current package version: 1.2.17
+- Current package version: 2.0.0
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -30,4 +30,4 @@
 1. Execute run 78 on GCP track (round-robin sequence)
 2. Continue all-tools implementation for `scim` and expanded `workspace` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.17` after commit/push and workflow verification
+4. Publish `2.0.0` after commit/push and workflow verification

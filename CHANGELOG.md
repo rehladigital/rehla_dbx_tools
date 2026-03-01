@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2026-03-01
+
+### Changed
+
+- Promoted release version from `1.2.17` to `2.0.0` per major-version transition request.
+- Carried forward current built tool surface and documentation set, including:
+  - cycle 77 Unity Catalog and Vector Search wrapper additions
+  - complete usage reference at `docs/COMPLETE_TOOL_USAGE_REFERENCE.md`
+
 ## [1.2.17] - 2026-03-01
 
 ### Added
