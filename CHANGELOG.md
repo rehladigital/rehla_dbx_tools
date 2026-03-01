@@ -56,6 +56,10 @@ All notable changes to this project will be documented in this file.
   - `get_repo_permission_levels`
 - Added positive-ID validation for job deletion and job-permissions wrappers.
 - Added identifier validation for cluster/repo permissions wrappers.
+- Added broader workspace input validation guardrails across existing wrappers:
+  - positive checks for `job_id`, `repo_id`, and list `limit` inputs
+  - non-empty checks for `cluster_id`, `warehouse_id`, `instance_pool_id`, and `policy_id`
+  - cluster event validation for both `cluster_id` and `limit`
 - Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01

@@ -929,3 +929,82 @@
 - Updated usage snippets in `README.md` and `docs/USAGE.md` for cluster/repo permission wrappers.
 - Validation: `48 passed` via `pytest -q`.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 40).
+
+## Run 41 (Cycle 41 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: harden Jobs wrapper input validation for safer request construction.
+
+### Progress Notes
+
+- Added positive-ID validation to:
+  - `get_job`
+  - `update_job`
+  - `run_job_now`
+- Added positive `limit` validation to `list_jobs`.
+
+## Run 42 (Cycle 42 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: harden cluster wrapper input validation.
+
+### Progress Notes
+
+- Added non-empty `cluster_id` validation to:
+  - `get_cluster`
+  - `edit_cluster`
+  - `start_cluster`
+  - `restart_cluster`
+  - `delete_cluster`
+  - `permanent_delete_cluster`
+- Added validation in `cluster_events` for both non-empty `cluster_id` and positive `limit`.
+
+## Run 43 (Cycle 43 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: harden repo and SQL warehouse wrapper identifier validation.
+
+### Progress Notes
+
+- Added positive-ID validation to:
+  - `update_repo`
+  - `get_repo`
+  - `delete_repo`
+- Added non-empty `warehouse_id` validation to:
+  - `get_sql_warehouse`
+  - `edit_sql_warehouse`
+  - `delete_sql_warehouse`
+
+## Run 44 (Cycle 44 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: harden instance-pool and cluster-policy wrapper identifier validation.
+
+### Progress Notes
+
+- Added non-empty `instance_pool_id` validation to:
+  - `get_instance_pool`
+  - `edit_instance_pool`
+  - `delete_instance_pool`
+- Added non-empty `policy_id` validation to:
+  - `get_cluster_policy`
+  - `edit_cluster_policy`
+  - `delete_cluster_policy`
+
+## Run 45 (Cycle 45 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: complete regression validation coverage for expanded input guardrails.
+
+### Progress Notes
+
+- Expanded `tests/test_workspace_client.py` with validation cases for:
+  - Jobs, clusters, repos, SQL warehouses, instance pools, and cluster policies
+  - invalid IDs and invalid list/event limits
+- Validation: `48 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 45).

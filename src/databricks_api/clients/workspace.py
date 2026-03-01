@@ -25,6 +25,7 @@ class WorkspaceClient(BaseDatabricksClient):
             raise ValidationError(f"{field_name} is required.")
 
     def list_jobs(self, api_version: str = "2.1", limit: int = 25) -> Any:
+        self._require_positive_int(limit, "limit")
         return self.request_versioned(
             "GET",
             "jobs",
@@ -44,6 +45,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_job(self, job_id: int, api_version: str = "2.1") -> Any:
+        self._require_positive_int(job_id, "job_id")
         return self.request_versioned(
             "GET",
             "jobs",
@@ -62,6 +64,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def update_job(self, job_id: int, new_settings: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_positive_int(job_id, "job_id")
         payload = {"job_id": job_id, "new_settings": new_settings}
         return self.request_versioned(
             "POST",
@@ -78,6 +81,7 @@ class WorkspaceClient(BaseDatabricksClient):
         notebook_params: Optional[dict[str, str]] = None,
         api_version: str = "2.1",
     ) -> Any:
+        self._require_positive_int(job_id, "job_id")
         payload: dict[str, Any] = {"job_id": job_id}
         if notebook_params:
             payload["notebook_params"] = notebook_params
@@ -341,6 +345,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(
             "GET",
             "clusters",
@@ -364,6 +369,7 @@ class WorkspaceClient(BaseDatabricksClient):
         cluster_spec: dict[str, Any],
         api_version: str = "2.0",
     ) -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
         payload = {"cluster_id": cluster_id, **cluster_spec}
         return self.request_versioned(
             "POST",
@@ -374,6 +380,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def start_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(
             "POST",
             "clusters",
@@ -383,6 +390,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def restart_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(
             "POST",
             "clusters",
@@ -392,6 +400,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def delete_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(
             "POST",
             "clusters",
@@ -401,6 +410,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def permanent_delete_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(
             "POST",
             "clusters",
@@ -417,6 +427,8 @@ class WorkspaceClient(BaseDatabricksClient):
         page_token: Optional[str] = None,
         api_version: str = "2.0",
     ) -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        self._require_positive_int(limit, "limit")
         params: dict[str, Any] = {"cluster_id": cluster_id, "limit": limit}
         if page_token:
             params["page_token"] = page_token
@@ -482,6 +494,7 @@ class WorkspaceClient(BaseDatabricksClient):
         sparse_checkout: Optional[dict[str, Any]] = None,
         api_version: str = "2.0",
     ) -> Any:
+        self._require_positive_int(repo_id, "repo_id")
         payload: dict[str, Any] = {}
         if branch:
             payload["branch"] = branch
@@ -570,6 +583,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_repo(self, repo_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(repo_id, "repo_id")
         return self.request_versioned(
             "GET",
             "repos",
@@ -600,6 +614,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def delete_repo(self, repo_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(repo_id, "repo_id")
         return self.request_versioned(
             "DELETE",
             "repos",
@@ -702,6 +717,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_sql_warehouse(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
         return self.request_versioned(
             "GET",
             "sql/warehouses",
@@ -719,6 +735,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def edit_sql_warehouse(self, warehouse_id: str, warehouse_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
         return self.request_versioned(
             "POST",
             f"sql/warehouses/{warehouse_id}",
@@ -728,6 +745,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def delete_sql_warehouse(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
         return self.request_versioned(
             "DELETE",
             "sql/warehouses",
@@ -744,6 +762,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_instance_pool(self, instance_pool_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
         return self.request_versioned(
             "GET",
             "instance-pools",
@@ -767,6 +786,7 @@ class WorkspaceClient(BaseDatabricksClient):
         instance_pool_changes: dict[str, Any],
         api_version: str = "2.0",
     ) -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
         payload = {"instance_pool_id": instance_pool_id, **instance_pool_changes}
         return self.request_versioned(
             "POST",
@@ -777,6 +797,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def delete_instance_pool(self, instance_pool_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
         return self.request_versioned(
             "POST",
             "instance-pools",
@@ -795,6 +816,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_cluster_policy(self, policy_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(policy_id, "policy_id")
         return self.request_versioned(
             "GET",
             "policies/clusters",
@@ -813,6 +835,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def edit_cluster_policy(self, policy_id: str, policy_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(policy_id, "policy_id")
         payload = {"policy_id": policy_id, **policy_changes}
         return self.request_versioned(
             "POST",
@@ -823,6 +846,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def delete_cluster_policy(self, policy_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(policy_id, "policy_id")
         return self.request_versioned(
             "POST",
             "policies/clusters",

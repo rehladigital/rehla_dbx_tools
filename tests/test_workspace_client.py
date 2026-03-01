@@ -183,6 +183,54 @@ def test_job_run_wrappers_validate_identifiers_and_pagination_inputs():
         client.update_repo_permissions(0, [])
     with pytest.raises(ValidationError):
         client.get_repo_permission_levels(0)
+    with pytest.raises(ValidationError):
+        client.list_jobs(limit=0)
+    with pytest.raises(ValidationError):
+        client.get_job(0)
+    with pytest.raises(ValidationError):
+        client.update_job(0, {})
+    with pytest.raises(ValidationError):
+        client.run_job_now(0)
+    with pytest.raises(ValidationError):
+        client.get_cluster("")
+    with pytest.raises(ValidationError):
+        client.edit_cluster("", {})
+    with pytest.raises(ValidationError):
+        client.start_cluster("")
+    with pytest.raises(ValidationError):
+        client.restart_cluster("")
+    with pytest.raises(ValidationError):
+        client.delete_cluster("")
+    with pytest.raises(ValidationError):
+        client.permanent_delete_cluster("")
+    with pytest.raises(ValidationError):
+        client.cluster_events("", limit=1)
+    with pytest.raises(ValidationError):
+        client.cluster_events("c-1", limit=0)
+    with pytest.raises(ValidationError):
+        client.update_repo(0, branch="main")
+    with pytest.raises(ValidationError):
+        client.get_repo(0)
+    with pytest.raises(ValidationError):
+        client.delete_repo(0)
+    with pytest.raises(ValidationError):
+        client.get_sql_warehouse("")
+    with pytest.raises(ValidationError):
+        client.edit_sql_warehouse("", {})
+    with pytest.raises(ValidationError):
+        client.delete_sql_warehouse("")
+    with pytest.raises(ValidationError):
+        client.get_instance_pool("")
+    with pytest.raises(ValidationError):
+        client.edit_instance_pool("", {})
+    with pytest.raises(ValidationError):
+        client.delete_instance_pool("")
+    with pytest.raises(ValidationError):
+        client.get_cluster_policy("")
+    with pytest.raises(ValidationError):
+        client.edit_cluster_policy("", {})
+    with pytest.raises(ValidationError):
+        client.delete_cluster_policy("")
 
 
 def test_cluster_wrappers_route_expected_methods_and_payloads():
