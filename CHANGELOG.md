@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.3] - 2026-03-01
+
+### Added
+
+- Alerts scope wrappers on workspace client:
+  - `list_sql_alerts`
+  - `create_sql_alert`
+  - `get_sql_alert`
+  - `update_sql_alert`
+  - `delete_sql_alert`
+- Dashboards scope wrappers on workspace client:
+  - `list_dashboards`
+  - `create_dashboard`
+  - `get_dashboard`
+  - `update_dashboard`
+  - `trash_dashboard`
+  - `publish_dashboard`
+  - `unpublish_dashboard`
+- Endpoint catalog entries for SQL alerts and Lakeview dashboards routes.
+- Regression test coverage for alerts and dashboards wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include alerts and dashboards methods.
+- Bumped package version from `1.2.2` to `1.2.3`.
+
 ## [1.2.2] - 2026-03-01
 
 ### Added

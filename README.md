@@ -123,6 +123,8 @@ Workspace (`client.workspace`):
 - `list_job_runs`, `get_job_run`, `get_job_run_output`, `export_job_run`
 - `get_job_permissions`, `get_job_permission_levels`
 - `get_object_permissions`, `set_object_permissions`, `update_object_permissions`, `get_object_permission_levels`
+- `list_sql_alerts`, `create_sql_alert`, `get_sql_alert`, `update_sql_alert`, `delete_sql_alert`
+- `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`

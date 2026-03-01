@@ -807,6 +807,120 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Databricks SQL Alerts (alerts scope)
+    def list_sql_alerts(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "sql/alerts",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_sql_alert(self, alert_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "sql/alerts",
+            endpoint="",
+            api_version=api_version,
+            json_body=alert_spec,
+        )
+
+    def get_sql_alert(self, alert_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(alert_id, "alert_id")
+        return self.request_versioned(
+            "GET",
+            "sql/alerts",
+            endpoint=alert_id,
+            api_version=api_version,
+        )
+
+    def update_sql_alert(self, alert_id: str, alert_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(alert_id, "alert_id")
+        return self.request_versioned(
+            "PATCH",
+            "sql/alerts",
+            endpoint=alert_id,
+            api_version=api_version,
+            json_body=alert_changes,
+        )
+
+    def delete_sql_alert(self, alert_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(alert_id, "alert_id")
+        return self.request_versioned(
+            "DELETE",
+            "sql/alerts",
+            endpoint=alert_id,
+            api_version=api_version,
+        )
+
+    # Lakeview Dashboards (dashboards scope)
+    def list_dashboards(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "lakeview/dashboards",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_dashboard(self, dashboard_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "lakeview/dashboards",
+            endpoint="",
+            api_version=api_version,
+            json_body=dashboard_spec,
+        )
+
+    def get_dashboard(self, dashboard_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(dashboard_id, "dashboard_id")
+        return self.request_versioned(
+            "GET",
+            "lakeview/dashboards",
+            endpoint=dashboard_id,
+            api_version=api_version,
+        )
+
+    def update_dashboard(
+        self, dashboard_id: str, dashboard_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(dashboard_id, "dashboard_id")
+        return self.request_versioned(
+            "PATCH",
+            "lakeview/dashboards",
+            endpoint=dashboard_id,
+            api_version=api_version,
+            json_body=dashboard_changes,
+        )
+
+    def trash_dashboard(self, dashboard_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(dashboard_id, "dashboard_id")
+        return self.request_versioned(
+            "POST",
+            "lakeview/dashboards",
+            endpoint=f"{dashboard_id}/trash",
+            api_version=api_version,
+        )
+
+    def publish_dashboard(self, dashboard_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(dashboard_id, "dashboard_id")
+        return self.request_versioned(
+            "POST",
+            "lakeview/dashboards",
+            endpoint=f"{dashboard_id}/published",
+            api_version=api_version,
+        )
+
+    def unpublish_dashboard(self, dashboard_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(dashboard_id, "dashboard_id")
+        return self.request_versioned(
+            "DELETE",
+            "lakeview/dashboards",
+            endpoint=f"{dashboard_id}/published",
+            api_version=api_version,
+        )
+
     def list_instance_pools(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(
             "GET",

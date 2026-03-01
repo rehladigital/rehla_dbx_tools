@@ -1254,3 +1254,31 @@
 - Updated `README.md` to list newly added methods under workspace/account tools.
 - Validation: `71 passed` via `py -m pytest -q`.
 - Prepared patch version bump to `1.2.2` with changelog updates for release.
+
+## Run 63 (Cycle 63 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: implement `dashboards` and `alerts` scope wrappers with tests and release.
+
+### Progress Notes
+
+- Added SQL alerts wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_sql_alerts`
+  - `create_sql_alert`
+  - `get_sql_alert`
+  - `update_sql_alert`
+  - `delete_sql_alert`
+- Added Lakeview dashboards wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_dashboards`
+  - `create_dashboard`
+  - `get_dashboard`
+  - `update_dashboard`
+  - `trash_dashboard`
+  - `publish_dashboard`
+  - `unpublish_dashboard`
+- Updated `src/databricks_api/endpoints/catalog.py` with alerts and dashboards endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new routes and validation behavior.
+- Updated `README.md` with new workspace tools.
+- Validation: `72 passed` via `py -m pytest -q`.
+- Prepared patch version bump to `1.2.3` with changelog updates for release.

@@ -542,6 +542,81 @@ def test_sql_warehouse_wrappers_route_expected_calls():
         assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
 
 
+def test_alerts_and_dashboards_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_sql_alerts()
+        assert request_versioned.call_args.args == ("GET", "sql/alerts")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_sql_alert({"name": "daily-failure-alert"})
+        assert request_versioned.call_args.args == ("POST", "sql/alerts")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "daily-failure-alert"}
+
+        client.get_sql_alert("alert-1")
+        assert request_versioned.call_args.args == ("GET", "sql/alerts")
+        assert request_versioned.call_args.kwargs["endpoint"] == "alert-1"
+
+        client.update_sql_alert("alert-1", {"name": "daily-failure-alert-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "sql/alerts")
+        assert request_versioned.call_args.kwargs["endpoint"] == "alert-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "daily-failure-alert-v2"}
+
+        client.delete_sql_alert("alert-1")
+        assert request_versioned.call_args.args == ("DELETE", "sql/alerts")
+        assert request_versioned.call_args.kwargs["endpoint"] == "alert-1"
+
+        client.list_dashboards()
+        assert request_versioned.call_args.args == ("GET", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_dashboard({"display_name": "Ops Dashboard"})
+        assert request_versioned.call_args.args == ("POST", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "Ops Dashboard"}
+
+        client.get_dashboard("dash-1")
+        assert request_versioned.call_args.args == ("GET", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dash-1"
+
+        client.update_dashboard("dash-1", {"display_name": "Ops Dashboard V2"})
+        assert request_versioned.call_args.args == ("PATCH", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dash-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "Ops Dashboard V2"}
+
+        client.trash_dashboard("dash-1")
+        assert request_versioned.call_args.args == ("POST", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dash-1/trash"
+
+        client.publish_dashboard("dash-1")
+        assert request_versioned.call_args.args == ("POST", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dash-1/published"
+
+        client.unpublish_dashboard("dash-1")
+        assert request_versioned.call_args.args == ("DELETE", "lakeview/dashboards")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dash-1/published"
+
+    with pytest.raises(ValidationError):
+        client.get_sql_alert("")
+    with pytest.raises(ValidationError):
+        client.update_sql_alert("", {})
+    with pytest.raises(ValidationError):
+        client.delete_sql_alert("")
+    with pytest.raises(ValidationError):
+        client.get_dashboard("")
+    with pytest.raises(ValidationError):
+        client.update_dashboard("", {})
+    with pytest.raises(ValidationError):
+        client.trash_dashboard("")
+    with pytest.raises(ValidationError):
+        client.publish_dashboard("")
+    with pytest.raises(ValidationError):
+        client.unpublish_dashboard("")
+
+
 def test_instance_pool_wrappers_route_expected_calls():
     client = _workspace_client()
     with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
