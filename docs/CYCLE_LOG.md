@@ -1558,3 +1558,22 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.17` with changelog updates for release.
+
+## Run 78 (Cycle 78 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: implement workspace `scim` scope wrappers with tests and release.
+
+### Progress Notes
+
+- Added workspace SCIM wrappers in `src/databricks_api/clients/workspace.py`:
+  - current user: `get_current_user`
+  - groups: `list_scim_groups`, `create_scim_group`, `get_scim_group`, `replace_scim_group`, `delete_scim_group`, `update_scim_group`
+  - service principals: `list_scim_service_principals`, `create_scim_service_principal`, `get_scim_service_principal`, `replace_scim_service_principal`, `delete_scim_service_principal`, `update_scim_service_principal`
+  - users: `list_scim_users`, `create_scim_user`, `get_scim_user`, `replace_scim_user`, `delete_scim_user`, `update_scim_user`
+  - password permissions: `get_password_permissions`, `set_password_permissions`, `update_password_permissions`, `get_password_permission_levels`
+- Updated `src/databricks_api/endpoints/catalog.py` with SCIM and password-permissions endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the newly available SCIM tools.
+- Prepared patch version bump to `2.0.1` with changelog updates for release.

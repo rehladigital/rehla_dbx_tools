@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2026-03-01
+
+### Added
+
+- Workspace SCIM wrappers covering all SCIM scope operations:
+  - current user: `get_current_user`
+  - groups: `list_scim_groups`, `create_scim_group`, `get_scim_group`, `replace_scim_group`, `delete_scim_group`, `update_scim_group`
+  - service principals: `list_scim_service_principals`, `create_scim_service_principal`, `get_scim_service_principal`, `replace_scim_service_principal`, `delete_scim_service_principal`, `update_scim_service_principal`
+  - users: `list_scim_users`, `create_scim_user`, `get_scim_user`, `replace_scim_user`, `delete_scim_user`, `update_scim_user`
+  - password permissions: `get_password_permissions`, `set_password_permissions`, `update_password_permissions`, `get_password_permission_levels`
+- Endpoint catalog entries for workspace SCIM and password-permissions routes.
+- Regression test coverage for workspace SCIM wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include workspace SCIM methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with workspace SCIM usage coverage.
+- Bumped package version from `2.0.0` to `2.0.1`.
+
 ## [2.0.0] - 2026-03-01
 
 ### Changed

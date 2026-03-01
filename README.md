@@ -162,6 +162,11 @@ Workspace (`client.workspace`):
 - `list_setting_keys_metadata`, `get_workspace_setting`, `update_workspace_setting`, `get_workspace_conf`, `set_workspace_conf`
 - `list_tag_policies`, `create_tag_policy`, `get_tag_policy`, `update_tag_policy`, `delete_tag_policy`
 - `list_tag_assignments`, `create_tag_assignment`, `get_tag_assignment`, `update_tag_assignment`, `delete_tag_assignment`
+- `get_current_user`
+- `list_scim_groups`, `create_scim_group`, `get_scim_group`, `replace_scim_group`, `delete_scim_group`, `update_scim_group`
+- `list_scim_service_principals`, `create_scim_service_principal`, `get_scim_service_principal`, `replace_scim_service_principal`, `delete_scim_service_principal`, `update_scim_service_principal`
+- `get_password_permissions`, `set_password_permissions`, `update_password_permissions`, `get_password_permission_levels`
+- `list_scim_users`, `create_scim_user`, `get_scim_user`, `replace_scim_user`, `delete_scim_user`, `update_scim_user`
 - `list_quality_monitors`, `create_quality_monitor`, `get_quality_monitor`, `update_quality_monitor`, `delete_quality_monitor`
 - `list_postgres_projects`, `create_postgres_project`, `get_postgres_project`, `update_postgres_project`, `delete_postgres_project`
 - `list_postgres_branches`, `create_postgres_branch`, `get_postgres_branch`, `delete_postgres_branch`

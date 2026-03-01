@@ -64,6 +64,32 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `update_object_permissions(object_type, object_id, access_control_list)`
 - `get_object_permission_levels(object_type, object_id)`
 
+## SCIM (Workspace)
+
+- `get_current_user()`
+- `list_scim_groups()`
+- `create_scim_group(group_spec)`
+- `get_scim_group(group_id)`
+- `replace_scim_group(group_id, group_spec)`
+- `delete_scim_group(group_id)`
+- `update_scim_group(group_id, operations_spec)`
+- `list_scim_service_principals()`
+- `create_scim_service_principal(service_principal_spec)`
+- `get_scim_service_principal(service_principal_id)`
+- `replace_scim_service_principal(service_principal_id, service_principal_spec)`
+- `delete_scim_service_principal(service_principal_id)`
+- `update_scim_service_principal(service_principal_id, operations_spec)`
+- `get_password_permissions(user_id)`
+- `set_password_permissions(user_id, access_control_list)`
+- `update_password_permissions(user_id, access_control_list)`
+- `get_password_permission_levels(user_id)`
+- `list_scim_users()`
+- `create_scim_user(user_spec)`
+- `get_scim_user(user_id)`
+- `replace_scim_user(user_id, user_spec)`
+- `delete_scim_user(user_id)`
+- `update_scim_user(user_id, operations_spec)`
+
 ## Jobs and Runs
 
 - `list_jobs(limit=...)`

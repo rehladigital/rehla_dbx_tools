@@ -952,6 +952,141 @@ def test_unity_catalog_and_vector_search_wrappers_route_expected_calls_and_valid
         client.query_vector_search_index("vs-endpoint", "", {})
 
 
+def test_scim_workspace_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.get_current_user()
+        assert request_versioned.call_args.args == ("GET", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Me"
+
+        client.list_scim_groups()
+        assert request_versioned.call_args.args == ("GET", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Groups"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_scim_group({"displayName": "data-eng"})
+        assert request_versioned.call_args.args == ("POST", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Groups"
+        assert request_versioned.call_args.kwargs["json_body"] == {"displayName": "data-eng"}
+
+        client.get_scim_group("group-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Groups/group-1"
+
+        client.replace_scim_group("group-1", {"displayName": "data-eng-v2"})
+        assert request_versioned.call_args.args == ("PUT", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Groups/group-1"
+
+        client.delete_scim_group("group-1")
+        assert request_versioned.call_args.args == ("DELETE", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Groups/group-1"
+
+        client.update_scim_group("group-1", {"Operations": []})
+        assert request_versioned.call_args.args == ("PATCH", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Groups/group-1"
+
+        client.list_scim_service_principals()
+        assert request_versioned.call_args.args == ("GET", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ServicePrincipals"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_scim_service_principal({"applicationId": "app-1"})
+        assert request_versioned.call_args.args == ("POST", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ServicePrincipals"
+        assert request_versioned.call_args.kwargs["json_body"] == {"applicationId": "app-1"}
+
+        client.get_scim_service_principal("sp-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ServicePrincipals/sp-1"
+
+        client.replace_scim_service_principal("sp-1", {"displayName": "svc-principal"})
+        assert request_versioned.call_args.args == ("PUT", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ServicePrincipals/sp-1"
+
+        client.delete_scim_service_principal("sp-1")
+        assert request_versioned.call_args.args == ("DELETE", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ServicePrincipals/sp-1"
+
+        client.update_scim_service_principal("sp-1", {"Operations": []})
+        assert request_versioned.call_args.args == ("PATCH", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ServicePrincipals/sp-1"
+
+        client.get_password_permissions("user-1")
+        assert request_versioned.call_args.args == ("GET", "permissions/passwords")
+        assert request_versioned.call_args.kwargs["endpoint"] == "user-1"
+
+        acl = [{"user_name": "user@example.com", "permission_level": "CAN_USE"}]
+        client.set_password_permissions("user-1", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions/passwords")
+        assert request_versioned.call_args.kwargs["endpoint"] == "user-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_password_permissions("user-1", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions/passwords")
+        assert request_versioned.call_args.kwargs["endpoint"] == "user-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_password_permission_levels("user-1")
+        assert request_versioned.call_args.args == ("GET", "permissions/passwords")
+        assert request_versioned.call_args.kwargs["endpoint"] == "user-1/permissionLevels"
+
+        client.list_scim_users()
+        assert request_versioned.call_args.args == ("GET", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Users"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_scim_user({"userName": "user@example.com"})
+        assert request_versioned.call_args.args == ("POST", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Users"
+        assert request_versioned.call_args.kwargs["json_body"] == {"userName": "user@example.com"}
+
+        client.get_scim_user("user-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Users/user-1"
+
+        client.replace_scim_user("user-1", {"userName": "user2@example.com"})
+        assert request_versioned.call_args.args == ("PUT", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Users/user-1"
+
+        client.delete_scim_user("user-1")
+        assert request_versioned.call_args.args == ("DELETE", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Users/user-1"
+
+        client.update_scim_user("user-1", {"Operations": []})
+        assert request_versioned.call_args.args == ("PATCH", "preview/scim/v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "Users/user-1"
+
+    with pytest.raises(ValidationError):
+        client.get_scim_group("")
+    with pytest.raises(ValidationError):
+        client.replace_scim_group("", {})
+    with pytest.raises(ValidationError):
+        client.delete_scim_group("")
+    with pytest.raises(ValidationError):
+        client.update_scim_group("", {})
+    with pytest.raises(ValidationError):
+        client.get_scim_service_principal("")
+    with pytest.raises(ValidationError):
+        client.replace_scim_service_principal("", {})
+    with pytest.raises(ValidationError):
+        client.delete_scim_service_principal("")
+    with pytest.raises(ValidationError):
+        client.update_scim_service_principal("", {})
+    with pytest.raises(ValidationError):
+        client.get_password_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_password_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_password_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_password_permission_levels("")
+    with pytest.raises(ValidationError):
+        client.get_scim_user("")
+    with pytest.raises(ValidationError):
+        client.replace_scim_user("", {})
+    with pytest.raises(ValidationError):
+        client.delete_scim_user("")
+    with pytest.raises(ValidationError):
+        client.update_scim_user("", {})
+
+
 def test_cluster_wrappers_route_expected_methods_and_payloads():
     client = _workspace_client()
 

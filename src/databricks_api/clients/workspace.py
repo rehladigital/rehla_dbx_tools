@@ -413,6 +413,229 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # SCIM scope
+    def get_current_user(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint="Me",
+            api_version=api_version,
+        )
+
+    def list_scim_groups(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint="Groups",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_scim_group(self, group_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "preview/scim/v2",
+            endpoint="Groups",
+            api_version=api_version,
+            json_body=group_spec,
+        )
+
+    def get_scim_group(self, group_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(group_id, "group_id")
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint=f"Groups/{group_id}",
+            api_version=api_version,
+        )
+
+    def replace_scim_group(self, group_id: str, group_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(group_id, "group_id")
+        return self.request_versioned(
+            "PUT",
+            "preview/scim/v2",
+            endpoint=f"Groups/{group_id}",
+            api_version=api_version,
+            json_body=group_spec,
+        )
+
+    def delete_scim_group(self, group_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(group_id, "group_id")
+        return self.request_versioned(
+            "DELETE",
+            "preview/scim/v2",
+            endpoint=f"Groups/{group_id}",
+            api_version=api_version,
+        )
+
+    def update_scim_group(self, group_id: str, operations_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(group_id, "group_id")
+        return self.request_versioned(
+            "PATCH",
+            "preview/scim/v2",
+            endpoint=f"Groups/{group_id}",
+            api_version=api_version,
+            json_body=operations_spec,
+        )
+
+    def list_scim_service_principals(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint="ServicePrincipals",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_scim_service_principal(self, service_principal_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "preview/scim/v2",
+            endpoint="ServicePrincipals",
+            api_version=api_version,
+            json_body=service_principal_spec,
+        )
+
+    def get_scim_service_principal(self, service_principal_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(service_principal_id, "service_principal_id")
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint=f"ServicePrincipals/{service_principal_id}",
+            api_version=api_version,
+        )
+
+    def replace_scim_service_principal(
+        self, service_principal_id: str, service_principal_spec: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(service_principal_id, "service_principal_id")
+        return self.request_versioned(
+            "PUT",
+            "preview/scim/v2",
+            endpoint=f"ServicePrincipals/{service_principal_id}",
+            api_version=api_version,
+            json_body=service_principal_spec,
+        )
+
+    def delete_scim_service_principal(self, service_principal_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(service_principal_id, "service_principal_id")
+        return self.request_versioned(
+            "DELETE",
+            "preview/scim/v2",
+            endpoint=f"ServicePrincipals/{service_principal_id}",
+            api_version=api_version,
+        )
+
+    def update_scim_service_principal(
+        self, service_principal_id: str, operations_spec: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(service_principal_id, "service_principal_id")
+        return self.request_versioned(
+            "PATCH",
+            "preview/scim/v2",
+            endpoint=f"ServicePrincipals/{service_principal_id}",
+            api_version=api_version,
+            json_body=operations_spec,
+        )
+
+    def get_password_permissions(self, user_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "GET",
+            "permissions/passwords",
+            endpoint=user_id,
+            api_version=api_version,
+        )
+
+    def set_password_permissions(
+        self, user_id: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "PUT",
+            "permissions/passwords",
+            endpoint=user_id,
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_password_permissions(
+        self, user_id: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions/passwords",
+            endpoint=user_id,
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_password_permission_levels(self, user_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "GET",
+            "permissions/passwords",
+            endpoint=f"{user_id}/permissionLevels",
+            api_version=api_version,
+        )
+
+    def list_scim_users(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint="Users",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_scim_user(self, user_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "preview/scim/v2",
+            endpoint="Users",
+            api_version=api_version,
+            json_body=user_spec,
+        )
+
+    def get_scim_user(self, user_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "GET",
+            "preview/scim/v2",
+            endpoint=f"Users/{user_id}",
+            api_version=api_version,
+        )
+
+    def replace_scim_user(self, user_id: str, user_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "PUT",
+            "preview/scim/v2",
+            endpoint=f"Users/{user_id}",
+            api_version=api_version,
+            json_body=user_spec,
+        )
+
+    def delete_scim_user(self, user_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "DELETE",
+            "preview/scim/v2",
+            endpoint=f"Users/{user_id}",
+            api_version=api_version,
+        )
+
+    def update_scim_user(self, user_id: str, operations_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(user_id, "user_id")
+        return self.request_versioned(
+            "PATCH",
+            "preview/scim/v2",
+            endpoint=f"Users/{user_id}",
+            api_version=api_version,
+            json_body=operations_spec,
+        )
+
     def get_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
         self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(
