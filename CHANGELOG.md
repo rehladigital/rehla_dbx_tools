@@ -1,0 +1,24 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [0.1.1] - 2026-02-28
+
+### Added
+
+- Workspace wrapper expansion:
+  - Jobs: `get_job`, `create_job`, `update_job`, `run_job_now`, `get_job_run`, `cancel_job_run`, `delete_job`
+  - Clusters: `get_cluster`, `create_cluster`, `edit_cluster`, `start_cluster`, `restart_cluster`, `delete_cluster`, `permanent_delete_cluster`, `cluster_events`
+- Account workspace lifecycle wrappers:
+  - `get_workspace`, `create_workspace`, `update_workspace`, `delete_workspace`
+- Baseline capability matrix and continuous loop context artifacts:
+  - `docs/CAPABILITY_MATRIX.md`
+  - `docs/LOOP_CONTEXT.md`
+  - `docs/CYCLE_LOG.md`
+- Wrapper behavior tests in `tests/test_workspace_client.py` and additional account lifecycle tests.
+
+### Changed
+
+- Expanded endpoint catalog and generated endpoint constants to include new wrapper routes.
+- Updated `README.md` and `docs/USAGE.md` examples for newly added wrappers.
+- Bumped package version from `0.1.0` to `0.1.1`.

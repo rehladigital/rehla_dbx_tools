@@ -74,6 +74,9 @@ client = DatabricksApiClient.from_notebook_context(config=cfg)
 ```python
 jobs_resp = client.workspace.list_jobs(api_version="2.1", limit=50)
 clusters_resp = client.workspace.list_clusters(api_version="2.0")
+job_resp = client.workspace.get_job(job_id=123)
+run_resp = client.workspace.run_job_now(job_id=123, notebook_params={"date": "2026-02-28"})
+cluster_resp = client.workspace.get_cluster(cluster_id="0123-abc")
 ```
 
 ### Generic versioned request (recommended for full endpoint coverage)
@@ -103,6 +106,10 @@ preview_resp = client.workspace.request_versioned(
 ```python
 if client.account is not None:
     ws_resp = client.account.list_workspaces(api_version="2.0")
+    ws_get = client.account.get_workspace(workspace_id=101)
+    ws_create = client.account.create_workspace({"workspace_name": "finance-prod"})
+    ws_update = client.account.update_workspace(101, {"workspace_name": "finance-prod-v2"})
+    ws_delete = client.account.delete_workspace(101)
 ```
 
 Generic account call:

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "unified-databricks-api"
-version = "0.1.0"
+version = "0.1.1"
 description = "Unified Databricks API client for account and workspace with DataFrame conversion."
 readme = "README.md"
 requires-python = ">=3.9"

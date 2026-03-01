@@ -48,3 +48,42 @@ class AccountClient(BaseDatabricksClient):
             api_version=api_version,
             paginate=True,
         )
+
+    def get_workspace(self, workspace_id: int, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint=f"workspaces/{workspace_id}",
+            api_version=api_version,
+        )
+
+    def create_workspace(self, workspace_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="workspaces",
+            api_version=api_version,
+            json_body=workspace_spec,
+        )
+
+    def update_workspace(
+        self,
+        workspace_id: int,
+        workspace_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        return self.request_account(
+            "PATCH",
+            service="accounts",
+            endpoint=f"workspaces/{workspace_id}",
+            api_version=api_version,
+            json_body=workspace_changes,
+        )
+
+    def delete_workspace(self, workspace_id: int, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"workspaces/{workspace_id}",
+            api_version=api_version,
+        )

@@ -61,4 +61,15 @@ response = client.workspace.request_versioned(
 )
 ```
 
+## Expanded Convenience Wrappers
+
+```python
+if client.workspace is not None:
+    run = client.workspace.run_job_now(job_id=123)
+    cluster = client.workspace.get_cluster(cluster_id="0123-abc")
+
+if client.account is not None:
+    ws = client.account.get_workspace(workspace_id=101)
+```
+
 For detailed setup and examples, see `docs/USAGE.md`.
