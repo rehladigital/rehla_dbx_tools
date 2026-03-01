@@ -462,3 +462,54 @@ class AccountClient(BaseDatabricksClient):
             endpoint=f"log-delivery/{log_delivery_configuration_id}",
             api_version=api_version,
         )
+
+    # Identity scope
+    def resolve_external_user(self, external_id: str, api_version: str = "2.0") -> Any:
+        if not external_id or not str(external_id).strip():
+            raise ValidationError("external_id is required.")
+        return self.request_account(
+            "GET",
+            service="iam/v2",
+            endpoint=f"external-users/{external_id}",
+            api_version=api_version,
+        )
+
+    def resolve_external_service_principal(self, external_id: str, api_version: str = "2.0") -> Any:
+        if not external_id or not str(external_id).strip():
+            raise ValidationError("external_id is required.")
+        return self.request_account(
+            "GET",
+            service="iam/v2",
+            endpoint=f"external-service-principals/{external_id}",
+            api_version=api_version,
+        )
+
+    def resolve_external_group(self, external_id: str, api_version: str = "2.0") -> Any:
+        if not external_id or not str(external_id).strip():
+            raise ValidationError("external_id is required.")
+        return self.request_account(
+            "GET",
+            service="iam/v2",
+            endpoint=f"external-groups/{external_id}",
+            api_version=api_version,
+        )
+
+    def get_workspace_access_details(
+        self,
+        principal_id: str,
+        *,
+        workspace_id: Optional[int] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        if not principal_id or not str(principal_id).strip():
+            raise ValidationError("principal_id is required.")
+        params: Optional[dict[str, Any]] = None
+        if workspace_id is not None:
+            params = {"workspace_id": workspace_id}
+        return self.request_account(
+            "GET",
+            service="iam/v2",
+            endpoint=f"workspace-access/{principal_id}",
+            api_version=api_version,
+            params=params,
+        )

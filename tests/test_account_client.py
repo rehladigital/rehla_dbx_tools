@@ -328,3 +328,35 @@ def test_budget_policy_and_log_delivery_wrappers_use_expected_methods_and_paths(
         client.delete_log_delivery_configuration("ld-101")
         assert request_account.call_args.args == ("DELETE",)
         assert request_account.call_args.kwargs["endpoint"] == "log-delivery/ld-101"
+
+
+def test_identity_wrappers_use_expected_methods_and_paths():
+    client = AccountClient(
+        AccountConfig(
+            host="https://accounts.cloud.databricks.com",
+            account_id="acc-123",
+            auth=AuthConfig(token="token"),
+        )
+    )
+
+    with patch.object(client, "request_account", return_value="ok") as request_account:
+        client.resolve_external_user("ext-user-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["service"] == "iam/v2"
+        assert request_account.call_args.kwargs["endpoint"] == "external-users/ext-user-101"
+
+        client.resolve_external_service_principal("ext-sp-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["service"] == "iam/v2"
+        assert request_account.call_args.kwargs["endpoint"] == "external-service-principals/ext-sp-101"
+
+        client.resolve_external_group("ext-group-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["service"] == "iam/v2"
+        assert request_account.call_args.kwargs["endpoint"] == "external-groups/ext-group-101"
+
+        client.get_workspace_access_details("principal-101", workspace_id=1234)
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["service"] == "iam/v2"
+        assert request_account.call_args.kwargs["endpoint"] == "workspace-access/principal-101"
+        assert request_account.call_args.kwargs["params"] == {"workspace_id": 1234}

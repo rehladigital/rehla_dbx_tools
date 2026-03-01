@@ -1735,6 +1735,55 @@ class WorkspaceClient(BaseDatabricksClient):
             params={"path": path},
         )
 
+    # Instance Profiles scope
+    def list_instance_profiles(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "instance-profiles",
+            endpoint="list",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def add_instance_profile(self, instance_profile_arn: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(instance_profile_arn, "instance_profile_arn")
+        return self.request_versioned(
+            "POST",
+            "instance-profiles",
+            endpoint="add",
+            api_version=api_version,
+            json_body={"instance_profile_arn": instance_profile_arn},
+        )
+
+    def edit_instance_profile(
+        self,
+        instance_profile_arn: str,
+        *,
+        is_meta_instance_profile: Optional[bool] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(instance_profile_arn, "instance_profile_arn")
+        payload: dict[str, Any] = {"instance_profile_arn": instance_profile_arn}
+        if is_meta_instance_profile is not None:
+            payload["is_meta_instance_profile"] = is_meta_instance_profile
+        return self.request_versioned(
+            "POST",
+            "instance-profiles",
+            endpoint="edit",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def remove_instance_profile(self, instance_profile_arn: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(instance_profile_arn, "instance_profile_arn")
+        return self.request_versioned(
+            "POST",
+            "instance-profiles",
+            endpoint="remove",
+            api_version=api_version,
+            json_body={"instance_profile_arn": instance_profile_arn},
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(

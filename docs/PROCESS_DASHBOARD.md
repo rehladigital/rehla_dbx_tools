@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 68
-- Remaining loops: 232
-- Current loop: 69 (queued)
+- Completed loops: 69
+- Remaining loops: 231
+- Current loop: 70 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 68
-- Current package version: 1.2.8
+- Last completed cycle: 69
+- Current package version: 1.2.9
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 69 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for `identity` and `instance-profiles` families
+1. Execute run 70 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for `jobs` and `libraries` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.8` after commit/push and workflow verification
+4. Publish `1.2.9` after commit/push and workflow verification

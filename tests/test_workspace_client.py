@@ -1251,3 +1251,44 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.update_share("", {})
     with pytest.raises(ValidationError):
         client.delete_share("")
+
+
+def test_instance_profile_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_instance_profiles()
+        assert request_versioned.call_args.args == ("GET", "instance-profiles")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.add_instance_profile("arn:aws:iam::111122223333:instance-profile/databricks-prod")
+        assert request_versioned.call_args.args == ("POST", "instance-profiles")
+        assert request_versioned.call_args.kwargs["endpoint"] == "add"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "instance_profile_arn": "arn:aws:iam::111122223333:instance-profile/databricks-prod"
+        }
+
+        client.edit_instance_profile(
+            "arn:aws:iam::111122223333:instance-profile/databricks-prod",
+            is_meta_instance_profile=True,
+        )
+        assert request_versioned.call_args.args == ("POST", "instance-profiles")
+        assert request_versioned.call_args.kwargs["endpoint"] == "edit"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "instance_profile_arn": "arn:aws:iam::111122223333:instance-profile/databricks-prod",
+            "is_meta_instance_profile": True,
+        }
+
+        client.remove_instance_profile("arn:aws:iam::111122223333:instance-profile/databricks-prod")
+        assert request_versioned.call_args.args == ("POST", "instance-profiles")
+        assert request_versioned.call_args.kwargs["endpoint"] == "remove"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "instance_profile_arn": "arn:aws:iam::111122223333:instance-profile/databricks-prod"
+        }
+
+    with pytest.raises(ValidationError):
+        client.add_instance_profile("")
+    with pytest.raises(ValidationError):
+        client.edit_instance_profile("")
+    with pytest.raises(ValidationError):
+        client.remove_instance_profile("")

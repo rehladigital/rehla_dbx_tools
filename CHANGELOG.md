@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.9] - 2026-03-01
+
+### Added
+
+- Instance profiles wrappers on workspace client:
+  - `list_instance_profiles`
+  - `add_instance_profile`
+  - `edit_instance_profile`
+  - `remove_instance_profile`
+- Identity wrappers on account client:
+  - `resolve_external_user`
+  - `resolve_external_service_principal`
+  - `resolve_external_group`
+  - `get_workspace_access_details`
+- Endpoint catalog entries for instance-profiles and identity routes.
+- Regression test coverage in:
+  - `tests/test_workspace_client.py`
+  - `tests/test_account_client.py`
+
+### Changed
+
+- Updated README tool list to include identity and instance-profiles methods.
+- Bumped package version from `1.2.8` to `1.2.9`.
+
 ## [1.2.8] - 2026-03-01
 
 ### Added

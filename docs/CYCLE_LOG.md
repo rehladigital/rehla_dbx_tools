@@ -1391,3 +1391,25 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.8` with changelog updates for release.
+
+## Run 69 (Cycle 69 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: implement `identity` and `instance-profiles` wrappers with tests and release.
+
+### Progress Notes
+
+- Added instance-profiles wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_instance_profiles`, `add_instance_profile`, `edit_instance_profile`, `remove_instance_profile`
+- Added identity wrappers in `src/databricks_api/clients/account.py`:
+  - `resolve_external_user`
+  - `resolve_external_service_principal`
+  - `resolve_external_group`
+  - `get_workspace_access_details`
+- Updated `src/databricks_api/endpoints/catalog.py` with identity and instance-profiles endpoint keys.
+- Added regression coverage in:
+  - `tests/test_workspace_client.py`
+  - `tests/test_account_client.py`
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.9` with changelog updates for release.

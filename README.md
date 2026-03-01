@@ -143,6 +143,7 @@ Workspace (`client.workspace`):
 - `list_sql_warehouses`, `get_sql_warehouse`
 - `list_instance_pools`, `get_instance_pool`
 - `get_instance_pool_permissions`, `set_instance_pool_permissions`, `update_instance_pool_permissions`, `get_instance_pool_permission_levels`
+- `list_instance_profiles`, `add_instance_profile`, `edit_instance_profile`, `remove_instance_profile`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`
@@ -168,6 +169,7 @@ Account (`client.account`):
 - `list_customer_managed_keys`
 - `list_users`, `get_user`
 - `list_groups`, `get_group`
+- `resolve_external_user`, `resolve_external_service_principal`, `resolve_external_group`, `get_workspace_access_details`
 - `list_budget_policies`, `get_budget_policy`
 - `list_log_delivery_configurations`, `get_log_delivery_configuration`
 
