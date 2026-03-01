@@ -14,15 +14,10 @@ from .notebook_context import resolve_notebook_context
 class DatabricksApiClient:
     def __init__(self, config: UnifiedConfig):
         self.config = config
-<<<<<<< HEAD
-        self.workspace = WorkspaceClient(config.workspace)
-        self.account = AccountClient(config.account) if config.account.host and config.account.account_id else None
-=======
         self.workspace = WorkspaceClient(config.workspace) if config.workspace.host else None
         self.account = (
             AccountClient(config.account) if config.account.host and config.account.account_id else None
         )
->>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
 
     @classmethod
     def from_env(cls) -> "DatabricksApiClient":

@@ -44,11 +44,8 @@ def to_spark_df(data: Any, spark_session: Any = None) -> Any:
         ) from exc
 
     spark = spark_session or SparkSession.getActiveSession() or SparkSession.builder.getOrCreate()
-<<<<<<< HEAD
-=======
     if not records:
         return spark.createDataFrame([], "value string")
->>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
     return spark.createDataFrame(records)
 
 

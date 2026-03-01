@@ -10,11 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [
-<<<<<<< HEAD
-  { name = "Aliyarappa" }
-=======
   { name = "Rehla Digital Inc" }
->>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
 ]
 dependencies = [
   "requests>=2.31.0",

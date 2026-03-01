@@ -212,20 +212,6 @@ pip install -e .[spark]
 - Use generic `request_versioned(...)` for full endpoint coverage (GA + preview)
 - Convert to Pandas for local analysis, Spark DataFrame for large-scale transformations
 
-<<<<<<< HEAD
-## 13) Endpoint Generation Workflow
-
-1. Update endpoint definitions in `src/databricks_api/endpoints/catalog.py`.
-2. Generate constants:
-
-```bash
-py tools/generate_endpoints.py
-```
-
-3. Import generated constants from `src/databricks_api/endpoints/generated/` in wrapper modules.
-
-This allows gradual expansion toward broad endpoint coverage while keeping version maps explicit.
-=======
 ## 13) Endpoint Expansion Workflow
 
 1. Add or update endpoint definitions in `src/databricks_api/endpoints/catalog.py`.
@@ -233,4 +219,3 @@ This allows gradual expansion toward broad endpoint coverage while keeping versi
 3. Cover added endpoints with focused tests under `tests/`.
 
 This allows gradual expansion toward broad endpoint coverage while keeping behavior explicit and testable.
->>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)

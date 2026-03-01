@@ -73,14 +73,10 @@ class OAuthTokenProvider(TokenProvider):
             )
         data = response.json()
         access_token = data.get("access_token")
-<<<<<<< HEAD
-        expires_in = int(data.get("expires_in", 3600))
-=======
         try:
             expires_in = int(data.get("expires_in", 3600))
         except (TypeError, ValueError) as exc:
             raise AuthError("OAuth response included invalid expires_in value.") from exc
->>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
         if not access_token:
             raise AuthError("OAuth response did not include access_token.")
         return TokenState(access_token=access_token, expires_at_epoch=time.time() + expires_in)
