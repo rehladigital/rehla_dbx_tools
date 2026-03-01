@@ -1,4 +1,4 @@
-from rehla_dbx_tools import DatabricksApiClient, __Help__, __version__, detect_cloud_from_host
+from rehla_dbx_tools import DatabricksApiClient, __Help__, __version__, connect, dbx, detect_cloud_from_host
 from rehla_dbx_tools.clients.workspace import WorkspaceClient
 from rehladigital_aws_dbx_tools import DatabricksApiClient as LegacyDatabricksApiClient
 
@@ -22,3 +22,8 @@ def test_public_import_exposes_cloud_detection_helper():
 def test_public_import_exposes_version_and_help_metadata():
     assert isinstance(__version__, str) and __version__
     assert isinstance(__Help__, str) and "read-only" in __Help__.lower()
+
+
+def test_public_import_exposes_simple_factories():
+    assert connect is not None
+    assert dbx is not None

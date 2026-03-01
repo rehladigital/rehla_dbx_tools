@@ -158,6 +158,32 @@ class DatabricksApiClient:
         return _extract_records(response.data, "jobs")
 
 
+def connect(
+    host: Optional[str] = None,
+    token: Optional[str] = None,
+    **kwargs: Any,
+) -> DatabricksApiClient:
+    """Ultra-simple client factory.
+
+    - `connect()` -> from environment variables
+    - `connect(host, token)` -> explicit quick setup
+    """
+    if host is None and token is None and not kwargs:
+        return DatabricksApiClient.from_env()
+    if host is None:
+        raise ValidationError("host is required when using explicit connect(...) parameters.")
+    return DatabricksApiClient.simple(host=host, token=token, **kwargs)
+
+
+def dbx(
+    host: Optional[str] = None,
+    token: Optional[str] = None,
+    **kwargs: Any,
+) -> DatabricksApiClient:
+    """Alias for `connect(...)` to keep scripts very short."""
+    return connect(host=host, token=token, **kwargs)
+
+
 def _with_token(auth: AuthConfig, token: str) -> AuthConfig:
     return AuthConfig(
         auth_type="notebook" if auth.auth_type == "auto" else auth.auth_type,

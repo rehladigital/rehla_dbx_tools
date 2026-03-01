@@ -2,7 +2,7 @@
 
 from importlib.metadata import PackageNotFoundError, version
 
-from .client import DatabricksApiClient
+from .client import DatabricksApiClient, connect, dbx
 from .cloud import detect_cloud_from_host, is_host_cloud_aligned
 from .config import AccountConfig, AuthConfig, CloudType, UnifiedConfig, WorkspaceConfig
 from .exceptions import ApiError, AuthError, DatabricksApiError, RateLimitError, ValidationError
@@ -15,7 +15,7 @@ except PackageNotFoundError:
 
 __Help__ = (
     "rehla_dbx_tools is read-only by design in this build.\n"
-    "Use DatabricksApiClient.simple(host=..., token=...) for quick setup.\n"
+    "Use dbx(host, token) or connect(host, token) for quick setup.\n"
     "Core helpers: list_jobs(), list_recent_job_runs(), list_active_job_runs().\n"
     "Destructive HTTP methods (POST/PATCH/PUT/DELETE) are disabled."
 )
@@ -35,6 +35,8 @@ __all__ = [
     "WorkspaceConfig",
     "__Help__",
     "__version__",
+    "connect",
+    "dbx",
     "detect_cloud_from_host",
     "is_host_cloud_aligned",
     "normalize_json",

@@ -1,6 +1,6 @@
 import pytest
 
-from databricks_api.client import DatabricksApiClient
+from databricks_api.client import DatabricksApiClient, connect, dbx
 from databricks_api.config import AccountConfig, AuthConfig, UnifiedConfig, WorkspaceConfig
 from databricks_api.exceptions import ValidationError
 from databricks_api.response import ApiResponse
@@ -181,3 +181,15 @@ def test_read_only_requests_force_pagination_for_get(monkeypatch):
 
     assert captured["method"] == "GET"
     assert captured["paginate"] is True
+
+
+def test_connect_factory_with_explicit_host_token():
+    client = connect("https://dbc-test.cloud.databricks.com", "workspace-token")
+    assert isinstance(client, DatabricksApiClient)
+    assert client.workspace is not None
+
+
+def test_dbx_alias_factory_with_explicit_host_token():
+    client = dbx("https://dbc-test.cloud.databricks.com", "workspace-token")
+    assert isinstance(client, DatabricksApiClient)
+    assert client.workspace is not None

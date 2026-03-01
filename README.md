@@ -27,39 +27,28 @@ pip install "rehla-dbx-tools[spark]"
 ## Quick Start
 
 ```python
-from rehla_dbx_tools import DatabricksApiClient
+from rehla_dbx_tools import dbx
 
-client = DatabricksApiClient.from_env()
-if client.workspace is not None:
-    jobs = client.workspace.list_jobs()
-    df = jobs.to_pandas()
-    print(df.head())
-
-# Force both workspace/account config to a target cloud
-client = DatabricksApiClient.from_env_for_cloud("azure")
+client = dbx()  # uses env vars (DATABRICKS_HOST/TOKEN or DBX_HOST/TOKEN)
+print("jobs:", len(client.list_jobs(limit=25)))
+print("active:", len(client.list_active_job_runs(limit=25)))
 ```
 
-Simple host/token setup:
+Explicit host/token:
 
 ```python
-from rehla_dbx_tools import DatabricksApiClient
+from rehla_dbx_tools import dbx
 
-client = DatabricksApiClient.simple(
-    host="https://dbc-xxxx.cloud.databricks.com",
-    token="dapi...token...",
-)
-
-jobs = client.list_jobs(limit=25)
-print("jobs:", len(jobs))
-
-for run in client.list_recent_job_runs(limit=25):
-    print(run.get("run_id"))
+client = dbx("https://dbc-xxxx.cloud.databricks.com", "dapi...token...")
+print("runs:", len(client.list_recent_job_runs(limit=25)))
 ```
 
 Token can be omitted if you want guided auth:
 
 ```python
-client = DatabricksApiClient.simple(
+from rehla_dbx_tools import connect
+
+client = connect(
     host="https://dbc-xxxx.cloud.databricks.com",
     open_browser_for_token=True,  # opens Access Tokens page
     prompt_for_token=True,         # prompts to paste token
@@ -69,6 +58,8 @@ client = DatabricksApiClient.simple(
 Windows SSO flow (Databricks CLI login):
 
 ```python
+from rehla_dbx_tools import DatabricksApiClient
+
 client = DatabricksApiClient.from_windows_sso(
     host="https://dbc-xxxx.cloud.databricks.com",
 )
