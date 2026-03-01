@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.13] - 2026-02-28
+
+### Added
+
+- Response normalization edge-case coverage in `tests/test_response.py` for:
+  - Databricks `runs` list payloads
+  - nested `result.items` payload wrappers
+
+### Changed
+
+- Improved `normalize_json` to discover record lists from:
+  - additional Databricks keys (`runs`, `schemas`, `catalogs`)
+  - generic list fields
+  - nested dictionary wrappers that contain list payloads
+- Bumped package version from `0.1.12` to `0.1.13`.
+
+## [0.1.12] - 2026-02-28
+
+### Added
+
+- Account wrapper expansion:
+  - Networks: `list_networks`, `create_network`, `delete_network`
+  - Private access settings: `list_private_access_settings`, `create_private_access_settings`, `delete_private_access_settings`
+- Additional account wrapper behavior tests in `tests/test_account_client.py`.
+
+### Changed
+
+- Expanded account endpoint catalog/constants with network and private-access-settings routes.
+- Updated README and usage examples for account network/private-access lifecycle operations.
+- Bumped package version from `0.1.11` to `0.1.12`.
+
+## [0.1.11] - 2026-02-28
+
+### Added
+
+- Account wrapper expansion:
+  - Credentials: `list_credentials`, `create_credentials`, `delete_credentials`
+  - Storage configurations: `list_storage_configurations`, `create_storage_configuration`, `delete_storage_configuration`
+  - Networks: `list_networks`, `create_network`, `delete_network`
+  - Private access settings: `list_private_access_settings`, `create_private_access_settings`, `delete_private_access_settings`
+- Account wrapper behavior tests in `tests/test_account_client.py`.
+
+### Changed
+
+- Expanded account endpoint catalog/constants with credentials, storage-configuration, network, and private-access-settings routes.
+- Updated README and usage examples for account credential/storage lifecycle operations.
+- Bumped package version from `0.1.10` to `0.1.11`.
+
 ## [0.1.10] - 2026-02-28
 
 ### Added

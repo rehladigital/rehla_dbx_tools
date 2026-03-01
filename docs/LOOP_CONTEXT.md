@@ -43,3 +43,4 @@ At end of every cycle:
 3. Keep tests synchronized with each wrapper batch.
 4. Keep PyPI metadata/release docs current.
 5. Execute continuous release cycles via loop maintainer process.
+6. Expand account onboarding wrappers (credentials, storage configurations, networks).

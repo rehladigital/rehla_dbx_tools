@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 200 loops
-- Completed loops: 10
-- Remaining loops: 190
-- Current loop: 11 (queued)
+- Completed loops: 13
+- Remaining loops: 187
+- Current loop: 14 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 10
-- Current package version: 0.1.10
+- Last completed cycle: 13
+- Current package version: 0.1.13
 - Last pushed commit: `pending-this-cycle`
 
 ## Recent Releases
@@ -26,7 +26,7 @@
 
 ## Next Queue
 
-1. Add account lifecycle helper wrappers and input validation tests
-2. Add response conversion edge-case tests for deeply nested payloads
-3. Add docs examples for token hygiene and rotation
+1. Add docs examples for token hygiene and rotation
+2. Add account private endpoint wrappers for VPC endpoints and keys
+3. Add account user/group helper wrappers
 4. Release next patch and append cycle log

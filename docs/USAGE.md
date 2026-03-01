@@ -148,6 +148,22 @@ if client.account is not None:
     ws_create = client.account.create_workspace({"workspace_name": "finance-prod"})
     ws_update = client.account.update_workspace(101, {"workspace_name": "finance-prod-v2"})
     ws_delete = client.account.delete_workspace(101)
+    creds_list = client.account.list_credentials()
+    creds_create = client.account.create_credentials({"credentials_name": "prod-cross-account-role"})
+    creds_delete = client.account.delete_credentials("cred-101")
+    storage_list = client.account.list_storage_configurations()
+    storage_create = client.account.create_storage_configuration(
+        {"storage_configuration_name": "prod-root-bucket"}
+    )
+    storage_delete = client.account.delete_storage_configuration("sc-101")
+    network_list = client.account.list_networks()
+    network_create = client.account.create_network({"network_name": "prod-vpc"})
+    network_delete = client.account.delete_network("net-101")
+    pas_list = client.account.list_private_access_settings()
+    pas_create = client.account.create_private_access_settings(
+        {"private_access_settings_name": "prod-private-link"}
+    )
+    pas_delete = client.account.delete_private_access_settings("pas-101")
 ```
 
 Generic account call:

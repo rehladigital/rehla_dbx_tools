@@ -10,6 +10,36 @@ import pandas as pd
 from .exceptions import ValidationError
 
 
+_LIST_PAYLOAD_KEYS = (
+    "items",
+    "results",
+    "data",
+    "workspaces",
+    "users",
+    "jobs",
+    "clusters",
+    "runs",
+    "schemas",
+    "catalogs",
+)
+
+
+def _extract_list_payload(data: dict[str, Any]) -> Any:
+    for key in _LIST_PAYLOAD_KEYS:
+        value = data.get(key)
+        if isinstance(value, list):
+            return value
+    for value in data.values():
+        if isinstance(value, list):
+            return value
+    for value in data.values():
+        if isinstance(value, dict):
+            nested = _extract_list_payload(value)
+            if nested is not None:
+                return nested
+    return None
+
+
 def normalize_json(data: Any) -> list[dict[str, Any]]:
     """Normalize any JSON-like payload into row-oriented records."""
     if data is None:
@@ -21,11 +51,10 @@ def normalize_json(data: Any) -> list[dict[str, Any]]:
             return pd.json_normalize(data, sep=".").to_dict(orient="records")
         return [{"value": item} for item in data]
     if isinstance(data, dict):
-        # Common Databricks list payload patterns.
-        for key in ("items", "results", "data", "workspaces", "users", "jobs", "clusters"):
-            value = data.get(key)
-            if isinstance(value, list):
-                return normalize_json(value)
+        # Databricks responses often wrap row lists under varying keys.
+        extracted_list = _extract_list_payload(data)
+        if extracted_list is not None:
+            return normalize_json(extracted_list)
         return pd.json_normalize(data, sep=".").to_dict(orient="records")
     return [{"value": data}]
 

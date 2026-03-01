@@ -87,3 +87,115 @@ class AccountClient(BaseDatabricksClient):
             endpoint=f"workspaces/{workspace_id}",
             api_version=api_version,
         )
+
+    def list_credentials(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="credentials",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_credentials(self, credentials_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="credentials",
+            api_version=api_version,
+            json_body=credentials_spec,
+        )
+
+    def delete_credentials(self, credentials_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"credentials/{credentials_id}",
+            api_version=api_version,
+        )
+
+    def list_storage_configurations(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="storage-configurations",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_storage_configuration(
+        self,
+        storage_configuration_spec: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="storage-configurations",
+            api_version=api_version,
+            json_body=storage_configuration_spec,
+        )
+
+    def delete_storage_configuration(self, storage_configuration_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"storage-configurations/{storage_configuration_id}",
+            api_version=api_version,
+        )
+
+    def list_networks(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="networks",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_network(self, network_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="networks",
+            api_version=api_version,
+            json_body=network_spec,
+        )
+
+    def delete_network(self, network_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"networks/{network_id}",
+            api_version=api_version,
+        )
+
+    def list_private_access_settings(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="private-access-settings",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_private_access_settings(
+        self,
+        private_access_spec: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="private-access-settings",
+            api_version=api_version,
+            json_body=private_access_spec,
+        )
+
+    def delete_private_access_settings(self, private_access_settings_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"private-access-settings/{private_access_settings_id}",
+            api_version=api_version,
+        )

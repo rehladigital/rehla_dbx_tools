@@ -90,6 +90,10 @@ if client.workspace is not None:
 
 if client.account is not None:
     ws = client.account.get_workspace(workspace_id=101)
+    creds = client.account.list_credentials()
+    storage_cfgs = client.account.list_storage_configurations()
+    networks = client.account.list_networks()
+    private_access = client.account.list_private_access_settings()
 ```
 
 For detailed setup and examples, see `docs/USAGE.md`.

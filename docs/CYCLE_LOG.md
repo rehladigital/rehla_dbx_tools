@@ -172,3 +172,80 @@
 - Added notebook context tests (`tests/test_notebook_context.py`) and expanded workspace wrapper tests.
 - Expanded endpoint catalog/constants and usage docs.
 - Bumped version to `0.1.10`.
+
+## Cycle 11
+
+- Date: 2026-02-28
+- Objective: expand high-value account onboarding wrappers and keep release cadence active.
+- Planned focus:
+  - account credentials wrappers
+  - account storage-configuration wrappers
+  - regression tests for new account wrapper paths
+
+### Progress Notes
+
+- Added account credentials wrappers:
+  - `list_credentials`
+  - `create_credentials`
+  - `delete_credentials`
+- Added account storage configuration wrappers:
+  - `list_storage_configurations`
+  - `create_storage_configuration`
+  - `delete_storage_configuration`
+- Added account network wrappers:
+  - `list_networks`
+  - `create_network`
+  - `delete_network`
+- Added account private access settings wrappers:
+  - `list_private_access_settings`
+  - `create_private_access_settings`
+  - `delete_private_access_settings`
+- Expanded account endpoint catalog and regenerated endpoint constants.
+- Added account wrapper path/payload tests in `tests/test_account_client.py`.
+- Updated README and usage examples for new account wrappers.
+- Validation: `22 passed` via `pytest -q`.
+- Bumped version to `0.1.11`.
+
+## Cycle 12
+
+- Date: 2026-02-28
+- Objective: expand account networking wrappers and keep the repeat loop moving.
+- Planned focus:
+  - account networks wrappers
+  - account private-access-settings wrappers
+  - tests/docs/version bump
+
+### Progress Notes
+
+- Added account network wrappers:
+  - `list_networks`
+  - `create_network`
+  - `delete_network`
+- Added account private access settings wrappers:
+  - `list_private_access_settings`
+  - `create_private_access_settings`
+  - `delete_private_access_settings`
+- Expanded account endpoint catalog and regenerated endpoint constants.
+- Added tests for account network/private-access wrapper paths and payloads.
+- Updated README and usage examples for account network/private-access operations.
+- Validation: `23 passed` via `pytest -q`.
+- Bumped version to `0.1.12`.
+
+## Cycle 13
+
+- Date: 2026-02-28
+- Objective: harden response normalization for common Databricks wrapper payload edge cases.
+- Planned focus:
+  - nested list payload extraction
+  - additional key support (`runs`)
+  - regression tests
+
+### Progress Notes
+
+- Improved `normalize_json` to extract row payloads from:
+  - known Databricks list keys (`runs`, `schemas`, `catalogs` added),
+  - generic list-valued fields,
+  - nested dictionary wrappers containing list payloads.
+- Added response regression tests for `runs` and nested `result.items` patterns.
+- Validation: `25 passed` via `pytest -q`.
+- Bumped version to `0.1.13`.
