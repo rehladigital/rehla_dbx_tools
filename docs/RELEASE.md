@@ -5,10 +5,21 @@
 1. Pull latest `main`.
 2. Run local quality gates:
    - `python -m pytest -q`
+   - `python -m build`
 3. Update package version in `pyproject.toml` (patch bump).
 4. Update `CHANGELOG.md` with release notes.
 5. Commit and push to `main`.
 6. Verify remote state and test status.
+
+## CI and Release Automation
+
+- CI workflow: `.github/workflows/ci.yml`
+  - Runs on PRs and pushes to `main`
+  - Python matrix: 3.9, 3.10, 3.11, 3.12
+  - Executes tests and package build
+- Release workflow: `.github/workflows/release.yml`
+  - Runs on `v*.*.*` tags and manual dispatch
+  - Builds distribution artifacts and creates GitHub release
 
 ## Cycle-Oriented Continuous Loop
 

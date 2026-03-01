@@ -28,3 +28,20 @@
   - `tests/test_workspace_client.py`
   - extended `tests/test_account_client.py`
 - Validation: `12 passed` via `pytest -q`.
+
+## Cycle 2
+
+- Date: 2026-02-28
+- Objective: establish repeatable automation and execute another release cycle.
+- Planned focus:
+  - CI workflow
+  - release workflow
+  - additional reliability test for HTTP retry behavior
+
+### Progress Notes
+
+- Added CI workflow at `.github/workflows/ci.yml` with Python 3.9-3.12 test/build matrix.
+- Added release workflow at `.github/workflows/release.yml` for tag/manual GitHub releases.
+- Added `test_request_retries_5xx_then_returns_success_response` in `tests/test_http_client.py`.
+- Updated runbook and changelog for automation flow.
+- Prepared patch bump to `0.1.2`.

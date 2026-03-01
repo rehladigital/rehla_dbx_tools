@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2026-02-28
+
+### Added
+
+- GitHub Actions CI workflow: `.github/workflows/ci.yml`
+- GitHub Actions release workflow: `.github/workflows/release.yml`
+- Retry behavior test for HTTP 5xx recovery in `tests/test_http_client.py`
+
+### Changed
+
+- Bumped package version from `0.1.1` to `0.1.2`.
+- Updated `project.license` metadata to SPDX string format (`MIT`) for setuptools compatibility.
+
 ## [0.1.1] - 2026-02-28
 
 ### Added
