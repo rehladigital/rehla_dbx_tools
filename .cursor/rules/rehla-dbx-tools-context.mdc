@@ -1,0 +1,21 @@
+---
+description: Always preserve rehla_dbx_tools context and simple UX
+alwaysApply: true
+---
+
+# Rehla DBX Tools Persistent Context
+
+- Treat this project as `rehla_dbx_tools` first in naming, examples, and user guidance.
+- Prefer the distribution/import names:
+  - `pip install rehla-dbx-tools`
+  - `from rehla_dbx_tools import DatabricksApiClient`
+- Default to simple end-user flows before advanced config:
+  - `DatabricksApiClient.simple(host=..., token=...)`
+  - token-optional fallbacks (env, browser+prompt, Windows SSO)
+- Keep snippets minimal and practical:
+  - import package
+  - host
+  - token (or optional auth fallback)
+  - account_id only when account APIs are used
+  - function call
+- When explaining errors, start with fastest fix and avoid overcomplicating setup.

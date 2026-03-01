@@ -78,6 +78,45 @@ from rehla_dbx_tools import DatabricksApiClient
 client = DatabricksApiClient.from_env()
 ```
 
+## 3a) Create Client from Host + Token (Simplest Path)
+
+```python
+from rehla_dbx_tools import DatabricksApiClient
+
+client = DatabricksApiClient.simple(
+    host="https://dbc-xxxx.cloud.databricks.com",
+    token="dapi...token...",  # optional when using guided auth below
+    # optional account fields:
+    # account_host="https://accounts.cloud.databricks.com",
+    # account_id="acc-123",
+)
+
+runs = client.list_active_job_runs(limit=25)
+for run in runs:
+    print(run.get("run_id"))
+```
+
+Guided browser/token prompt flow:
+
+```python
+client = DatabricksApiClient.simple(
+    host="https://dbc-xxxx.cloud.databricks.com",
+    open_browser_for_token=True,
+    prompt_for_token=True,
+)
+```
+
+Windows SSO via Databricks CLI:
+
+```python
+# First-time setup in terminal:
+# databricks auth login --host https://dbc-xxxx.cloud.databricks.com
+
+client = DatabricksApiClient.from_windows_sso(
+    host="https://dbc-xxxx.cloud.databricks.com",
+)
+```
+
 Force a cloud target for both workspace and account config:
 
 ```python

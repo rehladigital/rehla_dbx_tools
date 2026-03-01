@@ -39,6 +39,38 @@ if client.workspace is not None:
 client = DatabricksApiClient.from_env_for_cloud("azure")
 ```
 
+Simple host/token setup:
+
+```python
+from rehla_dbx_tools import DatabricksApiClient
+
+client = DatabricksApiClient.simple(
+    host="https://dbc-xxxx.cloud.databricks.com",
+    token="dapi...token...",
+)
+
+for run in client.list_active_job_runs(limit=25):
+    print(run.get("run_id"))
+```
+
+Token can be omitted if you want guided auth:
+
+```python
+client = DatabricksApiClient.simple(
+    host="https://dbc-xxxx.cloud.databricks.com",
+    open_browser_for_token=True,  # opens Access Tokens page
+    prompt_for_token=True,         # prompts to paste token
+)
+```
+
+Windows SSO flow (Databricks CLI login):
+
+```python
+client = DatabricksApiClient.from_windows_sso(
+    host="https://dbc-xxxx.cloud.databricks.com",
+)
+```
+
 ## Notebook Context Bootstrap
 
 Inside Databricks notebooks:

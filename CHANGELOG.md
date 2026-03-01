@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-03-01
+
+### Added
+
+- Simple client bootstrap for local scripts:
+  - `DatabricksApiClient.simple(host=..., token=...)`
+  - token-optional fallbacks from env vars
+  - guided browser + prompt token flow
+  - Windows SSO token resolution via Databricks CLI
+- Plain-list convenience helper:
+  - `DatabricksApiClient.list_active_job_runs(...)`
+- Regression coverage for simple bootstrap and token fallback behavior.
+
+### Changed
+
+- Updated README and usage guide with minimal host-first examples and SSO/browser token options.
+
 ## [1.1.0] - 2026-03-01
 
 ### Added
