@@ -866,3 +866,66 @@
 - Updated usage snippets in `README.md` and `docs/USAGE.md` for Jobs permissions wrappers.
 - Validation: `48 passed` via `pytest -q`.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 35).
+
+## Run 36 (Cycle 36 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: add cluster permissions wrappers for ACL visibility and update.
+
+### Progress Notes
+
+- Added `get_cluster_permissions(cluster_id)` wrapper.
+- Added `update_cluster_permissions(cluster_id, access_control_list)` wrapper.
+- Added endpoint-catalog routes for `/api/2.0/permissions/clusters/{cluster_id}`.
+
+## Run 37 (Cycle 37 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add cluster permission-level discovery wrapper.
+
+### Progress Notes
+
+- Added `get_cluster_permission_levels(cluster_id)` wrapper.
+- Added endpoint-catalog route for `/api/2.0/permissions/clusters/{cluster_id}/permissionLevels`.
+
+## Run 38 (Cycle 38 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: add repo permissions wrappers for ACL read/update and permission levels.
+
+### Progress Notes
+
+- Added repo permissions wrappers:
+  - `get_repo_permissions(repo_id)`
+  - `update_repo_permissions(repo_id, access_control_list)`
+  - `get_repo_permission_levels(repo_id)`
+- Added endpoint-catalog routes for `/api/2.0/permissions/repos/{repo_id}` and `/permissionLevels`.
+
+## Run 39 (Cycle 39 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: harden identifier validation for new cluster/repo permission wrappers.
+
+### Progress Notes
+
+- Added non-empty string validation helper and applied it to cluster permissions wrappers.
+- Added positive-ID validation for repo permissions wrappers.
+- Added regression validation tests for invalid cluster IDs and repo IDs in `tests/test_workspace_client.py`.
+
+## Run 40 (Cycle 40 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: sync tests/docs/generated endpoints for cluster/repo permissions expansion.
+
+### Progress Notes
+
+- Expanded wrapper behavior tests for cluster/repo permissions paths and payloads.
+- Regenerated endpoint constants from updated endpoint catalog.
+- Updated usage snippets in `README.md` and `docs/USAGE.md` for cluster/repo permission wrappers.
+- Validation: `48 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 40).

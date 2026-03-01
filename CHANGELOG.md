@@ -47,7 +47,15 @@ All notable changes to this project will be documented in this file.
   - `get_job_permissions`
   - `update_job_permissions`
   - `get_job_permission_levels`
+- Added cluster/repo permissions wrappers:
+  - `get_cluster_permissions`
+  - `update_cluster_permissions`
+  - `get_cluster_permission_levels`
+  - `get_repo_permissions`
+  - `update_repo_permissions`
+  - `get_repo_permission_levels`
 - Added positive-ID validation for job deletion and job-permissions wrappers.
+- Added identifier validation for cluster/repo permissions wrappers.
 - Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01

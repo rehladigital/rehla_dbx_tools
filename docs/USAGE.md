@@ -115,6 +115,10 @@ permission_update = client.workspace.update_job_permissions(
     job_id=123,
     access_control_list=[{"group_name": "admins", "permission_level": "CAN_MANAGE"}],
 )
+cluster_permissions = client.workspace.get_cluster_permissions(cluster_id="0123-abc")
+cluster_permission_levels = client.workspace.get_cluster_permission_levels(cluster_id="0123-abc")
+repo_permissions = client.workspace.get_repo_permissions(repo_id=12345)
+repo_permission_levels = client.workspace.get_repo_permission_levels(repo_id=12345)
 run_repair = client.workspace.repair_job_run(run_id=987, rerun_all_failed_tasks=True)
 run_cancel_all = client.workspace.cancel_all_job_runs(job_id=123, all_queued_runs=True)
 cluster_resp = client.workspace.get_cluster(cluster_id="0123-abc")

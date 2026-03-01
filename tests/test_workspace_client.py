@@ -171,6 +171,18 @@ def test_job_run_wrappers_validate_identifiers_and_pagination_inputs():
         client.update_job_permissions(0, [])
     with pytest.raises(ValidationError):
         client.get_job_permission_levels(0)
+    with pytest.raises(ValidationError):
+        client.get_cluster_permissions("")
+    with pytest.raises(ValidationError):
+        client.update_cluster_permissions(" ", [])
+    with pytest.raises(ValidationError):
+        client.get_cluster_permission_levels("")
+    with pytest.raises(ValidationError):
+        client.get_repo_permissions(0)
+    with pytest.raises(ValidationError):
+        client.update_repo_permissions(0, [])
+    with pytest.raises(ValidationError):
+        client.get_repo_permission_levels(0)
 
 
 def test_cluster_wrappers_route_expected_methods_and_payloads():
@@ -222,6 +234,24 @@ def test_cluster_wrappers_route_expected_methods_and_payloads():
             "cluster_id": "c-1",
             "limit": 50,
         }
+
+        client.get_cluster_permissions("c-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/c-1"
+
+        client.update_cluster_permissions(
+            "c-1",
+            [{"group_name": "admins", "permission_level": "CAN_MANAGE"}],
+        )
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/c-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "access_control_list": [{"group_name": "admins", "permission_level": "CAN_MANAGE"}]
+        }
+
+        client.get_cluster_permission_levels("c-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/c-1/permissionLevels"
 
 
 def test_catalog_repo_secret_token_wrappers_route_expected_calls():
@@ -304,6 +334,24 @@ def test_repo_and_secret_scope_wrappers_route_expected_calls():
         client.delete_repo(12345)
         assert request_versioned.call_args.args == ("DELETE", "repos")
         assert request_versioned.call_args.kwargs["endpoint"] == "12345"
+
+        client.get_repo_permissions(12345)
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "repos/12345"
+
+        client.update_repo_permissions(
+            12345,
+            [{"user_name": "user@example.com", "permission_level": "CAN_READ"}],
+        )
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "repos/12345"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "access_control_list": [{"user_name": "user@example.com", "permission_level": "CAN_READ"}]
+        }
+
+        client.get_repo_permission_levels(12345)
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "repos/12345/permissionLevels"
 
         client.create_secret_scope("app-prod", initial_manage_principal="users")
         assert request_versioned.call_args.args == ("POST", "secrets")

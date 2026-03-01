@@ -51,6 +51,12 @@ ENDPOINT_CATALOG: dict[str, dict[str, dict[str, str]]] = {
             "permissions_jobs_get": "/api/2.0/permissions/jobs/{job_id}",
             "permissions_jobs_patch": "/api/2.0/permissions/jobs/{job_id}",
             "permissions_jobs_permission_levels": "/api/2.0/permissions/jobs/{job_id}/permissionLevels",
+            "permissions_clusters_get": "/api/2.0/permissions/clusters/{cluster_id}",
+            "permissions_clusters_patch": "/api/2.0/permissions/clusters/{cluster_id}",
+            "permissions_clusters_permission_levels": "/api/2.0/permissions/clusters/{cluster_id}/permissionLevels",
+            "permissions_repos_get": "/api/2.0/permissions/repos/{repo_id}",
+            "permissions_repos_patch": "/api/2.0/permissions/repos/{repo_id}",
+            "permissions_repos_permission_levels": "/api/2.0/permissions/repos/{repo_id}/permissionLevels",
         },
         "2.1": {
             "jobs_create": "/api/2.1/jobs/create",

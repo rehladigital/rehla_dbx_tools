@@ -19,6 +19,11 @@ class WorkspaceClient(BaseDatabricksClient):
         if value <= 0:
             raise ValidationError(f"{field_name} must be > 0.")
 
+    @staticmethod
+    def _require_non_empty_string(value: str, field_name: str) -> None:
+        if not value or not str(value).strip():
+            raise ValidationError(f"{field_name} is required.")
+
     def list_jobs(self, api_version: str = "2.1", limit: int = 25) -> Any:
         return self.request_versioned(
             "GET",
@@ -266,6 +271,72 @@ class WorkspaceClient(BaseDatabricksClient):
             "GET",
             "permissions",
             endpoint=f"jobs/{job_id}/permissionLevels",
+            api_version=api_version,
+        )
+
+    def get_cluster_permissions(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"clusters/{cluster_id}",
+            api_version=api_version,
+        )
+
+    def update_cluster_permissions(
+        self,
+        cluster_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"clusters/{cluster_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_cluster_permission_levels(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"clusters/{cluster_id}/permissionLevels",
+            api_version=api_version,
+        )
+
+    def get_repo_permissions(self, repo_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(repo_id, "repo_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"repos/{repo_id}",
+            api_version=api_version,
+        )
+
+    def update_repo_permissions(
+        self,
+        repo_id: int,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_positive_int(repo_id, "repo_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"repos/{repo_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_repo_permission_levels(self, repo_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(repo_id, "repo_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"repos/{repo_id}/permissionLevels",
             api_version=api_version,
         )
 
