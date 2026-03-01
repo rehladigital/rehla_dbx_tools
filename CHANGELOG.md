@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.14] - 2026-02-28
+
+### Added
+
+- Account private endpoint wrapper expansion:
+  - VPC endpoints: `list_vpc_endpoints`, `create_vpc_endpoint`, `delete_vpc_endpoint`
+  - Customer-managed keys: `list_customer_managed_keys`, `create_customer_managed_key`, `delete_customer_managed_key`
+- Account wrapper regression coverage extended in `tests/test_account_client.py`.
+
+### Changed
+
+- Expanded account endpoint catalog/constants with VPC endpoint and customer-managed-key routes.
+- Updated README and usage examples for account private endpoint lifecycle operations.
+- Bumped package version from `0.1.13` to `0.1.14`.
+
 ## [0.1.13] - 2026-02-28
 
 ### Added

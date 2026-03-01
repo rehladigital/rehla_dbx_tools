@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rehladigital-aws-dbx-tools"
-version = "0.1.13"
+version = "0.1.14"
 description = "Production-focused Databricks API toolkit by Rehla Digital Inc for workspace and account automation on AWS."
 readme = "README.md"
 requires-python = ">=3.9"

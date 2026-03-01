@@ -44,3 +44,4 @@ At end of every cycle:
 4. Keep PyPI metadata/release docs current.
 5. Execute continuous release cycles via loop maintainer process.
 6. Expand account onboarding wrappers (credentials, storage configurations, networks).
+7. Expand account private endpoint wrappers (VPC endpoints, customer-managed keys).

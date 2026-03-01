@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 200 loops
-- Completed loops: 13
-- Remaining loops: 187
-- Current loop: 14 (queued)
+- Completed loops: 14
+- Remaining loops: 186
+- Current loop: 15 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 13
-- Current package version: 0.1.13
+- Last completed cycle: 14
+- Current package version: 0.1.14
 - Last pushed commit: `pending-this-cycle`
 
 ## Recent Releases
@@ -27,6 +27,6 @@
 ## Next Queue
 
 1. Add docs examples for token hygiene and rotation
-2. Add account private endpoint wrappers for VPC endpoints and keys
-3. Add account user/group helper wrappers
+2. Add account user/group helper wrappers
+3. Add account budget policy and log-delivery wrappers
 4. Release next patch and append cycle log

@@ -199,3 +199,55 @@ class AccountClient(BaseDatabricksClient):
             endpoint=f"private-access-settings/{private_access_settings_id}",
             api_version=api_version,
         )
+
+    def list_vpc_endpoints(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="vpc-endpoints",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_vpc_endpoint(self, vpc_endpoint_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="vpc-endpoints",
+            api_version=api_version,
+            json_body=vpc_endpoint_spec,
+        )
+
+    def delete_vpc_endpoint(self, vpc_endpoint_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"vpc-endpoints/{vpc_endpoint_id}",
+            api_version=api_version,
+        )
+
+    def list_customer_managed_keys(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="customer-managed-keys",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_customer_managed_key(self, key_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="customer-managed-keys",
+            api_version=api_version,
+            json_body=key_spec,
+        )
+
+    def delete_customer_managed_key(self, customer_managed_key_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"customer-managed-keys/{customer_managed_key_id}",
+            api_version=api_version,
+        )

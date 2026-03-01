@@ -249,3 +249,28 @@
 - Added response regression tests for `runs` and nested `result.items` patterns.
 - Validation: `25 passed` via `pytest -q`.
 - Bumped version to `0.1.13`.
+
+## Cycle 14
+
+- Date: 2026-02-28
+- Objective: expand account private endpoint coverage for networking and key management.
+- Planned focus:
+  - account VPC endpoint wrappers
+  - account customer-managed-key wrappers
+  - tests/docs/version bump
+
+### Progress Notes
+
+- Added account VPC endpoint wrappers:
+  - `list_vpc_endpoints`
+  - `create_vpc_endpoint`
+  - `delete_vpc_endpoint`
+- Added account customer-managed-key wrappers:
+  - `list_customer_managed_keys`
+  - `create_customer_managed_key`
+  - `delete_customer_managed_key`
+- Expanded account endpoint catalog and regenerated endpoint constants.
+- Added tests for VPC endpoint/CMK wrapper paths and payloads.
+- Updated README and usage examples for account private endpoint operations.
+- Validation: `26 passed` via `pytest -q`.
+- Bumped version to `0.1.14`.

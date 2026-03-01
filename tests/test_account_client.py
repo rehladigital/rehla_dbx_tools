@@ -131,3 +131,45 @@ def test_network_and_private_access_wrappers_use_expected_methods_and_paths():
         client.delete_private_access_settings("pas-101")
         assert request_account.call_args.args == ("DELETE",)
         assert request_account.call_args.kwargs["endpoint"] == "private-access-settings/pas-101"
+
+
+def test_vpc_endpoints_and_customer_managed_keys_wrappers_use_expected_methods_and_paths():
+    client = AccountClient(
+        AccountConfig(
+            host="https://accounts.cloud.databricks.com",
+            account_id="acc-123",
+            auth=AuthConfig(token="token"),
+        )
+    )
+
+    with patch.object(client, "request_account", return_value="ok") as request_account:
+        client.list_vpc_endpoints()
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "vpc-endpoints"
+        assert request_account.call_args.kwargs["paginate"] is True
+
+        client.create_vpc_endpoint({"vpc_endpoint_name": "prod-vpce"})
+        assert request_account.call_args.args == ("POST",)
+        assert request_account.call_args.kwargs["endpoint"] == "vpc-endpoints"
+        assert request_account.call_args.kwargs["json_body"] == {"vpc_endpoint_name": "prod-vpce"}
+
+        client.delete_vpc_endpoint("vpce-101")
+        assert request_account.call_args.args == ("DELETE",)
+        assert request_account.call_args.kwargs["endpoint"] == "vpc-endpoints/vpce-101"
+
+        client.list_customer_managed_keys()
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "customer-managed-keys"
+        assert request_account.call_args.kwargs["paginate"] is True
+
+        client.create_customer_managed_key({"use_cases": ["MANAGED_SERVICES"], "aws_key_info": {"key_arn": "arn"}})
+        assert request_account.call_args.args == ("POST",)
+        assert request_account.call_args.kwargs["endpoint"] == "customer-managed-keys"
+        assert request_account.call_args.kwargs["json_body"] == {
+            "use_cases": ["MANAGED_SERVICES"],
+            "aws_key_info": {"key_arn": "arn"},
+        }
+
+        client.delete_customer_managed_key("cmk-101")
+        assert request_account.call_args.args == ("DELETE",)
+        assert request_account.call_args.kwargs["endpoint"] == "customer-managed-keys/cmk-101"

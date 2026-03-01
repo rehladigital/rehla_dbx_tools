@@ -94,6 +94,8 @@ if client.account is not None:
     storage_cfgs = client.account.list_storage_configurations()
     networks = client.account.list_networks()
     private_access = client.account.list_private_access_settings()
+    vpc_endpoints = client.account.list_vpc_endpoints()
+    cmks = client.account.list_customer_managed_keys()
 ```
 
 For detailed setup and examples, see `docs/USAGE.md`.

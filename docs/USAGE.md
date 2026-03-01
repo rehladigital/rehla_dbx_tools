@@ -164,6 +164,14 @@ if client.account is not None:
         {"private_access_settings_name": "prod-private-link"}
     )
     pas_delete = client.account.delete_private_access_settings("pas-101")
+    vpce_list = client.account.list_vpc_endpoints()
+    vpce_create = client.account.create_vpc_endpoint({"vpc_endpoint_name": "prod-vpce"})
+    vpce_delete = client.account.delete_vpc_endpoint("vpce-101")
+    cmk_list = client.account.list_customer_managed_keys()
+    cmk_create = client.account.create_customer_managed_key(
+        {"use_cases": ["MANAGED_SERVICES"], "aws_key_info": {"key_arn": "arn:aws:kms:region:acct:key/id"}}
+    )
+    cmk_delete = client.account.delete_customer_managed_key("cmk-101")
 ```
 
 Generic account call:
