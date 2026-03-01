@@ -126,3 +126,16 @@
 - Added compatibility module tree under `src/rehladigital_aws_dbx_tools/` for core modules, clients, and endpoints.
 - Added submodule import test coverage to ensure `rehladigital_aws_dbx_tools.clients.workspace` works.
 - Bumped version to `0.1.7`.
+
+## Cycle 8
+
+- Date: 2026-02-28
+- Objective: make loop execution status visibly trackable to the user.
+- Planned focus:
+  - add one-file process dashboard
+  - keep release cadence consistent
+
+### Progress Notes
+
+- Added `docs/PROCESS_DASHBOARD.md` with status, last cycle, current version, last SHA, and next queue.
+- Bumped version to `0.1.8`.

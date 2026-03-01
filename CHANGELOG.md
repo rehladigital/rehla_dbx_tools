@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2026-02-28
+
+### Added
+
+- Live process visibility dashboard at `docs/PROCESS_DASHBOARD.md`.
+
+### Changed
+
+- Bumped package version from `0.1.7` to `0.1.8`.
+
 ## [0.1.7] - 2026-02-28
 
 ### Added
