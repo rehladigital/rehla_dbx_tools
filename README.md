@@ -137,6 +137,10 @@ Workspace (`client.workspace`):
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`
+- `list_uc_connections`, `create_uc_connection`, `get_uc_connection`, `update_uc_connection`, `delete_uc_connection`
+- `list_uc_external_locations`, `create_uc_external_location`, `get_uc_external_location`, `update_uc_external_location`, `delete_uc_external_location`
+- `list_vector_search_endpoints`, `create_vector_search_endpoint`, `get_vector_search_endpoint`, `update_vector_search_endpoint`, `delete_vector_search_endpoint`
+- `list_vector_search_indexes`, `create_vector_search_index`, `get_vector_search_index`, `delete_vector_search_index`, `query_vector_search_index`
 - `list_sharing_providers`, `create_sharing_provider`, `get_sharing_provider`, `update_sharing_provider`, `delete_sharing_provider`
 - `list_share_recipients`, `create_share_recipient`, `get_share_recipient`, `update_share_recipient`, `delete_share_recipient`
 - `list_shares`, `create_share`, `get_share`, `update_share`, `delete_share`

@@ -2663,6 +2663,207 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Unity Catalog scope (additional connections/external-locations wrappers)
+    def list_uc_connections(self, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="connections",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_uc_connection(self, connection_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint="connections",
+            api_version=api_version,
+            json_body=connection_spec,
+        )
+
+    def get_uc_connection(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"connections/{name}",
+            api_version=api_version,
+        )
+
+    def update_uc_connection(self, name: str, connection_changes: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"connections/{name}",
+            api_version=api_version,
+            json_body=connection_changes,
+        )
+
+    def delete_uc_connection(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"connections/{name}",
+            api_version=api_version,
+        )
+
+    def list_uc_external_locations(self, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="external-locations",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_uc_external_location(self, location_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint="external-locations",
+            api_version=api_version,
+            json_body=location_spec,
+        )
+
+    def get_uc_external_location(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"external-locations/{name}",
+            api_version=api_version,
+        )
+
+    def update_uc_external_location(self, name: str, location_changes: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"external-locations/{name}",
+            api_version=api_version,
+            json_body=location_changes,
+        )
+
+    def delete_uc_external_location(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"external-locations/{name}",
+            api_version=api_version,
+        )
+
+    # Vector Search scope
+    def list_vector_search_endpoints(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "vector-search",
+            endpoint="endpoints",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_vector_search_endpoint(self, endpoint_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "vector-search",
+            endpoint="endpoints",
+            api_version=api_version,
+            json_body=endpoint_spec,
+        )
+
+    def get_vector_search_endpoint(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "GET",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}",
+            api_version=api_version,
+        )
+
+    def update_vector_search_endpoint(
+        self, endpoint_name: str, endpoint_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "PATCH",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}",
+            api_version=api_version,
+            json_body=endpoint_changes,
+        )
+
+    def delete_vector_search_endpoint(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "DELETE",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}",
+            api_version=api_version,
+        )
+
+    def list_vector_search_indexes(self, endpoint_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "GET",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}/indexes",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_vector_search_index(
+        self, endpoint_name: str, index_spec: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        return self.request_versioned(
+            "POST",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}/indexes",
+            api_version=api_version,
+            json_body=index_spec,
+        )
+
+    def get_vector_search_index(self, endpoint_name: str, index_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        self._require_non_empty_string(index_name, "index_name")
+        return self.request_versioned(
+            "GET",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}/indexes/{index_name}",
+            api_version=api_version,
+        )
+
+    def delete_vector_search_index(self, endpoint_name: str, index_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        self._require_non_empty_string(index_name, "index_name")
+        return self.request_versioned(
+            "DELETE",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}/indexes/{index_name}",
+            api_version=api_version,
+        )
+
+    def query_vector_search_index(
+        self,
+        endpoint_name: str,
+        index_name: str,
+        query_payload: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(endpoint_name, "endpoint_name")
+        self._require_non_empty_string(index_name, "index_name")
+        return self.request_versioned(
+            "POST",
+            "vector-search",
+            endpoint=f"endpoints/{endpoint_name}/indexes/{index_name}/query",
+            api_version=api_version,
+            json_body=query_payload,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(

@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.17] - 2026-03-01
+
+### Added
+
+- Unity Catalog wrappers on workspace client:
+  - `list_uc_connections`
+  - `create_uc_connection`
+  - `get_uc_connection`
+  - `update_uc_connection`
+  - `delete_uc_connection`
+  - `list_uc_external_locations`
+  - `create_uc_external_location`
+  - `get_uc_external_location`
+  - `update_uc_external_location`
+  - `delete_uc_external_location`
+- Vector Search wrappers on workspace client:
+  - `list_vector_search_endpoints`
+  - `create_vector_search_endpoint`
+  - `get_vector_search_endpoint`
+  - `update_vector_search_endpoint`
+  - `delete_vector_search_endpoint`
+  - `list_vector_search_indexes`
+  - `create_vector_search_index`
+  - `get_vector_search_index`
+  - `delete_vector_search_index`
+  - `query_vector_search_index`
+- Endpoint catalog entries for Unity Catalog connections/external-locations and Vector Search routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include new Unity Catalog and Vector Search methods.
+- Bumped package version from `1.2.16` to `1.2.17`.
+
 ## [1.2.16] - 2026-03-01
 
 ### Added

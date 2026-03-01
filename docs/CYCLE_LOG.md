@@ -1539,3 +1539,22 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.16` with changelog updates for release.
+
+## Run 77 (Cycle 77 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: implement `unity-catalog` and `vector-search` wrappers with tests and release.
+
+### Progress Notes
+
+- Added Unity Catalog wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_uc_connections`, `create_uc_connection`, `get_uc_connection`, `update_uc_connection`, `delete_uc_connection`
+  - `list_uc_external_locations`, `create_uc_external_location`, `get_uc_external_location`, `update_uc_external_location`, `delete_uc_external_location`
+- Added Vector Search wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_vector_search_endpoints`, `create_vector_search_endpoint`, `get_vector_search_endpoint`, `update_vector_search_endpoint`, `delete_vector_search_endpoint`
+  - `list_vector_search_indexes`, `create_vector_search_index`, `get_vector_search_index`, `delete_vector_search_index`, `query_vector_search_index`
+- Updated `src/databricks_api/endpoints/catalog.py` with Unity Catalog and Vector Search endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.17` with changelog updates for release.

@@ -821,6 +821,137 @@ def test_quality_monitor_and_postgres_wrappers_route_expected_calls_and_validati
         client.delete_cluster_policy("")
 
 
+def test_unity_catalog_and_vector_search_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_uc_connections()
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "connections"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_uc_connection({"name": "snowflake_conn"})
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "connections"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "snowflake_conn"}
+
+        client.get_uc_connection("snowflake_conn")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "connections/snowflake_conn"
+
+        client.update_uc_connection("snowflake_conn", {"comment": "updated"})
+        assert request_versioned.call_args.args == ("PATCH", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "connections/snowflake_conn"
+        assert request_versioned.call_args.kwargs["json_body"] == {"comment": "updated"}
+
+        client.delete_uc_connection("snowflake_conn")
+        assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "connections/snowflake_conn"
+
+        client.list_uc_external_locations()
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "external-locations"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_uc_external_location({"name": "s3_ext"})
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "external-locations"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "s3_ext"}
+
+        client.get_uc_external_location("s3_ext")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "external-locations/s3_ext"
+
+        client.update_uc_external_location("s3_ext", {"comment": "updated"})
+        assert request_versioned.call_args.args == ("PATCH", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "external-locations/s3_ext"
+        assert request_versioned.call_args.kwargs["json_body"] == {"comment": "updated"}
+
+        client.delete_uc_external_location("s3_ext")
+        assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "external-locations/s3_ext"
+
+        client.list_vector_search_endpoints()
+        assert request_versioned.call_args.args == ("GET", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_vector_search_endpoint({"name": "vs-endpoint"})
+        assert request_versioned.call_args.args == ("POST", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "vs-endpoint"}
+
+        client.get_vector_search_endpoint("vs-endpoint")
+        assert request_versioned.call_args.args == ("GET", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint"
+
+        client.update_vector_search_endpoint("vs-endpoint", {"budget_policy_id": "bp-1"})
+        assert request_versioned.call_args.args == ("PATCH", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint"
+        assert request_versioned.call_args.kwargs["json_body"] == {"budget_policy_id": "bp-1"}
+
+        client.delete_vector_search_endpoint("vs-endpoint")
+        assert request_versioned.call_args.args == ("DELETE", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint"
+
+        client.list_vector_search_indexes("vs-endpoint")
+        assert request_versioned.call_args.args == ("GET", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint/indexes"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_vector_search_index("vs-endpoint", {"name": "idx-1"})
+        assert request_versioned.call_args.args == ("POST", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint/indexes"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "idx-1"}
+
+        client.get_vector_search_index("vs-endpoint", "idx-1")
+        assert request_versioned.call_args.args == ("GET", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint/indexes/idx-1"
+
+        client.delete_vector_search_index("vs-endpoint", "idx-1")
+        assert request_versioned.call_args.args == ("DELETE", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint/indexes/idx-1"
+
+        client.query_vector_search_index("vs-endpoint", "idx-1", {"query_text": "find me similar rows"})
+        assert request_versioned.call_args.args == ("POST", "vector-search")
+        assert request_versioned.call_args.kwargs["endpoint"] == "endpoints/vs-endpoint/indexes/idx-1/query"
+        assert request_versioned.call_args.kwargs["json_body"] == {"query_text": "find me similar rows"}
+
+    with pytest.raises(ValidationError):
+        client.get_uc_connection("")
+    with pytest.raises(ValidationError):
+        client.update_uc_connection("", {})
+    with pytest.raises(ValidationError):
+        client.delete_uc_connection("")
+    with pytest.raises(ValidationError):
+        client.get_uc_external_location("")
+    with pytest.raises(ValidationError):
+        client.update_uc_external_location("", {})
+    with pytest.raises(ValidationError):
+        client.delete_uc_external_location("")
+    with pytest.raises(ValidationError):
+        client.get_vector_search_endpoint("")
+    with pytest.raises(ValidationError):
+        client.update_vector_search_endpoint("", {})
+    with pytest.raises(ValidationError):
+        client.delete_vector_search_endpoint("")
+    with pytest.raises(ValidationError):
+        client.list_vector_search_indexes("")
+    with pytest.raises(ValidationError):
+        client.create_vector_search_index("", {})
+    with pytest.raises(ValidationError):
+        client.get_vector_search_index("", "idx-1")
+    with pytest.raises(ValidationError):
+        client.get_vector_search_index("vs-endpoint", "")
+    with pytest.raises(ValidationError):
+        client.delete_vector_search_index("", "idx-1")
+    with pytest.raises(ValidationError):
+        client.delete_vector_search_index("vs-endpoint", "")
+    with pytest.raises(ValidationError):
+        client.query_vector_search_index("", "idx-1", {})
+    with pytest.raises(ValidationError):
+        client.query_vector_search_index("vs-endpoint", "", {})
+
+
 def test_cluster_wrappers_route_expected_methods_and_payloads():
     client = _workspace_client()
 
