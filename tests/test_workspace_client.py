@@ -617,6 +617,90 @@ def test_alerts_and_dashboards_wrappers_route_expected_calls():
         client.unpublish_dashboard("")
 
 
+def test_apps_and_authentication_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_apps()
+        assert request_versioned.call_args.args == ("GET", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_app({"name": "ops-app"})
+        assert request_versioned.call_args.args == ("POST", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "ops-app"}
+
+        client.get_app("ops-app")
+        assert request_versioned.call_args.args == ("GET", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ops-app"
+
+        client.update_app("ops-app", {"description": "ops app v2"})
+        assert request_versioned.call_args.args == ("PATCH", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ops-app"
+        assert request_versioned.call_args.kwargs["json_body"] == {"description": "ops app v2"}
+
+        client.delete_app("ops-app")
+        assert request_versioned.call_args.args == ("DELETE", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ops-app"
+
+        client.start_app("ops-app")
+        assert request_versioned.call_args.args == ("POST", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ops-app/start"
+
+        client.stop_app("ops-app")
+        assert request_versioned.call_args.args == ("POST", "apps")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ops-app/stop"
+
+        acl = [{"user_name": "user@example.com", "permission_level": "CAN_MANAGE"}]
+        client.get_app_permissions("ops-app")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "apps/ops-app"
+
+        client.set_app_permissions("ops-app", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "apps/ops-app"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_app_permissions("ops-app", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "apps/ops-app"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_app_permission_levels("ops-app")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "apps/ops-app/permissionLevels"
+
+        client.list_all_tokens()
+        assert request_versioned.call_args.args == ("GET", "token-management")
+        assert request_versioned.call_args.kwargs["endpoint"] == "tokens"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_token_info("token-123")
+        assert request_versioned.call_args.args == ("GET", "token-management")
+        assert request_versioned.call_args.kwargs["endpoint"] == "tokens/token-123"
+
+    with pytest.raises(ValidationError):
+        client.get_app("")
+    with pytest.raises(ValidationError):
+        client.update_app("", {})
+    with pytest.raises(ValidationError):
+        client.delete_app("")
+    with pytest.raises(ValidationError):
+        client.start_app("")
+    with pytest.raises(ValidationError):
+        client.stop_app("")
+    with pytest.raises(ValidationError):
+        client.get_app_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_app_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_app_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_app_permission_levels("")
+    with pytest.raises(ValidationError):
+        client.get_token_info("")
+
+
 def test_instance_pool_wrappers_route_expected_calls():
     client = _workspace_client()
     with patch.object(client, "request_versioned", return_value="ok") as request_versioned:

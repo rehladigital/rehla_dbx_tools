@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.4] - 2026-03-01
+
+### Added
+
+- Apps scope wrappers on workspace client:
+  - `list_apps`
+  - `create_app`
+  - `get_app`
+  - `update_app`
+  - `delete_app`
+  - `start_app`
+  - `stop_app`
+  - `get_app_permissions`
+  - `set_app_permissions`
+  - `update_app_permissions`
+  - `get_app_permission_levels`
+- Authentication scope wrappers on workspace client:
+  - `list_all_tokens` (token-management)
+  - `get_token_info` (token-management)
+- Endpoint catalog entries for apps and token-management routes.
+- Regression test coverage for apps/authentication wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include apps and token-management methods.
+- Bumped package version from `1.2.3` to `1.2.4`.
+
 ## [1.2.3] - 2026-03-01
 
 ### Added

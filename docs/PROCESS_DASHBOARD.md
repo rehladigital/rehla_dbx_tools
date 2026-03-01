@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 63
-- Remaining loops: 237
-- Current loop: 64 (queued)
+- Completed loops: 64
+- Remaining loops: 236
+- Current loop: 65 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 63
-- Current package version: 1.2.3
+- Last completed cycle: 64
+- Current package version: 1.2.4
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 64 on AWS track (round-robin sequence)
-2. Continue all-tools implementation for `apps` and `authentication` families
+1. Execute run 65 on Azure track (round-robin sequence)
+2. Continue all-tools implementation for `cleanrooms` and `command-execution` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.3` after commit/push and workflow verification
+4. Publish `1.2.4` after commit/push and workflow verification

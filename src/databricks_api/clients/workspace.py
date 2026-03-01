@@ -921,6 +921,132 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Apps scope
+    def list_apps(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "apps",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_app(self, app_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "apps",
+            endpoint="",
+            api_version=api_version,
+            json_body=app_spec,
+        )
+
+    def get_app(self, app_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "GET",
+            "apps",
+            endpoint=app_name,
+            api_version=api_version,
+        )
+
+    def update_app(self, app_name: str, app_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "PATCH",
+            "apps",
+            endpoint=app_name,
+            api_version=api_version,
+            json_body=app_changes,
+        )
+
+    def delete_app(self, app_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "DELETE",
+            "apps",
+            endpoint=app_name,
+            api_version=api_version,
+        )
+
+    def start_app(self, app_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "POST",
+            "apps",
+            endpoint=f"{app_name}/start",
+            api_version=api_version,
+        )
+
+    def stop_app(self, app_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "POST",
+            "apps",
+            endpoint=f"{app_name}/stop",
+            api_version=api_version,
+        )
+
+    def get_app_permissions(self, app_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"apps/{app_name}",
+            api_version=api_version,
+        )
+
+    def set_app_permissions(
+        self, app_name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"apps/{app_name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_app_permissions(
+        self, app_name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"apps/{app_name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_app_permission_levels(self, app_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(app_name, "app_name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"apps/{app_name}/permissionLevels",
+            api_version=api_version,
+        )
+
+    # Authentication scope (token-management subset)
+    def list_all_tokens(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "token-management",
+            endpoint="tokens",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_token_info(self, token_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(token_id, "token_id")
+        return self.request_versioned(
+            "GET",
+            "token-management",
+            endpoint=f"tokens/{token_id}",
+            api_version=api_version,
+        )
+
     def list_instance_pools(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(
             "GET",

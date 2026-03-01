@@ -1282,3 +1282,23 @@
 - Updated `README.md` with new workspace tools.
 - Validation: `72 passed` via `py -m pytest -q`.
 - Prepared patch version bump to `1.2.3` with changelog updates for release.
+
+## Run 64 (Cycle 64 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: implement `apps` and `authentication` wrappers with tests and release.
+
+### Progress Notes
+
+- Added apps wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
+  - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`
+- Added authentication wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_all_tokens`
+  - `get_token_info`
+- Updated `src/databricks_api/endpoints/catalog.py` with apps and token-management endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Validation: `73 passed` via `py -m pytest -q`.
+- Prepared patch version bump to `1.2.4` with changelog updates for release.

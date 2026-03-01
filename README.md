@@ -125,6 +125,9 @@ Workspace (`client.workspace`):
 - `get_object_permissions`, `set_object_permissions`, `update_object_permissions`, `get_object_permission_levels`
 - `list_sql_alerts`, `create_sql_alert`, `get_sql_alert`, `update_sql_alert`, `delete_sql_alert`
 - `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
+- `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
+- `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`
+- `list_all_tokens`, `get_token_info`
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`
