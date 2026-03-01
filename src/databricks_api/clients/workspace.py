@@ -1644,3 +1644,232 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
             json_body={"path": path},
         )
+
+    # Files scope
+    def list_files_directory(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "GET",
+            "files",
+            endpoint="directories",
+            api_version=api_version,
+            params={"path": path},
+            paginate=True,
+        )
+
+    def create_files_directory(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "POST",
+            "files",
+            endpoint="directories",
+            api_version=api_version,
+            json_body={"path": path},
+        )
+
+    def delete_files_directory(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "DELETE",
+            "files",
+            endpoint="directories",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def get_files_directory_metadata(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "GET",
+            "files",
+            endpoint="directories/metadata",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def download_file(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "GET",
+            "files",
+            endpoint="files",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def upload_file(
+        self,
+        path: str,
+        contents_base64: str,
+        *,
+        overwrite: bool = False,
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(path, "path")
+        self._require_non_empty_string(contents_base64, "contents_base64")
+        return self.request_versioned(
+            "POST",
+            "files",
+            endpoint="files",
+            api_version=api_version,
+            json_body={"path": path, "contents": contents_base64, "overwrite": overwrite},
+        )
+
+    def delete_file(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "DELETE",
+            "files",
+            endpoint="files",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def get_file_metadata(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "GET",
+            "files",
+            endpoint="files/metadata",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    # Delta Sharing scope
+    def list_sharing_providers(self, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="providers",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_sharing_provider(self, provider_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint="providers",
+            api_version=api_version,
+            json_body=provider_spec,
+        )
+
+    def get_sharing_provider(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"providers/{name}",
+            api_version=api_version,
+        )
+
+    def update_sharing_provider(self, name: str, provider_changes: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"providers/{name}",
+            api_version=api_version,
+            json_body=provider_changes,
+        )
+
+    def delete_sharing_provider(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"providers/{name}",
+            api_version=api_version,
+        )
+
+    def list_share_recipients(self, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="recipients",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_share_recipient(self, recipient_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint="recipients",
+            api_version=api_version,
+            json_body=recipient_spec,
+        )
+
+    def get_share_recipient(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"recipients/{name}",
+            api_version=api_version,
+        )
+
+    def update_share_recipient(self, name: str, recipient_changes: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"recipients/{name}",
+            api_version=api_version,
+            json_body=recipient_changes,
+        )
+
+    def delete_share_recipient(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"recipients/{name}",
+            api_version=api_version,
+        )
+
+    def list_shares(self, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="shares",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_share(self, share_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint="shares",
+            api_version=api_version,
+            json_body=share_spec,
+        )
+
+    def get_share(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"shares/{name}",
+            api_version=api_version,
+        )
+
+    def update_share(self, name: str, share_changes: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"shares/{name}",
+            api_version=api_version,
+            json_body=share_changes,
+        )
+
+    def delete_share(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"shares/{name}",
+            api_version=api_version,
+        )

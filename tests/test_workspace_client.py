@@ -1099,3 +1099,155 @@ def test_dbfs_wrappers_route_expected_calls_and_validation():
         client.delete_dbfs("")
     with pytest.raises(ValidationError):
         client.mkdirs_dbfs("")
+
+
+def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_files_directory("/Volumes/main/default")
+        assert request_versioned.call_args.args == ("GET", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "directories"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Volumes/main/default"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_files_directory("/Volumes/main/default/new-dir")
+        assert request_versioned.call_args.args == ("POST", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "directories"
+        assert request_versioned.call_args.kwargs["json_body"] == {"path": "/Volumes/main/default/new-dir"}
+
+        client.delete_files_directory("/Volumes/main/default/new-dir")
+        assert request_versioned.call_args.args == ("DELETE", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "directories"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Volumes/main/default/new-dir"}
+
+        client.get_files_directory_metadata("/Volumes/main/default")
+        assert request_versioned.call_args.args == ("GET", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "directories/metadata"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Volumes/main/default"}
+
+        client.download_file("/Volumes/main/default/data.csv")
+        assert request_versioned.call_args.args == ("GET", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "files"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Volumes/main/default/data.csv"}
+
+        client.upload_file("/Volumes/main/default/data.csv", "SGVsbG8=", overwrite=True)
+        assert request_versioned.call_args.args == ("POST", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "files"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "path": "/Volumes/main/default/data.csv",
+            "contents": "SGVsbG8=",
+            "overwrite": True,
+        }
+
+        client.delete_file("/Volumes/main/default/data.csv")
+        assert request_versioned.call_args.args == ("DELETE", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "files"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Volumes/main/default/data.csv"}
+
+        client.get_file_metadata("/Volumes/main/default/data.csv")
+        assert request_versioned.call_args.args == ("GET", "files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "files/metadata"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Volumes/main/default/data.csv"}
+
+        client.list_sharing_providers()
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_sharing_provider({"name": "partner-a"})
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "partner-a"}
+
+        client.get_sharing_provider("partner-a")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
+
+        client.update_sharing_provider("partner-a", {"comment": "trusted provider"})
+        assert request_versioned.call_args.args == ("PATCH", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
+        assert request_versioned.call_args.kwargs["json_body"] == {"comment": "trusted provider"}
+
+        client.delete_sharing_provider("partner-a")
+        assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
+
+        client.list_share_recipients()
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_share_recipient({"name": "consumer-a"})
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "consumer-a"}
+
+        client.get_share_recipient("consumer-a")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
+
+        client.update_share_recipient("consumer-a", {"comment": "new comment"})
+        assert request_versioned.call_args.args == ("PATCH", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
+        assert request_versioned.call_args.kwargs["json_body"] == {"comment": "new comment"}
+
+        client.delete_share_recipient("consumer-a")
+        assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
+
+        client.list_shares()
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_share({"name": "sales_share"})
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "sales_share"}
+
+        client.get_share("sales_share")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+
+        client.update_share("sales_share", {"comment": "updated"})
+        assert request_versioned.call_args.args == ("PATCH", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+        assert request_versioned.call_args.kwargs["json_body"] == {"comment": "updated"}
+
+        client.delete_share("sales_share")
+        assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+
+    with pytest.raises(ValidationError):
+        client.list_files_directory("")
+    with pytest.raises(ValidationError):
+        client.create_files_directory("")
+    with pytest.raises(ValidationError):
+        client.delete_files_directory("")
+    with pytest.raises(ValidationError):
+        client.get_files_directory_metadata("")
+    with pytest.raises(ValidationError):
+        client.download_file("")
+    with pytest.raises(ValidationError):
+        client.upload_file("", "SGVsbG8=")
+    with pytest.raises(ValidationError):
+        client.upload_file("/Volumes/main/default/data.csv", "")
+    with pytest.raises(ValidationError):
+        client.delete_file("")
+    with pytest.raises(ValidationError):
+        client.get_file_metadata("")
+    with pytest.raises(ValidationError):
+        client.get_sharing_provider("")
+    with pytest.raises(ValidationError):
+        client.update_sharing_provider("", {})
+    with pytest.raises(ValidationError):
+        client.delete_sharing_provider("")
+    with pytest.raises(ValidationError):
+        client.get_share_recipient("")
+    with pytest.raises(ValidationError):
+        client.update_share_recipient("", {})
+    with pytest.raises(ValidationError):
+        client.delete_share_recipient("")
+    with pytest.raises(ValidationError):
+        client.get_share("")
+    with pytest.raises(ValidationError):
+        client.update_share("", {})
+    with pytest.raises(ValidationError):
+        client.delete_share("")

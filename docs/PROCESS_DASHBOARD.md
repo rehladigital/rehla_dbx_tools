@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 67
-- Remaining loops: 233
-- Current loop: 68 (queued)
+- Completed loops: 68
+- Remaining loops: 232
+- Current loop: 69 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 67
-- Current package version: 1.2.7
+- Last completed cycle: 68
+- Current package version: 1.2.8
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 68 on Azure track (round-robin sequence)
-2. Continue all-tools implementation for `sharing` and `files` families
+1. Execute run 69 on GCP track (round-robin sequence)
+2. Continue all-tools implementation for `identity` and `instance-profiles` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.7` after commit/push and workflow verification
+4. Publish `1.2.8` after commit/push and workflow verification

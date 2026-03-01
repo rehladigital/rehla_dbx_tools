@@ -1371,3 +1371,23 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.7` with changelog updates for release.
+
+## Run 68 (Cycle 68 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: implement `sharing` and `files` wrappers with tests and release.
+
+### Progress Notes
+
+- Added delta-sharing wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_sharing_providers`, `create_sharing_provider`, `get_sharing_provider`, `update_sharing_provider`, `delete_sharing_provider`
+  - `list_share_recipients`, `create_share_recipient`, `get_share_recipient`, `update_share_recipient`, `delete_share_recipient`
+  - `list_shares`, `create_share`, `get_share`, `update_share`, `delete_share`
+- Added files wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`
+  - `download_file`, `upload_file`, `delete_file`, `get_file_metadata`
+- Updated `src/databricks_api/endpoints/catalog.py` with sharing and files endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.8` with changelog updates for release.

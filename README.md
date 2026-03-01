@@ -137,11 +137,16 @@ Workspace (`client.workspace`):
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`
+- `list_sharing_providers`, `create_sharing_provider`, `get_sharing_provider`, `update_sharing_provider`, `delete_sharing_provider`
+- `list_share_recipients`, `create_share_recipient`, `get_share_recipient`, `update_share_recipient`, `delete_share_recipient`
+- `list_shares`, `create_share`, `get_share`, `update_share`, `delete_share`
 - `list_sql_warehouses`, `get_sql_warehouse`
 - `list_instance_pools`, `get_instance_pool`
 - `get_instance_pool_permissions`, `set_instance_pool_permissions`, `update_instance_pool_permissions`, `get_instance_pool_permission_levels`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
+- `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`
+- `download_file`, `upload_file`, `delete_file`, `get_file_metadata`
 - `list_repos`, `get_repo`
 - `list_git_credentials`, `create_git_credential`, `get_git_credential`, `update_git_credential`, `delete_git_credential`
 - `list_secret_scopes`

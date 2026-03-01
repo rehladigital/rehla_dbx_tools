@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.8] - 2026-03-01
+
+### Added
+
+- Delta Sharing wrappers on workspace client:
+  - `list_sharing_providers`
+  - `create_sharing_provider`
+  - `get_sharing_provider`
+  - `update_sharing_provider`
+  - `delete_sharing_provider`
+  - `list_share_recipients`
+  - `create_share_recipient`
+  - `get_share_recipient`
+  - `update_share_recipient`
+  - `delete_share_recipient`
+  - `list_shares`
+  - `create_share`
+  - `get_share`
+  - `update_share`
+  - `delete_share`
+- Files wrappers on workspace client:
+  - `list_files_directory`
+  - `create_files_directory`
+  - `delete_files_directory`
+  - `get_files_directory_metadata`
+  - `download_file`
+  - `upload_file`
+  - `delete_file`
+  - `get_file_metadata`
+- Endpoint catalog entries for sharing and files routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include sharing and files methods.
+- Bumped package version from `1.2.7` to `1.2.8`.
+
 ## [1.2.7] - 2026-03-01
 
 ### Added
