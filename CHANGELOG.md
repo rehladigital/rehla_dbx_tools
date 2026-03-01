@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.16] - 2026-03-01
+
+### Added
+
+- Quality Monitor wrappers on workspace client:
+  - `list_quality_monitors`
+  - `create_quality_monitor`
+  - `get_quality_monitor`
+  - `update_quality_monitor`
+  - `delete_quality_monitor`
+- Postgres wrappers on workspace client:
+  - `list_postgres_projects`
+  - `create_postgres_project`
+  - `get_postgres_project`
+  - `update_postgres_project`
+  - `delete_postgres_project`
+  - `list_postgres_branches`
+  - `create_postgres_branch`
+  - `get_postgres_branch`
+  - `delete_postgres_branch`
+- Endpoint catalog entries for quality-monitor and postgres routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include quality-monitor and postgres methods.
+- Bumped package version from `1.2.15` to `1.2.16`.
+
 ## [1.2.15] - 2026-03-01
 
 ### Added

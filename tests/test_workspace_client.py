@@ -701,6 +701,100 @@ def test_settings_and_tags_wrappers_route_expected_calls_and_validation():
         client.delete_tag_assignment("clusters", "", "assignment-1")
     with pytest.raises(ValidationError):
         client.delete_tag_assignment("clusters", "cluster-1", "")
+
+
+def test_quality_monitor_and_postgres_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_quality_monitors()
+        assert request_versioned.call_args.args == ("GET", "quality-monitor-v2/monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_quality_monitor({"table_name": "main.prod.sales"})
+        assert request_versioned.call_args.args == ("POST", "quality-monitor-v2/monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"table_name": "main.prod.sales"}
+
+        client.get_quality_monitor("qm-1")
+        assert request_versioned.call_args.args == ("GET", "quality-monitor-v2/monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "qm-1"
+
+        client.update_quality_monitor("qm-1", {"status": "DISABLED"})
+        assert request_versioned.call_args.args == ("PATCH", "quality-monitor-v2/monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "qm-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"status": "DISABLED"}
+
+        client.delete_quality_monitor("qm-1")
+        assert request_versioned.call_args.args == ("DELETE", "quality-monitor-v2/monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "qm-1"
+
+        client.list_postgres_projects()
+        assert request_versioned.call_args.args == ("GET", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_postgres_project({"name": "analytics-db"})
+        assert request_versioned.call_args.args == ("POST", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "analytics-db"}
+
+        client.get_postgres_project("project-1")
+        assert request_versioned.call_args.args == ("GET", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1"
+
+        client.update_postgres_project("project-1", {"name": "analytics-db-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "analytics-db-v2"}
+
+        client.delete_postgres_project("project-1")
+        assert request_versioned.call_args.args == ("DELETE", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1"
+
+        client.list_postgres_branches("project-1")
+        assert request_versioned.call_args.args == ("GET", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1/branches"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_postgres_branch("project-1", {"name": "feature-branch"})
+        assert request_versioned.call_args.args == ("POST", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1/branches"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "feature-branch"}
+
+        client.get_postgres_branch("project-1", "branch-1")
+        assert request_versioned.call_args.args == ("GET", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1/branches/branch-1"
+
+        client.delete_postgres_branch("project-1", "branch-1")
+        assert request_versioned.call_args.args == ("DELETE", "postgres/projects")
+        assert request_versioned.call_args.kwargs["endpoint"] == "project-1/branches/branch-1"
+
+    with pytest.raises(ValidationError):
+        client.get_quality_monitor("")
+    with pytest.raises(ValidationError):
+        client.update_quality_monitor("", {})
+    with pytest.raises(ValidationError):
+        client.delete_quality_monitor("")
+    with pytest.raises(ValidationError):
+        client.get_postgres_project("")
+    with pytest.raises(ValidationError):
+        client.update_postgres_project("", {})
+    with pytest.raises(ValidationError):
+        client.delete_postgres_project("")
+    with pytest.raises(ValidationError):
+        client.list_postgres_branches("")
+    with pytest.raises(ValidationError):
+        client.create_postgres_branch("", {})
+    with pytest.raises(ValidationError):
+        client.get_postgres_branch("", "branch-1")
+    with pytest.raises(ValidationError):
+        client.get_postgres_branch("project-1", "")
+    with pytest.raises(ValidationError):
+        client.delete_postgres_branch("", "branch-1")
+    with pytest.raises(ValidationError):
+        client.delete_postgres_branch("project-1", "")
+
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):

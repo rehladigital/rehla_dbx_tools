@@ -2529,6 +2529,140 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Quality Monitor scope
+    def list_quality_monitors(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "quality-monitor-v2/monitors",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_quality_monitor(self, monitor_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "quality-monitor-v2/monitors",
+            endpoint="",
+            api_version=api_version,
+            json_body=monitor_spec,
+        )
+
+    def get_quality_monitor(self, monitor_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "GET",
+            "quality-monitor-v2/monitors",
+            endpoint=monitor_id,
+            api_version=api_version,
+        )
+
+    def update_quality_monitor(self, monitor_id: str, monitor_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "PATCH",
+            "quality-monitor-v2/monitors",
+            endpoint=monitor_id,
+            api_version=api_version,
+            json_body=monitor_changes,
+        )
+
+    def delete_quality_monitor(self, monitor_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "DELETE",
+            "quality-monitor-v2/monitors",
+            endpoint=monitor_id,
+            api_version=api_version,
+        )
+
+    # Postgres scope (projects/branches)
+    def list_postgres_projects(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "postgres/projects",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_postgres_project(self, project_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "postgres/projects",
+            endpoint="",
+            api_version=api_version,
+            json_body=project_spec,
+        )
+
+    def get_postgres_project(self, project_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        return self.request_versioned(
+            "GET",
+            "postgres/projects",
+            endpoint=project_id,
+            api_version=api_version,
+        )
+
+    def update_postgres_project(self, project_id: str, project_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        return self.request_versioned(
+            "PATCH",
+            "postgres/projects",
+            endpoint=project_id,
+            api_version=api_version,
+            json_body=project_changes,
+        )
+
+    def delete_postgres_project(self, project_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        return self.request_versioned(
+            "DELETE",
+            "postgres/projects",
+            endpoint=project_id,
+            api_version=api_version,
+        )
+
+    def list_postgres_branches(self, project_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        return self.request_versioned(
+            "GET",
+            "postgres/projects",
+            endpoint=f"{project_id}/branches",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_postgres_branch(self, project_id: str, branch_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        return self.request_versioned(
+            "POST",
+            "postgres/projects",
+            endpoint=f"{project_id}/branches",
+            api_version=api_version,
+            json_body=branch_spec,
+        )
+
+    def get_postgres_branch(self, project_id: str, branch_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        self._require_non_empty_string(branch_id, "branch_id")
+        return self.request_versioned(
+            "GET",
+            "postgres/projects",
+            endpoint=f"{project_id}/branches/{branch_id}",
+            api_version=api_version,
+        )
+
+    def delete_postgres_branch(self, project_id: str, branch_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(project_id, "project_id")
+        self._require_non_empty_string(branch_id, "branch_id")
+        return self.request_versioned(
+            "DELETE",
+            "postgres/projects",
+            endpoint=f"{project_id}/branches/{branch_id}",
+            api_version=api_version,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(

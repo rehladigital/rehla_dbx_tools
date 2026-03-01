@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 75
-- Remaining loops: 225
-- Current loop: 76 (queued)
+- Completed loops: 76
+- Remaining loops: 224
+- Current loop: 77 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 75
-- Current package version: 1.2.15
+- Last completed cycle: 76
+- Current package version: 1.2.16
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 76 on AWS track (round-robin sequence)
-2. Continue all-tools implementation for `postgres` and `qualitymonitor` families
+1. Execute run 77 on Azure track (round-robin sequence)
+2. Continue all-tools implementation for `unity-catalog` and `vector-search` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.15` after commit/push and workflow verification
+4. Publish `1.2.16` after commit/push and workflow verification

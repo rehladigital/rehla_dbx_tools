@@ -1521,3 +1521,21 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.15` with changelog updates for release.
+
+## Run 76 (Cycle 76 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: implement `postgres` and `qualitymonitor` wrappers with tests and release.
+
+### Progress Notes
+
+- Added quality-monitor wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_quality_monitors`, `create_quality_monitor`, `get_quality_monitor`, `update_quality_monitor`, `delete_quality_monitor`
+- Added postgres wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_postgres_projects`, `create_postgres_project`, `get_postgres_project`, `update_postgres_project`, `delete_postgres_project`
+  - `list_postgres_branches`, `create_postgres_branch`, `get_postgres_branch`, `delete_postgres_branch`
+- Updated `src/databricks_api/endpoints/catalog.py` with quality-monitor and postgres endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.16` with changelog updates for release.
