@@ -81,6 +81,11 @@ import getpass
 
 if client.workspace is not None:
     run = client.workspace.run_job_now(job_id=123)
+    runs = client.workspace.list_job_runs(job_id=123, active_only=True, limit=10)
+    run_export = client.workspace.export_job_run(run_id=987, views_to_export="CODE")
+    run_output = client.workspace.get_job_run_output(run_id=987)
+    repair = client.workspace.repair_job_run(run_id=987, rerun_all_failed_tasks=True)
+    cancel_all = client.workspace.cancel_all_job_runs(job_id=123, all_queued_runs=True)
     cluster = client.workspace.get_cluster(cluster_id="0123-abc")
     catalogs = client.workspace.list_catalogs(max_results=25)
     warehouses = client.workspace.list_sql_warehouses()

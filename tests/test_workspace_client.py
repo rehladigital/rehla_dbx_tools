@@ -53,12 +53,60 @@ def test_jobs_wrappers_route_expected_methods_and_payloads():
         assert request_versioned.call_args.kwargs["endpoint"] == "runs/cancel"
         assert request_versioned.call_args.kwargs["json_body"] == {"run_id": 987}
 
+        client.list_job_runs(job_id=123, active_only=True, offset=10, limit=5)
+        assert request_versioned.call_args.args == ("GET", "jobs")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/list"
+        assert request_versioned.call_args.kwargs["params"] == {
+            "job_id": 123,
+            "active_only": True,
+            "offset": 10,
+            "limit": 5,
+        }
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.cancel_all_job_runs(123, all_queued_runs=True)
+        assert request_versioned.call_args.args == ("POST", "jobs")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/cancel-all"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "job_id": 123,
+            "all_queued_runs": True,
+        }
+
+        client.export_job_run(987, views_to_export="CODE")
+        assert request_versioned.call_args.args == ("GET", "jobs")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/export"
+        assert request_versioned.call_args.kwargs["params"] == {"run_id": 987, "views_to_export": "CODE"}
+
+        client.get_job_run_output(987)
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/get-output"
+        assert request_versioned.call_args.kwargs["params"] == {"run_id": 987}
+
+        client.repair_job_run(987, rerun_all_failed_tasks=True, latest_repair_id=2)
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/repair"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "run_id": 987,
+            "rerun_all_failed_tasks": True,
+            "latest_repair_id": 2,
+        }
+
         client.delete_job(123)
         assert request_versioned.call_args.kwargs["endpoint"] == "delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"job_id": 123}
 
         client.run_job_now(321)
         assert request_versioned.call_args.kwargs["json_body"] == {"job_id": 321}
+
+        client.list_job_runs()
+        assert request_versioned.call_args.kwargs["params"] == {"limit": 25}
+
+        client.export_job_run(123)
+        assert request_versioned.call_args.kwargs["params"] == {"run_id": 123}
+
+        client.repair_job_run(456)
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "run_id": 456,
+            "rerun_all_failed_tasks": False,
+        }
 
 
 def test_cluster_wrappers_route_expected_methods_and_payloads():

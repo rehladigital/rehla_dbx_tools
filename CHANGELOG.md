@@ -34,6 +34,12 @@ All notable changes to this project will be documented in this file.
   - instance pools lifecycle wrappers
   - cluster policies lifecycle wrappers
   - DBFS list/status/read/delete/mkdirs wrappers with validation
+  - Jobs run-management wrappers:
+    - `list_job_runs`
+    - `cancel_all_job_runs`
+    - `export_job_run`
+    - `get_job_run_output`
+    - `repair_job_run`
 - Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01

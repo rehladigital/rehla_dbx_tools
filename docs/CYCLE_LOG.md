@@ -663,3 +663,78 @@
 - Updated `README.md` and `docs/USAGE.md` with new workspace wrapper examples.
 - Validation: `47 passed` via `pytest -q`.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 20).
+
+## Run 21 (Cycle 21 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: add workspace wrapper for listing job runs with filterable params and pagination.
+
+### Progress Notes
+
+- Added `list_job_runs(...)` wrapper to `WorkspaceClient` with optional filters:
+  - `job_id`
+  - `active_only`
+  - `completed_only`
+  - `offset`
+  - `limit`
+- Added endpoint-catalog route for `/api/2.1/jobs/runs/list`.
+
+## Run 22 (Cycle 22 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add run export/output wrappers for easier troubleshooting and artifact capture.
+
+### Progress Notes
+
+- Added `export_job_run(run_id, views_to_export=...)` wrapper.
+- Added `get_job_run_output(run_id)` wrapper.
+- Added endpoint-catalog routes for:
+  - `/api/2.1/jobs/runs/export`
+  - `/api/2.1/jobs/runs/get-output`
+
+## Run 23 (Cycle 23 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: add run-level control wrappers for fleet cancellation and repair operations.
+
+### Progress Notes
+
+- Added `cancel_all_job_runs(job_id, all_queued_runs=...)` wrapper.
+- Added `repair_job_run(run_id, rerun_all_failed_tasks=..., latest_repair_id=...)` wrapper.
+- Added endpoint-catalog routes for:
+  - `/api/2.1/jobs/runs/cancel-all`
+  - `/api/2.1/jobs/runs/repair`
+
+## Run 24 (Cycle 24 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: extend workspace wrapper regression coverage for new job-run operations.
+
+### Progress Notes
+
+- Expanded `tests/test_workspace_client.py` to assert method/path/payload behavior for:
+  - `list_job_runs`
+  - `cancel_all_job_runs`
+  - `export_job_run`
+  - `get_job_run_output`
+  - `repair_job_run`
+- Included default-parameter coverage for list/export/repair calls.
+
+## Run 25 (Cycle 25 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: sync generated endpoints and user docs for the run-management wrapper expansion.
+
+### Progress Notes
+
+- Regenerated endpoint constants from catalog updates:
+  - `src/databricks_api/endpoints/generated/workspace_endpoints.py`
+  - `src/databricks_api/endpoints/generated/account_endpoints.py`
+- Updated examples in `README.md` and `docs/USAGE.md` to include new Jobs run-management wrappers.
+- Validation: `47 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 25).

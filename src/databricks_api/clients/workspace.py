@@ -97,6 +97,100 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body={"run_id": run_id},
         )
 
+    def list_job_runs(
+        self,
+        *,
+        job_id: Optional[int] = None,
+        active_only: Optional[bool] = None,
+        completed_only: Optional[bool] = None,
+        offset: Optional[int] = None,
+        limit: Optional[int] = 25,
+        api_version: str = "2.1",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        if job_id is not None:
+            params["job_id"] = job_id
+        if active_only is not None:
+            params["active_only"] = active_only
+        if completed_only is not None:
+            params["completed_only"] = completed_only
+        if offset is not None:
+            params["offset"] = offset
+        if limit is not None:
+            params["limit"] = limit
+        return self.request_versioned(
+            "GET",
+            "jobs",
+            endpoint="runs/list",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
+    def cancel_all_job_runs(
+        self,
+        job_id: int,
+        *,
+        all_queued_runs: bool = False,
+        api_version: str = "2.1",
+    ) -> Any:
+        return self.request_versioned(
+            "POST",
+            "jobs",
+            endpoint="runs/cancel-all",
+            api_version=api_version,
+            json_body={"job_id": job_id, "all_queued_runs": all_queued_runs},
+        )
+
+    def export_job_run(
+        self,
+        run_id: int,
+        *,
+        views_to_export: Optional[str] = None,
+        api_version: str = "2.1",
+    ) -> Any:
+        params: dict[str, Any] = {"run_id": run_id}
+        if views_to_export:
+            params["views_to_export"] = views_to_export
+        return self.request_versioned(
+            "GET",
+            "jobs",
+            endpoint="runs/export",
+            api_version=api_version,
+            params=params,
+        )
+
+    def get_job_run_output(self, run_id: int, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "jobs",
+            endpoint="runs/get-output",
+            api_version=api_version,
+            params={"run_id": run_id},
+        )
+
+    def repair_job_run(
+        self,
+        run_id: int,
+        *,
+        rerun_all_failed_tasks: bool = False,
+        latest_repair_id: Optional[int] = None,
+        api_version: str = "2.1",
+    ) -> Any:
+        payload: dict[str, Any] = {
+            "run_id": run_id,
+            "rerun_all_failed_tasks": rerun_all_failed_tasks,
+        }
+        if latest_repair_id is not None:
+            payload["latest_repair_id"] = latest_repair_id
+        return self.request_versioned(
+            "POST",
+            "jobs",
+            endpoint="runs/repair",
+            api_version=api_version,
+            json_body=payload,
+        )
+
     def delete_job(self, job_id: int, api_version: str = "2.1") -> Any:
         return self.request_versioned(
             "POST",
