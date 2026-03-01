@@ -6,6 +6,18 @@ This guide explains how to use the package for:
 - API version selection (GA and preview)
 - Converting JSON responses into Pandas or PySpark DataFrames
 
+## Install
+
+```bash
+pip install rehladigital-aws-dbx-tools
+```
+
+For Spark DataFrame conversion support:
+
+```bash
+pip install "rehladigital-aws-dbx-tools[spark]"
+```
+
 ## 1) Configuration Model
 
 The package supports two API scopes:
@@ -209,7 +221,7 @@ Ensure both are set:
 Install spark extra:
 
 ```bash
-pip install -e .[spark]
+pip install "rehladigital-aws-dbx-tools[spark]"
 ```
 
 ## 12) Suggested Usage Pattern

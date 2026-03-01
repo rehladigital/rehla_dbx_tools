@@ -61,3 +61,20 @@
 - Added PyPI publish step to `.github/workflows/release.yml` using repository secret `PYPI_API_TOKEN`.
 - Updated `docs/RELEASE.md` with PyPI setup and verification steps.
 - Updated changelog and bumped version to `0.1.3`.
+
+## Cycle 4
+
+- Date: 2026-02-28
+- Objective: align published package identity and install command with Rehla branding.
+- Planned focus:
+  - Rename package for PyPI install (`rehladigital-aws-dbx-tools`)
+  - Improve PyPI metadata quality
+  - Keep loop cadence active
+
+### Progress Notes
+
+- Renamed distribution package to `rehladigital-aws-dbx-tools`.
+- Updated install commands in `README.md` and `docs/USAGE.md`.
+- Updated Spark install hint in `src/databricks_api/response.py`.
+- Added richer PyPI metadata in `pyproject.toml` (`keywords`, `classifiers`, `project.urls`, improved description).
+- Bumped version to `0.1.4`.

@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-02-28
+
+### Added
+
+- Improved PyPI metadata in `pyproject.toml`:
+  - `keywords`
+  - `classifiers`
+  - `project.urls`
+
+### Changed
+
+- Renamed published distribution from `unified-databricks-api` to `rehladigital-aws-dbx-tools`.
+- Updated install instructions in `README.md` and `docs/USAGE.md` to:
+  - `pip install rehladigital-aws-dbx-tools`
+- Updated Spark optional install hint to:
+  - `pip install "rehladigital-aws-dbx-tools[spark]"`
+- Bumped package version from `0.1.3` to `0.1.4`.
+
 ## [0.1.3] - 2026-02-28
 
 ### Added

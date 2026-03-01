@@ -9,13 +9,13 @@ Rehla Digital Inc builds cloud and data engineering solutions that help teams st
 ## Install
 
 ```bash
-pip install -e .
+pip install rehladigital-aws-dbx-tools
 ```
 
 Install Spark extras if needed:
 
 ```bash
-pip install -e .[spark]
+pip install "rehladigital-aws-dbx-tools[spark]"
 ```
 
 ## Quick Start

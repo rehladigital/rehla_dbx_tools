@@ -10,6 +10,8 @@
 4. Update `CHANGELOG.md` with release notes.
 5. Commit and push to `main`.
 6. Verify remote state and test status.
+7. Confirm install command for release:
+   - `pip install rehladigital-aws-dbx-tools`
 
 ## CI and Release Automation
 
@@ -29,6 +31,8 @@
    - tag push (for example `v0.1.3`), or
    - manual workflow dispatch.
 4. Verify package appears on PyPI and release artifacts are attached to GitHub Release.
+5. Validate install from a clean environment:
+   - `pip install rehladigital-aws-dbx-tools`
 
 ## Cycle-Oriented Continuous Loop
 
