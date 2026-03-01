@@ -1087,6 +1087,73 @@ def test_scim_workspace_wrappers_route_expected_calls_and_validation():
         client.update_scim_user("", {})
 
 
+def test_workspace_object_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_workspace_objects("/Users/team")
+        assert request_versioned.call_args.args == ("GET", "workspace")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Users/team"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_workspace_directory("/Users/team/new_dir")
+        assert request_versioned.call_args.args == ("POST", "workspace")
+        assert request_versioned.call_args.kwargs["endpoint"] == "mkdirs"
+        assert request_versioned.call_args.kwargs["json_body"] == {"path": "/Users/team/new_dir"}
+
+        client.get_workspace_object_status("/Users/team/notebook")
+        assert request_versioned.call_args.args == ("GET", "workspace")
+        assert request_versioned.call_args.kwargs["endpoint"] == "get-status"
+        assert request_versioned.call_args.kwargs["params"] == {"path": "/Users/team/notebook"}
+
+        client.export_workspace_object("/Users/team/notebook", format="SOURCE", direct_download=False)
+        assert request_versioned.call_args.args == ("GET", "workspace")
+        assert request_versioned.call_args.kwargs["endpoint"] == "export"
+        assert request_versioned.call_args.kwargs["params"] == {
+            "path": "/Users/team/notebook",
+            "format": "SOURCE",
+            "direct_download": False,
+        }
+
+        client.import_workspace_object(
+            "/Users/team/notebook_copy",
+            content="ZGVmIG1haW4oKTogcGFzcw==",
+            format="SOURCE",
+            language="PYTHON",
+            overwrite=True,
+        )
+        assert request_versioned.call_args.args == ("POST", "workspace")
+        assert request_versioned.call_args.kwargs["endpoint"] == "import"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "path": "/Users/team/notebook_copy",
+            "content": "ZGVmIG1haW4oKTogcGFzcw==",
+            "format": "SOURCE",
+            "language": "PYTHON",
+            "overwrite": True,
+        }
+
+        client.delete_workspace_object("/Users/team/notebook_copy", recursive=True)
+        assert request_versioned.call_args.args == ("POST", "workspace")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "path": "/Users/team/notebook_copy",
+            "recursive": True,
+        }
+
+    with pytest.raises(ValidationError):
+        client.list_workspace_objects("")
+    with pytest.raises(ValidationError):
+        client.create_workspace_directory("")
+    with pytest.raises(ValidationError):
+        client.get_workspace_object_status("")
+    with pytest.raises(ValidationError):
+        client.export_workspace_object("")
+    with pytest.raises(ValidationError):
+        client.import_workspace_object("")
+    with pytest.raises(ValidationError):
+        client.delete_workspace_object("")
+
+
 def test_cluster_wrappers_route_expected_methods_and_payloads():
     client = _workspace_client()
 

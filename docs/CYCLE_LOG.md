@@ -1594,3 +1594,19 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation checks.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the complete secrets scope.
 - Prepared patch version bump to `2.0.2` with changelog updates for release.
+
+## Run 80 (Cycle 80 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: complete workspace object lifecycle wrappers for workspace scope parity.
+
+### Progress Notes
+
+- Added workspace object wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_workspace_objects`, `create_workspace_directory`, `get_workspace_object_status`
+  - `export_workspace_object`, `import_workspace_object`, `delete_workspace_object`
+- Added endpoint catalog keys in `src/databricks_api/endpoints/catalog.py` for `/api/2.0/workspace/*` routes.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with workspace object tooling.
+- Prepared patch version bump to `2.0.3` with changelog updates for release.

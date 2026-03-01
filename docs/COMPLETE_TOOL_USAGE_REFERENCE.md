@@ -229,6 +229,12 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `create_repo(url, provider=..., path=..., branch=..., sparse_checkout=...)`
 - `update_repo(repo_id, branch=..., tag=...)`
 - `delete_repo(repo_id)`
+- `list_workspace_objects(path)`
+- `create_workspace_directory(path)`
+- `get_workspace_object_status(path)`
+- `export_workspace_object(path, format=..., direct_download=...)`
+- `import_workspace_object(path, content=..., format=..., language=..., overwrite=...)`
+- `delete_workspace_object(path, recursive=...)`
 - `get_repo_permissions(repo_id)`
 - `update_repo_permissions(repo_id, access_control_list)`
 - `get_repo_permission_levels(repo_id)`

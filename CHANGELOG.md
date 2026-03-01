@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.3] - 2026-03-01
+
+### Added
+
+- Workspace object wrappers to complete workspace-service object lifecycle operations:
+  - `list_workspace_objects`
+  - `create_workspace_directory`
+  - `get_workspace_object_status`
+  - `export_workspace_object`
+  - `import_workspace_object`
+  - `delete_workspace_object`
+- Endpoint catalog entries for `/api/2.0/workspace/*` routes (`list`, `mkdirs`, `get-status`, `export`, `import`, `delete`).
+- Regression test coverage for workspace object wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include workspace object operations.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with workspace object usage coverage.
+- Bumped package version from `2.0.2` to `2.0.3`.
+
 ## [2.0.2] - 2026-03-01
 
 ### Added

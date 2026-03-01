@@ -636,6 +636,98 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body=operations_spec,
         )
 
+    # Workspace object scope
+    def list_workspace_objects(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "GET",
+            "workspace",
+            endpoint="list",
+            api_version=api_version,
+            params={"path": path},
+            paginate=True,
+        )
+
+    def create_workspace_directory(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "POST",
+            "workspace",
+            endpoint="mkdirs",
+            api_version=api_version,
+            json_body={"path": path},
+        )
+
+    def get_workspace_object_status(self, path: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "GET",
+            "workspace",
+            endpoint="get-status",
+            api_version=api_version,
+            params={"path": path},
+        )
+
+    def export_workspace_object(
+        self,
+        path: str,
+        *,
+        format: Optional[str] = None,
+        direct_download: Optional[bool] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(path, "path")
+        params: dict[str, Any] = {"path": path}
+        if format:
+            params["format"] = format
+        if direct_download is not None:
+            params["direct_download"] = direct_download
+        return self.request_versioned(
+            "GET",
+            "workspace",
+            endpoint="export",
+            api_version=api_version,
+            params=params,
+        )
+
+    def import_workspace_object(
+        self,
+        path: str,
+        *,
+        content: Optional[str] = None,
+        format: Optional[str] = None,
+        language: Optional[str] = None,
+        overwrite: Optional[bool] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(path, "path")
+        payload: dict[str, Any] = {"path": path}
+        if content is not None:
+            payload["content"] = content
+        if format is not None:
+            payload["format"] = format
+        if language is not None:
+            payload["language"] = language
+        if overwrite is not None:
+            payload["overwrite"] = overwrite
+        return self.request_versioned(
+            "POST",
+            "workspace",
+            endpoint="import",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def delete_workspace_object(self, path: str, recursive: bool = False, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(path, "path")
+        return self.request_versioned(
+            "POST",
+            "workspace",
+            endpoint="delete",
+            api_version=api_version,
+            json_body={"path": path, "recursive": recursive},
+        )
+
     def get_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:
         self._require_non_empty_string(cluster_id, "cluster_id")
         return self.request_versioned(

@@ -175,6 +175,8 @@ Workspace (`client.workspace`):
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`
 - `download_file`, `upload_file`, `delete_file`, `get_file_metadata`
 - `list_repos`, `get_repo`
+- `list_workspace_objects`, `create_workspace_directory`, `get_workspace_object_status`
+- `export_workspace_object`, `import_workspace_object`, `delete_workspace_object`
 - `list_git_credentials`, `create_git_credential`, `get_git_credential`, `update_git_credential`, `delete_git_credential`
 - `put_secret`, `delete_secret`, `get_secret`, `list_secret_keys`
 - `list_secret_scopes`, `create_secret_scope`, `delete_secret_scope`
