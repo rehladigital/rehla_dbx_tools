@@ -1191,7 +1191,7 @@
 ### Progress Notes
 
 - Pushed release commit and created tag `v1.1.0`.
-- Triggered release + publish workflows and verified successful completion.
+- Verified release workflow success for tag push (`22546397212`).
 
 ## Run 60 (Cycle 60 of 300 campaign)
 
@@ -1201,6 +1201,7 @@
 
 ### Progress Notes
 
-- Verified `rehla-dbx-tools==1.1.0` is visible on PyPI.
+- Triggered and verified publish workflow success (`22546409827`).
+- Verified package URL: `https://pypi.org/project/rehla-dbx-tools/1.1.0/`.
 - Updated dashboard/context for loop continuation from run 61.
 - Package version is now `1.1.0`.

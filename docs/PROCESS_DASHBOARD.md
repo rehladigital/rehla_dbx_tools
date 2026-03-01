@@ -15,14 +15,14 @@
 
 - Last completed cycle: 60
 - Current package version: 1.1.0
-- Last pushed commit: `pending-this-cycle`
+- Last pushed commit: `ef97818`
 
 ## Recent Releases
 
+- `1.1.0` - minor release checkpoint with live smoke + DBX alias hardening
+- `1.0.0` - major release baseline for 300-cycle campaign
 - `0.1.7` - full `rehladigital_aws_dbx_tools` namespace compatibility
 - `0.1.6` - public import namespace
-- `0.1.5` - Unity Catalog/Repos/Secrets/Tokens wrappers
-- `0.1.4` - package rename + PyPI metadata improvements
 
 ## Next Queue
 
