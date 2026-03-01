@@ -60,6 +60,16 @@ All notable changes to this project will be documented in this file.
   - positive checks for `job_id`, `repo_id`, and list `limit` inputs
   - non-empty checks for `cluster_id`, `warehouse_id`, `instance_pool_id`, and `policy_id`
   - cluster event validation for both `cluster_id` and `limit`
+- Added `DBX_HOST` and `DBX_TOKEN` alias support in environment config loading.
+- Expanded alias support for:
+  - `DBX_CLOUD`, `DBX_ACCOUNT_CLOUD`
+  - `DBX_STRICT_CLOUD_MATCH`
+  - `DBX_AUTH_TYPE`, `DBX_ACCOUNT_AUTH_TYPE`
+  - `DBX_ACCOUNT_HOST`, `DBX_ACCOUNT_ID`, `DBX_ACCOUNT_TOKEN`
+- Added GitHub workflow `.github/workflows/non_destructive_smoke.yml` for non-destructive workspace smoke checks.
+- Added `tools/non_destructive_workspace_smoke.py` to validate read-only workspace APIs against live environments.
+- Added host normalization fix for common `*.cloud.databricks.net` workspace URL typo -> `*.cloud.databricks.com`.
+- Updated `docs/RELEASE.md` to document OIDC-based PyPI publish flow and non-destructive smoke process.
 - Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01

@@ -31,18 +31,31 @@
     - `cycle_number`
     - `version`
   - Workflow enforces major milestone dispatch only on cycle multiples of `50`
-  - Builds distribution artifacts, publishes to PyPI (when `PYPI_API_TOKEN` exists), and creates GitHub release
+  - Builds distribution artifacts and creates GitHub release
+- PyPI publish workflow: `.github/workflows/workflow.yml`
+  - Runs on `release.published`
+  - Also supports manual dispatch (`workflow_dispatch`) for recovery/retry
+  - Publishes to PyPI using OIDC trusted publishing (no API token required)
 
 ## PyPI Publish Setup
 
-1. Create a PyPI API token in the target PyPI project.
-2. Add repository secret `PYPI_API_TOKEN` in GitHub.
-3. Trigger release workflow with:
-   - tag push (for example `v1.0.0`), or
-   - manual workflow dispatch with required inputs.
+1. Configure PyPI Trusted Publisher for this repository/workflow/environment.
+2. Create/push release tag (for example `v1.0.0`) and ensure GitHub release is published.
+3. Verify `Publish to PyPI` workflow succeeds (or trigger it manually via `workflow_dispatch` if needed).
 4. Verify package appears on PyPI and release artifacts are attached to GitHub Release.
 5. Validate install from a clean environment:
    - `pip install rehla-dbx-tools`
+
+## Non-Destructive Live Validation
+
+- Workflow: `.github/workflows/non_destructive_smoke.yml`
+- Trigger: manual dispatch
+- Secrets used:
+  - `DBX_HOST`
+  - `DBX_TOKEN`
+- Behavior:
+  - runs read-only list/get smoke checks via `tools/non_destructive_workspace_smoke.py`
+  - does not call mutation endpoints
 
 ## Cycle-Oriented Continuous Loop
 

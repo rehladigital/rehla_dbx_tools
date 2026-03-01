@@ -29,6 +29,14 @@ def test_from_env_uses_dbx_host_alias_when_databricks_host_missing(monkeypatch):
     assert cfg.workspace.host == "https://dbc-test.cloud.databricks.com"
 
 
+def test_from_env_uses_dbx_cloud_alias(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.delenv("DATABRICKS_CLOUD", raising=False)
+    monkeypatch.setenv("DBX_CLOUD", "aws")
+    cfg = UnifiedConfig.from_env()
+    assert cfg.workspace.cloud == "aws"
+
+
 def test_from_env_reads_workspace_and_account_cloud(monkeypatch):
     monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
     monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
@@ -127,6 +135,17 @@ def test_from_env_rejects_invalid_strict_cloud_match(monkeypatch):
         UnifiedConfig.from_env()
 
 
+def test_from_env_uses_dbx_strict_cloud_match_alias(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
+    monkeypatch.setenv("DATABRICKS_CLOUD", "aws")
+    monkeypatch.delenv("DATABRICKS_STRICT_CLOUD_MATCH", raising=False)
+    monkeypatch.setenv("DBX_STRICT_CLOUD_MATCH", "false")
+
+    cfg = UnifiedConfig.from_env()
+
+    assert cfg.strict_cloud_match is False
+
+
 def test_from_env_uses_dbx_token_alias_for_workspace_auth(monkeypatch):
     monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
     monkeypatch.delenv("DATABRICKS_TOKEN", raising=False)
@@ -135,3 +154,19 @@ def test_from_env_uses_dbx_token_alias_for_workspace_auth(monkeypatch):
     cfg = UnifiedConfig.from_env()
 
     assert cfg.workspace.auth.token == "dbx-token"
+
+
+def test_from_env_uses_dbx_account_aliases(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.delenv("DATABRICKS_ACCOUNT_HOST", raising=False)
+    monkeypatch.delenv("DATABRICKS_ACCOUNT_ID", raising=False)
+    monkeypatch.delenv("DATABRICKS_ACCOUNT_TOKEN", raising=False)
+    monkeypatch.setenv("DBX_ACCOUNT_HOST", "https://accounts.cloud.databricks.com")
+    monkeypatch.setenv("DBX_ACCOUNT_ID", "acc-123")
+    monkeypatch.setenv("DBX_ACCOUNT_TOKEN", "acc-token")
+
+    cfg = UnifiedConfig.from_env()
+
+    assert cfg.account.host == "https://accounts.cloud.databricks.com"
+    assert cfg.account.account_id == "acc-123"
+    assert cfg.account.auth.token == "acc-token"

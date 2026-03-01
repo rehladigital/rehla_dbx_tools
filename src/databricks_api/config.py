@@ -48,29 +48,35 @@ class UnifiedConfig:
     @staticmethod
     def from_env() -> "UnifiedConfig":
         workspace_host = _normalize_host(_first_env("DATABRICKS_HOST", "DBX_HOST"))
-        account_host = _normalize_host(os.getenv("DATABRICKS_ACCOUNT_HOST"))
+        account_host = _normalize_host(_first_env("DATABRICKS_ACCOUNT_HOST", "DBX_ACCOUNT_HOST"))
         workspace_cloud = _resolve_cloud(
-            configured_cloud=os.getenv("DATABRICKS_CLOUD"),
+            configured_cloud=_first_env("DATABRICKS_CLOUD", "DBX_CLOUD"),
             host=workspace_host,
             fallback="aws",
         )
         account_cloud = _resolve_cloud(
-            configured_cloud=os.getenv("DATABRICKS_ACCOUNT_CLOUD", os.getenv("DATABRICKS_CLOUD")),
+            configured_cloud=(
+                _first_env("DATABRICKS_ACCOUNT_CLOUD", "DBX_ACCOUNT_CLOUD")
+                or _first_env("DATABRICKS_CLOUD", "DBX_CLOUD")
+            ),
             host=account_host,
             fallback=workspace_cloud,
         )
-        strict_cloud_match = _normalize_bool(os.getenv("DATABRICKS_STRICT_CLOUD_MATCH"), default=True)
+        strict_cloud_match = _normalize_bool(
+            _first_env("DATABRICKS_STRICT_CLOUD_MATCH", "DBX_STRICT_CLOUD_MATCH"),
+            default=True,
+        )
 
         workspace_auth = AuthConfig(
-            auth_type=os.getenv("DATABRICKS_AUTH_TYPE", "auto"),  # type: ignore[arg-type]
+            auth_type=_first_env("DATABRICKS_AUTH_TYPE", "DBX_AUTH_TYPE") or "auto",  # type: ignore[arg-type]
             token=_first_env("DATABRICKS_TOKEN", "DBX_TOKEN"),
             client_id=os.getenv("DATABRICKS_CLIENT_ID"),
             client_secret=os.getenv("DATABRICKS_CLIENT_SECRET"),
             oauth_scope=os.getenv("DATABRICKS_OAUTH_SCOPE", "all-apis"),
         )
         account_auth = AuthConfig(
-            auth_type=os.getenv("DATABRICKS_ACCOUNT_AUTH_TYPE", workspace_auth.auth_type),  # type: ignore[arg-type]
-            token=os.getenv("DATABRICKS_ACCOUNT_TOKEN", workspace_auth.token),
+            auth_type=(_first_env("DATABRICKS_ACCOUNT_AUTH_TYPE", "DBX_ACCOUNT_AUTH_TYPE") or workspace_auth.auth_type),  # type: ignore[arg-type]
+            token=_first_env("DATABRICKS_ACCOUNT_TOKEN", "DBX_ACCOUNT_TOKEN") or workspace_auth.token,
             client_id=os.getenv("DATABRICKS_ACCOUNT_CLIENT_ID", workspace_auth.client_id),
             client_secret=os.getenv("DATABRICKS_ACCOUNT_CLIENT_SECRET", workspace_auth.client_secret),
             oauth_scope=os.getenv("DATABRICKS_ACCOUNT_OAUTH_SCOPE", workspace_auth.oauth_scope),
@@ -84,7 +90,7 @@ class UnifiedConfig:
             ),
             account=AccountConfig(
                 host=account_host,
-                account_id=os.getenv("DATABRICKS_ACCOUNT_ID"),
+                account_id=_first_env("DATABRICKS_ACCOUNT_ID", "DBX_ACCOUNT_ID"),
                 auth=account_auth,
                 default_api_version=os.getenv("DATABRICKS_ACCOUNT_API_VERSION", "2.0"),
                 cloud=account_cloud,

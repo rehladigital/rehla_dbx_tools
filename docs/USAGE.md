@@ -34,26 +34,36 @@ Configuration precedence:
 ### Workspace
 
 - `DATABRICKS_HOST` (required for local usage if not from notebook context)
+- `DBX_HOST` (alias fallback when `DATABRICKS_HOST` is not set)
 - `DATABRICKS_AUTH_TYPE` (`auto`, `pat`, `oauth`, `notebook`; default `auto`)
+- `DBX_AUTH_TYPE` (alias fallback for `DATABRICKS_AUTH_TYPE`)
 - `DATABRICKS_TOKEN` (PAT)
+- `DBX_TOKEN` (alias fallback when `DATABRICKS_TOKEN` is not set)
 - `DATABRICKS_CLIENT_ID` (OAuth service principal)
 - `DATABRICKS_CLIENT_SECRET` (OAuth service principal)
 - `DATABRICKS_OAUTH_SCOPE` (default `all-apis`)
 - `DATABRICKS_WORKSPACE_API_VERSION` (default `2.1`)
 - `DATABRICKS_CLOUD` (`aws`, `azure`, `gcp`; default `aws`)
+- `DBX_CLOUD` (alias fallback for `DATABRICKS_CLOUD`)
 - `DATABRICKS_STRICT_CLOUD_MATCH` (`true`/`false`; default `true`)
+- `DBX_STRICT_CLOUD_MATCH` (alias fallback for `DATABRICKS_STRICT_CLOUD_MATCH`)
 
 ### Account
 
 - `DATABRICKS_ACCOUNT_HOST` (required for account APIs)
+- `DBX_ACCOUNT_HOST` (alias fallback when `DATABRICKS_ACCOUNT_HOST` is not set)
 - `DATABRICKS_ACCOUNT_ID` (required for account APIs)
+- `DBX_ACCOUNT_ID` (alias fallback when `DATABRICKS_ACCOUNT_ID` is not set)
 - `DATABRICKS_ACCOUNT_AUTH_TYPE` (default fallback from workspace auth type)
+- `DBX_ACCOUNT_AUTH_TYPE` (alias fallback for `DATABRICKS_ACCOUNT_AUTH_TYPE`)
 - `DATABRICKS_ACCOUNT_TOKEN`
+- `DBX_ACCOUNT_TOKEN` (alias fallback for `DATABRICKS_ACCOUNT_TOKEN`)
 - `DATABRICKS_ACCOUNT_CLIENT_ID`
 - `DATABRICKS_ACCOUNT_CLIENT_SECRET`
 - `DATABRICKS_ACCOUNT_OAUTH_SCOPE`
 - `DATABRICKS_ACCOUNT_API_VERSION` (default `2.0`)
 - `DATABRICKS_ACCOUNT_CLOUD` (`aws`, `azure`, `gcp`; defaults to `DATABRICKS_CLOUD`)
+- `DBX_ACCOUNT_CLOUD` (alias fallback for `DATABRICKS_ACCOUNT_CLOUD`)
 
 Cloud-host alignment guardrail:
 - If host pattern clearly indicates a cloud (for example `*.azuredatabricks.net` or `*.gcp.databricks.com`), the corresponding cloud env value must match.
