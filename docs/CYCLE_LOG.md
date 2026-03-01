@@ -429,3 +429,20 @@
 - Added regression tests for cloud parsing, overrides, and invalid-value handling in `tests/test_config.py`.
 - Updated `docs/USAGE.md` environment variable documentation for cloud selectors.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 3).
+
+## Run 4 (Cycle 4 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add host-cloud alignment guardrails to prevent misconfigured multi-cloud environments.
+
+### Progress Notes
+
+- Added host inference guardrails in config validation:
+  - `*.azuredatabricks.net` -> `azure`
+  - `*.gcp.databricks.com` -> `gcp`
+  - `*.cloud.databricks.com` -> `aws`
+- Added validation errors when configured cloud env values conflict with inferred host cloud.
+- Added regression tests for workspace and account host/cloud mismatch scenarios in `tests/test_config.py`.
+- Updated `docs/USAGE.md` with cloud-host alignment guidance.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 4).

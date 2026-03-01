@@ -17,7 +17,8 @@ def test_from_env_normalizes_host(monkeypatch):
 
 
 def test_from_env_reads_workspace_and_account_cloud(monkeypatch):
-    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
     monkeypatch.setenv("DATABRICKS_CLOUD", "azure")
     monkeypatch.setenv("DATABRICKS_ACCOUNT_CLOUD", "gcp")
 
@@ -30,6 +31,23 @@ def test_from_env_reads_workspace_and_account_cloud(monkeypatch):
 def test_from_env_rejects_invalid_cloud(monkeypatch):
     monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
     monkeypatch.setenv("DATABRICKS_CLOUD", "invalid-cloud")
+
+    with pytest.raises(ValidationError):
+        UnifiedConfig.from_env()
+
+
+def test_from_env_rejects_workspace_host_cloud_mismatch(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
+    monkeypatch.setenv("DATABRICKS_CLOUD", "aws")
+
+    with pytest.raises(ValidationError):
+        UnifiedConfig.from_env()
+
+
+def test_from_env_rejects_account_host_cloud_mismatch(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_CLOUD", "azure")
 
     with pytest.raises(ValidationError):
         UnifiedConfig.from_env()

@@ -54,6 +54,9 @@ Configuration precedence:
 - `DATABRICKS_ACCOUNT_API_VERSION` (default `2.0`)
 - `DATABRICKS_ACCOUNT_CLOUD` (`aws`, `azure`, `gcp`; defaults to `DATABRICKS_CLOUD`)
 
+Cloud-host alignment guardrail:
+- If host pattern clearly indicates a cloud (for example `*.azuredatabricks.net` or `*.gcp.databricks.com`), the corresponding cloud env value must match.
+
 ## 3) Create Client from Environment
 
 ```python

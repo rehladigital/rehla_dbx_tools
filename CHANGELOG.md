@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 - Added multi-cloud config selectors and validation:
   - `DATABRICKS_CLOUD`
   - `DATABRICKS_ACCOUNT_CLOUD`
+- Added host-cloud alignment validation guardrails for known Databricks host patterns (AWS/Azure/GCP).
 
 ## [0.1.200] - 2026-03-01
 

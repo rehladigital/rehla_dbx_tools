@@ -87,6 +87,18 @@ class UnifiedConfig:
         if self.account.cloud not in ("aws", "azure", "gcp"):
             raise ValidationError("Account cloud must be one of: aws, azure, gcp.")
 
+        workspace_inferred = _infer_cloud_from_host(self.workspace.host)
+        if workspace_inferred and workspace_inferred != self.workspace.cloud:
+            raise ValidationError(
+                f"Workspace host appears to be '{workspace_inferred}' but DATABRICKS_CLOUD is '{self.workspace.cloud}'."
+            )
+
+        account_inferred = _infer_cloud_from_host(self.account.host)
+        if account_inferred and account_inferred != self.account.cloud:
+            raise ValidationError(
+                f"Account host appears to be '{account_inferred}' but DATABRICKS_ACCOUNT_CLOUD is '{self.account.cloud}'."
+            )
+
 
 def _normalize_host(host: Optional[str]) -> Optional[str]:
     if not host:
@@ -104,3 +116,16 @@ def _normalize_cloud(cloud: Optional[str]) -> CloudType:
     if normalized not in ("aws", "azure", "gcp"):
         raise ValidationError("Cloud must be one of: aws, azure, gcp.")
     return normalized  # type: ignore[return-value]
+
+
+def _infer_cloud_from_host(host: Optional[str]) -> Optional[CloudType]:
+    if not host:
+        return None
+    value = host.lower()
+    if "azuredatabricks.net" in value:
+        return "azure"
+    if "gcp.databricks.com" in value:
+        return "gcp"
+    if "cloud.databricks.com" in value:
+        return "aws"
+    return None
