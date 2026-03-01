@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2026-02-28
+
+### Added
+
+- New public import package `rehladigital_aws_dbx_tools` that re-exports API symbols for end users.
+- Public import regression test in `tests/test_public_import.py`.
+
+### Changed
+
+- Updated README and usage docs to use:
+  - `from rehladigital_aws_dbx_tools import DatabricksApiClient`
+- Bumped package version from `0.1.5` to `0.1.6`.
+
 ## [0.1.5] - 2026-02-28
 
 ### Added

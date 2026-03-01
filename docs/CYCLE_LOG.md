@@ -95,3 +95,19 @@
 - Added test coverage for new wrappers and payload/path expectations.
 - Added loop maintainer reference `docs/LOOP_MAINTAINER_AGENT.md` to formalize continuous agent operation.
 - Updated docs examples and bumped version to `0.1.5`.
+
+## Cycle 6
+
+- Date: 2026-02-28
+- Objective: align Python import path with rehladigital package identity.
+- Planned focus:
+  - user-facing import namespace
+  - docs import updates
+  - regression coverage
+
+### Progress Notes
+
+- Added new package export module `src/rehladigital_aws_dbx_tools/__init__.py`.
+- Updated docs to use `from rehladigital_aws_dbx_tools import DatabricksApiClient`.
+- Added import validation test `tests/test_public_import.py`.
+- Bumped version to `0.1.6`.

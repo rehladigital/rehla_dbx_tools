@@ -12,6 +12,12 @@ Rehla Digital Inc builds cloud and data engineering solutions that help teams st
 pip install rehladigital-aws-dbx-tools
 ```
 
+Import in Python with underscores:
+
+```python
+from rehladigital_aws_dbx_tools import DatabricksApiClient
+```
+
 Install Spark extras if needed:
 
 ```bash
@@ -21,7 +27,7 @@ pip install "rehladigital-aws-dbx-tools[spark]"
 ## Quick Start
 
 ```python
-from databricks_api import DatabricksApiClient
+from rehladigital_aws_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_env()
 if client.workspace is not None:
@@ -35,7 +41,7 @@ if client.workspace is not None:
 Inside Databricks notebooks:
 
 ```python
-from databricks_api import DatabricksApiClient
+from rehladigital_aws_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_notebook_context()
 if client.workspace is not None:

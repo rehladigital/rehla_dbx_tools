@@ -55,7 +55,7 @@ Configuration precedence:
 ## 3) Create Client from Environment
 
 ```python
-from databricks_api import DatabricksApiClient
+from rehladigital_aws_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_env()
 ```
@@ -65,7 +65,7 @@ client = DatabricksApiClient.from_env()
 When running inside Databricks, host/token can be inferred:
 
 ```python
-from databricks_api import DatabricksApiClient
+from rehladigital_aws_dbx_tools import DatabricksApiClient
 
 client = DatabricksApiClient.from_notebook_context()
 ```
@@ -73,7 +73,7 @@ client = DatabricksApiClient.from_notebook_context()
 You can still pass explicit config to override values:
 
 ```python
-from databricks_api import DatabricksApiClient, UnifiedConfig
+from rehladigital_aws_dbx_tools import DatabricksApiClient, UnifiedConfig
 
 cfg = UnifiedConfig.from_env()
 client = DatabricksApiClient.from_notebook_context(config=cfg)
@@ -206,7 +206,7 @@ Key exceptions:
 - `ValidationError` for config/input issues
 
 ```python
-from databricks_api import AuthError, ApiError, RateLimitError, ValidationError
+from rehladigital_aws_dbx_tools import AuthError, ApiError, RateLimitError, ValidationError
 ```
 
 ## 11) Troubleshooting
