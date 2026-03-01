@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from ..config import WorkspaceConfig
+from ..exceptions import ValidationError
 from .base import BaseDatabricksClient, ClientOptions
 
 
@@ -409,3 +410,32 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
             json_body={"scope": scope},
         )
+
+    def get_catalog(self, catalog_name: str, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"catalogs/{catalog_name}",
+            api_version=api_version,
+        )
+
+    def get_schema(self, full_name: str, api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"schemas/{full_name}",
+            api_version=api_version,
+        )
+
+    def list_tokens(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "token",
+            endpoint="list",
+            api_version=api_version,
+        )
+
+    def revoke_token(self, token_id: str, api_version: str = "2.0") -> Any:
+        if not token_id or not str(token_id).strip():
+            raise ValidationError("token_id is required to revoke token.")
+        return self.delete_token(token_id=token_id, api_version=api_version)

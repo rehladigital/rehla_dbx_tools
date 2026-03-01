@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.10] - 2026-02-28
+
+### Added
+
+- Unity Catalog detail wrappers:
+  - `get_catalog`
+  - `get_schema`
+- Token wrappers:
+  - `list_tokens`
+  - `revoke_token` (with non-empty token validation)
+- Notebook context edge-case tests in `tests/test_notebook_context.py`.
+- Extended workspace wrapper tests for new wrappers and validation behavior.
+
+### Changed
+
+- Expanded endpoint catalog/constants with Unity Catalog detail and token list/revoke routes.
+- Updated usage examples to include Unity Catalog detail and token operations.
+- Bumped package version from `0.1.9` to `0.1.10`.
+
 ## [0.1.9] - 2026-02-28
 
 ### Added

@@ -1,7 +1,10 @@
 from unittest.mock import patch
 
+import pytest
+
 from databricks_api.clients.workspace import WorkspaceClient
 from databricks_api.config import AuthConfig, WorkspaceConfig
+from databricks_api.exceptions import ValidationError
 
 
 def _workspace_client() -> WorkspaceClient:
@@ -206,3 +209,31 @@ def test_repo_and_secret_scope_wrappers_route_expected_calls():
         assert request_versioned.call_args.args == ("POST", "secrets")
         assert request_versioned.call_args.kwargs["endpoint"] == "scopes/delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"scope": "app-prod"}
+
+
+def test_unity_catalog_detail_and_token_wrappers_route_expected_calls():
+    client = _workspace_client()
+
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.get_catalog("main")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "catalogs/main"
+
+        client.get_schema("main.default")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "schemas/main.default"
+
+        client.list_tokens()
+        assert request_versioned.call_args.args == ("GET", "token")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+
+        client.revoke_token("tok-321")
+        assert request_versioned.call_args.args == ("POST", "token")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"token_id": "tok-321"}
+
+
+def test_revoke_token_requires_non_empty_token_id():
+    client = _workspace_client()
+    with pytest.raises(ValidationError):
+        client.revoke_token("")

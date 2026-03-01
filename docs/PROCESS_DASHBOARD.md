@@ -7,15 +7,15 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 200 loops
-- Completed loops: 9
-- Remaining loops: 191
-- Current loop: 10 (queued)
+- Completed loops: 10
+- Remaining loops: 190
+- Current loop: 11 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 7
-- Current package version: 0.1.7
-- Last pushed commit: `c2f2d67`
+- Last completed cycle: 10
+- Current package version: 0.1.10
+- Last pushed commit: `pending-this-cycle`
 
 ## Recent Releases
 
@@ -26,7 +26,7 @@
 
 ## Next Queue
 
-1. Add Unity Catalog detail wrappers (`get_catalog`, `get_schema`)
-2. Add token list/revoke guard wrappers and tests
-3. Add notebook context edge-case tests
+1. Add account lifecycle helper wrappers and input validation tests
+2. Add response conversion edge-case tests for deeply nested payloads
+3. Add docs examples for token hygiene and rotation
 4. Release next patch and append cycle log

@@ -93,6 +93,8 @@ run_resp = client.workspace.run_job_now(job_id=123, notebook_params={"date": "20
 cluster_resp = client.workspace.get_cluster(cluster_id="0123-abc")
 catalogs_resp = client.workspace.list_catalogs(max_results=25)
 schemas_resp = client.workspace.list_schemas(catalog_name="main", max_results=100)
+catalog_detail = client.workspace.get_catalog("main")
+schema_detail = client.workspace.get_schema("main.default")
 repo_resp = client.workspace.update_repo(repo_id=12345, branch="main")
 secret_resp = client.workspace.put_secret(
     scope="app-prod",
@@ -100,6 +102,8 @@ secret_resp = client.workspace.put_secret(
     string_value=getpass.getpass("Secret value: "),
 )
 token_resp = client.workspace.create_token(lifetime_seconds=3600, comment="short-lived-ci-token")
+token_list = client.workspace.list_tokens()
+token_revoke = client.workspace.revoke_token(token_id="token-id")
 repos_resp = client.workspace.list_repos(path_prefix="/Repos/team")
 repo_get = client.workspace.get_repo(repo_id=12345)
 repo_create = client.workspace.create_repo(

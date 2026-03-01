@@ -26,6 +26,8 @@ ENDPOINT_CATALOG: dict[str, dict[str, dict[str, str]]] = {
             "secret_scopes_delete": "/api/2.0/secrets/scopes/delete",
             "token_create": "/api/2.0/token/create",
             "token_delete": "/api/2.0/token/delete",
+            "token_list": "/api/2.0/token/list",
+            "token_revoke": "/api/2.0/token/delete",
         },
         "2.1": {
             "jobs_create": "/api/2.1/jobs/create",
@@ -38,6 +40,8 @@ ENDPOINT_CATALOG: dict[str, dict[str, dict[str, str]]] = {
             "jobs_run_now": "/api/2.1/jobs/run-now",
             "unity_catalog_catalogs_list": "/api/2.1/unity-catalog/catalogs",
             "unity_catalog_schemas_list": "/api/2.1/unity-catalog/schemas",
+            "unity_catalog_catalogs_get": "/api/2.1/unity-catalog/catalogs/{catalog_name}",
+            "unity_catalog_schemas_get": "/api/2.1/unity-catalog/schemas/{full_name}",
         },
         "preview": {},
     },

@@ -155,3 +155,20 @@
 - Added secret scope wrappers: `create_secret_scope`, `list_secret_scopes`, `delete_secret_scope`.
 - Expanded endpoint catalog/constants and tests.
 - Updated README/USAGE examples and bumped version to `0.1.9`.
+
+## Cycle 10
+
+- Date: 2026-02-28
+- Objective: execute queued loop tasks for Unity Catalog details, token guardrails, and notebook context tests.
+- Planned focus:
+  - Unity Catalog detail wrappers
+  - token list/revoke wrappers with validation
+  - notebook context edge-case tests
+
+### Progress Notes
+
+- Added wrappers: `get_catalog`, `get_schema`, `list_tokens`, `revoke_token`.
+- Added non-empty guard for `revoke_token` to prevent invalid delete requests.
+- Added notebook context tests (`tests/test_notebook_context.py`) and expanded workspace wrapper tests.
+- Expanded endpoint catalog/constants and usage docs.
+- Bumped version to `0.1.10`.
