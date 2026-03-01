@@ -138,7 +138,18 @@ def _extract_rows(payload: Any) -> list[Any]:
     if isinstance(payload, list):
         return payload
     if isinstance(payload, dict):
-        for key in ("items", "results", "data", "workspaces", "users", "clusters", "jobs"):
+        for key in (
+            "items",
+            "results",
+            "data",
+            "workspaces",
+            "users",
+            "clusters",
+            "jobs",
+            "runs",
+            "schemas",
+            "catalogs",
+        ):
             value = payload.get(key)
             if isinstance(value, list):
                 return value

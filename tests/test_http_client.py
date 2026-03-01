@@ -42,6 +42,31 @@ def test_paginated_request_raises_on_repeated_next_page_token():
             )
 
 
+def test_paginated_request_combines_runs_payloads():
+    client = HttpClient(host="https://example.com", token_provider=_TokenProvider(), max_retries=0)
+    page1 = ApiResponse(
+        status_code=200,
+        url="https://example.com/api/2.1/jobs/runs/list",
+        data={"runs": [{"run_id": 1}], "next_page_token": "token-2"},
+        headers={},
+    )
+    page2 = ApiResponse(
+        status_code=200,
+        url="https://example.com/api/2.1/jobs/runs/list",
+        data={"runs": [{"run_id": 2}]},
+        headers={},
+    )
+
+    with patch.object(client, "_request_once", side_effect=[page1, page2]):
+        response = client.request(
+            method="GET",
+            path="/api/2.1/jobs/runs/list",
+            paginate=True,
+        )
+
+    assert response.data == [{"run_id": 1}, {"run_id": 2}]
+
+
 def test_request_retries_5xx_then_returns_success_response():
     client = HttpClient(host="https://example.com", token_provider=_TokenProvider(), max_retries=1)
     first = _FakeResponse(503, text='{"message":"unavailable"}')

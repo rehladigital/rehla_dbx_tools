@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2026-03-01
+
+### Fixed
+
+- Corrected pagination row extraction for Jobs runs endpoints so `jobs/runs/list` aggregates `runs` across paginated responses.
+- Added regression coverage to ensure paginated run payloads are combined correctly.
+
 ## [1.1.1] - 2026-03-01
 
 ### Added
