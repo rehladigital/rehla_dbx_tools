@@ -56,6 +56,7 @@ Configuration precedence:
 
 Cloud-host alignment guardrail:
 - If host pattern clearly indicates a cloud (for example `*.azuredatabricks.net` or `*.gcp.databricks.com`), the corresponding cloud env value must match.
+- If cloud env values are omitted, cloud is inferred from host pattern when possible; otherwise fallback is `aws`.
 
 ## 3) Create Client from Environment
 

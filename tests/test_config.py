@@ -51,3 +51,23 @@ def test_from_env_rejects_account_host_cloud_mismatch(monkeypatch):
 
     with pytest.raises(ValidationError):
         UnifiedConfig.from_env()
+
+
+def test_from_env_infers_workspace_cloud_from_host_when_unset(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://adb-12345.6.azuredatabricks.net")
+    monkeypatch.delenv("DATABRICKS_CLOUD", raising=False)
+
+    cfg = UnifiedConfig.from_env()
+
+    assert cfg.workspace.cloud == "azure"
+
+
+def test_from_env_infers_account_cloud_from_host_when_unset(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "https://dbc-test.cloud.databricks.com")
+    monkeypatch.setenv("DATABRICKS_ACCOUNT_HOST", "https://accounts.gcp.databricks.com")
+    monkeypatch.delenv("DATABRICKS_CLOUD", raising=False)
+    monkeypatch.delenv("DATABRICKS_ACCOUNT_CLOUD", raising=False)
+
+    cfg = UnifiedConfig.from_env()
+
+    assert cfg.account.cloud == "gcp"

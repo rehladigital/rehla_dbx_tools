@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
   - `DATABRICKS_CLOUD`
   - `DATABRICKS_ACCOUNT_CLOUD`
 - Added host-cloud alignment validation guardrails for known Databricks host patterns (AWS/Azure/GCP).
+- Added cloud inference from host when cloud env variables are omitted.
 
 ## [0.1.200] - 2026-03-01
 

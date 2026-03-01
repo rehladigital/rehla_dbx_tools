@@ -45,6 +45,19 @@ class UnifiedConfig:
 
     @staticmethod
     def from_env() -> "UnifiedConfig":
+        workspace_host = _normalize_host(os.getenv("DATABRICKS_HOST"))
+        account_host = _normalize_host(os.getenv("DATABRICKS_ACCOUNT_HOST"))
+        workspace_cloud = _resolve_cloud(
+            configured_cloud=os.getenv("DATABRICKS_CLOUD"),
+            host=workspace_host,
+            fallback="aws",
+        )
+        account_cloud = _resolve_cloud(
+            configured_cloud=os.getenv("DATABRICKS_ACCOUNT_CLOUD", os.getenv("DATABRICKS_CLOUD")),
+            host=account_host,
+            fallback=workspace_cloud,
+        )
+
         workspace_auth = AuthConfig(
             auth_type=os.getenv("DATABRICKS_AUTH_TYPE", "auto"),  # type: ignore[arg-type]
             token=os.getenv("DATABRICKS_TOKEN"),
@@ -61,17 +74,17 @@ class UnifiedConfig:
         )
         cfg = UnifiedConfig(
             workspace=WorkspaceConfig(
-                host=_normalize_host(os.getenv("DATABRICKS_HOST")),
+                host=workspace_host,
                 auth=workspace_auth,
                 default_api_version=os.getenv("DATABRICKS_WORKSPACE_API_VERSION", "2.1"),
-                cloud=_normalize_cloud(os.getenv("DATABRICKS_CLOUD", "aws")),
+                cloud=workspace_cloud,
             ),
             account=AccountConfig(
-                host=_normalize_host(os.getenv("DATABRICKS_ACCOUNT_HOST")),
+                host=account_host,
                 account_id=os.getenv("DATABRICKS_ACCOUNT_ID"),
                 auth=account_auth,
                 default_api_version=os.getenv("DATABRICKS_ACCOUNT_API_VERSION", "2.0"),
-                cloud=_normalize_cloud(os.getenv("DATABRICKS_ACCOUNT_CLOUD", os.getenv("DATABRICKS_CLOUD", "aws"))),
+                cloud=account_cloud,
             ),
         )
         cfg.validate()
@@ -129,3 +142,12 @@ def _infer_cloud_from_host(host: Optional[str]) -> Optional[CloudType]:
     if "cloud.databricks.com" in value:
         return "aws"
     return None
+
+
+def _resolve_cloud(configured_cloud: Optional[str], host: Optional[str], fallback: CloudType = "aws") -> CloudType:
+    if configured_cloud:
+        return _normalize_cloud(configured_cloud)
+    inferred = _infer_cloud_from_host(host)
+    if inferred:
+        return inferred
+    return fallback

@@ -446,3 +446,20 @@
 - Added regression tests for workspace and account host/cloud mismatch scenarios in `tests/test_config.py`.
 - Updated `docs/USAGE.md` with cloud-host alignment guidance.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 4).
+
+## Run 5 (Cycle 5 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: improve cloud selector ergonomics by inferring cloud from host when cloud env values are not set.
+
+### Progress Notes
+
+- Added cloud resolution helper in config to prioritize:
+  1. explicit cloud env var
+  2. cloud inferred from host pattern
+  3. fallback cloud default
+- Updated `UnifiedConfig.from_env()` to use host-based cloud inference for workspace/account when cloud env vars are absent.
+- Added regression tests for cloud inference behavior in `tests/test_config.py`.
+- Updated `docs/USAGE.md` to document fallback/inference behavior.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 5).
