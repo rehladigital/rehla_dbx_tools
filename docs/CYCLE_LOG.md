@@ -1325,3 +1325,24 @@
 - Updated `README.md` with the newly available tools.
 - Validation: `74 passed` via `py -m pytest -q`.
 - Prepared patch version bump to `1.2.5` with changelog updates for release.
+
+## Run 66 (Cycle 66 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: implement `dataquality` and `instance-pools` permissions wrappers with tests and release.
+
+### Progress Notes
+
+- Added data-quality monitoring wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_monitors`, `create_monitor`, `get_monitor`, `update_monitor`, `delete_monitor`
+  - `list_monitor_refreshes`, `create_monitor_refresh`, `get_monitor_refresh`, `update_monitor_refresh`, `delete_monitor_refresh`, `cancel_monitor_refresh`
+- Added instance-pools permission wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_instance_pool_permissions`
+  - `set_instance_pool_permissions`
+  - `update_instance_pool_permissions`
+  - `get_instance_pool_permission_levels`
+- Updated `src/databricks_api/endpoints/catalog.py` with data-quality and instance-pool-permissions endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.6` with changelog updates for release.

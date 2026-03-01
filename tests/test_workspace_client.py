@@ -849,6 +849,118 @@ def test_instance_pool_wrappers_route_expected_calls():
         assert request_versioned.call_args.kwargs["endpoint"] == "delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"instance_pool_id": "pool-1"}
 
+        client.get_instance_pool_permissions("pool-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "instance-pools/pool-1"
+
+        client.set_instance_pool_permissions("pool-1", [{"group_name": "users", "permission_level": "CAN_ATTACH_TO"}])
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "instance-pools/pool-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "access_control_list": [{"group_name": "users", "permission_level": "CAN_ATTACH_TO"}]
+        }
+
+        client.update_instance_pool_permissions("pool-1", [{"group_name": "admins", "permission_level": "CAN_MANAGE"}])
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "instance-pools/pool-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "access_control_list": [{"group_name": "admins", "permission_level": "CAN_MANAGE"}]
+        }
+
+        client.get_instance_pool_permission_levels("pool-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "instance-pools/pool-1/permissionLevels"
+
+    with pytest.raises(ValidationError):
+        client.get_instance_pool_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_instance_pool_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_instance_pool_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_instance_pool_permission_levels("")
+
+
+def test_data_quality_monitor_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_monitors()
+        assert request_versioned.call_args.args == ("GET", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_monitor({"table_name": "main.prod.sales"})
+        assert request_versioned.call_args.args == ("POST", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors"
+        assert request_versioned.call_args.kwargs["json_body"] == {"table_name": "main.prod.sales"}
+
+        client.get_monitor("m-1")
+        assert request_versioned.call_args.args == ("GET", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1"
+
+        client.update_monitor("m-1", {"output_schema_name": "dq"})
+        assert request_versioned.call_args.args == ("PATCH", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"output_schema_name": "dq"}
+
+        client.delete_monitor("m-1")
+        assert request_versioned.call_args.args == ("DELETE", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1"
+
+        client.list_monitor_refreshes("m-1")
+        assert request_versioned.call_args.args == ("GET", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1/refreshes"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_monitor_refresh("m-1", {"full_refresh": True})
+        assert request_versioned.call_args.args == ("POST", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1/refreshes"
+        assert request_versioned.call_args.kwargs["json_body"] == {"full_refresh": True}
+
+        client.get_monitor_refresh("m-1", "r-1")
+        assert request_versioned.call_args.args == ("GET", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1/refreshes/r-1"
+
+        client.delete_monitor_refresh("m-1", "r-1")
+        assert request_versioned.call_args.args == ("DELETE", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1/refreshes/r-1"
+
+        client.update_monitor_refresh("m-1", "r-1", {"priority": "high"})
+        assert request_versioned.call_args.args == ("PATCH", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1/refreshes/r-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"priority": "high"}
+
+        client.cancel_monitor_refresh("m-1", "r-1")
+        assert request_versioned.call_args.args == ("POST", "data-quality-monitors")
+        assert request_versioned.call_args.kwargs["endpoint"] == "monitors/m-1/refreshes/r-1/cancel"
+
+    with pytest.raises(ValidationError):
+        client.get_monitor("")
+    with pytest.raises(ValidationError):
+        client.update_monitor("", {})
+    with pytest.raises(ValidationError):
+        client.delete_monitor("")
+    with pytest.raises(ValidationError):
+        client.list_monitor_refreshes("")
+    with pytest.raises(ValidationError):
+        client.create_monitor_refresh("", {})
+    with pytest.raises(ValidationError):
+        client.get_monitor_refresh("", "r-1")
+    with pytest.raises(ValidationError):
+        client.get_monitor_refresh("m-1", "")
+    with pytest.raises(ValidationError):
+        client.delete_monitor_refresh("", "r-1")
+    with pytest.raises(ValidationError):
+        client.delete_monitor_refresh("m-1", "")
+    with pytest.raises(ValidationError):
+        client.update_monitor_refresh("", "r-1", {})
+    with pytest.raises(ValidationError):
+        client.update_monitor_refresh("m-1", "", {})
+    with pytest.raises(ValidationError):
+        client.cancel_monitor_refresh("", "r-1")
+    with pytest.raises(ValidationError):
+        client.cancel_monitor_refresh("m-1", "")
+
 
 def test_cluster_policy_wrappers_route_expected_calls():
     client = _workspace_client()

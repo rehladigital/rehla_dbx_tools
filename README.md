@@ -131,11 +131,14 @@ Workspace (`client.workspace`):
 - `create_execution_context`, `run_command`, `get_command_status`, `cancel_command`, `delete_execution_context`
 - `list_clean_rooms`, `create_clean_room`, `get_clean_room`, `update_clean_room`, `delete_clean_room`
 - `list_clean_room_assets`, `create_clean_room_asset`, `get_clean_room_asset`, `update_clean_room_asset`, `delete_clean_room_asset`
+- `list_monitors`, `create_monitor`, `get_monitor`, `update_monitor`, `delete_monitor`
+- `list_monitor_refreshes`, `create_monitor_refresh`, `get_monitor_refresh`, `update_monitor_refresh`, `delete_monitor_refresh`, `cancel_monitor_refresh`
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`
 - `list_sql_warehouses`, `get_sql_warehouse`
 - `list_instance_pools`, `get_instance_pool`
+- `get_instance_pool_permissions`, `set_instance_pool_permissions`, `update_instance_pool_permissions`, `get_instance_pool_permission_levels`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_repos`, `get_repo`

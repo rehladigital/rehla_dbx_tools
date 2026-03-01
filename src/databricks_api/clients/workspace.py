@@ -1228,6 +1228,120 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Data Quality Monitoring scope
+    def list_monitors(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "data-quality-monitors",
+            endpoint="monitors",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_monitor(self, monitor_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "data-quality-monitors",
+            endpoint="monitors",
+            api_version=api_version,
+            json_body=monitor_spec,
+        )
+
+    def get_monitor(self, monitor_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "GET",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}",
+            api_version=api_version,
+        )
+
+    def update_monitor(self, monitor_id: str, monitor_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "PATCH",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}",
+            api_version=api_version,
+            json_body=monitor_changes,
+        )
+
+    def delete_monitor(self, monitor_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "DELETE",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}",
+            api_version=api_version,
+        )
+
+    def list_monitor_refreshes(self, monitor_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "GET",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}/refreshes",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_monitor_refresh(self, monitor_id: str, refresh_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        return self.request_versioned(
+            "POST",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}/refreshes",
+            api_version=api_version,
+            json_body=refresh_spec,
+        )
+
+    def get_monitor_refresh(self, monitor_id: str, refresh_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        self._require_non_empty_string(refresh_id, "refresh_id")
+        return self.request_versioned(
+            "GET",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}/refreshes/{refresh_id}",
+            api_version=api_version,
+        )
+
+    def delete_monitor_refresh(self, monitor_id: str, refresh_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        self._require_non_empty_string(refresh_id, "refresh_id")
+        return self.request_versioned(
+            "DELETE",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}/refreshes/{refresh_id}",
+            api_version=api_version,
+        )
+
+    def update_monitor_refresh(
+        self,
+        monitor_id: str,
+        refresh_id: str,
+        refresh_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        self._require_non_empty_string(refresh_id, "refresh_id")
+        return self.request_versioned(
+            "PATCH",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}/refreshes/{refresh_id}",
+            api_version=api_version,
+            json_body=refresh_changes,
+        )
+
+    def cancel_monitor_refresh(self, monitor_id: str, refresh_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(monitor_id, "monitor_id")
+        self._require_non_empty_string(refresh_id, "refresh_id")
+        return self.request_versioned(
+            "POST",
+            "data-quality-monitors",
+            endpoint=f"monitors/{monitor_id}/refreshes/{refresh_id}/cancel",
+            api_version=api_version,
+        )
+
     def list_instance_pools(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(
             "GET",
@@ -1279,6 +1393,54 @@ class WorkspaceClient(BaseDatabricksClient):
             endpoint="delete",
             api_version=api_version,
             json_body={"instance_pool_id": instance_pool_id},
+        )
+
+    def get_instance_pool_permissions(self, instance_pool_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"instance-pools/{instance_pool_id}",
+            api_version=api_version,
+        )
+
+    def set_instance_pool_permissions(
+        self,
+        instance_pool_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"instance-pools/{instance_pool_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_instance_pool_permissions(
+        self,
+        instance_pool_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"instance-pools/{instance_pool_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_instance_pool_permission_levels(self, instance_pool_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(instance_pool_id, "instance_pool_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"instance-pools/{instance_pool_id}/permissionLevels",
+            api_version=api_version,
         )
 
     def list_cluster_policies(self, api_version: str = "2.0") -> Any:

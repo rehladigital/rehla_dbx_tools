@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 65
-- Remaining loops: 235
-- Current loop: 66 (queued)
+- Completed loops: 66
+- Remaining loops: 234
+- Current loop: 67 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 65
-- Current package version: 1.2.5
+- Last completed cycle: 66
+- Current package version: 1.2.6
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 66 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for `dataquality` and `instance-pools` families
+1. Execute run 67 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for `sql` and `workspace` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.5` after commit/push and workflow verification
+4. Publish `1.2.6` after commit/push and workflow verification

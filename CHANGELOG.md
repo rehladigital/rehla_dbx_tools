@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.6] - 2026-03-01
+
+### Added
+
+- Data quality monitoring wrappers on workspace client:
+  - `list_monitors`
+  - `create_monitor`
+  - `get_monitor`
+  - `update_monitor`
+  - `delete_monitor`
+  - `list_monitor_refreshes`
+  - `create_monitor_refresh`
+  - `get_monitor_refresh`
+  - `update_monitor_refresh`
+  - `delete_monitor_refresh`
+  - `cancel_monitor_refresh`
+- Instance pool permissions wrappers on workspace client:
+  - `get_instance_pool_permissions`
+  - `set_instance_pool_permissions`
+  - `update_instance_pool_permissions`
+  - `get_instance_pool_permission_levels`
+- Endpoint catalog entries for data-quality-monitors and instance-pools permissions routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include data-quality and instance-pool-permissions methods.
+- Bumped package version from `1.2.5` to `1.2.6`.
+
 ## [1.2.5] - 2026-03-01
 
 ### Added
