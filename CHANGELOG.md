@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.7] - 2026-03-01
+
+### Added
+
+- Databricks Workspace git-credentials wrappers on workspace client:
+  - `list_git_credentials`
+  - `create_git_credential`
+  - `get_git_credential`
+  - `update_git_credential`
+  - `delete_git_credential`
+- Databricks SQL query wrappers on workspace client:
+  - `list_sql_queries`
+  - `create_sql_query`
+  - `get_sql_query`
+  - `update_sql_query`
+  - `delete_sql_query`
+- Endpoint catalog entries for git-credentials and sql-queries routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include git-credentials and SQL-query methods.
+- Bumped package version from `1.2.6` to `1.2.7`.
+
 ## [1.2.6] - 2026-03-01
 
 ### Added

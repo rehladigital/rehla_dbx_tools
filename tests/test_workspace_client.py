@@ -423,6 +423,32 @@ def test_repo_and_secret_scope_wrappers_route_expected_calls():
         assert request_versioned.call_args.args == ("DELETE", "repos")
         assert request_versioned.call_args.kwargs["endpoint"] == "12345"
 
+        client.list_git_credentials()
+        assert request_versioned.call_args.args == ("GET", "git-credentials")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_git_credential({"git_username": "svc-user", "git_provider": "gitHub"})
+        assert request_versioned.call_args.args == ("POST", "git-credentials")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "git_username": "svc-user",
+            "git_provider": "gitHub",
+        }
+
+        client.get_git_credential(101)
+        assert request_versioned.call_args.args == ("GET", "git-credentials")
+        assert request_versioned.call_args.kwargs["endpoint"] == "101"
+
+        client.update_git_credential(101, {"personal_access_token": "new-token"})
+        assert request_versioned.call_args.args == ("PATCH", "git-credentials")
+        assert request_versioned.call_args.kwargs["endpoint"] == "101"
+        assert request_versioned.call_args.kwargs["json_body"] == {"personal_access_token": "new-token"}
+
+        client.delete_git_credential(101)
+        assert request_versioned.call_args.args == ("DELETE", "git-credentials")
+        assert request_versioned.call_args.kwargs["endpoint"] == "101"
+
         client.get_repo_permissions(12345)
         assert request_versioned.call_args.args == ("GET", "permissions")
         assert request_versioned.call_args.kwargs["endpoint"] == "repos/12345"
@@ -457,6 +483,13 @@ def test_repo_and_secret_scope_wrappers_route_expected_calls():
         assert request_versioned.call_args.args == ("POST", "secrets")
         assert request_versioned.call_args.kwargs["endpoint"] == "scopes/delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"scope": "app-prod"}
+
+    with pytest.raises(ValidationError):
+        client.get_git_credential(0)
+    with pytest.raises(ValidationError):
+        client.update_git_credential(0, {})
+    with pytest.raises(ValidationError):
+        client.delete_git_credential(0)
 
 
 def test_unity_catalog_detail_and_token_wrappers_route_expected_calls():
@@ -568,6 +601,29 @@ def test_alerts_and_dashboards_wrappers_route_expected_calls():
         assert request_versioned.call_args.args == ("DELETE", "sql/alerts")
         assert request_versioned.call_args.kwargs["endpoint"] == "alert-1"
 
+        client.list_sql_queries()
+        assert request_versioned.call_args.args == ("GET", "sql/queries")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_sql_query({"name": "daily-revenue", "query": "SELECT 1"})
+        assert request_versioned.call_args.args == ("POST", "sql/queries")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "daily-revenue", "query": "SELECT 1"}
+
+        client.get_sql_query("query-1")
+        assert request_versioned.call_args.args == ("GET", "sql/queries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "query-1"
+
+        client.update_sql_query("query-1", {"name": "daily-revenue-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "sql/queries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "query-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "daily-revenue-v2"}
+
+        client.delete_sql_query("query-1")
+        assert request_versioned.call_args.args == ("DELETE", "sql/queries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "query-1"
+
         client.list_dashboards()
         assert request_versioned.call_args.args == ("GET", "lakeview/dashboards")
         assert request_versioned.call_args.kwargs["endpoint"] == ""
@@ -605,6 +661,12 @@ def test_alerts_and_dashboards_wrappers_route_expected_calls():
         client.update_sql_alert("", {})
     with pytest.raises(ValidationError):
         client.delete_sql_alert("")
+    with pytest.raises(ValidationError):
+        client.get_sql_query("")
+    with pytest.raises(ValidationError):
+        client.update_sql_query("", {})
+    with pytest.raises(ValidationError):
+        client.delete_sql_query("")
     with pytest.raises(ValidationError):
         client.get_dashboard("")
     with pytest.raises(ValidationError):

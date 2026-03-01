@@ -124,6 +124,7 @@ Workspace (`client.workspace`):
 - `get_job_permissions`, `get_job_permission_levels`
 - `get_object_permissions`, `set_object_permissions`, `update_object_permissions`, `get_object_permission_levels`
 - `list_sql_alerts`, `create_sql_alert`, `get_sql_alert`, `update_sql_alert`, `delete_sql_alert`
+- `list_sql_queries`, `create_sql_query`, `get_sql_query`, `update_sql_query`, `delete_sql_query`
 - `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
 - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
 - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`
@@ -142,6 +143,7 @@ Workspace (`client.workspace`):
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_repos`, `get_repo`
+- `list_git_credentials`, `create_git_credential`, `get_git_credential`, `update_git_credential`, `delete_git_credential`
 - `list_secret_scopes`
 - `list_tokens`
 

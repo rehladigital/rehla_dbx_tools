@@ -676,6 +676,53 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Databricks Workspace: Git Credentials
+    def list_git_credentials(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "git-credentials",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_git_credential(self, credential_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "git-credentials",
+            endpoint="",
+            api_version=api_version,
+            json_body=credential_spec,
+        )
+
+    def get_git_credential(self, credential_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(credential_id, "credential_id")
+        return self.request_versioned(
+            "GET",
+            "git-credentials",
+            endpoint=f"{credential_id}",
+            api_version=api_version,
+        )
+
+    def update_git_credential(self, credential_id: int, credential_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_positive_int(credential_id, "credential_id")
+        return self.request_versioned(
+            "PATCH",
+            "git-credentials",
+            endpoint=f"{credential_id}",
+            api_version=api_version,
+            json_body=credential_changes,
+        )
+
+    def delete_git_credential(self, credential_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(credential_id, "credential_id")
+        return self.request_versioned(
+            "DELETE",
+            "git-credentials",
+            endpoint=f"{credential_id}",
+            api_version=api_version,
+        )
+
     def create_secret_scope(
         self,
         scope: str,
@@ -851,6 +898,53 @@ class WorkspaceClient(BaseDatabricksClient):
             "DELETE",
             "sql/alerts",
             endpoint=alert_id,
+            api_version=api_version,
+        )
+
+    # Databricks SQL Queries
+    def list_sql_queries(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "sql/queries",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_sql_query(self, query_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "sql/queries",
+            endpoint="",
+            api_version=api_version,
+            json_body=query_spec,
+        )
+
+    def get_sql_query(self, query_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(query_id, "query_id")
+        return self.request_versioned(
+            "GET",
+            "sql/queries",
+            endpoint=query_id,
+            api_version=api_version,
+        )
+
+    def update_sql_query(self, query_id: str, query_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(query_id, "query_id")
+        return self.request_versioned(
+            "PATCH",
+            "sql/queries",
+            endpoint=query_id,
+            api_version=api_version,
+            json_body=query_changes,
+        )
+
+    def delete_sql_query(self, query_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(query_id, "query_id")
+        return self.request_versioned(
+            "DELETE",
+            "sql/queries",
+            endpoint=query_id,
             api_version=api_version,
         )
 

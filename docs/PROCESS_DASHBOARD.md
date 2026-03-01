@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 66
-- Remaining loops: 234
-- Current loop: 67 (queued)
+- Completed loops: 67
+- Remaining loops: 233
+- Current loop: 68 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 66
-- Current package version: 1.2.6
+- Last completed cycle: 67
+- Current package version: 1.2.7
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 67 on AWS track (round-robin sequence)
-2. Continue all-tools implementation for `sql` and `workspace` families
+1. Execute run 68 on Azure track (round-robin sequence)
+2. Continue all-tools implementation for `sharing` and `files` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.6` after commit/push and workflow verification
+4. Publish `1.2.7` after commit/push and workflow verification

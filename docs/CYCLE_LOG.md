@@ -1346,3 +1346,28 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.6` with changelog updates for release.
+
+## Run 67 (Cycle 67 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: implement `workspace` and `sql` wrappers for git credentials and SQL queries.
+
+### Progress Notes
+
+- Added workspace git-credentials wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_git_credentials`
+  - `create_git_credential`
+  - `get_git_credential`
+  - `update_git_credential`
+  - `delete_git_credential`
+- Added Databricks SQL query wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_sql_queries`
+  - `create_sql_query`
+  - `get_sql_query`
+  - `update_sql_query`
+  - `delete_sql_query`
+- Updated `src/databricks_api/endpoints/catalog.py` with git-credentials and sql-queries endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.7` with changelog updates for release.
