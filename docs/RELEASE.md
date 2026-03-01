@@ -11,7 +11,7 @@
 5. Commit and push to `main`.
 6. Verify remote state and test status.
 7. Confirm install command for release:
-   - `pip install rehla-dbx-tools`
+   - `pip install rehla_dbx_tools`
 
 ## Version and Milestone Policy
 
@@ -44,7 +44,7 @@
 3. Verify `Publish to PyPI` workflow succeeds (or trigger it manually via `workflow_dispatch` if needed).
 4. Verify package appears on PyPI and release artifacts are attached to GitHub Release.
 5. Validate install from a clean environment:
-   - `pip install rehla-dbx-tools`
+   - `pip install rehla_dbx_tools`
 
 ## Non-Destructive Live Validation
 

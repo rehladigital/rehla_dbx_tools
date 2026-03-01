@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-03-01
+
+### Changed
+
+- Renamed distribution metadata to `rehla_dbx_tools`.
+- Rebranded project title to **Rehla FlightDeck for Databricks**.
+- Added README comparison section versus direct Databricks REST/SDK usage.
+
+### Added
+
+- WordPress-style AWS + Databricks blog draft at:
+  - `docs/BLOG_AWS_DATABRICKS_WORDPRESS.md`
+- WordPress-style full tool reference with sample code for all read-only tools at:
+  - `docs/BLOG_TOOL_REFERENCE_WORDPRESS.md`
+
 ## [1.1.3] - 2026-03-01
 
 ### Changed

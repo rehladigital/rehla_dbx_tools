@@ -9,13 +9,13 @@ This guide explains how to use the package for:
 ## Install
 
 ```bash
-pip install rehla-dbx-tools
+pip install rehla_dbx_tools
 ```
 
 For Spark DataFrame conversion support:
 
 ```bash
-pip install "rehla-dbx-tools[spark]"
+pip install "rehla_dbx_tools[spark]"
 ```
 
 ## 1) Configuration Model
@@ -410,7 +410,7 @@ Ensure both are set:
 Install spark extra:
 
 ```bash
-pip install "rehla-dbx-tools[spark]"
+pip install "rehla_dbx_tools[spark]"
 ```
 
 ## 12) Suggested Usage Pattern

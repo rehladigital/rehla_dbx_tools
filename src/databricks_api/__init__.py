@@ -9,12 +9,15 @@ from .exceptions import ApiError, AuthError, DatabricksApiError, RateLimitError,
 from .response import ApiResponse, normalize_json, to_pandas_df, to_spark_df
 
 try:
-    __version__ = version("rehla-dbx-tools")
+    __version__ = version("rehla_dbx_tools")
 except PackageNotFoundError:
-    __version__ = "0.0.0-dev"
+    try:
+        __version__ = version("rehla-dbx-tools")
+    except PackageNotFoundError:
+        __version__ = "0.0.0-dev"
 
 __Help__ = (
-    "rehla_dbx_tools is read-only by design in this build.\n"
+    "Rehla FlightDeck for Databricks (rehla_dbx_tools) is read-only by design in this build.\n"
     "Use dbx(host, token) or connect(host, token) for quick setup.\n"
     "Core helpers: list_jobs(), list_recent_job_runs(), list_active_job_runs().\n"
     "Destructive HTTP methods (POST/PATCH/PUT/DELETE) are disabled."

@@ -1,6 +1,6 @@
-# Unified Databricks API
+# Rehla FlightDeck for Databricks
 
-Single Python package to call Databricks Workspace and Account APIs and convert JSON responses into Pandas or PySpark DataFrames.
+Rehla FlightDeck for Databricks is a unified, read-only, DataFrame-first API layer for AWS Databricks workspace and account operations.
 
 ## About Rehla Digital Inc
 
@@ -9,7 +9,7 @@ Rehla Digital Inc builds cloud and data engineering solutions that help teams st
 ## Install
 
 ```bash
-pip install rehla-dbx-tools
+pip install rehla_dbx_tools
 ```
 
 Import in Python with underscores:
@@ -21,7 +21,7 @@ from rehla_dbx_tools import DatabricksApiClient
 Install Spark extras if needed:
 
 ```bash
-pip install "rehla-dbx-tools[spark]"
+pip install "rehla_dbx_tools[spark]"
 ```
 
 ## Quick Start
@@ -151,3 +151,16 @@ Account (`client.account`):
 - `list_log_delivery_configurations`, `get_log_delivery_configuration`
 
 For detailed setup and examples, see `docs/USAGE.md`.
+
+## How This Differs From Databricks SDK/API
+
+- **Less boilerplate**: one-liner bootstrap (`dbx(...)` / `connect(...)`) for quick scripts.
+- **DataFrame-first**: normalized payloads and built-in Pandas/Spark conversion paths.
+- **Forced read pagination**: GET calls aggregate paginated records automatically for analysis workloads.
+- **Safer defaults**: this build blocks destructive operations by design.
+- **Operational ergonomics**: host normalization, env aliases, browser-guided token flow, and Windows SSO helper.
+
+## WordPress-Style Docs
+
+- AWS + Databricks blog draft: `docs/BLOG_AWS_DATABRICKS_WORDPRESS.md`
+- Complete tool-by-tool blog reference: `docs/BLOG_TOOL_REFERENCE_WORDPRESS.md`
