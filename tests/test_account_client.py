@@ -173,3 +173,128 @@ def test_vpc_endpoints_and_customer_managed_keys_wrappers_use_expected_methods_a
         client.delete_customer_managed_key("cmk-101")
         assert request_account.call_args.args == ("DELETE",)
         assert request_account.call_args.kwargs["endpoint"] == "customer-managed-keys/cmk-101"
+
+
+def test_scim_user_and_group_wrappers_use_expected_methods_and_paths():
+    client = AccountClient(
+        AccountConfig(
+            host="https://accounts.cloud.databricks.com",
+            account_id="acc-123",
+            auth=AuthConfig(token="token"),
+        )
+    )
+
+    user_patch_payload = {"Operations": [{"op": "replace", "path": "active", "value": False}]}
+    group_patch_payload = {
+        "Operations": [{"op": "add", "path": "members", "value": [{"value": "123", "display": "alice"}]}]
+    }
+
+    with patch.object(client, "request_account", return_value="ok") as request_account:
+        client.list_users()
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Users"
+        assert request_account.call_args.kwargs["paginate"] is True
+
+        client.get_user("user-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Users/user-101"
+
+        client.create_user({"userName": "alice@example.com", "active": True})
+        assert request_account.call_args.args == ("POST",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Users"
+        assert request_account.call_args.kwargs["json_body"] == {"userName": "alice@example.com", "active": True}
+
+        client.patch_user("user-101", user_patch_payload)
+        assert request_account.call_args.args == ("PATCH",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Users/user-101"
+        assert request_account.call_args.kwargs["json_body"] == user_patch_payload
+
+        client.delete_user("user-101")
+        assert request_account.call_args.args == ("DELETE",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Users/user-101"
+
+        client.list_groups()
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Groups"
+        assert request_account.call_args.kwargs["paginate"] is True
+
+        client.get_group("group-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Groups/group-101"
+
+        client.create_group({"displayName": "data-eng"})
+        assert request_account.call_args.args == ("POST",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Groups"
+        assert request_account.call_args.kwargs["json_body"] == {"displayName": "data-eng"}
+
+        client.patch_group("group-101", group_patch_payload)
+        assert request_account.call_args.args == ("PATCH",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Groups/group-101"
+        assert request_account.call_args.kwargs["json_body"] == group_patch_payload
+
+        client.delete_group("group-101")
+        assert request_account.call_args.args == ("DELETE",)
+        assert request_account.call_args.kwargs["endpoint"] == "scim/v2/Groups/group-101"
+
+
+def test_budget_policy_and_log_delivery_wrappers_use_expected_methods_and_paths():
+    client = AccountClient(
+        AccountConfig(
+            host="https://accounts.cloud.databricks.com",
+            account_id="acc-123",
+            auth=AuthConfig(token="token"),
+        )
+    )
+
+    with patch.object(client, "request_account", return_value="ok") as request_account:
+        client.list_budget_policies()
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "budget-policies"
+        assert request_account.call_args.kwargs["paginate"] is True
+
+        client.get_budget_policy("bp-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "budget-policies/bp-101"
+
+        client.create_budget_policy({"name": "core-platform-budget", "custom_tags": {"env": "prod"}})
+        assert request_account.call_args.args == ("POST",)
+        assert request_account.call_args.kwargs["endpoint"] == "budget-policies"
+        assert request_account.call_args.kwargs["json_body"] == {
+            "name": "core-platform-budget",
+            "custom_tags": {"env": "prod"},
+        }
+
+        client.update_budget_policy("bp-101", {"name": "core-platform-budget-v2"})
+        assert request_account.call_args.args == ("PATCH",)
+        assert request_account.call_args.kwargs["endpoint"] == "budget-policies/bp-101"
+        assert request_account.call_args.kwargs["json_body"] == {"name": "core-platform-budget-v2"}
+
+        client.delete_budget_policy("bp-101")
+        assert request_account.call_args.args == ("DELETE",)
+        assert request_account.call_args.kwargs["endpoint"] == "budget-policies/bp-101"
+
+        client.list_log_delivery_configurations()
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "log-delivery"
+        assert request_account.call_args.kwargs["paginate"] is True
+
+        client.create_log_delivery_configuration({"config_name": "audit-logs", "output_format": "JSON"})
+        assert request_account.call_args.args == ("POST",)
+        assert request_account.call_args.kwargs["endpoint"] == "log-delivery"
+        assert request_account.call_args.kwargs["json_body"] == {
+            "config_name": "audit-logs",
+            "output_format": "JSON",
+        }
+
+        client.get_log_delivery_configuration("ld-101")
+        assert request_account.call_args.args == ("GET",)
+        assert request_account.call_args.kwargs["endpoint"] == "log-delivery/ld-101"
+
+        client.patch_log_delivery_configuration("ld-101", {"status": "DISABLED"})
+        assert request_account.call_args.args == ("PATCH",)
+        assert request_account.call_args.kwargs["endpoint"] == "log-delivery/ld-101"
+        assert request_account.call_args.kwargs["json_body"] == {"status": "DISABLED"}
+
+        client.delete_log_delivery_configuration("ld-101")
+        assert request_account.call_args.args == ("DELETE",)
+        assert request_account.call_args.kwargs["endpoint"] == "log-delivery/ld-101"

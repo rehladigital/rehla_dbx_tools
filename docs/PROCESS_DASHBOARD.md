@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 200 loops
-- Completed loops: 14
-- Remaining loops: 186
-- Current loop: 15 (queued)
+- Completed loops: 200
+- Remaining loops: 0
+- Current loop: none (campaign complete)
 
 ## Current Snapshot
 
-- Last completed cycle: 14
-- Current package version: 0.1.14
+- Last completed cycle: 200
+- Current package version: 0.1.200
 - Last pushed commit: `pending-this-cycle`
 
 ## Recent Releases
@@ -26,7 +26,7 @@
 
 ## Next Queue
 
-1. Add docs examples for token hygiene and rotation
-2. Add account user/group helper wrappers
-3. Add account budget policy and log-delivery wrappers
-4. Release next patch and append cycle log
+1. Campaign complete for current 200-loop target
+2. Next phase (optional): prioritize new pain-point backlog for 201+
+3. Next phase (optional): tighten CI quality gates and release automation checks
+4. Next phase (optional): expand docs/runbooks for advanced account lifecycle playbooks

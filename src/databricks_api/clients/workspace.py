@@ -439,3 +439,21 @@ class WorkspaceClient(BaseDatabricksClient):
         if not token_id or not str(token_id).strip():
             raise ValidationError("token_id is required to revoke token.")
         return self.delete_token(token_id=token_id, api_version=api_version)
+
+    def rotate_token(
+        self,
+        token_id_to_revoke: str,
+        *,
+        lifetime_seconds: Optional[int] = None,
+        comment: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        if not token_id_to_revoke or not str(token_id_to_revoke).strip():
+            raise ValidationError("token_id_to_revoke is required to rotate token.")
+        created_token = self.create_token(
+            lifetime_seconds=lifetime_seconds,
+            comment=comment,
+            api_version=api_version,
+        )
+        self.revoke_token(token_id=token_id_to_revoke, api_version=api_version)
+        return created_token

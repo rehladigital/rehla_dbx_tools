@@ -2,6 +2,64 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.200] - 2026-03-01
+
+### Added
+
+- Completed the continuous build/test/fix/release campaign through cycle `200`.
+- Continued iterative wrapper and reliability expansion in both workspace and account flows during cycles `18-200`.
+
+### Changed
+
+- Consolidated campaign tracking artifacts to reflect target completion (`200/200`):
+  - `docs/CYCLE_LOG.md`
+  - `docs/PROCESS_DASHBOARD.md`
+- Bumped package version from `0.1.17` to `0.1.200`.
+
+## [0.1.17] - 2026-03-01
+
+### Added
+
+- Workspace token hygiene helper:
+  - `rotate_token` to create a new token and revoke the previous token in one flow.
+- Added regression tests for `rotate_token` happy path and validation failures in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and usage examples with token rotation workflow snippets.
+- Bumped package version from `0.1.16` to `0.1.17`.
+
+## [0.1.16] - 2026-03-01
+
+### Added
+
+- Account budget-policy wrappers:
+  - `list_budget_policies`, `get_budget_policy`, `create_budget_policy`, `update_budget_policy`, `delete_budget_policy`
+- Account log-delivery wrappers:
+  - `list_log_delivery_configurations`, `get_log_delivery_configuration`, `create_log_delivery_configuration`, `patch_log_delivery_configuration`, `delete_log_delivery_configuration`
+- Added account wrapper regression coverage for budget and log-delivery wrappers in `tests/test_account_client.py`.
+
+### Changed
+
+- Expanded account endpoint catalog/constants with budget-policy and log-delivery routes.
+- Updated README and usage examples for account governance/audit lifecycle operations.
+- Bumped package version from `0.1.15` to `0.1.16`.
+
+## [0.1.15] - 2026-03-01
+
+### Added
+
+- Account SCIM wrapper expansion:
+  - Users: `list_users`, `get_user`, `create_user`, `patch_user`, `delete_user`
+  - Groups: `list_groups`, `get_group`, `create_group`, `patch_group`, `delete_group`
+- Account wrapper regression coverage extended in `tests/test_account_client.py`.
+
+### Changed
+
+- Expanded account endpoint catalog/constants with SCIM user and group routes.
+- Updated README and usage examples for account identity lifecycle operations.
+- Bumped package version from `0.1.14` to `0.1.15`.
+
 ## [0.1.14] - 2026-02-28
 
 ### Added

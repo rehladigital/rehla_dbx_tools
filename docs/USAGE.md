@@ -104,6 +104,11 @@ secret_resp = client.workspace.put_secret(
 token_resp = client.workspace.create_token(lifetime_seconds=3600, comment="short-lived-ci-token")
 token_list = client.workspace.list_tokens()
 token_revoke = client.workspace.revoke_token(token_id="token-id")
+token_rotate = client.workspace.rotate_token(
+    token_id_to_revoke="old-token-id",
+    lifetime_seconds=3600,
+    comment="rotation-run",
+)
 repos_resp = client.workspace.list_repos(path_prefix="/Repos/team")
 repo_get = client.workspace.get_repo(repo_id=12345)
 repo_create = client.workspace.create_repo(
@@ -172,6 +177,36 @@ if client.account is not None:
         {"use_cases": ["MANAGED_SERVICES"], "aws_key_info": {"key_arn": "arn:aws:kms:region:acct:key/id"}}
     )
     cmk_delete = client.account.delete_customer_managed_key("cmk-101")
+    users_list = client.account.list_users()
+    user_get = client.account.get_user("user-101")
+    user_create = client.account.create_user({"userName": "alice@example.com", "active": True})
+    user_patch = client.account.patch_user(
+        "user-101",
+        {"Operations": [{"op": "replace", "path": "active", "value": False}]},
+    )
+    user_delete = client.account.delete_user("user-101")
+    groups_list = client.account.list_groups()
+    group_get = client.account.get_group("group-101")
+    group_create = client.account.create_group({"displayName": "data-eng"})
+    group_patch = client.account.patch_group(
+        "group-101",
+        {"Operations": [{"op": "add", "path": "members", "value": [{"value": "123", "display": "alice"}]}]},
+    )
+    group_delete = client.account.delete_group("group-101")
+    budgets_list = client.account.list_budget_policies()
+    budget_get = client.account.get_budget_policy("bp-101")
+    budget_create = client.account.create_budget_policy(
+        {"name": "core-platform-budget", "custom_tags": {"env": "prod"}}
+    )
+    budget_update = client.account.update_budget_policy("bp-101", {"name": "core-platform-budget-v2"})
+    budget_delete = client.account.delete_budget_policy("bp-101")
+    log_delivery_list = client.account.list_log_delivery_configurations()
+    log_delivery_create = client.account.create_log_delivery_configuration(
+        {"config_name": "audit-logs", "output_format": "JSON"}
+    )
+    log_delivery_get = client.account.get_log_delivery_configuration("ld-101")
+    log_delivery_patch = client.account.patch_log_delivery_configuration("ld-101", {"status": "DISABLED"})
+    log_delivery_delete = client.account.delete_log_delivery_configuration("ld-101")
 ```
 
 Generic account call:

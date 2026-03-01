@@ -237,3 +237,31 @@ def test_revoke_token_requires_non_empty_token_id():
     client = _workspace_client()
     with pytest.raises(ValidationError):
         client.revoke_token("")
+
+
+def test_rotate_token_creates_new_token_then_revokes_previous_token():
+    client = _workspace_client()
+
+    with (
+        patch.object(client, "create_token", return_value={"token_value": "new-token"}) as create_token,
+        patch.object(client, "revoke_token", return_value=None) as revoke_token,
+    ):
+        created_token = client.rotate_token(
+            "old-token-id",
+            lifetime_seconds=3600,
+            comment="rotated by automation",
+        )
+
+    assert created_token == {"token_value": "new-token"}
+    create_token.assert_called_once_with(
+        lifetime_seconds=3600,
+        comment="rotated by automation",
+        api_version="2.0",
+    )
+    revoke_token.assert_called_once_with(token_id="old-token-id", api_version="2.0")
+
+
+def test_rotate_token_requires_non_empty_token_id_to_revoke():
+    client = _workspace_client()
+    with pytest.raises(ValidationError):
+        client.rotate_token("")

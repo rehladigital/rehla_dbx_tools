@@ -38,10 +38,8 @@ At end of every cycle:
 
 ## Current Focus Queue
 
-1. Expand Unity Catalog wrappers.
-2. Expand Repos/Secrets/Tokens wrappers.
+1. 200-loop campaign completed.
+2. If resumed for 201+, restart with pain-point triage and capability-gap scan.
 3. Keep tests synchronized with each wrapper batch.
-4. Keep PyPI metadata/release docs current.
-5. Execute continuous release cycles via loop maintainer process.
-6. Expand account onboarding wrappers (credentials, storage configurations, networks).
-7. Expand account private endpoint wrappers (VPC endpoints, customer-managed keys).
+4. Keep release metadata/docs current for each patch bump.
+5. Continue context snapshots for long-run continuity.

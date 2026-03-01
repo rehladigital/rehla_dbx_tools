@@ -80,6 +80,12 @@ if client.workspace is not None:
     run = client.workspace.run_job_now(job_id=123)
     cluster = client.workspace.get_cluster(cluster_id="0123-abc")
     catalogs = client.workspace.list_catalogs(max_results=25)
+    token = client.workspace.create_token(lifetime_seconds=3600, comment="ci-short-lived")
+    rotated_token = client.workspace.rotate_token(
+        token_id_to_revoke="old-token-id",
+        lifetime_seconds=3600,
+        comment="ci-rotation",
+    )
     repos = client.workspace.list_repos(path_prefix="/Repos/team")
     repo = client.workspace.get_repo(repo_id=12345)
     client.workspace.put_secret(
@@ -96,6 +102,12 @@ if client.account is not None:
     private_access = client.account.list_private_access_settings()
     vpc_endpoints = client.account.list_vpc_endpoints()
     cmks = client.account.list_customer_managed_keys()
+    users = client.account.list_users()
+    user = client.account.get_user("user-101")
+    groups = client.account.list_groups()
+    group = client.account.get_group("group-101")
+    budgets = client.account.list_budget_policies()
+    log_delivery_configs = client.account.list_log_delivery_configurations()
 ```
 
 For detailed setup and examples, see `docs/USAGE.md`.

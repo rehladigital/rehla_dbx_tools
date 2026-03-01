@@ -251,3 +251,182 @@ class AccountClient(BaseDatabricksClient):
             endpoint=f"customer-managed-keys/{customer_managed_key_id}",
             api_version=api_version,
         )
+
+    def list_users(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="scim/v2/Users",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_user(self, user_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint=f"scim/v2/Users/{user_id}",
+            api_version=api_version,
+        )
+
+    def create_user(self, user_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="scim/v2/Users",
+            api_version=api_version,
+            json_body=user_spec,
+        )
+
+    def patch_user(self, user_id: str, operations_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "PATCH",
+            service="accounts",
+            endpoint=f"scim/v2/Users/{user_id}",
+            api_version=api_version,
+            json_body=operations_spec,
+        )
+
+    def delete_user(self, user_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"scim/v2/Users/{user_id}",
+            api_version=api_version,
+        )
+
+    def list_groups(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="scim/v2/Groups",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_group(self, group_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint=f"scim/v2/Groups/{group_id}",
+            api_version=api_version,
+        )
+
+    def create_group(self, group_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="scim/v2/Groups",
+            api_version=api_version,
+            json_body=group_spec,
+        )
+
+    def patch_group(self, group_id: str, operations_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "PATCH",
+            service="accounts",
+            endpoint=f"scim/v2/Groups/{group_id}",
+            api_version=api_version,
+            json_body=operations_spec,
+        )
+
+    def delete_group(self, group_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"scim/v2/Groups/{group_id}",
+            api_version=api_version,
+        )
+
+    def list_budget_policies(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="budget-policies",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_budget_policy(self, budget_policy_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint=f"budget-policies/{budget_policy_id}",
+            api_version=api_version,
+        )
+
+    def create_budget_policy(self, budget_policy_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="budget-policies",
+            api_version=api_version,
+            json_body=budget_policy_spec,
+        )
+
+    def update_budget_policy(
+        self, budget_policy_id: str, budget_policy_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        return self.request_account(
+            "PATCH",
+            service="accounts",
+            endpoint=f"budget-policies/{budget_policy_id}",
+            api_version=api_version,
+            json_body=budget_policy_changes,
+        )
+
+    def delete_budget_policy(self, budget_policy_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"budget-policies/{budget_policy_id}",
+            api_version=api_version,
+        )
+
+    def list_log_delivery_configurations(self, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint="log-delivery",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_log_delivery_configuration(self, log_delivery_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "POST",
+            service="accounts",
+            endpoint="log-delivery",
+            api_version=api_version,
+            json_body=log_delivery_spec,
+        )
+
+    def get_log_delivery_configuration(self, log_delivery_configuration_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "GET",
+            service="accounts",
+            endpoint=f"log-delivery/{log_delivery_configuration_id}",
+            api_version=api_version,
+        )
+
+    def patch_log_delivery_configuration(
+        self,
+        log_delivery_configuration_id: str,
+        log_delivery_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        return self.request_account(
+            "PATCH",
+            service="accounts",
+            endpoint=f"log-delivery/{log_delivery_configuration_id}",
+            api_version=api_version,
+            json_body=log_delivery_changes,
+        )
+
+    def delete_log_delivery_configuration(self, log_delivery_configuration_id: str, api_version: str = "2.0") -> Any:
+        return self.request_account(
+            "DELETE",
+            service="accounts",
+            endpoint=f"log-delivery/{log_delivery_configuration_id}",
+            api_version=api_version,
+        )
