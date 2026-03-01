@@ -81,6 +81,15 @@ def test_jobs_wrappers_route_expected_methods_and_payloads():
         assert request_versioned.call_args.kwargs["endpoint"] == "runs/get-output"
         assert request_versioned.call_args.kwargs["params"] == {"run_id": 987}
 
+        client.submit_job_run({"run_name": "ad-hoc-job"})
+        assert request_versioned.call_args.args == ("POST", "jobs")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/submit"
+        assert request_versioned.call_args.kwargs["json_body"] == {"run_name": "ad-hoc-job"}
+
+        client.delete_job_run(987)
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"run_id": 987}
+
         client.repair_job_run(987, rerun_all_failed_tasks=True, latest_repair_id=2)
         assert request_versioned.call_args.kwargs["endpoint"] == "runs/repair"
         assert request_versioned.call_args.kwargs["json_body"] == {
@@ -107,6 +116,35 @@ def test_jobs_wrappers_route_expected_methods_and_payloads():
             "run_id": 456,
             "rerun_all_failed_tasks": False,
         }
+
+        client.submit_job_run({"tasks": [{"task_key": "one-off"}]})
+        assert request_versioned.call_args.kwargs["json_body"] == {"tasks": [{"task_key": "one-off"}]}
+
+
+def test_job_run_wrappers_validate_identifiers_and_pagination_inputs():
+    client = _workspace_client()
+    with pytest.raises(ValidationError):
+        client.get_job_run(0)
+    with pytest.raises(ValidationError):
+        client.cancel_job_run(-1)
+    with pytest.raises(ValidationError):
+        client.list_job_runs(job_id=0)
+    with pytest.raises(ValidationError):
+        client.list_job_runs(offset=-1)
+    with pytest.raises(ValidationError):
+        client.list_job_runs(limit=0)
+    with pytest.raises(ValidationError):
+        client.cancel_all_job_runs(0)
+    with pytest.raises(ValidationError):
+        client.export_job_run(0)
+    with pytest.raises(ValidationError):
+        client.get_job_run_output(0)
+    with pytest.raises(ValidationError):
+        client.delete_job_run(0)
+    with pytest.raises(ValidationError):
+        client.repair_job_run(0)
+    with pytest.raises(ValidationError):
+        client.repair_job_run(1, latest_repair_id=0)
 
 
 def test_cluster_wrappers_route_expected_methods_and_payloads():

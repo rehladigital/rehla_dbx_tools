@@ -738,3 +738,69 @@
 - Updated examples in `README.md` and `docs/USAGE.md` to include new Jobs run-management wrappers.
 - Validation: `47 passed` via `pytest -q`.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 25).
+
+## Run 26 (Cycle 26 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: add one-time Jobs run submission wrapper for ad-hoc workload execution.
+
+### Progress Notes
+
+- Added `submit_job_run(run_spec)` wrapper to `WorkspaceClient`.
+- Added endpoint-catalog route for `/api/2.1/jobs/runs/submit`.
+
+## Run 27 (Cycle 27 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: add explicit Jobs run deletion wrapper for run lifecycle cleanup.
+
+### Progress Notes
+
+- Added `delete_job_run(run_id)` wrapper to `WorkspaceClient`.
+- Added endpoint-catalog route for `/api/2.1/jobs/runs/delete`.
+
+## Run 28 (Cycle 28 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: harden run-lifecycle wrappers with strict positive-ID and pagination guardrails.
+
+### Progress Notes
+
+- Added shared validation helper for positive integer checks in `WorkspaceClient`.
+- Added validation for run lifecycle methods:
+  - `get_job_run`
+  - `cancel_job_run`
+  - `list_job_runs` (`job_id`, `offset`, `limit`)
+  - `cancel_all_job_runs`
+  - `export_job_run`
+  - `get_job_run_output`
+  - `delete_job_run`
+  - `repair_job_run` (`run_id`, `latest_repair_id`)
+
+## Run 29 (Cycle 29 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: extend regression coverage for submit/delete wrappers and validation failures.
+
+### Progress Notes
+
+- Expanded `tests/test_workspace_client.py` with:
+  - behavior assertions for `submit_job_run` and `delete_job_run`
+  - validation tests for run/job IDs and pagination constraints in run-lifecycle wrappers.
+
+## Run 30 (Cycle 30 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: sync generated endpoints and user docs for the new run-lifecycle operations.
+
+### Progress Notes
+
+- Regenerated endpoint constants from updated endpoint catalog.
+- Updated usage snippets in `README.md` and `docs/USAGE.md` for `submit_job_run` and `delete_job_run`.
+- Validation: `48 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 30).

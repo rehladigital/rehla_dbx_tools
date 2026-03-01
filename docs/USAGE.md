@@ -107,6 +107,8 @@ run_resp = client.workspace.run_job_now(job_id=123, notebook_params={"date": "20
 runs_list = client.workspace.list_job_runs(job_id=123, active_only=True, limit=25)
 run_export = client.workspace.export_job_run(run_id=987, views_to_export="CODE")
 run_output = client.workspace.get_job_run_output(run_id=987)
+run_submit = client.workspace.submit_job_run({"run_name": "ad-hoc-check"})
+run_delete = client.workspace.delete_job_run(run_id=987)
 run_repair = client.workspace.repair_job_run(run_id=987, rerun_all_failed_tasks=True)
 run_cancel_all = client.workspace.cancel_all_job_runs(job_id=123, all_queued_runs=True)
 cluster_resp = client.workspace.get_cluster(cluster_id="0123-abc")

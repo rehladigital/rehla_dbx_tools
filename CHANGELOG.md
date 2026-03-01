@@ -40,6 +40,9 @@ All notable changes to this project will be documented in this file.
     - `export_job_run`
     - `get_job_run_output`
     - `repair_job_run`
+    - `submit_job_run`
+    - `delete_job_run`
+- Added run-lifecycle validation guardrails for positive identifiers and pagination constraints.
 - Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01

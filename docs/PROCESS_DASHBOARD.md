@@ -7,13 +7,13 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 25
-- Remaining loops: 275
-- Current loop: 26 (queued)
+- Completed loops: 30
+- Remaining loops: 270
+- Current loop: 31 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 25
+- Last completed cycle: 30
 - Current package version: 1.0.0
 - Last pushed commit: `pending-this-cycle`
 
@@ -26,7 +26,7 @@
 
 ## Next Queue
 
-1. Execute run 26 on Azure track (round-robin sequence)
+1. Execute run 31 on AWS track (round-robin sequence)
 2. Keep cycle log strictly cycle-by-cycle with exact functionality deltas
 3. Continue reliability hardening (pagination/auth/pathing/job-run lifecycle)
 4. Enforce version/release checkpoints (major every 50, minor every 100)

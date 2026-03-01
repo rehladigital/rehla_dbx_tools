@@ -14,6 +14,11 @@ class WorkspaceClient(BaseDatabricksClient):
         options = ClientOptions(default_api_version=config.default_api_version)
         super().__init__(host=config.host or "", auth=config.auth, options=options)
 
+    @staticmethod
+    def _require_positive_int(value: int, field_name: str) -> None:
+        if value <= 0:
+            raise ValidationError(f"{field_name} must be > 0.")
+
     def list_jobs(self, api_version: str = "2.1", limit: int = 25) -> Any:
         return self.request_versioned(
             "GET",
@@ -80,6 +85,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_job_run(self, run_id: int, api_version: str = "2.1") -> Any:
+        self._require_positive_int(run_id, "run_id")
         return self.request_versioned(
             "GET",
             "jobs",
@@ -89,6 +95,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def cancel_job_run(self, run_id: int, api_version: str = "2.1") -> Any:
+        self._require_positive_int(run_id, "run_id")
         return self.request_versioned(
             "POST",
             "jobs",
@@ -109,14 +116,18 @@ class WorkspaceClient(BaseDatabricksClient):
     ) -> Any:
         params: dict[str, Any] = {}
         if job_id is not None:
+            self._require_positive_int(job_id, "job_id")
             params["job_id"] = job_id
         if active_only is not None:
             params["active_only"] = active_only
         if completed_only is not None:
             params["completed_only"] = completed_only
         if offset is not None:
+            if offset < 0:
+                raise ValidationError("offset must be >= 0.")
             params["offset"] = offset
         if limit is not None:
+            self._require_positive_int(limit, "limit")
             params["limit"] = limit
         return self.request_versioned(
             "GET",
@@ -134,6 +145,7 @@ class WorkspaceClient(BaseDatabricksClient):
         all_queued_runs: bool = False,
         api_version: str = "2.1",
     ) -> Any:
+        self._require_positive_int(job_id, "job_id")
         return self.request_versioned(
             "POST",
             "jobs",
@@ -149,6 +161,7 @@ class WorkspaceClient(BaseDatabricksClient):
         views_to_export: Optional[str] = None,
         api_version: str = "2.1",
     ) -> Any:
+        self._require_positive_int(run_id, "run_id")
         params: dict[str, Any] = {"run_id": run_id}
         if views_to_export:
             params["views_to_export"] = views_to_export
@@ -161,12 +174,32 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def get_job_run_output(self, run_id: int, api_version: str = "2.1") -> Any:
+        self._require_positive_int(run_id, "run_id")
         return self.request_versioned(
             "GET",
             "jobs",
             endpoint="runs/get-output",
             api_version=api_version,
             params={"run_id": run_id},
+        )
+
+    def submit_job_run(self, run_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        return self.request_versioned(
+            "POST",
+            "jobs",
+            endpoint="runs/submit",
+            api_version=api_version,
+            json_body=run_spec,
+        )
+
+    def delete_job_run(self, run_id: int, api_version: str = "2.1") -> Any:
+        self._require_positive_int(run_id, "run_id")
+        return self.request_versioned(
+            "POST",
+            "jobs",
+            endpoint="runs/delete",
+            api_version=api_version,
+            json_body={"run_id": run_id},
         )
 
     def repair_job_run(
@@ -177,11 +210,13 @@ class WorkspaceClient(BaseDatabricksClient):
         latest_repair_id: Optional[int] = None,
         api_version: str = "2.1",
     ) -> Any:
+        self._require_positive_int(run_id, "run_id")
         payload: dict[str, Any] = {
             "run_id": run_id,
             "rerun_all_failed_tasks": rerun_all_failed_tasks,
         }
         if latest_repair_id is not None:
+            self._require_positive_int(latest_repair_id, "latest_repair_id")
             payload["latest_repair_id"] = latest_repair_id
         return self.request_versioned(
             "POST",
