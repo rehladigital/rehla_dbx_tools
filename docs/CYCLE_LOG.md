@@ -1433,3 +1433,20 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.10` with changelog updates for release.
+
+## Run 71 (Cycle 71 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: implement `networking` and `notifications` wrappers with tests and release.
+
+### Progress Notes
+
+- Added networking wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_ip_access_lists`, `create_ip_access_list`, `get_ip_access_list`, `replace_ip_access_list`, `update_ip_access_list`, `delete_ip_access_list`
+- Added notifications wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_notification_destinations`, `create_notification_destination`, `get_notification_destination`, `update_notification_destination`, `delete_notification_destination`
+- Updated `src/databricks_api/endpoints/catalog.py` with networking and notifications endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.11` with changelog updates for release.

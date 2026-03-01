@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 70
-- Remaining loops: 230
-- Current loop: 71 (queued)
+- Completed loops: 71
+- Remaining loops: 229
+- Current loop: 72 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 70
-- Current package version: 1.2.10
+- Last completed cycle: 71
+- Current package version: 1.2.11
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 71 on Azure track (round-robin sequence)
-2. Continue all-tools implementation for `networking` and `notifications` families
+1. Execute run 72 on GCP track (round-robin sequence)
+2. Continue all-tools implementation for `pipelines` and `query-history` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.10` after commit/push and workflow verification
+4. Publish `1.2.11` after commit/push and workflow verification

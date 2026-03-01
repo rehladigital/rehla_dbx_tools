@@ -251,6 +251,83 @@ def test_library_wrappers_route_expected_calls_and_validation():
         client.install_libraries("", [])
     with pytest.raises(ValidationError):
         client.uninstall_libraries("", [])
+
+
+def test_networking_and_notifications_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_ip_access_lists()
+        assert request_versioned.call_args.args == ("GET", "ip-access-lists")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_ip_access_list({"label": "corp-office", "ip_addresses": ["10.0.0.0/24"], "enabled": True})
+        assert request_versioned.call_args.args == ("POST", "ip-access-lists")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "label": "corp-office",
+            "ip_addresses": ["10.0.0.0/24"],
+            "enabled": True,
+        }
+
+        client.get_ip_access_list("list-1")
+        assert request_versioned.call_args.args == ("GET", "ip-access-lists")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list-1"
+
+        client.replace_ip_access_list("list-1", {"label": "corp-office", "ip_addresses": ["10.1.0.0/24"]})
+        assert request_versioned.call_args.args == ("PUT", "ip-access-lists")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "label": "corp-office",
+            "ip_addresses": ["10.1.0.0/24"],
+        }
+
+        client.update_ip_access_list("list-1", {"enabled": False})
+        assert request_versioned.call_args.args == ("PATCH", "ip-access-lists")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"enabled": False}
+
+        client.delete_ip_access_list("list-1")
+        assert request_versioned.call_args.args == ("DELETE", "ip-access-lists")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list-1"
+
+        client.list_notification_destinations()
+        assert request_versioned.call_args.args == ("GET", "notification-destinations")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_notification_destination({"display_name": "Slack Alerts"})
+        assert request_versioned.call_args.args == ("POST", "notification-destinations")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "Slack Alerts"}
+
+        client.get_notification_destination("dest-1")
+        assert request_versioned.call_args.args == ("GET", "notification-destinations")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dest-1"
+
+        client.update_notification_destination("dest-1", {"display_name": "Slack Alerts v2"})
+        assert request_versioned.call_args.args == ("PATCH", "notification-destinations")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dest-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "Slack Alerts v2"}
+
+        client.delete_notification_destination("dest-1")
+        assert request_versioned.call_args.args == ("DELETE", "notification-destinations")
+        assert request_versioned.call_args.kwargs["endpoint"] == "dest-1"
+
+    with pytest.raises(ValidationError):
+        client.get_ip_access_list("")
+    with pytest.raises(ValidationError):
+        client.replace_ip_access_list("", {})
+    with pytest.raises(ValidationError):
+        client.update_ip_access_list("", {})
+    with pytest.raises(ValidationError):
+        client.delete_ip_access_list("")
+    with pytest.raises(ValidationError):
+        client.get_notification_destination("")
+    with pytest.raises(ValidationError):
+        client.update_notification_destination("", {})
+    with pytest.raises(ValidationError):
+        client.delete_notification_destination("")
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):

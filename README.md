@@ -145,6 +145,8 @@ Workspace (`client.workspace`):
 - `get_instance_pool_permissions`, `set_instance_pool_permissions`, `update_instance_pool_permissions`, `get_instance_pool_permission_levels`
 - `list_instance_profiles`, `add_instance_profile`, `edit_instance_profile`, `remove_instance_profile`
 - `get_all_library_statuses`, `get_library_status`, `install_libraries`, `uninstall_libraries`
+- `list_ip_access_lists`, `create_ip_access_list`, `get_ip_access_list`, `replace_ip_access_list`, `update_ip_access_list`, `delete_ip_access_list`
+- `list_notification_destinations`, `create_notification_destination`, `get_notification_destination`, `update_notification_destination`, `delete_notification_destination`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`

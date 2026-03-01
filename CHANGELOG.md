@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.11] - 2026-03-01
+
+### Added
+
+- Networking wrappers on workspace client:
+  - `list_ip_access_lists`
+  - `create_ip_access_list`
+  - `get_ip_access_list`
+  - `replace_ip_access_list`
+  - `update_ip_access_list`
+  - `delete_ip_access_list`
+- Notifications wrappers on workspace client:
+  - `list_notification_destinations`
+  - `create_notification_destination`
+  - `get_notification_destination`
+  - `update_notification_destination`
+  - `delete_notification_destination`
+- Endpoint catalog entries for networking and notifications routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include networking and notifications methods.
+- Bumped package version from `1.2.10` to `1.2.11`.
+
 ## [1.2.10] - 2026-03-01
 
 ### Added

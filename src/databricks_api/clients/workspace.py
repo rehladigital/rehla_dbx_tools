@@ -1839,6 +1839,112 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body={"cluster_id": cluster_id, "libraries": libraries},
         )
 
+    # Networking scope (IP access lists)
+    def list_ip_access_lists(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "ip-access-lists",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_ip_access_list(self, access_list_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "ip-access-lists",
+            endpoint="",
+            api_version=api_version,
+            json_body=access_list_spec,
+        )
+
+    def get_ip_access_list(self, list_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(list_id, "list_id")
+        return self.request_versioned(
+            "GET",
+            "ip-access-lists",
+            endpoint=list_id,
+            api_version=api_version,
+        )
+
+    def replace_ip_access_list(self, list_id: str, access_list_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(list_id, "list_id")
+        return self.request_versioned(
+            "PUT",
+            "ip-access-lists",
+            endpoint=list_id,
+            api_version=api_version,
+            json_body=access_list_spec,
+        )
+
+    def update_ip_access_list(self, list_id: str, access_list_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(list_id, "list_id")
+        return self.request_versioned(
+            "PATCH",
+            "ip-access-lists",
+            endpoint=list_id,
+            api_version=api_version,
+            json_body=access_list_changes,
+        )
+
+    def delete_ip_access_list(self, list_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(list_id, "list_id")
+        return self.request_versioned(
+            "DELETE",
+            "ip-access-lists",
+            endpoint=list_id,
+            api_version=api_version,
+        )
+
+    # Notifications scope
+    def list_notification_destinations(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "notification-destinations",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_notification_destination(self, destination_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "notification-destinations",
+            endpoint="",
+            api_version=api_version,
+            json_body=destination_spec,
+        )
+
+    def get_notification_destination(self, destination_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(destination_id, "destination_id")
+        return self.request_versioned(
+            "GET",
+            "notification-destinations",
+            endpoint=destination_id,
+            api_version=api_version,
+        )
+
+    def update_notification_destination(
+        self, destination_id: str, destination_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(destination_id, "destination_id")
+        return self.request_versioned(
+            "PATCH",
+            "notification-destinations",
+            endpoint=destination_id,
+            api_version=api_version,
+            json_body=destination_changes,
+        )
+
+    def delete_notification_destination(self, destination_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(destination_id, "destination_id")
+        return self.request_versioned(
+            "DELETE",
+            "notification-destinations",
+            endpoint=destination_id,
+            api_version=api_version,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
