@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.15] - 2026-03-01
+
+### Added
+
+- Settings wrappers on workspace client:
+  - `list_setting_keys_metadata`
+  - `get_workspace_setting`
+  - `update_workspace_setting`
+  - `get_workspace_conf`
+  - `set_workspace_conf`
+- Tags wrappers on workspace client:
+  - `list_tag_policies`
+  - `create_tag_policy`
+  - `get_tag_policy`
+  - `update_tag_policy`
+  - `delete_tag_policy`
+  - `list_tag_assignments`
+  - `create_tag_assignment`
+  - `get_tag_assignment`
+  - `update_tag_assignment`
+  - `delete_tag_assignment`
+- Endpoint catalog entries for settings and tags routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include settings and tags methods.
+- Bumped package version from `1.2.14` to `1.2.15`.
+
 ## [1.2.14] - 2026-03-01
 
 ### Added

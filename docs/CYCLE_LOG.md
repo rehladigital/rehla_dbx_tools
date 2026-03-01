@@ -1503,3 +1503,21 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.14` with changelog updates for release.
+
+## Run 75 (Cycle 75 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: implement `settings` and `tags` wrappers with tests and release.
+
+### Progress Notes
+
+- Added settings wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_setting_keys_metadata`, `get_workspace_setting`, `update_workspace_setting`, `get_workspace_conf`, `set_workspace_conf`
+- Added tags wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_tag_policies`, `create_tag_policy`, `get_tag_policy`, `update_tag_policy`, `delete_tag_policy`
+  - `list_tag_assignments`, `create_tag_assignment`, `get_tag_assignment`, `update_tag_assignment`, `delete_tag_assignment`
+- Updated `src/databricks_api/endpoints/catalog.py` with settings and tags endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.15` with changelog updates for release.

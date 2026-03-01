@@ -2363,6 +2363,172 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Settings scope
+    def list_setting_keys_metadata(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "settings-v2",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_workspace_setting(self, setting_key: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(setting_key, "setting_key")
+        return self.request_versioned(
+            "GET",
+            "settings-v2",
+            endpoint=setting_key,
+            api_version=api_version,
+        )
+
+    def update_workspace_setting(self, setting_key: str, setting_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(setting_key, "setting_key")
+        return self.request_versioned(
+            "PATCH",
+            "settings-v2",
+            endpoint=setting_key,
+            api_version=api_version,
+            json_body=setting_changes,
+        )
+
+    def get_workspace_conf(self, keys: Optional[list[str]] = None, api_version: str = "2.0") -> Any:
+        params: Optional[dict[str, Any]] = None
+        if keys:
+            params = {"keys": ",".join(keys)}
+        return self.request_versioned(
+            "GET",
+            "workspace-conf",
+            endpoint="",
+            api_version=api_version,
+            params=params,
+        )
+
+    def set_workspace_conf(self, custom_config: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "PATCH",
+            "workspace-conf",
+            endpoint="",
+            api_version=api_version,
+            json_body={"custom_config": custom_config},
+        )
+
+    # Tags scope
+    def list_tag_policies(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "tags/policies",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_tag_policy(self, policy_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "tags/policies",
+            endpoint="",
+            api_version=api_version,
+            json_body=policy_spec,
+        )
+
+    def get_tag_policy(self, policy_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(policy_id, "policy_id")
+        return self.request_versioned(
+            "GET",
+            "tags/policies",
+            endpoint=policy_id,
+            api_version=api_version,
+        )
+
+    def update_tag_policy(self, policy_id: str, policy_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(policy_id, "policy_id")
+        return self.request_versioned(
+            "PATCH",
+            "tags/policies",
+            endpoint=policy_id,
+            api_version=api_version,
+            json_body=policy_changes,
+        )
+
+    def delete_tag_policy(self, policy_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(policy_id, "policy_id")
+        return self.request_versioned(
+            "DELETE",
+            "tags/policies",
+            endpoint=policy_id,
+            api_version=api_version,
+        )
+
+    def list_tag_assignments(self, entity_type: str, entity_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(entity_type, "entity_type")
+        self._require_non_empty_string(entity_id, "entity_id")
+        return self.request_versioned(
+            "GET",
+            "tags/assignments",
+            endpoint=f"{entity_type}/{entity_id}",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_tag_assignment(
+        self,
+        entity_type: str,
+        entity_id: str,
+        assignment_spec: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(entity_type, "entity_type")
+        self._require_non_empty_string(entity_id, "entity_id")
+        return self.request_versioned(
+            "POST",
+            "tags/assignments",
+            endpoint=f"{entity_type}/{entity_id}",
+            api_version=api_version,
+            json_body=assignment_spec,
+        )
+
+    def get_tag_assignment(self, entity_type: str, entity_id: str, assignment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(entity_type, "entity_type")
+        self._require_non_empty_string(entity_id, "entity_id")
+        self._require_non_empty_string(assignment_id, "assignment_id")
+        return self.request_versioned(
+            "GET",
+            "tags/assignments",
+            endpoint=f"{entity_type}/{entity_id}/{assignment_id}",
+            api_version=api_version,
+        )
+
+    def update_tag_assignment(
+        self,
+        entity_type: str,
+        entity_id: str,
+        assignment_id: str,
+        assignment_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(entity_type, "entity_type")
+        self._require_non_empty_string(entity_id, "entity_id")
+        self._require_non_empty_string(assignment_id, "assignment_id")
+        return self.request_versioned(
+            "PATCH",
+            "tags/assignments",
+            endpoint=f"{entity_type}/{entity_id}/{assignment_id}",
+            api_version=api_version,
+            json_body=assignment_changes,
+        )
+
+    def delete_tag_assignment(self, entity_type: str, entity_id: str, assignment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(entity_type, "entity_type")
+        self._require_non_empty_string(entity_id, "entity_id")
+        self._require_non_empty_string(assignment_id, "assignment_id")
+        return self.request_versioned(
+            "DELETE",
+            "tags/assignments",
+            endpoint=f"{entity_type}/{entity_id}/{assignment_id}",
+            api_version=api_version,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(

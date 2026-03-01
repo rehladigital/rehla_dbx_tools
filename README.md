@@ -155,6 +155,9 @@ Workspace (`client.workspace`):
 - `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `install_marketplace_listing`, `uninstall_marketplace_installation`
 - `list_genie_spaces`, `create_genie_space`, `get_genie_space`, `update_genie_space`, `delete_genie_space`
 - `list_global_init_scripts`, `create_global_init_script`, `get_global_init_script`, `update_global_init_script`, `delete_global_init_script`
+- `list_setting_keys_metadata`, `get_workspace_setting`, `update_workspace_setting`, `get_workspace_conf`, `set_workspace_conf`
+- `list_tag_policies`, `create_tag_policy`, `get_tag_policy`, `update_tag_policy`, `delete_tag_policy`
+- `list_tag_assignments`, `create_tag_assignment`, `get_tag_assignment`, `update_tag_assignment`, `delete_tag_assignment`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`

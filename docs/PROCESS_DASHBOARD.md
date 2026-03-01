@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 74
-- Remaining loops: 226
-- Current loop: 75 (queued)
+- Completed loops: 75
+- Remaining loops: 225
+- Current loop: 76 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 74
-- Current package version: 1.2.14
+- Last completed cycle: 75
+- Current package version: 1.2.15
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 75 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for `settings` and `tags` families
+1. Execute run 76 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for `postgres` and `qualitymonitor` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.14` after commit/push and workflow verification
+4. Publish `1.2.15` after commit/push and workflow verification

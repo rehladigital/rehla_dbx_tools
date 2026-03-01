@@ -594,6 +594,113 @@ def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validati
         client.update_global_init_script("", {})
     with pytest.raises(ValidationError):
         client.delete_global_init_script("")
+
+
+def test_settings_and_tags_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_setting_keys_metadata()
+        assert request_versioned.call_args.args == ("GET", "settings-v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_workspace_setting("sql_results_download")
+        assert request_versioned.call_args.args == ("GET", "settings-v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "sql_results_download"
+
+        client.update_workspace_setting("sql_results_download", {"setting": {"enabled": False}})
+        assert request_versioned.call_args.args == ("PATCH", "settings-v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "sql_results_download"
+        assert request_versioned.call_args.kwargs["json_body"] == {"setting": {"enabled": False}}
+
+        client.get_workspace_conf(["enableWorkspaceAcls", "maxTokenLifetimeDays"])
+        assert request_versioned.call_args.args == ("GET", "workspace-conf")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["params"] == {"keys": "enableWorkspaceAcls,maxTokenLifetimeDays"}
+
+        client.set_workspace_conf({"enableWorkspaceAcls": "true"})
+        assert request_versioned.call_args.args == ("PATCH", "workspace-conf")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"custom_config": {"enableWorkspaceAcls": "true"}}
+
+        client.list_tag_policies()
+        assert request_versioned.call_args.args == ("GET", "tags/policies")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_tag_policy({"name": "pii-policy"})
+        assert request_versioned.call_args.args == ("POST", "tags/policies")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "pii-policy"}
+
+        client.get_tag_policy("policy-1")
+        assert request_versioned.call_args.args == ("GET", "tags/policies")
+        assert request_versioned.call_args.kwargs["endpoint"] == "policy-1"
+
+        client.update_tag_policy("policy-1", {"name": "pii-policy-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "tags/policies")
+        assert request_versioned.call_args.kwargs["endpoint"] == "policy-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "pii-policy-v2"}
+
+        client.delete_tag_policy("policy-1")
+        assert request_versioned.call_args.args == ("DELETE", "tags/policies")
+        assert request_versioned.call_args.kwargs["endpoint"] == "policy-1"
+
+        client.list_tag_assignments("clusters", "cluster-1")
+        assert request_versioned.call_args.args == ("GET", "tags/assignments")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/cluster-1"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_tag_assignment("clusters", "cluster-1", {"tag_policy_id": "policy-1"})
+        assert request_versioned.call_args.args == ("POST", "tags/assignments")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/cluster-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"tag_policy_id": "policy-1"}
+
+        client.get_tag_assignment("clusters", "cluster-1", "assignment-1")
+        assert request_versioned.call_args.args == ("GET", "tags/assignments")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/cluster-1/assignment-1"
+
+        client.update_tag_assignment("clusters", "cluster-1", "assignment-1", {"tag_policy_id": "policy-2"})
+        assert request_versioned.call_args.args == ("PATCH", "tags/assignments")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/cluster-1/assignment-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"tag_policy_id": "policy-2"}
+
+        client.delete_tag_assignment("clusters", "cluster-1", "assignment-1")
+        assert request_versioned.call_args.args == ("DELETE", "tags/assignments")
+        assert request_versioned.call_args.kwargs["endpoint"] == "clusters/cluster-1/assignment-1"
+
+    with pytest.raises(ValidationError):
+        client.get_workspace_setting("")
+    with pytest.raises(ValidationError):
+        client.update_workspace_setting("", {})
+    with pytest.raises(ValidationError):
+        client.get_tag_policy("")
+    with pytest.raises(ValidationError):
+        client.update_tag_policy("", {})
+    with pytest.raises(ValidationError):
+        client.delete_tag_policy("")
+    with pytest.raises(ValidationError):
+        client.list_tag_assignments("", "cluster-1")
+    with pytest.raises(ValidationError):
+        client.list_tag_assignments("clusters", "")
+    with pytest.raises(ValidationError):
+        client.get_tag_assignment("", "cluster-1", "assignment-1")
+    with pytest.raises(ValidationError):
+        client.get_tag_assignment("clusters", "", "assignment-1")
+    with pytest.raises(ValidationError):
+        client.get_tag_assignment("clusters", "cluster-1", "")
+    with pytest.raises(ValidationError):
+        client.update_tag_assignment("", "cluster-1", "assignment-1", {})
+    with pytest.raises(ValidationError):
+        client.update_tag_assignment("clusters", "", "assignment-1", {})
+    with pytest.raises(ValidationError):
+        client.update_tag_assignment("clusters", "cluster-1", "", {})
+    with pytest.raises(ValidationError):
+        client.delete_tag_assignment("", "cluster-1", "assignment-1")
+    with pytest.raises(ValidationError):
+        client.delete_tag_assignment("clusters", "", "assignment-1")
+    with pytest.raises(ValidationError):
+        client.delete_tag_assignment("clusters", "cluster-1", "")
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):
