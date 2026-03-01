@@ -109,6 +109,12 @@ run_export = client.workspace.export_job_run(run_id=987, views_to_export="CODE")
 run_output = client.workspace.get_job_run_output(run_id=987)
 run_submit = client.workspace.submit_job_run({"run_name": "ad-hoc-check"})
 run_delete = client.workspace.delete_job_run(run_id=987)
+job_permissions = client.workspace.get_job_permissions(job_id=123)
+permission_levels = client.workspace.get_job_permission_levels(job_id=123)
+permission_update = client.workspace.update_job_permissions(
+    job_id=123,
+    access_control_list=[{"group_name": "admins", "permission_level": "CAN_MANAGE"}],
+)
 run_repair = client.workspace.repair_job_run(run_id=987, rerun_all_failed_tasks=True)
 run_cancel_all = client.workspace.cancel_all_job_runs(job_id=123, all_queued_runs=True)
 cluster_resp = client.workspace.get_cluster(cluster_id="0123-abc")

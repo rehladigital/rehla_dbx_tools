@@ -227,12 +227,46 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def delete_job(self, job_id: int, api_version: str = "2.1") -> Any:
+        self._require_positive_int(job_id, "job_id")
         return self.request_versioned(
             "POST",
             "jobs",
             endpoint="delete",
             api_version=api_version,
             json_body={"job_id": job_id},
+        )
+
+    def get_job_permissions(self, job_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(job_id, "job_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"jobs/{job_id}",
+            api_version=api_version,
+        )
+
+    def update_job_permissions(
+        self,
+        job_id: int,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_positive_int(job_id, "job_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"jobs/{job_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_job_permission_levels(self, job_id: int, api_version: str = "2.0") -> Any:
+        self._require_positive_int(job_id, "job_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"jobs/{job_id}/permissionLevels",
+            api_version=api_version,
         )
 
     def get_cluster(self, cluster_id: str, api_version: str = "2.0") -> Any:

@@ -804,3 +804,65 @@
 - Updated usage snippets in `README.md` and `docs/USAGE.md` for `submit_job_run` and `delete_job_run`.
 - Validation: `48 passed` via `pytest -q`.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 30).
+
+## Run 31 (Cycle 31 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: add workspace permissions-read wrapper for Jobs ACL visibility.
+
+### Progress Notes
+
+- Added `get_job_permissions(job_id)` wrapper in `WorkspaceClient`.
+- Added endpoint-catalog route for `/api/2.0/permissions/jobs/{job_id}`.
+
+## Run 32 (Cycle 32 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: add workspace permissions-update wrapper for Jobs ACL changes.
+
+### Progress Notes
+
+- Added `update_job_permissions(job_id, access_control_list)` wrapper using PATCH semantics.
+- Added endpoint-catalog route for `/api/2.0/permissions/jobs/{job_id}` update path.
+
+## Run 33 (Cycle 33 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: add permissions-level discovery wrapper for Jobs.
+
+### Progress Notes
+
+- Added `get_job_permission_levels(job_id)` wrapper.
+- Added endpoint-catalog route for `/api/2.0/permissions/jobs/{job_id}/permissionLevels`.
+
+## Run 34 (Cycle 34 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: expand wrapper guardrails for job and permission operations.
+
+### Progress Notes
+
+- Added positive-ID validation for:
+  - `delete_job`
+  - `get_job_permissions`
+  - `update_job_permissions`
+  - `get_job_permission_levels`
+- Added regression assertions for validation failures in `tests/test_workspace_client.py`.
+
+## Run 35 (Cycle 35 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: sync tests/docs/generated endpoints for jobs-permissions wrapper expansion.
+
+### Progress Notes
+
+- Expanded `tests/test_workspace_client.py` for permissions wrappers method/path/payload assertions.
+- Regenerated endpoint constants from updated catalog.
+- Updated usage snippets in `README.md` and `docs/USAGE.md` for Jobs permissions wrappers.
+- Validation: `48 passed` via `pytest -q`.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 35).

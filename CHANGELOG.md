@@ -43,6 +43,11 @@ All notable changes to this project will be documented in this file.
     - `submit_job_run`
     - `delete_job_run`
 - Added run-lifecycle validation guardrails for positive identifiers and pagination constraints.
+- Added Jobs permissions wrappers:
+  - `get_job_permissions`
+  - `update_job_permissions`
+  - `get_job_permission_levels`
+- Added positive-ID validation for job deletion and job-permissions wrappers.
 - Expanded workspace endpoint catalog/constants and wrapper regression tests for the new routes.
 
 ## [0.1.200] - 2026-03-01

@@ -102,6 +102,24 @@ def test_jobs_wrappers_route_expected_methods_and_payloads():
         assert request_versioned.call_args.kwargs["endpoint"] == "delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"job_id": 123}
 
+        client.get_job_permissions(123)
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "jobs/123"
+
+        client.update_job_permissions(
+            123,
+            [{"user_name": "user@example.com", "permission_level": "CAN_MANAGE"}],
+        )
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "jobs/123"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "access_control_list": [{"user_name": "user@example.com", "permission_level": "CAN_MANAGE"}]
+        }
+
+        client.get_job_permission_levels(123)
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "jobs/123/permissionLevels"
+
         client.run_job_now(321)
         assert request_versioned.call_args.kwargs["json_body"] == {"job_id": 321}
 
@@ -145,6 +163,14 @@ def test_job_run_wrappers_validate_identifiers_and_pagination_inputs():
         client.repair_job_run(0)
     with pytest.raises(ValidationError):
         client.repair_job_run(1, latest_repair_id=0)
+    with pytest.raises(ValidationError):
+        client.delete_job(0)
+    with pytest.raises(ValidationError):
+        client.get_job_permissions(0)
+    with pytest.raises(ValidationError):
+        client.update_job_permissions(0, [])
+    with pytest.raises(ValidationError):
+        client.get_job_permission_levels(0)
 
 
 def test_cluster_wrappers_route_expected_methods_and_payloads():

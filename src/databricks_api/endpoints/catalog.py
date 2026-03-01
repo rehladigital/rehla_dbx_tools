@@ -48,6 +48,9 @@ ENDPOINT_CATALOG: dict[str, dict[str, dict[str, str]]] = {
             "dbfs_read": "/api/2.0/dbfs/read",
             "dbfs_delete": "/api/2.0/dbfs/delete",
             "dbfs_mkdirs": "/api/2.0/dbfs/mkdirs",
+            "permissions_jobs_get": "/api/2.0/permissions/jobs/{job_id}",
+            "permissions_jobs_patch": "/api/2.0/permissions/jobs/{job_id}",
+            "permissions_jobs_permission_levels": "/api/2.0/permissions/jobs/{job_id}/permissionLevels",
         },
         "2.1": {
             "jobs_create": "/api/2.1/jobs/create",
