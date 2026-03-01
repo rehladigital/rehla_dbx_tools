@@ -2,6 +2,10 @@
 
 Single Python package to call Databricks Workspace and Account APIs and convert JSON responses into Pandas or PySpark DataFrames.
 
+## About Rehla Digital Inc
+
+Rehla Digital Inc builds cloud and data engineering solutions that help teams standardize platform operations, accelerate delivery, and reduce integration risk. This package is maintained as part of that effort to provide a practical, production-oriented Databricks API toolkit.
+
 ## Install
 
 ```bash

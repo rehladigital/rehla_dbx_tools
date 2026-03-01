@@ -19,7 +19,16 @@
   - Executes tests and package build
 - Release workflow: `.github/workflows/release.yml`
   - Runs on `v*.*.*` tags and manual dispatch
-  - Builds distribution artifacts and creates GitHub release
+  - Builds distribution artifacts, publishes to PyPI (when `PYPI_API_TOKEN` exists), and creates GitHub release
+
+## PyPI Publish Setup
+
+1. Create a PyPI API token in the target PyPI project.
+2. Add repository secret `PYPI_API_TOKEN` in GitHub.
+3. Trigger release workflow with:
+   - tag push (for example `v0.1.3`), or
+   - manual workflow dispatch.
+4. Verify package appears on PyPI and release artifacts are attached to GitHub Release.
 
 ## Cycle-Oriented Continuous Loop
 

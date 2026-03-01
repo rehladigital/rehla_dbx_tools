@@ -45,3 +45,19 @@
 - Added `test_request_retries_5xx_then_returns_success_response` in `tests/test_http_client.py`.
 - Updated runbook and changelog for automation flow.
 - Prepared patch bump to `0.1.2`.
+
+## Cycle 3
+
+- Date: 2026-02-28
+- Objective: add organization context and package publishing capability.
+- Planned focus:
+  - Rehla Digital company section in README
+  - PyPI publish integration in release workflow
+  - patch release bump
+
+### Progress Notes
+
+- Added `About Rehla Digital Inc` section to `README.md`.
+- Added PyPI publish step to `.github/workflows/release.yml` using repository secret `PYPI_API_TOKEN`.
+- Updated `docs/RELEASE.md` with PyPI setup and verification steps.
+- Updated changelog and bumped version to `0.1.3`.

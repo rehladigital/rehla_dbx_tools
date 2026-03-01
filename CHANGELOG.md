@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-02-28
+
+### Added
+
+- `README.md` section describing Rehla Digital Inc and package stewardship.
+- PyPI publish step in `.github/workflows/release.yml` using `PYPI_API_TOKEN`.
+
+### Changed
+
+- Release runbook updated with PyPI token setup and publish verification guidance.
+- Bumped package version from `0.1.2` to `0.1.3`.
+
 ## [0.1.2] - 2026-02-28
 
 ### Added
