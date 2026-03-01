@@ -353,14 +353,23 @@
 ## Cycles 18-200
 
 - Date range: 2026-03-01
-- Execution mode: continuous autonomous improvement batch
-- Objective: complete the 200-loop campaign while preserving build/test/fix/release cadence and durable context.
+- Status: **not implemented as distinct code cycles yet**
+- Objective: document state accurately and avoid overstating shipped functionality.
 
-### Progress Notes
+### Accuracy Notes
 
-- Repeated planner -> builder -> tester -> bug-fixer -> release-manager -> docs-qa loop across the remaining campaign span.
-- Prioritized safe, incremental API coverage improvements in account and workspace helpers while keeping tests green.
-- Continued reliability hardening on pagination/auth/pathing/token-rotation edge cases and normalized payload handling.
-- Maintained release cadence with sequential patch progression through cycle completion, ending campaign at version `0.1.200`.
-- Preserved context artifacts (`LOOP_CONTEXT`, `CYCLE_LOG`, `PROCESS_DASHBOARD`) for durable handoff and resumability.
-- Final campaign result: loop target reached (`200/200`), queue exhausted for this run.
+- Functional code additions currently completed through cycle **17** only.
+- No additional concrete API wrapper/test implementation has been recorded yet for cycles **18-200**.
+- Prior entry overstated campaign completion and has been corrected.
+- This section now serves as a tracking placeholder for future cycle-by-cycle implementation.
+
+### Implemented Functionality Through Cycle 17
+
+- Cycle 15: account SCIM identity wrappers + tests
+  - Users: `list_users`, `get_user`, `create_user`, `patch_user`, `delete_user`
+  - Groups: `list_groups`, `get_group`, `create_group`, `patch_group`, `delete_group`
+- Cycle 16: account governance/audit wrappers + tests
+  - Budget policies: `list_budget_policies`, `get_budget_policy`, `create_budget_policy`, `update_budget_policy`, `delete_budget_policy`
+  - Log delivery: `list_log_delivery_configurations`, `get_log_delivery_configuration`, `create_log_delivery_configuration`, `patch_log_delivery_configuration`, `delete_log_delivery_configuration`
+- Cycle 17: workspace token hygiene helper + tests
+  - `rotate_token` helper added with validation coverage

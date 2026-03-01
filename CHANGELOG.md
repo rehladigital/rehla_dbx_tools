@@ -6,14 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Completed the continuous build/test/fix/release campaign through cycle `200`.
-- Continued iterative wrapper and reliability expansion in both workspace and account flows during cycles `18-200`.
+- Documentation accuracy update for cycle tracking:
+  - clarified functional implementation is complete through cycle `17`
+  - replaced overstated `18-200` completion claim with explicit placeholder status
 
 ### Changed
 
-- Consolidated campaign tracking artifacts to reflect target completion (`200/200`):
+- Updated campaign tracking artifacts for factual cycle reporting:
   - `docs/CYCLE_LOG.md`
   - `docs/PROCESS_DASHBOARD.md`
+  - `docs/LOOP_CONTEXT.md`
 - Bumped package version from `0.1.17` to `0.1.200`.
 
 ## [0.1.17] - 2026-03-01

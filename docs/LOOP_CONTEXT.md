@@ -38,8 +38,8 @@ At end of every cycle:
 
 ## Current Focus Queue
 
-1. 200-loop campaign completed.
-2. If resumed for 201+, restart with pain-point triage and capability-gap scan.
+1. Continue from cycle 18 with concrete wrapper and test additions.
+2. Keep cycle logging strictly factual: list exact functionality added and changed each cycle.
 3. Keep tests synchronized with each wrapper batch.
 4. Keep release metadata/docs current for each patch bump.
 5. Continue context snapshots for long-run continuity.

@@ -7,13 +7,13 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 200 loops
-- Completed loops: 200
-- Remaining loops: 0
-- Current loop: none (campaign complete)
+- Completed loops: 17
+- Remaining loops: 183
+- Current loop: 18 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 200
+- Last completed cycle: 17
 - Current package version: 0.1.200
 - Last pushed commit: `pending-this-cycle`
 
@@ -26,7 +26,7 @@
 
 ## Next Queue
 
-1. Campaign complete for current 200-loop target
-2. Next phase (optional): prioritize new pain-point backlog for 201+
-3. Next phase (optional): tighten CI quality gates and release automation checks
-4. Next phase (optional): expand docs/runbooks for advanced account lifecycle playbooks
+1. Implement cycle 18 with concrete wrapper/test additions
+2. Keep cycle log strictly cycle-by-cycle with exact functionality deltas
+3. Continue reliability hardening (pagination/auth/pathing/token hygiene)
+4. Release next patch only after real cycle completion
