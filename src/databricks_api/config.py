@@ -147,6 +147,8 @@ def _normalize_host(host: Optional[str]) -> Optional[str]:
     host = host.strip()
     if not host:
         return None
+    # Common typo in copied workspace URLs: ".cloud.databricks.net" vs ".com".
+    host = host.replace(".cloud.databricks.net", ".cloud.databricks.com")
     if not host.startswith("http"):
         return f"https://{host}"
     return host.rstrip("/")

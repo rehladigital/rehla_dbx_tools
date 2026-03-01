@@ -16,6 +16,12 @@ def test_from_env_normalizes_host(monkeypatch):
     assert cfg.workspace.host == "https://dbc-test.cloud.databricks.com"
 
 
+def test_from_env_normalizes_cloud_databricks_net_host_typo(monkeypatch):
+    monkeypatch.setenv("DATABRICKS_HOST", "dbc-test.cloud.databricks.net")
+    cfg = UnifiedConfig.from_env()
+    assert cfg.workspace.host == "https://dbc-test.cloud.databricks.com"
+
+
 def test_from_env_uses_dbx_host_alias_when_databricks_host_missing(monkeypatch):
     monkeypatch.delenv("DATABRICKS_HOST", raising=False)
     monkeypatch.setenv("DBX_HOST", "dbc-test.cloud.databricks.com")
