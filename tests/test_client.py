@@ -63,6 +63,57 @@ def test_list_active_job_runs_returns_runs_payload(monkeypatch):
     assert [run["run_id"] for run in runs] == [101, 102]
 
 
+def test_list_active_job_runs_handles_list_payload(monkeypatch):
+    client = DatabricksApiClient.simple(
+        host="https://dbc-test.cloud.databricks.com",
+        token="workspace-token",
+    )
+
+    class _Resp:
+        data = [{"run_id": 201}, {"run_id": 202}]
+
+    assert client.workspace is not None
+    monkeypatch.setattr(client.workspace, "list_job_runs", lambda **_: _Resp())
+
+    runs = client.list_active_job_runs(limit=10)
+
+    assert [run["run_id"] for run in runs] == [201, 202]
+
+
+def test_list_jobs_returns_plain_list(monkeypatch):
+    client = DatabricksApiClient.simple(
+        host="https://dbc-test.cloud.databricks.com",
+        token="workspace-token",
+    )
+
+    class _Resp:
+        data = {"jobs": [{"job_id": 1}, {"job_id": 2}]}
+
+    assert client.workspace is not None
+    monkeypatch.setattr(client.workspace, "list_jobs", lambda **_: _Resp())
+
+    jobs = client.list_jobs(limit=5)
+
+    assert [job["job_id"] for job in jobs] == [1, 2]
+
+
+def test_list_recent_job_runs_returns_plain_list(monkeypatch):
+    client = DatabricksApiClient.simple(
+        host="https://dbc-test.cloud.databricks.com",
+        token="workspace-token",
+    )
+
+    class _Resp:
+        data = {"runs": [{"run_id": 301}, {"run_id": 302}]}
+
+    assert client.workspace is not None
+    monkeypatch.setattr(client.workspace, "list_job_runs", lambda **_: _Resp())
+
+    runs = client.list_recent_job_runs(limit=5)
+
+    assert [run["run_id"] for run in runs] == [301, 302]
+
+
 def test_simple_raises_when_no_token_resolution_available(monkeypatch):
     monkeypatch.delenv("DATABRICKS_TOKEN", raising=False)
     monkeypatch.delenv("DBX_TOKEN", raising=False)

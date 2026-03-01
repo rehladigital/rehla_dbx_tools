@@ -49,7 +49,10 @@ client = DatabricksApiClient.simple(
     token="dapi...token...",
 )
 
-for run in client.list_active_job_runs(limit=25):
+jobs = client.list_jobs(limit=25)
+print("jobs:", len(jobs))
+
+for run in client.list_recent_job_runs(limit=25):
     print(run.get("run_id"))
 ```
 

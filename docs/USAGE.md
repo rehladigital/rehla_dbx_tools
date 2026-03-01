@@ -94,6 +94,10 @@ client = DatabricksApiClient.simple(
 runs = client.list_active_job_runs(limit=25)
 for run in runs:
     print(run.get("run_id"))
+
+# Plain-list helpers (no response.data parsing needed)
+jobs = client.list_jobs(limit=25)
+recent_runs = client.list_recent_job_runs(limit=25)
 ```
 
 Guided browser/token prompt flow:

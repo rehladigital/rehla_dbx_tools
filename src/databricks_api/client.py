@@ -136,12 +136,26 @@ class DatabricksApiClient:
         if self.workspace is None:
             raise ValidationError("Workspace client is not configured.")
         response = self.workspace.list_job_runs(active_only=True, limit=limit)
-        data = response.data or {}
-        if isinstance(data, dict):
-            runs = data.get("runs")
-            if isinstance(runs, list):
-                return runs
-        return []
+        return _extract_records(response.data, "runs")
+
+    def list_recent_job_runs(
+        self,
+        *,
+        limit: int = 25,
+        job_id: Optional[int] = None,
+    ) -> list[dict[str, Any]]:
+        """Return recent job runs as a plain list."""
+        if self.workspace is None:
+            raise ValidationError("Workspace client is not configured.")
+        response = self.workspace.list_job_runs(limit=limit, job_id=job_id)
+        return _extract_records(response.data, "runs")
+
+    def list_jobs(self, *, limit: int = 25) -> list[dict[str, Any]]:
+        """Return jobs as a plain list for script-friendly usage."""
+        if self.workspace is None:
+            raise ValidationError("Workspace client is not configured.")
+        response = self.workspace.list_jobs(limit=limit)
+        return _extract_records(response.data, "jobs")
 
 
 def _with_token(auth: AuthConfig, token: str) -> AuthConfig:
@@ -253,3 +267,13 @@ def _extract_token_from_cli_output(output: str) -> str:
     # Fallback for plain-text output.
     match = re.search(r"(dapi[a-zA-Z0-9]+)", content)
     return match.group(1) if match else ""
+
+
+def _extract_records(data: Any, key: str) -> list[dict[str, Any]]:
+    if isinstance(data, list):
+        return [row for row in data if isinstance(row, dict)]
+    if isinstance(data, dict):
+        value = data.get(key, [])
+        if isinstance(value, list):
+            return [row for row in value if isinstance(row, dict)]
+    return []
