@@ -531,6 +531,69 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         client.get_marketplace_listing("")
     with pytest.raises(ValidationError):
         client.uninstall_marketplace_installation("")
+
+
+def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_genie_spaces()
+        assert request_versioned.call_args.args == ("GET", "genie/spaces")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_genie_space({"display_name": "Ops Analyst"})
+        assert request_versioned.call_args.args == ("POST", "genie/spaces")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "Ops Analyst"}
+
+        client.get_genie_space("space-1")
+        assert request_versioned.call_args.args == ("GET", "genie/spaces")
+        assert request_versioned.call_args.kwargs["endpoint"] == "space-1"
+
+        client.update_genie_space("space-1", {"display_name": "Ops Analyst V2"})
+        assert request_versioned.call_args.args == ("PATCH", "genie/spaces")
+        assert request_versioned.call_args.kwargs["endpoint"] == "space-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "Ops Analyst V2"}
+
+        client.delete_genie_space("space-1")
+        assert request_versioned.call_args.args == ("DELETE", "genie/spaces")
+        assert request_versioned.call_args.kwargs["endpoint"] == "space-1"
+
+        client.list_global_init_scripts()
+        assert request_versioned.call_args.args == ("GET", "global-init-scripts")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_global_init_script({"name": "setup-env", "enabled": True})
+        assert request_versioned.call_args.args == ("POST", "global-init-scripts")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "setup-env", "enabled": True}
+
+        client.get_global_init_script("script-1")
+        assert request_versioned.call_args.args == ("GET", "global-init-scripts")
+        assert request_versioned.call_args.kwargs["endpoint"] == "script-1"
+
+        client.update_global_init_script("script-1", {"enabled": False})
+        assert request_versioned.call_args.args == ("PATCH", "global-init-scripts")
+        assert request_versioned.call_args.kwargs["endpoint"] == "script-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"enabled": False}
+
+        client.delete_global_init_script("script-1")
+        assert request_versioned.call_args.args == ("DELETE", "global-init-scripts")
+        assert request_versioned.call_args.kwargs["endpoint"] == "script-1"
+
+    with pytest.raises(ValidationError):
+        client.get_genie_space("")
+    with pytest.raises(ValidationError):
+        client.update_genie_space("", {})
+    with pytest.raises(ValidationError):
+        client.delete_genie_space("")
+    with pytest.raises(ValidationError):
+        client.get_global_init_script("")
+    with pytest.raises(ValidationError):
+        client.update_global_init_script("", {})
+    with pytest.raises(ValidationError):
+        client.delete_global_init_script("")
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):

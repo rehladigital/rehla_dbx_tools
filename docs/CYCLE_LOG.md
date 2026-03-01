@@ -1486,3 +1486,20 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.13` with changelog updates for release.
+
+## Run 74 (Cycle 74 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: implement `genie` and `global-init-scripts` wrappers with tests and release.
+
+### Progress Notes
+
+- Added genie wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_genie_spaces`, `create_genie_space`, `get_genie_space`, `update_genie_space`, `delete_genie_space`
+- Added global-init-scripts wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_global_init_scripts`, `create_global_init_script`, `get_global_init_script`, `update_global_init_script`, `delete_global_init_script`
+- Updated `src/databricks_api/endpoints/catalog.py` with genie and global-init-scripts endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.14` with changelog updates for release.

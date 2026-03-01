@@ -2269,6 +2269,100 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Genie scope
+    def list_genie_spaces(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "genie/spaces",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_genie_space(self, space_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "genie/spaces",
+            endpoint="",
+            api_version=api_version,
+            json_body=space_spec,
+        )
+
+    def get_genie_space(self, space_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(space_id, "space_id")
+        return self.request_versioned(
+            "GET",
+            "genie/spaces",
+            endpoint=space_id,
+            api_version=api_version,
+        )
+
+    def update_genie_space(self, space_id: str, space_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(space_id, "space_id")
+        return self.request_versioned(
+            "PATCH",
+            "genie/spaces",
+            endpoint=space_id,
+            api_version=api_version,
+            json_body=space_changes,
+        )
+
+    def delete_genie_space(self, space_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(space_id, "space_id")
+        return self.request_versioned(
+            "DELETE",
+            "genie/spaces",
+            endpoint=space_id,
+            api_version=api_version,
+        )
+
+    # Global Init Scripts scope
+    def list_global_init_scripts(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "global-init-scripts",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_global_init_script(self, script_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "global-init-scripts",
+            endpoint="",
+            api_version=api_version,
+            json_body=script_spec,
+        )
+
+    def get_global_init_script(self, script_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(script_id, "script_id")
+        return self.request_versioned(
+            "GET",
+            "global-init-scripts",
+            endpoint=script_id,
+            api_version=api_version,
+        )
+
+    def update_global_init_script(self, script_id: str, script_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(script_id, "script_id")
+        return self.request_versioned(
+            "PATCH",
+            "global-init-scripts",
+            endpoint=script_id,
+            api_version=api_version,
+            json_body=script_changes,
+        )
+
+    def delete_global_init_script(self, script_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(script_id, "script_id")
+        return self.request_versioned(
+            "DELETE",
+            "global-init-scripts",
+            endpoint=script_id,
+            api_version=api_version,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(

@@ -153,6 +153,8 @@ Workspace (`client.workspace`):
 - `get_serving_endpoint_permissions`, `set_serving_endpoint_permissions`, `update_serving_endpoint_permissions`, `get_serving_endpoint_permission_levels`
 - `list_serving_endpoints`, `create_serving_endpoint`, `get_serving_endpoint`, `update_serving_endpoint_config`, `delete_serving_endpoint`, `query_serving_endpoint`
 - `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `install_marketplace_listing`, `uninstall_marketplace_installation`
+- `list_genie_spaces`, `create_genie_space`, `get_genie_space`, `update_genie_space`, `delete_genie_space`
+- `list_global_init_scripts`, `create_global_init_script`, `get_global_init_script`, `update_global_init_script`, `delete_global_init_script`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`

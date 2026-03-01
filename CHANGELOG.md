@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.14] - 2026-03-01
+
+### Added
+
+- Genie wrappers on workspace client:
+  - `list_genie_spaces`
+  - `create_genie_space`
+  - `get_genie_space`
+  - `update_genie_space`
+  - `delete_genie_space`
+- Global init scripts wrappers on workspace client:
+  - `list_global_init_scripts`
+  - `create_global_init_script`
+  - `get_global_init_script`
+  - `update_global_init_script`
+  - `delete_global_init_script`
+- Endpoint catalog entries for genie and global-init-scripts routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include genie and global-init-scripts methods.
+- Bumped package version from `1.2.13` to `1.2.14`.
+
 ## [1.2.13] - 2026-03-01
 
 ### Added

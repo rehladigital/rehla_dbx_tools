@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 73
-- Remaining loops: 227
-- Current loop: 74 (queued)
+- Completed loops: 74
+- Remaining loops: 226
+- Current loop: 75 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 73
-- Current package version: 1.2.13
+- Last completed cycle: 74
+- Current package version: 1.2.14
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 74 on Azure track (round-robin sequence)
-2. Continue all-tools implementation for `genie` and `global-init-scripts` families
+1. Execute run 75 on GCP track (round-robin sequence)
+2. Continue all-tools implementation for `settings` and `tags` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.13` after commit/push and workflow verification
+4. Publish `1.2.14` after commit/push and workflow verification
