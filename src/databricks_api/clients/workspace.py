@@ -192,3 +192,123 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
             params=params,
         )
+
+    def list_catalogs(
+        self,
+        *,
+        max_results: Optional[int] = None,
+        page_token: Optional[str] = None,
+        api_version: str = "2.1",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        if max_results is not None:
+            params["max_results"] = max_results
+        if page_token:
+            params["page_token"] = page_token
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="catalogs",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
+    def list_schemas(
+        self,
+        *,
+        catalog_name: Optional[str] = None,
+        max_results: Optional[int] = None,
+        page_token: Optional[str] = None,
+        api_version: str = "2.1",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        if catalog_name:
+            params["catalog_name"] = catalog_name
+        if max_results is not None:
+            params["max_results"] = max_results
+        if page_token:
+            params["page_token"] = page_token
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint="schemas",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
+    def update_repo(
+        self,
+        repo_id: int,
+        *,
+        branch: Optional[str] = None,
+        tag: Optional[str] = None,
+        sparse_checkout: Optional[dict[str, Any]] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        payload: dict[str, Any] = {}
+        if branch:
+            payload["branch"] = branch
+        if tag:
+            payload["tag"] = tag
+        if sparse_checkout is not None:
+            payload["sparse_checkout"] = sparse_checkout
+        return self.request_versioned(
+            "PATCH",
+            "repos",
+            endpoint=f"{repo_id}",
+            api_version=api_version,
+            json_body=payload or None,
+        )
+
+    def put_secret(
+        self,
+        scope: str,
+        key: str,
+        *,
+        string_value: Optional[str] = None,
+        bytes_value: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        payload: dict[str, Any] = {"scope": scope, "key": key}
+        if string_value is not None:
+            payload["string_value"] = string_value
+        if bytes_value is not None:
+            payload["bytes_value"] = bytes_value
+        return self.request_versioned(
+            "POST",
+            "secrets",
+            endpoint="put",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def create_token(
+        self,
+        *,
+        lifetime_seconds: Optional[int] = None,
+        comment: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        payload: dict[str, Any] = {}
+        if lifetime_seconds is not None:
+            payload["lifetime_seconds"] = lifetime_seconds
+        if comment:
+            payload["comment"] = comment
+        return self.request_versioned(
+            "POST",
+            "token",
+            endpoint="create",
+            api_version=api_version,
+            json_body=payload or None,
+        )
+
+    def delete_token(self, token_id: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "token",
+            endpoint="delete",
+            api_version=api_version,
+            json_body={"token_id": token_id},
+        )

@@ -54,6 +54,9 @@ def test_jobs_wrappers_route_expected_methods_and_payloads():
         assert request_versioned.call_args.kwargs["endpoint"] == "delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"job_id": 123}
 
+        client.run_job_now(321)
+        assert request_versioned.call_args.kwargs["json_body"] == {"job_id": 321}
+
 
 def test_cluster_wrappers_route_expected_methods_and_payloads():
     client = _workspace_client()
@@ -98,3 +101,59 @@ def test_cluster_wrappers_route_expected_methods_and_payloads():
             "limit": 20,
             "page_token": "tok-1",
         }
+
+        client.cluster_events("c-1")
+        assert request_versioned.call_args.kwargs["params"] == {
+            "cluster_id": "c-1",
+            "limit": 50,
+        }
+
+
+def test_catalog_repo_secret_token_wrappers_route_expected_calls():
+    client = _workspace_client()
+
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_catalogs(max_results=25, page_token="pg-1")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "catalogs"
+        assert request_versioned.call_args.kwargs["params"] == {
+            "max_results": 25,
+            "page_token": "pg-1",
+        }
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.list_schemas(catalog_name="main", max_results=10)
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "schemas"
+        assert request_versioned.call_args.kwargs["params"] == {
+            "catalog_name": "main",
+            "max_results": 10,
+        }
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.update_repo(12345, branch="main")
+        assert request_versioned.call_args.args == ("PATCH", "repos")
+        assert request_versioned.call_args.kwargs["endpoint"] == "12345"
+        assert request_versioned.call_args.kwargs["json_body"] == {"branch": "main"}
+
+        client.put_secret("app-prod", "token", string_value="abc")
+        assert request_versioned.call_args.args == ("POST", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "put"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "scope": "app-prod",
+            "key": "token",
+            "string_value": "abc",
+        }
+
+        client.create_token(lifetime_seconds=3600, comment="ci token")
+        assert request_versioned.call_args.args == ("POST", "token")
+        assert request_versioned.call_args.kwargs["endpoint"] == "create"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "lifetime_seconds": 3600,
+            "comment": "ci token",
+        }
+
+        client.delete_token("tok-123")
+        assert request_versioned.call_args.args == ("POST", "token")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"token_id": "tok-123"}

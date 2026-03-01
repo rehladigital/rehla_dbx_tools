@@ -68,9 +68,17 @@ response = client.workspace.request_versioned(
 ## Expanded Convenience Wrappers
 
 ```python
+import getpass
+
 if client.workspace is not None:
     run = client.workspace.run_job_now(job_id=123)
     cluster = client.workspace.get_cluster(cluster_id="0123-abc")
+    catalogs = client.workspace.list_catalogs(max_results=25)
+    client.workspace.put_secret(
+        scope="app-prod",
+        key="api-token",
+        string_value=getpass.getpass("Secret value: "),
+    )
 
 if client.account is not None:
     ws = client.account.get_workspace(workspace_id=101)

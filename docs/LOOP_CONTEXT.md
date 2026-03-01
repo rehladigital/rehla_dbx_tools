@@ -38,8 +38,8 @@ At end of every cycle:
 
 ## Current Focus Queue
 
-1. Expand Jobs wrappers.
-2. Expand Clusters wrappers.
-3. Expand Account workspace lifecycle wrappers.
-4. Keep tests synchronized with new wrappers.
-5. Add CI/release automation and release runbook/changelog.
+1. Expand Unity Catalog wrappers.
+2. Expand Repos/Secrets/Tokens wrappers.
+3. Keep tests synchronized with each wrapper batch.
+4. Keep PyPI metadata/release docs current.
+5. Execute continuous release cycles via loop maintainer process.

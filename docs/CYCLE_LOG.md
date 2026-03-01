@@ -78,3 +78,20 @@
 - Updated Spark install hint in `src/databricks_api/response.py`.
 - Added richer PyPI metadata in `pyproject.toml` (`keywords`, `classifiers`, `project.urls`, improved description).
 - Bumped version to `0.1.4`.
+
+## Cycle 5
+
+- Date: 2026-02-28
+- Objective: keep loop active with maintainer-agent execution and next API expansion.
+- Planned focus:
+  - Unity Catalog wrappers
+  - Repos/Secrets/Tokens wrappers
+  - stronger wrapper tests
+
+### Progress Notes
+
+- Added workspace wrappers: `list_catalogs`, `list_schemas`, `update_repo`, `put_secret`, `create_token`, `delete_token`.
+- Expanded endpoint catalog and generated endpoint constants for those routes.
+- Added test coverage for new wrappers and payload/path expectations.
+- Added loop maintainer reference `docs/LOOP_MAINTAINER_AGENT.md` to formalize continuous agent operation.
+- Updated docs examples and bumped version to `0.1.5`.

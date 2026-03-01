@@ -84,11 +84,22 @@ client = DatabricksApiClient.from_notebook_context(config=cfg)
 ### Built-in convenience wrappers
 
 ```python
+import getpass
+
 jobs_resp = client.workspace.list_jobs(api_version="2.1", limit=50)
 clusters_resp = client.workspace.list_clusters(api_version="2.0")
 job_resp = client.workspace.get_job(job_id=123)
 run_resp = client.workspace.run_job_now(job_id=123, notebook_params={"date": "2026-02-28"})
 cluster_resp = client.workspace.get_cluster(cluster_id="0123-abc")
+catalogs_resp = client.workspace.list_catalogs(max_results=25)
+schemas_resp = client.workspace.list_schemas(catalog_name="main", max_results=100)
+repo_resp = client.workspace.update_repo(repo_id=12345, branch="main")
+secret_resp = client.workspace.put_secret(
+    scope="app-prod",
+    key="db-password",
+    string_value=getpass.getpass("Secret value: "),
+)
+token_resp = client.workspace.create_token(lifetime_seconds=3600, comment="short-lived-ci-token")
 ```
 
 ### Generic versioned request (recommended for full endpoint coverage)

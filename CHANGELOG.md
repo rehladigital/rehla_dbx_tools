@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2026-02-28
+
+### Added
+
+- Workspace wrappers for additional high-value APIs:
+  - Unity Catalog: `list_catalogs`, `list_schemas`
+  - Repos: `update_repo`
+  - Secrets: `put_secret`
+  - Tokens: `create_token`, `delete_token`
+- Wrapper regression coverage expanded in `tests/test_workspace_client.py`.
+- Loop maintainer process document added at `docs/LOOP_MAINTAINER_AGENT.md`.
+
+### Changed
+
+- Expanded endpoint catalog/constants for new workspace wrappers.
+- Updated README/USAGE examples to include Unity Catalog and safe secret handling examples.
+- Bumped package version from `0.1.4` to `0.1.5`.
+
 ## [0.1.4] - 2026-02-28
 
 ### Added
