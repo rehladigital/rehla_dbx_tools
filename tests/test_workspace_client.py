@@ -701,6 +701,127 @@ def test_apps_and_authentication_wrappers_route_expected_calls():
         client.get_token_info("")
 
 
+def test_cleanrooms_and_command_execution_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.create_execution_context("cluster-1", language="python")
+        assert request_versioned.call_args.args == ("POST", "command-execution")
+        assert request_versioned.call_args.kwargs["endpoint"] == "contexts/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "cluster_id": "cluster-1",
+            "language": "python",
+        }
+
+        client.run_command("ctx-1", "print(1)", language="python")
+        assert request_versioned.call_args.args == ("POST", "command-execution")
+        assert request_versioned.call_args.kwargs["endpoint"] == "commands/execute"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "context_id": "ctx-1",
+            "command": "print(1)",
+            "language": "python",
+        }
+
+        client.get_command_status("ctx-1", "cmd-1")
+        assert request_versioned.call_args.args == ("GET", "command-execution")
+        assert request_versioned.call_args.kwargs["endpoint"] == "commands/status"
+        assert request_versioned.call_args.kwargs["params"] == {"context_id": "ctx-1", "command_id": "cmd-1"}
+
+        client.cancel_command("ctx-1", "cmd-1")
+        assert request_versioned.call_args.args == ("POST", "command-execution")
+        assert request_versioned.call_args.kwargs["endpoint"] == "commands/cancel"
+        assert request_versioned.call_args.kwargs["json_body"] == {"context_id": "ctx-1", "command_id": "cmd-1"}
+
+        client.delete_execution_context("ctx-1")
+        assert request_versioned.call_args.args == ("POST", "command-execution")
+        assert request_versioned.call_args.kwargs["endpoint"] == "contexts/destroy"
+        assert request_versioned.call_args.kwargs["json_body"] == {"context_id": "ctx-1"}
+
+        client.list_clean_rooms()
+        assert request_versioned.call_args.args == ("GET", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_clean_room({"name": "cr-prod"})
+        assert request_versioned.call_args.args == ("POST", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "cr-prod"}
+
+        client.get_clean_room("cr-prod")
+        assert request_versioned.call_args.args == ("GET", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod"
+
+        client.update_clean_room("cr-prod", {"description": "secure room"})
+        assert request_versioned.call_args.args == ("PATCH", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod"
+        assert request_versioned.call_args.kwargs["json_body"] == {"description": "secure room"}
+
+        client.delete_clean_room("cr-prod")
+        assert request_versioned.call_args.args == ("DELETE", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod"
+
+        client.list_clean_room_assets("cr-prod")
+        assert request_versioned.call_args.args == ("GET", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod/assets"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_clean_room_asset("cr-prod", {"name": "asset-1"})
+        assert request_versioned.call_args.args == ("POST", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod/assets"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "asset-1"}
+
+        client.get_clean_room_asset("cr-prod", "asset-1")
+        assert request_versioned.call_args.args == ("GET", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod/assets/asset-1"
+
+        client.update_clean_room_asset("cr-prod", "asset-1", {"description": "v2"})
+        assert request_versioned.call_args.args == ("PATCH", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod/assets/asset-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"description": "v2"}
+
+        client.delete_clean_room_asset("cr-prod", "asset-1")
+        assert request_versioned.call_args.args == ("DELETE", "clean-rooms")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cr-prod/assets/asset-1"
+
+    with pytest.raises(ValidationError):
+        client.create_execution_context("")
+    with pytest.raises(ValidationError):
+        client.run_command("", "print(1)")
+    with pytest.raises(ValidationError):
+        client.run_command("ctx-1", "")
+    with pytest.raises(ValidationError):
+        client.get_command_status("", "cmd-1")
+    with pytest.raises(ValidationError):
+        client.get_command_status("ctx-1", "")
+    with pytest.raises(ValidationError):
+        client.cancel_command("", "cmd-1")
+    with pytest.raises(ValidationError):
+        client.cancel_command("ctx-1", "")
+    with pytest.raises(ValidationError):
+        client.delete_execution_context("")
+    with pytest.raises(ValidationError):
+        client.get_clean_room("")
+    with pytest.raises(ValidationError):
+        client.update_clean_room("", {})
+    with pytest.raises(ValidationError):
+        client.delete_clean_room("")
+    with pytest.raises(ValidationError):
+        client.list_clean_room_assets("")
+    with pytest.raises(ValidationError):
+        client.create_clean_room_asset("", {})
+    with pytest.raises(ValidationError):
+        client.get_clean_room_asset("", "asset-1")
+    with pytest.raises(ValidationError):
+        client.get_clean_room_asset("cr-prod", "")
+    with pytest.raises(ValidationError):
+        client.update_clean_room_asset("", "asset-1", {})
+    with pytest.raises(ValidationError):
+        client.update_clean_room_asset("cr-prod", "", {})
+    with pytest.raises(ValidationError):
+        client.delete_clean_room_asset("", "asset-1")
+    with pytest.raises(ValidationError):
+        client.delete_clean_room_asset("cr-prod", "")
+
+
 def test_instance_pool_wrappers_route_expected_calls():
     client = _workspace_client()
     with patch.object(client, "request_versioned", return_value="ok") as request_versioned:

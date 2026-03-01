@@ -128,6 +128,9 @@ Workspace (`client.workspace`):
 - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
 - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`
 - `list_all_tokens`, `get_token_info`
+- `create_execution_context`, `run_command`, `get_command_status`, `cancel_command`, `delete_execution_context`
+- `list_clean_rooms`, `create_clean_room`, `get_clean_room`, `update_clean_room`, `delete_clean_room`
+- `list_clean_room_assets`, `create_clean_room_asset`, `get_clean_room_asset`, `update_clean_room_asset`, `delete_clean_room_asset`
 - `list_clusters`, `get_cluster`, `cluster_events`
 - `get_cluster_permissions`, `get_cluster_permission_levels`
 - `list_catalogs`, `list_schemas`, `get_catalog`, `get_schema`

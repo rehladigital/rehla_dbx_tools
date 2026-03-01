@@ -1047,6 +1047,187 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Command Execution scope
+    def create_execution_context(
+        self,
+        cluster_id: str,
+        *,
+        language: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        payload: dict[str, Any] = {"cluster_id": cluster_id}
+        if language:
+            payload["language"] = language
+        return self.request_versioned(
+            "POST",
+            "command-execution",
+            endpoint="contexts/create",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def run_command(
+        self,
+        context_id: str,
+        command: str,
+        *,
+        language: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(context_id, "context_id")
+        self._require_non_empty_string(command, "command")
+        payload: dict[str, Any] = {"context_id": context_id, "command": command}
+        if language:
+            payload["language"] = language
+        return self.request_versioned(
+            "POST",
+            "command-execution",
+            endpoint="commands/execute",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def get_command_status(self, context_id: str, command_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(context_id, "context_id")
+        self._require_non_empty_string(command_id, "command_id")
+        return self.request_versioned(
+            "GET",
+            "command-execution",
+            endpoint="commands/status",
+            api_version=api_version,
+            params={"context_id": context_id, "command_id": command_id},
+        )
+
+    def cancel_command(self, context_id: str, command_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(context_id, "context_id")
+        self._require_non_empty_string(command_id, "command_id")
+        return self.request_versioned(
+            "POST",
+            "command-execution",
+            endpoint="commands/cancel",
+            api_version=api_version,
+            json_body={"context_id": context_id, "command_id": command_id},
+        )
+
+    def delete_execution_context(self, context_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(context_id, "context_id")
+        return self.request_versioned(
+            "POST",
+            "command-execution",
+            endpoint="contexts/destroy",
+            api_version=api_version,
+            json_body={"context_id": context_id},
+        )
+
+    # Clean Rooms scope
+    def list_clean_rooms(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "clean-rooms",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_clean_room(self, clean_room_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "clean-rooms",
+            endpoint="",
+            api_version=api_version,
+            json_body=clean_room_spec,
+        )
+
+    def get_clean_room(self, clean_room_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        return self.request_versioned(
+            "GET",
+            "clean-rooms",
+            endpoint=clean_room_name,
+            api_version=api_version,
+        )
+
+    def update_clean_room(
+        self, clean_room_name: str, clean_room_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        return self.request_versioned(
+            "PATCH",
+            "clean-rooms",
+            endpoint=clean_room_name,
+            api_version=api_version,
+            json_body=clean_room_changes,
+        )
+
+    def delete_clean_room(self, clean_room_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        return self.request_versioned(
+            "DELETE",
+            "clean-rooms",
+            endpoint=clean_room_name,
+            api_version=api_version,
+        )
+
+    def list_clean_room_assets(self, clean_room_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        return self.request_versioned(
+            "GET",
+            "clean-rooms",
+            endpoint=f"{clean_room_name}/assets",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_clean_room_asset(
+        self, clean_room_name: str, asset_spec: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        return self.request_versioned(
+            "POST",
+            "clean-rooms",
+            endpoint=f"{clean_room_name}/assets",
+            api_version=api_version,
+            json_body=asset_spec,
+        )
+
+    def get_clean_room_asset(self, clean_room_name: str, asset_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        self._require_non_empty_string(asset_name, "asset_name")
+        return self.request_versioned(
+            "GET",
+            "clean-rooms",
+            endpoint=f"{clean_room_name}/assets/{asset_name}",
+            api_version=api_version,
+        )
+
+    def update_clean_room_asset(
+        self,
+        clean_room_name: str,
+        asset_name: str,
+        asset_changes: dict[str, Any],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        self._require_non_empty_string(asset_name, "asset_name")
+        return self.request_versioned(
+            "PATCH",
+            "clean-rooms",
+            endpoint=f"{clean_room_name}/assets/{asset_name}",
+            api_version=api_version,
+            json_body=asset_changes,
+        )
+
+    def delete_clean_room_asset(self, clean_room_name: str, asset_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(clean_room_name, "clean_room_name")
+        self._require_non_empty_string(asset_name, "asset_name")
+        return self.request_versioned(
+            "DELETE",
+            "clean-rooms",
+            endpoint=f"{clean_room_name}/assets/{asset_name}",
+            api_version=api_version,
+        )
+
     def list_instance_pools(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(
             "GET",

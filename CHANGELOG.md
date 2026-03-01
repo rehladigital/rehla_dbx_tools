@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.5] - 2026-03-01
+
+### Added
+
+- Command execution wrappers on workspace client:
+  - `create_execution_context`
+  - `run_command`
+  - `get_command_status`
+  - `cancel_command`
+  - `delete_execution_context`
+- Clean rooms wrappers on workspace client:
+  - `list_clean_rooms`
+  - `create_clean_room`
+  - `get_clean_room`
+  - `update_clean_room`
+  - `delete_clean_room`
+  - `list_clean_room_assets`
+  - `create_clean_room_asset`
+  - `get_clean_room_asset`
+  - `update_clean_room_asset`
+  - `delete_clean_room_asset`
+- Endpoint catalog entries for command-execution and clean-rooms routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include command-execution and clean-rooms methods.
+- Bumped package version from `1.2.4` to `1.2.5`.
+
 ## [1.2.4] - 2026-03-01
 
 ### Added

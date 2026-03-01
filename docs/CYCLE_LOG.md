@@ -1302,3 +1302,26 @@
 - Updated `README.md` with the newly available tools.
 - Validation: `73 passed` via `py -m pytest -q`.
 - Prepared patch version bump to `1.2.4` with changelog updates for release.
+
+## Run 65 (Cycle 65 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: implement `cleanrooms` and `command-execution` wrappers with tests and release.
+
+### Progress Notes
+
+- Added command-execution wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_execution_context`
+  - `run_command`
+  - `get_command_status`
+  - `cancel_command`
+  - `delete_execution_context`
+- Added clean-rooms wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_clean_rooms`, `create_clean_room`, `get_clean_room`, `update_clean_room`, `delete_clean_room`
+  - `list_clean_room_assets`, `create_clean_room_asset`, `get_clean_room_asset`, `update_clean_room_asset`, `delete_clean_room_asset`
+- Updated `src/databricks_api/endpoints/catalog.py` with command-execution and clean-rooms endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Validation: `74 passed` via `py -m pytest -q`.
+- Prepared patch version bump to `1.2.5` with changelog updates for release.
