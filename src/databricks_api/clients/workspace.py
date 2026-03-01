@@ -312,3 +312,100 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
             json_body={"token_id": token_id},
         )
+
+    def list_repos(
+        self,
+        *,
+        path_prefix: Optional[str] = None,
+        next_page_token: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        if path_prefix:
+            params["path_prefix"] = path_prefix
+        if next_page_token:
+            params["next_page_token"] = next_page_token
+        return self.request_versioned(
+            "GET",
+            "repos",
+            endpoint="",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
+    def get_repo(self, repo_id: int, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "repos",
+            endpoint=f"{repo_id}",
+            api_version=api_version,
+        )
+
+    def create_repo(
+        self,
+        url: str,
+        provider: str,
+        *,
+        path: Optional[str] = None,
+        sparse_checkout: Optional[dict[str, Any]] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        payload: dict[str, Any] = {"url": url, "provider": provider}
+        if path:
+            payload["path"] = path
+        if sparse_checkout is not None:
+            payload["sparse_checkout"] = sparse_checkout
+        return self.request_versioned(
+            "POST",
+            "repos",
+            endpoint="",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def delete_repo(self, repo_id: int, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "DELETE",
+            "repos",
+            endpoint=f"{repo_id}",
+            api_version=api_version,
+        )
+
+    def create_secret_scope(
+        self,
+        scope: str,
+        *,
+        initial_manage_principal: Optional[str] = None,
+        backend_type: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        payload: dict[str, Any] = {"scope": scope}
+        if initial_manage_principal:
+            payload["initial_manage_principal"] = initial_manage_principal
+        if backend_type:
+            payload["scope_backend_type"] = backend_type
+        return self.request_versioned(
+            "POST",
+            "secrets",
+            endpoint="scopes/create",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def list_secret_scopes(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "secrets",
+            endpoint="scopes/list",
+            api_version=api_version,
+        )
+
+    def delete_secret_scope(self, scope: str, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "secrets",
+            endpoint="scopes/delete",
+            api_version=api_version,
+            json_body={"scope": scope},
+        )

@@ -6,6 +6,10 @@
 - Maintainer process: `docs/LOOP_MAINTAINER_AGENT.md`
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
+- Campaign target: 200 loops
+- Completed loops: 9
+- Remaining loops: 191
+- Current loop: 10 (queued)
 
 ## Current Snapshot
 
@@ -22,7 +26,7 @@
 
 ## Next Queue
 
-1. Add additional Repos wrappers (`list_repos`, `get_repo`, `create_repo`, `delete_repo`)
-2. Add Secrets scope lifecycle wrappers (`create_scope`, `list_scopes`, `delete_scope`)
-3. Add wrapper tests for all new endpoints
+1. Add Unity Catalog detail wrappers (`get_catalog`, `get_schema`)
+2. Add token list/revoke guard wrappers and tests
+3. Add notebook context edge-case tests
 4. Release next patch and append cycle log

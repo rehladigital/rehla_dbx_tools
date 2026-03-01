@@ -100,6 +100,17 @@ secret_resp = client.workspace.put_secret(
     string_value=getpass.getpass("Secret value: "),
 )
 token_resp = client.workspace.create_token(lifetime_seconds=3600, comment="short-lived-ci-token")
+repos_resp = client.workspace.list_repos(path_prefix="/Repos/team")
+repo_get = client.workspace.get_repo(repo_id=12345)
+repo_create = client.workspace.create_repo(
+    url="https://github.com/rehladigital/repo.git",
+    provider="gitHub",
+    path="/Repos/team/repo",
+)
+repo_delete = client.workspace.delete_repo(repo_id=12345)
+scope_create = client.workspace.create_secret_scope(scope="app-prod", initial_manage_principal="users")
+scope_list = client.workspace.list_secret_scopes()
+scope_delete = client.workspace.delete_secret_scope(scope="app-prod")
 ```
 
 ### Generic versioned request (recommended for full endpoint coverage)

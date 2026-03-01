@@ -80,6 +80,8 @@ if client.workspace is not None:
     run = client.workspace.run_job_now(job_id=123)
     cluster = client.workspace.get_cluster(cluster_id="0123-abc")
     catalogs = client.workspace.list_catalogs(max_results=25)
+    repos = client.workspace.list_repos(path_prefix="/Repos/team")
+    repo = client.workspace.get_repo(repo_id=12345)
     client.workspace.put_secret(
         scope="app-prod",
         key="api-token",

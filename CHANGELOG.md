@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.9] - 2026-02-28
+
+### Added
+
+- Additional workspace wrappers:
+  - Repos: `list_repos`, `get_repo`, `create_repo`, `delete_repo`
+  - Secret scopes: `create_secret_scope`, `list_secret_scopes`, `delete_secret_scope`
+- Extended wrapper behavior tests in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Expanded endpoint catalogs/constants for repos and secret scope routes.
+- Updated README/USAGE examples with new repos and secret scope wrappers.
+- Bumped package version from `0.1.8` to `0.1.9`.
+
 ## [0.1.8] - 2026-02-28
 
 ### Added

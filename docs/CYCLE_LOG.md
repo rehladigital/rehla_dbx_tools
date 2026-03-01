@@ -139,3 +139,19 @@
 
 - Added `docs/PROCESS_DASHBOARD.md` with status, last cycle, current version, last SHA, and next queue.
 - Bumped version to `0.1.8`.
+
+## Cycle 9
+
+- Date: 2026-02-28
+- Objective: continue 200-loop campaign with next planned wrapper batch.
+- Planned focus:
+  - repos wrappers
+  - secret scope lifecycle wrappers
+  - wrapper test expansion
+
+### Progress Notes
+
+- Added repos wrappers: `list_repos`, `get_repo`, `create_repo`, `delete_repo`.
+- Added secret scope wrappers: `create_secret_scope`, `list_secret_scopes`, `delete_secret_scope`.
+- Expanded endpoint catalog/constants and tests.
+- Updated README/USAGE examples and bumped version to `0.1.9`.

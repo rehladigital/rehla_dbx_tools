@@ -157,3 +157,52 @@ def test_catalog_repo_secret_token_wrappers_route_expected_calls():
         assert request_versioned.call_args.args == ("POST", "token")
         assert request_versioned.call_args.kwargs["endpoint"] == "delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"token_id": "tok-123"}
+
+
+def test_repo_and_secret_scope_wrappers_route_expected_calls():
+    client = _workspace_client()
+
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.list_repos(path_prefix="/Repos/team")
+        assert request_versioned.call_args.args == ("GET", "repos")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["params"] == {"path_prefix": "/Repos/team"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_repo(12345)
+        assert request_versioned.call_args.args == ("GET", "repos")
+        assert request_versioned.call_args.kwargs["endpoint"] == "12345"
+
+        client.create_repo(
+            url="https://github.com/rehladigital/repo.git",
+            provider="gitHub",
+            path="/Repos/team/repo",
+        )
+        assert request_versioned.call_args.args == ("POST", "repos")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "url": "https://github.com/rehladigital/repo.git",
+            "provider": "gitHub",
+            "path": "/Repos/team/repo",
+        }
+
+        client.delete_repo(12345)
+        assert request_versioned.call_args.args == ("DELETE", "repos")
+        assert request_versioned.call_args.kwargs["endpoint"] == "12345"
+
+        client.create_secret_scope("app-prod", initial_manage_principal="users")
+        assert request_versioned.call_args.args == ("POST", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "scopes/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "scope": "app-prod",
+            "initial_manage_principal": "users",
+        }
+
+        client.list_secret_scopes()
+        assert request_versioned.call_args.args == ("GET", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "scopes/list"
+
+        client.delete_secret_scope("app-prod")
+        assert request_versioned.call_args.args == ("POST", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "scopes/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"scope": "app-prod"}
