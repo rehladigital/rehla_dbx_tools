@@ -208,3 +208,4 @@ For detailed setup and examples, see `docs/USAGE.md`.
 
 - AWS + Databricks blog draft: `docs/BLOG_AWS_DATABRICKS_WORDPRESS.md`
 - Complete tool-by-tool blog reference: `docs/BLOG_TOOL_REFERENCE_WORDPRESS.md`
+- Complete built-tools usage reference: `docs/COMPLETE_TOOL_USAGE_REFERENCE.md`

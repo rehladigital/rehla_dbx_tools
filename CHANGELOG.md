@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Updated README tool list to include new Unity Catalog and Vector Search methods.
+- Added complete built-tools usage document at `docs/COMPLETE_TOOL_USAGE_REFERENCE.md`.
 - Bumped package version from `1.2.16` to `1.2.17`.
 
 ## [1.2.16] - 2026-03-01
