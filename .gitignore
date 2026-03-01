@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 __pycache__/
 *.pyc
 *.pyo
@@ -6,6 +7,12 @@ __pycache__/
 .mypy_cache/
 .venv/
 venv/
+=======
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+>>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
 dist/
 build/
 *.egg-info/

@@ -28,12 +28,21 @@ class AccountClient(BaseDatabricksClient):
         json_body: Optional[dict[str, Any]] = None,
         paginate: bool = False,
     ) -> Any:
+<<<<<<< HEAD
         params = dict(params or {})
         params.setdefault("account_id", self.account_id)
         return self.request_versioned(
             method=method,
             service=service,
             endpoint=endpoint,
+=======
+        endpoint = endpoint.lstrip("/")
+        account_endpoint = f"{self.account_id}/{endpoint}" if endpoint else self.account_id
+        return self.request_versioned(
+            method=method,
+            service=service,
+            endpoint=account_endpoint,
+>>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
             api_version=api_version,
             params=params,
             json_body=json_body,

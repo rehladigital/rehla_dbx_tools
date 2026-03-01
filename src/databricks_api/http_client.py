@@ -99,6 +99,10 @@ class HttpClient:
         combined: list[Any] = []
         current_params = dict(params or {})
         last_response: Optional[ApiResponse] = None
+<<<<<<< HEAD
+=======
+        seen_tokens: set[str] = set()
+>>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
 
         while True:
             response = self._request_once(method, url, params=current_params, json_body=json_body)
@@ -112,6 +116,12 @@ class HttpClient:
             next_token = _extract_next_page_token(payload)
             if not next_token:
                 break
+<<<<<<< HEAD
+=======
+            if next_token in seen_tokens:
+                raise ApiError(f"Detected repeated pagination token while requesting {url}")
+            seen_tokens.add(next_token)
+>>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
             current_params["page_token"] = next_token
 
         if last_response is None:
@@ -143,7 +153,11 @@ def _extract_rows(payload: Any) -> list[Any]:
 
 def _extract_next_page_token(payload: Any) -> Optional[str]:
     if isinstance(payload, dict):
+<<<<<<< HEAD
         for key in ("next_page_token", "nextPageToken", "page_token"):
+=======
+        for key in ("next_page_token", "nextPageToken"):
+>>>>>>> 95c476f (Build unified Databricks API package with hardening and tests.)
             value = payload.get(key)
             if isinstance(value, str) and value.strip():
                 return value
