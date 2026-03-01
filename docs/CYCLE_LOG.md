@@ -1450,3 +1450,21 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.11` with changelog updates for release.
+
+## Run 72 (Cycle 72 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: implement `pipelines` and `query-history` wrappers with tests and release.
+
+### Progress Notes
+
+- Added pipelines wrappers in `src/databricks_api/clients/workspace.py`:
+  - permissions: `get_pipeline_permissions`, `set_pipeline_permissions`, `update_pipeline_permissions`, `get_pipeline_permission_levels`
+  - lifecycle/events: `list_pipelines`, `create_pipeline`, `get_pipeline`, `edit_pipeline`, `delete_pipeline`, `start_pipeline`, `stop_pipeline`, `list_pipeline_events`, `list_pipeline_updates`, `get_pipeline_update`
+- Added query-history wrapper in `src/databricks_api/clients/workspace.py`:
+  - `list_query_history`
+- Updated `src/databricks_api/endpoints/catalog.py` with pipelines and query-history endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.12` with changelog updates for release.

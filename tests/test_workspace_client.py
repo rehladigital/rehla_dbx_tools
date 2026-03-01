@@ -328,6 +328,110 @@ def test_networking_and_notifications_wrappers_route_expected_calls_and_validati
         client.update_notification_destination("", {})
     with pytest.raises(ValidationError):
         client.delete_notification_destination("")
+
+
+def test_pipelines_and_query_history_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.get_pipeline_permissions("pipe-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipelines/pipe-1"
+
+        acl = [{"group_name": "admins", "permission_level": "CAN_MANAGE"}]
+        client.set_pipeline_permissions("pipe-1", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipelines/pipe-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_pipeline_permissions("pipe-1", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipelines/pipe-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_pipeline_permission_levels("pipe-1")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipelines/pipe-1/permissionLevels"
+
+        client.list_pipelines()
+        assert request_versioned.call_args.args == ("GET", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_pipeline({"name": "daily-dlt"})
+        assert request_versioned.call_args.args == ("POST", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "daily-dlt"}
+
+        client.get_pipeline("pipe-1")
+        assert request_versioned.call_args.args == ("GET", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1"
+
+        client.edit_pipeline("pipe-1", {"name": "daily-dlt-v2"})
+        assert request_versioned.call_args.args == ("PUT", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "daily-dlt-v2"}
+
+        client.delete_pipeline("pipe-1")
+        assert request_versioned.call_args.args == ("DELETE", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1"
+
+        client.start_pipeline("pipe-1", {"full_refresh": True})
+        assert request_versioned.call_args.args == ("POST", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1/updates"
+        assert request_versioned.call_args.kwargs["json_body"] == {"full_refresh": True}
+
+        client.stop_pipeline("pipe-1")
+        assert request_versioned.call_args.args == ("POST", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1/stop"
+
+        client.list_pipeline_events("pipe-1")
+        assert request_versioned.call_args.args == ("GET", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1/events"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.list_pipeline_updates("pipe-1")
+        assert request_versioned.call_args.args == ("GET", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1/updates"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_pipeline_update("pipe-1", "update-1")
+        assert request_versioned.call_args.args == ("GET", "pipelines")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pipe-1/updates/update-1"
+
+        client.list_query_history(max_results=100)
+        assert request_versioned.call_args.args == ("GET", "sql/history/queries")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["params"] == {"max_results": 100}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+    with pytest.raises(ValidationError):
+        client.get_pipeline_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_pipeline_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_pipeline_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_pipeline_permission_levels("")
+    with pytest.raises(ValidationError):
+        client.get_pipeline("")
+    with pytest.raises(ValidationError):
+        client.edit_pipeline("", {})
+    with pytest.raises(ValidationError):
+        client.delete_pipeline("")
+    with pytest.raises(ValidationError):
+        client.start_pipeline("")
+    with pytest.raises(ValidationError):
+        client.stop_pipeline("")
+    with pytest.raises(ValidationError):
+        client.list_pipeline_events("")
+    with pytest.raises(ValidationError):
+        client.list_pipeline_updates("")
+    with pytest.raises(ValidationError):
+        client.get_pipeline_update("", "update-1")
+    with pytest.raises(ValidationError):
+        client.get_pipeline_update("pipe-1", "")
+    with pytest.raises(ValidationError):
+        client.list_query_history(max_results=0)
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):

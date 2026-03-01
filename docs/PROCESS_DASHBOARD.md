@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 71
-- Remaining loops: 229
-- Current loop: 72 (queued)
+- Completed loops: 72
+- Remaining loops: 228
+- Current loop: 73 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 71
-- Current package version: 1.2.11
+- Last completed cycle: 72
+- Current package version: 1.2.12
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 72 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for `pipelines` and `query-history` families
+1. Execute run 73 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for `marketplace` and `model-serving` families
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `1.2.11` after commit/push and workflow verification
+4. Publish `1.2.12` after commit/push and workflow verification

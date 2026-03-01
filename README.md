@@ -147,6 +147,9 @@ Workspace (`client.workspace`):
 - `get_all_library_statuses`, `get_library_status`, `install_libraries`, `uninstall_libraries`
 - `list_ip_access_lists`, `create_ip_access_list`, `get_ip_access_list`, `replace_ip_access_list`, `update_ip_access_list`, `delete_ip_access_list`
 - `list_notification_destinations`, `create_notification_destination`, `get_notification_destination`, `update_notification_destination`, `delete_notification_destination`
+- `get_pipeline_permissions`, `set_pipeline_permissions`, `update_pipeline_permissions`, `get_pipeline_permission_levels`
+- `list_pipelines`, `create_pipeline`, `get_pipeline`, `edit_pipeline`, `delete_pipeline`, `start_pipeline`, `stop_pipeline`, `list_pipeline_events`, `list_pipeline_updates`, `get_pipeline_update`
+- `list_query_history`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`

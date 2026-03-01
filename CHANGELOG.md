@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.12] - 2026-03-01
+
+### Added
+
+- Pipelines wrappers on workspace client:
+  - `get_pipeline_permissions`
+  - `set_pipeline_permissions`
+  - `update_pipeline_permissions`
+  - `get_pipeline_permission_levels`
+  - `list_pipelines`
+  - `create_pipeline`
+  - `get_pipeline`
+  - `edit_pipeline`
+  - `delete_pipeline`
+  - `start_pipeline`
+  - `stop_pipeline`
+  - `list_pipeline_events`
+  - `list_pipeline_updates`
+  - `get_pipeline_update`
+- Query History wrapper on workspace client:
+  - `list_query_history`
+- Endpoint catalog entries for pipelines and query-history routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include pipelines and query-history methods.
+- Bumped package version from `1.2.11` to `1.2.12`.
+
 ## [1.2.11] - 2026-03-01
 
 ### Added

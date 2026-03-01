@@ -1945,6 +1945,165 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Pipelines scope
+    def get_pipeline_permissions(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"pipelines/{pipeline_id}",
+            api_version=api_version,
+        )
+
+    def set_pipeline_permissions(
+        self,
+        pipeline_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"pipelines/{pipeline_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_pipeline_permissions(
+        self,
+        pipeline_id: str,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"pipelines/{pipeline_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_pipeline_permission_levels(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"pipelines/{pipeline_id}/permissionLevels",
+            api_version=api_version,
+        )
+
+    def list_pipelines(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "pipelines",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_pipeline(self, pipeline_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "pipelines",
+            endpoint="",
+            api_version=api_version,
+            json_body=pipeline_spec,
+        )
+
+    def get_pipeline(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "GET",
+            "pipelines",
+            endpoint=pipeline_id,
+            api_version=api_version,
+        )
+
+    def edit_pipeline(self, pipeline_id: str, pipeline_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "PUT",
+            "pipelines",
+            endpoint=pipeline_id,
+            api_version=api_version,
+            json_body=pipeline_changes,
+        )
+
+    def delete_pipeline(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "DELETE",
+            "pipelines",
+            endpoint=pipeline_id,
+            api_version=api_version,
+        )
+
+    def start_pipeline(self, pipeline_id: str, start_spec: Optional[dict[str, Any]] = None, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "POST",
+            "pipelines",
+            endpoint=f"{pipeline_id}/updates",
+            api_version=api_version,
+            json_body=start_spec,
+        )
+
+    def stop_pipeline(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "POST",
+            "pipelines",
+            endpoint=f"{pipeline_id}/stop",
+            api_version=api_version,
+        )
+
+    def list_pipeline_events(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "GET",
+            "pipelines",
+            endpoint=f"{pipeline_id}/events",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def list_pipeline_updates(self, pipeline_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        return self.request_versioned(
+            "GET",
+            "pipelines",
+            endpoint=f"{pipeline_id}/updates",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_pipeline_update(self, pipeline_id: str, update_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(pipeline_id, "pipeline_id")
+        self._require_non_empty_string(update_id, "update_id")
+        return self.request_versioned(
+            "GET",
+            "pipelines",
+            endpoint=f"{pipeline_id}/updates/{update_id}",
+            api_version=api_version,
+        )
+
+    # Query History scope
+    def list_query_history(self, *, max_results: Optional[int] = None, api_version: str = "2.0") -> Any:
+        params: dict[str, Any] = {}
+        if max_results is not None:
+            self._require_positive_int(max_results, "max_results")
+            params["max_results"] = max_results
+        return self.request_versioned(
+            "GET",
+            "sql/history/queries",
+            endpoint="",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
     # Delta Sharing scope
     def list_sharing_providers(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
