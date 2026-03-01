@@ -1,17 +1,23 @@
 # Release Runbook
 
-## Standard Patch Release Flow
+## Standard Release Flow
 
 1. Pull latest `main`.
 2. Run local quality gates:
    - `python -m pytest -q`
    - `python -m build`
-3. Update package version in `pyproject.toml` (patch bump).
+3. Update package version in `pyproject.toml` when required by checkpoint policy.
 4. Update `CHANGELOG.md` with release notes.
 5. Commit and push to `main`.
 6. Verify remote state and test status.
 7. Confirm install command for release:
    - `pip install rehla-dbx-tools`
+
+## Version and Milestone Policy
+
+- Campaign baseline starts at `1.0.0`.
+- Major GitHub Release milestone: every `50` cycles.
+- Minor version checkpoint: every `100` cycles.
 
 ## CI and Release Automation
 
@@ -21,6 +27,10 @@
   - Executes tests and package build
 - Release workflow: `.github/workflows/release.yml`
   - Runs on `v*.*.*` tags and manual dispatch
+  - Manual dispatch requires:
+    - `cycle_number`
+    - `version`
+  - Workflow enforces major milestone dispatch only on cycle multiples of `50`
   - Builds distribution artifacts, publishes to PyPI (when `PYPI_API_TOKEN` exists), and creates GitHub release
 
 ## PyPI Publish Setup
@@ -28,8 +38,8 @@
 1. Create a PyPI API token in the target PyPI project.
 2. Add repository secret `PYPI_API_TOKEN` in GitHub.
 3. Trigger release workflow with:
-   - tag push (for example `v0.1.3`), or
-   - manual workflow dispatch.
+   - tag push (for example `v1.0.0`), or
+   - manual workflow dispatch with required inputs.
 4. Verify package appears on PyPI and release artifacts are attached to GitHub Release.
 5. Validate install from a clean environment:
    - `pip install rehla-dbx-tools`

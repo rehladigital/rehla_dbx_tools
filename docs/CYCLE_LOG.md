@@ -393,3 +393,20 @@
 - Updated import regression tests for new namespace and added legacy import compatibility assertion.
 - Updated campaign tracking docs for 300-cycle execution baseline.
 - Set package version to `1.0.0`.
+
+## Run 2 (Cycle 2 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: Azure (round-robin assignment)
+- Objective: enforce release checkpoint policy (major every 50 cycles, minor every 100 cycles) in automation and runbook.
+
+### Progress Notes
+
+- Updated `.github/workflows/release.yml` manual dispatch inputs to require:
+  - `cycle_number`
+  - `version`
+- Added release-workflow checkpoint validation that blocks manual major-release execution unless `cycle_number % 50 == 0`.
+- Added deterministic release tag resolution for both tag-push and manual dispatch paths.
+- Updated `docs/RELEASE.md` with campaign version/release policy and manual-dispatch requirements.
+- Updated loop/dashboard context pointers for next run.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 2).
