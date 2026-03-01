@@ -1,4 +1,4 @@
-# Unified Databricks API
+# rehla-aw-databricks-tools
 
 Single Python package to call Databricks Workspace and Account APIs and convert JSON responses into Pandas or PySpark DataFrames.
 
