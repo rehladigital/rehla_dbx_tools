@@ -1338,12 +1338,83 @@ def test_repo_and_secret_scope_wrappers_route_expected_calls():
         assert request_versioned.call_args.kwargs["endpoint"] == "scopes/delete"
         assert request_versioned.call_args.kwargs["json_body"] == {"scope": "app-prod"}
 
+        client.delete_secret("app-prod", "token")
+        assert request_versioned.call_args.args == ("POST", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"scope": "app-prod", "key": "token"}
+
+        client.get_secret("app-prod", "token")
+        assert request_versioned.call_args.args == ("GET", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "get"
+        assert request_versioned.call_args.kwargs["params"] == {"scope": "app-prod", "key": "token"}
+
+        client.list_secret_keys("app-prod")
+        assert request_versioned.call_args.args == ("GET", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "list"
+        assert request_versioned.call_args.kwargs["params"] == {"scope": "app-prod"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.list_secret_acls("app-prod")
+        assert request_versioned.call_args.args == ("GET", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "acls/list"
+        assert request_versioned.call_args.kwargs["params"] == {"scope": "app-prod"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_secret_acl("app-prod", "users")
+        assert request_versioned.call_args.args == ("GET", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "acls/get"
+        assert request_versioned.call_args.kwargs["params"] == {"scope": "app-prod", "principal": "users"}
+
+        client.put_secret_acl("app-prod", "users", "MANAGE")
+        assert request_versioned.call_args.args == ("POST", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "acls/put"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "scope": "app-prod",
+            "principal": "users",
+            "permission": "MANAGE",
+        }
+
+        client.delete_secret_acl("app-prod", "users")
+        assert request_versioned.call_args.args == ("POST", "secrets")
+        assert request_versioned.call_args.kwargs["endpoint"] == "acls/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"scope": "app-prod", "principal": "users"}
+
     with pytest.raises(ValidationError):
         client.get_git_credential(0)
     with pytest.raises(ValidationError):
         client.update_git_credential(0, {})
     with pytest.raises(ValidationError):
         client.delete_git_credential(0)
+    with pytest.raises(ValidationError):
+        client.put_secret("", "token", string_value="abc")
+    with pytest.raises(ValidationError):
+        client.put_secret("app-prod", "", string_value="abc")
+    with pytest.raises(ValidationError):
+        client.delete_secret("", "token")
+    with pytest.raises(ValidationError):
+        client.delete_secret("app-prod", "")
+    with pytest.raises(ValidationError):
+        client.get_secret("", "token")
+    with pytest.raises(ValidationError):
+        client.get_secret("app-prod", "")
+    with pytest.raises(ValidationError):
+        client.list_secret_keys("")
+    with pytest.raises(ValidationError):
+        client.list_secret_acls("")
+    with pytest.raises(ValidationError):
+        client.get_secret_acl("", "users")
+    with pytest.raises(ValidationError):
+        client.get_secret_acl("app-prod", "")
+    with pytest.raises(ValidationError):
+        client.put_secret_acl("", "users", "MANAGE")
+    with pytest.raises(ValidationError):
+        client.put_secret_acl("app-prod", "", "MANAGE")
+    with pytest.raises(ValidationError):
+        client.put_secret_acl("app-prod", "users", "")
+    with pytest.raises(ValidationError):
+        client.delete_secret_acl("", "users")
+    with pytest.raises(ValidationError):
+        client.delete_secret_acl("app-prod", "")
 
 
 def test_unity_catalog_detail_and_token_wrappers_route_expected_calls():

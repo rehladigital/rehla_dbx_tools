@@ -176,7 +176,9 @@ Workspace (`client.workspace`):
 - `download_file`, `upload_file`, `delete_file`, `get_file_metadata`
 - `list_repos`, `get_repo`
 - `list_git_credentials`, `create_git_credential`, `get_git_credential`, `update_git_credential`, `delete_git_credential`
-- `list_secret_scopes`
+- `put_secret`, `delete_secret`, `get_secret`, `list_secret_keys`
+- `list_secret_scopes`, `create_secret_scope`, `delete_secret_scope`
+- `list_secret_acls`, `get_secret_acl`, `put_secret_acl`, `delete_secret_acl`
 - `list_tokens`
 
 Client-level convenience:

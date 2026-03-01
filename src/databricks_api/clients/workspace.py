@@ -811,6 +811,8 @@ class WorkspaceClient(BaseDatabricksClient):
         bytes_value: Optional[str] = None,
         api_version: str = "2.0",
     ) -> Any:
+        self._require_non_empty_string(scope, "scope")
+        self._require_non_empty_string(key, "key")
         payload: dict[str, Any] = {"scope": scope, "key": key}
         if string_value is not None:
             payload["string_value"] = string_value
@@ -822,6 +824,84 @@ class WorkspaceClient(BaseDatabricksClient):
             endpoint="put",
             api_version=api_version,
             json_body=payload,
+        )
+
+    def delete_secret(self, scope: str, key: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "POST",
+            "secrets",
+            endpoint="delete",
+            api_version=api_version,
+            json_body={"scope": scope, "key": key},
+        )
+
+    def get_secret(self, scope: str, key: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "GET",
+            "secrets",
+            endpoint="get",
+            api_version=api_version,
+            params={"scope": scope, "key": key},
+        )
+
+    def list_secret_keys(self, scope: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        return self.request_versioned(
+            "GET",
+            "secrets",
+            endpoint="list",
+            api_version=api_version,
+            params={"scope": scope},
+            paginate=True,
+        )
+
+    def list_secret_acls(self, scope: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        return self.request_versioned(
+            "GET",
+            "secrets",
+            endpoint="acls/list",
+            api_version=api_version,
+            params={"scope": scope},
+            paginate=True,
+        )
+
+    def get_secret_acl(self, scope: str, principal: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        self._require_non_empty_string(principal, "principal")
+        return self.request_versioned(
+            "GET",
+            "secrets",
+            endpoint="acls/get",
+            api_version=api_version,
+            params={"scope": scope, "principal": principal},
+        )
+
+    def put_secret_acl(self, scope: str, principal: str, permission: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        self._require_non_empty_string(principal, "principal")
+        self._require_non_empty_string(permission, "permission")
+        return self.request_versioned(
+            "POST",
+            "secrets",
+            endpoint="acls/put",
+            api_version=api_version,
+            json_body={"scope": scope, "principal": principal, "permission": permission},
+        )
+
+    def delete_secret_acl(self, scope: str, principal: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(scope, "scope")
+        self._require_non_empty_string(principal, "principal")
+        return self.request_versioned(
+            "POST",
+            "secrets",
+            endpoint="acls/delete",
+            api_version=api_version,
+            json_body={"scope": scope, "principal": principal},
         )
 
     def create_token(

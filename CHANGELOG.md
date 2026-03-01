@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2026-03-01
+
+### Added
+
+- Workspace secrets-management wrappers to complete the documented secrets scope:
+  - `delete_secret`
+  - `get_secret`
+  - `list_secret_keys`
+  - `list_secret_acls`
+  - `get_secret_acl`
+  - `put_secret_acl`
+  - `delete_secret_acl`
+- Input validation for secrets methods requiring non-empty identifiers:
+  - `put_secret` (`scope`, `key`)
+  - all new secret and ACL helper methods
+- Endpoint catalog entries for secret ACL and key/list/get/delete routes.
+- Regression test coverage for secrets scope wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include full secrets scope methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with full secrets scope usage coverage.
+- Bumped package version from `2.0.1` to `2.0.2`.
+
 ## [2.0.1] - 2026-03-01
 
 ### Added

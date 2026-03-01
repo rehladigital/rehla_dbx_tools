@@ -241,9 +241,16 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 ## Secrets
 
 - `put_secret(scope, key, string_value=..., bytes_value=...)`
+- `delete_secret(scope, key)`
+- `get_secret(scope, key)`
+- `list_secret_keys(scope)`
 - `create_secret_scope(scope, initial_manage_principal=...)`
 - `list_secret_scopes()`
 - `delete_secret_scope(scope)`
+- `list_secret_acls(scope)`
+- `get_secret_acl(scope, principal)`
+- `put_secret_acl(scope, principal, permission)`
+- `delete_secret_acl(scope, principal)`
 
 ## Command Execution
 

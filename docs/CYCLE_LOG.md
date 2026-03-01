@@ -1577,3 +1577,20 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the newly available SCIM tools.
 - Prepared patch version bump to `2.0.1` with changelog updates for release.
+
+## Run 79 (Cycle 79 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: complete `secrets` scope coverage with ACL and key/get/delete operations.
+
+### Progress Notes
+
+- Added workspace secrets wrappers in `src/databricks_api/clients/workspace.py`:
+  - `delete_secret`, `get_secret`, `list_secret_keys`
+  - `list_secret_acls`, `get_secret_acl`, `put_secret_acl`, `delete_secret_acl`
+- Added non-empty input validation for secret identifiers and ACL parameters.
+- Updated `src/databricks_api/endpoints/catalog.py` with secret ACL and key/list/get/delete endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation checks.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the complete secrets scope.
+- Prepared patch version bump to `2.0.2` with changelog updates for release.
