@@ -116,6 +116,16 @@ def test_jobs_wrappers_route_expected_methods_and_payloads():
             "access_control_list": [{"user_name": "user@example.com", "permission_level": "CAN_MANAGE"}]
         }
 
+        client.set_job_permissions(
+            123,
+            [{"group_name": "admins", "permission_level": "CAN_MANAGE"}],
+        )
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "jobs/123"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "access_control_list": [{"group_name": "admins", "permission_level": "CAN_MANAGE"}]
+        }
+
         client.get_job_permission_levels(123)
         assert request_versioned.call_args.args == ("GET", "permissions")
         assert request_versioned.call_args.kwargs["endpoint"] == "jobs/123/permissionLevels"
@@ -170,6 +180,8 @@ def test_job_run_wrappers_validate_identifiers_and_pagination_inputs():
     with pytest.raises(ValidationError):
         client.update_job_permissions(0, [])
     with pytest.raises(ValidationError):
+        client.set_job_permissions(0, [])
+    with pytest.raises(ValidationError):
         client.get_job_permission_levels(0)
     with pytest.raises(ValidationError):
         client.get_cluster_permissions("")
@@ -207,6 +219,38 @@ def test_job_run_wrappers_validate_identifiers_and_pagination_inputs():
         client.cluster_events("", limit=1)
     with pytest.raises(ValidationError):
         client.cluster_events("c-1", limit=0)
+
+
+def test_library_wrappers_route_expected_calls_and_validation():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.get_all_library_statuses()
+        assert request_versioned.call_args.args == ("GET", "libraries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "all-cluster-statuses"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_library_status("cluster-1")
+        assert request_versioned.call_args.args == ("GET", "libraries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cluster-status"
+        assert request_versioned.call_args.kwargs["params"] == {"cluster_id": "cluster-1"}
+
+        libs = [{"pypi": {"package": "pandas==2.3.3"}}]
+        client.install_libraries("cluster-1", libs)
+        assert request_versioned.call_args.args == ("POST", "libraries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "install"
+        assert request_versioned.call_args.kwargs["json_body"] == {"cluster_id": "cluster-1", "libraries": libs}
+
+        client.uninstall_libraries("cluster-1", libs)
+        assert request_versioned.call_args.args == ("POST", "libraries")
+        assert request_versioned.call_args.kwargs["endpoint"] == "uninstall"
+        assert request_versioned.call_args.kwargs["json_body"] == {"cluster_id": "cluster-1", "libraries": libs}
+
+    with pytest.raises(ValidationError):
+        client.get_library_status("")
+    with pytest.raises(ValidationError):
+        client.install_libraries("", [])
+    with pytest.raises(ValidationError):
+        client.uninstall_libraries("", [])
     with pytest.raises(ValidationError):
         client.update_repo(0, branch="main")
     with pytest.raises(ValidationError):

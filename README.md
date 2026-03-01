@@ -121,7 +121,7 @@ print(rdt.__Help__)
 Workspace (`client.workspace`):
 - `list_jobs`, `get_job`
 - `list_job_runs`, `get_job_run`, `get_job_run_output`, `export_job_run`
-- `get_job_permissions`, `get_job_permission_levels`
+- `get_job_permissions`, `set_job_permissions`, `update_job_permissions`, `get_job_permission_levels`
 - `get_object_permissions`, `set_object_permissions`, `update_object_permissions`, `get_object_permission_levels`
 - `list_sql_alerts`, `create_sql_alert`, `get_sql_alert`, `update_sql_alert`, `delete_sql_alert`
 - `list_sql_queries`, `create_sql_query`, `get_sql_query`, `update_sql_query`, `delete_sql_query`
@@ -144,6 +144,7 @@ Workspace (`client.workspace`):
 - `list_instance_pools`, `get_instance_pool`
 - `get_instance_pool_permissions`, `set_instance_pool_permissions`, `update_instance_pool_permissions`, `get_instance_pool_permission_levels`
 - `list_instance_profiles`, `add_instance_profile`, `edit_instance_profile`, `remove_instance_profile`
+- `get_all_library_statuses`, `get_library_status`, `install_libraries`, `uninstall_libraries`
 - `list_cluster_policies`, `get_cluster_policy`
 - `list_dbfs`, `get_dbfs_status`, `read_dbfs`
 - `list_files_directory`, `create_files_directory`, `delete_files_directory`, `get_files_directory_metadata`

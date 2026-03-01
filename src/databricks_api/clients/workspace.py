@@ -269,6 +269,21 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body={"access_control_list": access_control_list},
         )
 
+    def set_job_permissions(
+        self,
+        job_id: int,
+        access_control_list: list[dict[str, Any]],
+        api_version: str = "2.0",
+    ) -> Any:
+        self._require_positive_int(job_id, "job_id")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"jobs/{job_id}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
     def get_job_permission_levels(self, job_id: int, api_version: str = "2.0") -> Any:
         self._require_positive_int(job_id, "job_id")
         return self.request_versioned(
@@ -1782,6 +1797,46 @@ class WorkspaceClient(BaseDatabricksClient):
             endpoint="remove",
             api_version=api_version,
             json_body={"instance_profile_arn": instance_profile_arn},
+        )
+
+    # Libraries scope
+    def get_all_library_statuses(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "libraries",
+            endpoint="all-cluster-statuses",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_library_status(self, cluster_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        return self.request_versioned(
+            "GET",
+            "libraries",
+            endpoint="cluster-status",
+            api_version=api_version,
+            params={"cluster_id": cluster_id},
+        )
+
+    def install_libraries(self, cluster_id: str, libraries: list[dict[str, Any]], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        return self.request_versioned(
+            "POST",
+            "libraries",
+            endpoint="install",
+            api_version=api_version,
+            json_body={"cluster_id": cluster_id, "libraries": libraries},
+        )
+
+    def uninstall_libraries(self, cluster_id: str, libraries: list[dict[str, Any]], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(cluster_id, "cluster_id")
+        return self.request_versioned(
+            "POST",
+            "libraries",
+            endpoint="uninstall",
+            api_version=api_version,
+            json_body={"cluster_id": cluster_id, "libraries": libraries},
         )
 
     # Delta Sharing scope

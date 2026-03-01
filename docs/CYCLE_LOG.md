@@ -1413,3 +1413,23 @@
   - `tests/test_account_client.py`
 - Updated `README.md` with the newly available tools.
 - Prepared patch version bump to `1.2.9` with changelog updates for release.
+
+## Run 70 (Cycle 70 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: AWS (round-robin assignment)
+- Objective: implement `jobs` and `libraries` wrapper gaps with tests and release.
+
+### Progress Notes
+
+- Added jobs permission setter wrapper in `src/databricks_api/clients/workspace.py`:
+  - `set_job_permissions`
+- Added managed-libraries wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_all_library_statuses`
+  - `get_library_status`
+  - `install_libraries`
+  - `uninstall_libraries`
+- Updated `src/databricks_api/endpoints/catalog.py` with jobs-permission `PUT` and libraries endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
+- Updated `README.md` with the newly available tools.
+- Prepared patch version bump to `1.2.10` with changelog updates for release.

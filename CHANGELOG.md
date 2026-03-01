@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.10] - 2026-03-01
+
+### Added
+
+- Jobs scope additions on workspace client:
+  - `set_job_permissions`
+- Libraries scope wrappers on workspace client:
+  - `get_all_library_statuses`
+  - `get_library_status`
+  - `install_libraries`
+  - `uninstall_libraries`
+- Endpoint catalog entries for permissions `PUT` and libraries routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README tool list to include jobs-permissions setter and libraries methods.
+- Bumped package version from `1.2.9` to `1.2.10`.
+
 ## [1.2.9] - 2026-03-01
 
 ### Added
