@@ -20,6 +20,9 @@ All notable changes to this project will be documented in this file.
 - Updated README/USAGE/RELEASE/install references to the new package naming.
 - Updated cycle tracking docs to start the 300-cycle campaign baseline.
 - Added release-checkpoint enforcement in `.github/workflows/release.yml` for manual major releases on cycle multiples of 50.
+- Added multi-cloud config selectors and validation:
+  - `DATABRICKS_CLOUD`
+  - `DATABRICKS_ACCOUNT_CLOUD`
 
 ## [0.1.200] - 2026-03-01
 

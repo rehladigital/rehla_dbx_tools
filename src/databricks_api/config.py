@@ -9,6 +9,7 @@ from typing import Literal, Optional
 from .exceptions import ValidationError
 
 AuthType = Literal["auto", "pat", "oauth", "notebook"]
+CloudType = Literal["aws", "azure", "gcp"]
 
 
 @dataclass
@@ -25,6 +26,7 @@ class WorkspaceConfig:
     host: Optional[str] = None
     auth: AuthConfig = field(default_factory=AuthConfig)
     default_api_version: str = "2.1"
+    cloud: CloudType = "aws"
 
 
 @dataclass
@@ -33,6 +35,7 @@ class AccountConfig:
     account_id: Optional[str] = None
     auth: AuthConfig = field(default_factory=AuthConfig)
     default_api_version: str = "2.0"
+    cloud: CloudType = "aws"
 
 
 @dataclass
@@ -61,12 +64,14 @@ class UnifiedConfig:
                 host=_normalize_host(os.getenv("DATABRICKS_HOST")),
                 auth=workspace_auth,
                 default_api_version=os.getenv("DATABRICKS_WORKSPACE_API_VERSION", "2.1"),
+                cloud=_normalize_cloud(os.getenv("DATABRICKS_CLOUD", "aws")),
             ),
             account=AccountConfig(
                 host=_normalize_host(os.getenv("DATABRICKS_ACCOUNT_HOST")),
                 account_id=os.getenv("DATABRICKS_ACCOUNT_ID"),
                 auth=account_auth,
                 default_api_version=os.getenv("DATABRICKS_ACCOUNT_API_VERSION", "2.0"),
+                cloud=_normalize_cloud(os.getenv("DATABRICKS_ACCOUNT_CLOUD", os.getenv("DATABRICKS_CLOUD", "aws"))),
             ),
         )
         cfg.validate()
@@ -77,6 +82,10 @@ class UnifiedConfig:
             raise ValidationError(
                 "At least one of DATABRICKS_HOST or DATABRICKS_ACCOUNT_HOST must be configured."
             )
+        if self.workspace.cloud not in ("aws", "azure", "gcp"):
+            raise ValidationError("Workspace cloud must be one of: aws, azure, gcp.")
+        if self.account.cloud not in ("aws", "azure", "gcp"):
+            raise ValidationError("Account cloud must be one of: aws, azure, gcp.")
 
 
 def _normalize_host(host: Optional[str]) -> Optional[str]:
@@ -88,3 +97,10 @@ def _normalize_host(host: Optional[str]) -> Optional[str]:
     if not host.startswith("http"):
         return f"https://{host}"
     return host.rstrip("/")
+
+
+def _normalize_cloud(cloud: Optional[str]) -> CloudType:
+    normalized = (cloud or "aws").strip().lower()
+    if normalized not in ("aws", "azure", "gcp"):
+        raise ValidationError("Cloud must be one of: aws, azure, gcp.")
+    return normalized  # type: ignore[return-value]

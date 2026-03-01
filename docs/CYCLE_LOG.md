@@ -410,3 +410,22 @@
 - Updated `docs/RELEASE.md` with campaign version/release policy and manual-dispatch requirements.
 - Updated loop/dashboard context pointers for next run.
 - Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 2).
+
+## Run 3 (Cycle 3 of 300 campaign)
+
+- Date: 2026-03-01
+- Cloud track: GCP (round-robin assignment)
+- Objective: add explicit cloud-target configuration support to improve multi-cloud execution control.
+
+### Progress Notes
+
+- Added cloud target fields to configuration models:
+  - `WorkspaceConfig.cloud`
+  - `AccountConfig.cloud`
+- Added environment variable support:
+  - `DATABRICKS_CLOUD` (`aws`, `azure`, `gcp`; default `aws`)
+  - `DATABRICKS_ACCOUNT_CLOUD` (defaults to `DATABRICKS_CLOUD`)
+- Added validation to reject unsupported cloud values.
+- Added regression tests for cloud parsing, overrides, and invalid-value handling in `tests/test_config.py`.
+- Updated `docs/USAGE.md` environment variable documentation for cloud selectors.
+- Package version remains `1.0.0` (no 50/100-cycle checkpoint reached in run 3).

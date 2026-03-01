@@ -40,6 +40,7 @@ Configuration precedence:
 - `DATABRICKS_CLIENT_SECRET` (OAuth service principal)
 - `DATABRICKS_OAUTH_SCOPE` (default `all-apis`)
 - `DATABRICKS_WORKSPACE_API_VERSION` (default `2.1`)
+- `DATABRICKS_CLOUD` (`aws`, `azure`, `gcp`; default `aws`)
 
 ### Account
 
@@ -51,6 +52,7 @@ Configuration precedence:
 - `DATABRICKS_ACCOUNT_CLIENT_SECRET`
 - `DATABRICKS_ACCOUNT_OAUTH_SCOPE`
 - `DATABRICKS_ACCOUNT_API_VERSION` (default `2.0`)
+- `DATABRICKS_ACCOUNT_CLOUD` (`aws`, `azure`, `gcp`; defaults to `DATABRICKS_CLOUD`)
 
 ## 3) Create Client from Environment
 
