@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-03-01
+
+### Added
+
+- Non-destructive live workspace smoke validation tooling:
+  - `.github/workflows/non_destructive_smoke.yml`
+  - `tools/non_destructive_workspace_smoke.py`
+- Extended DBX alias support for env-driven configuration:
+  - `DBX_HOST`, `DBX_TOKEN`
+  - `DBX_CLOUD`, `DBX_ACCOUNT_CLOUD`
+  - `DBX_STRICT_CLOUD_MATCH`
+  - `DBX_AUTH_TYPE`, `DBX_ACCOUNT_AUTH_TYPE`
+  - `DBX_ACCOUNT_HOST`, `DBX_ACCOUNT_ID`, `DBX_ACCOUNT_TOKEN`
+- Host normalization guardrail for copied workspace URL typo:
+  - `*.cloud.databricks.net` -> `*.cloud.databricks.com`
+
+### Changed
+
+- Updated release runbook to the active OIDC publish model:
+  - GitHub release creation and PyPI publish handled by separate workflows
+  - manual publish fallback documented
+- Expanded usage docs to include DBX alias environment fields.
+- Advanced campaign completion through run 60 with live non-destructive validation checkpoints.
+
 ## [1.0.0] - 2026-03-01
 
 ### Added
