@@ -511,6 +511,70 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         assert request_versioned.call_args.args == ("DELETE", "marketplace-consumer/installations")
         assert request_versioned.call_args.kwargs["endpoint"] == "inst-1"
 
+        client.list_marketplace_provider_listings()
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_marketplace_provider_listing({"name": "starter-listing"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-provider/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "starter-listing"}
+
+        client.get_marketplace_provider_listing("pl-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pl-1"
+
+        client.update_marketplace_provider_listing("pl-1", {"name": "starter-listing-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "marketplace-provider/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pl-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "starter-listing-v2"}
+
+        client.delete_marketplace_provider_listing("pl-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/listings")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pl-1"
+
+        client.list_marketplace_provider_providers()
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_marketplace_provider_provider({"name": "provider-one"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "provider-one"}
+
+        client.get_marketplace_provider_provider("pp-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1"
+
+        client.update_marketplace_provider_provider("pp-1", {"name": "provider-one-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "provider-one-v2"}
+
+        client.delete_marketplace_provider_provider("pp-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1"
+
+        client.list_marketplace_provider_files()
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/files")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_marketplace_provider_file({"display_name": "sample-notebook"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-provider/files")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"display_name": "sample-notebook"}
+
+        client.get_marketplace_provider_file("pf-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pf-1"
+
+        client.delete_marketplace_provider_file("pf-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/files")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pf-1"
+
     with pytest.raises(ValidationError):
         client.get_serving_endpoint_permissions("")
     with pytest.raises(ValidationError):
@@ -531,6 +595,22 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         client.get_marketplace_listing("")
     with pytest.raises(ValidationError):
         client.uninstall_marketplace_installation("")
+    with pytest.raises(ValidationError):
+        client.get_marketplace_provider_listing("")
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_listing("", {})
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_provider_listing("")
+    with pytest.raises(ValidationError):
+        client.get_marketplace_provider_provider("")
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_provider("", {})
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_provider_provider("")
+    with pytest.raises(ValidationError):
+        client.get_marketplace_provider_file("")
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_provider_file("")
 
 
 def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validation():

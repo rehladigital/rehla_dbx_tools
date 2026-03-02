@@ -1690,3 +1690,22 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new MLflow tools.
 - Prepared patch version bump to `2.0.7` with changelog updates for release.
+
+## Run 85 (Cycle 85 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: expand marketplace scope with provider-side listings, providers, and files operations.
+
+### Progress Notes
+
+- Added marketplace provider listing wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_provider_listings`, `create_marketplace_provider_listing`, `get_marketplace_provider_listing`, `update_marketplace_provider_listing`, `delete_marketplace_provider_listing`
+- Added marketplace provider provider wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_provider_providers`, `create_marketplace_provider_provider`, `get_marketplace_provider_provider`, `update_marketplace_provider_provider`, `delete_marketplace_provider_provider`
+- Added marketplace provider file wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_provider_files`, `create_marketplace_provider_file`, `get_marketplace_provider_file`, `delete_marketplace_provider_file`
+- Updated `src/databricks_api/endpoints/catalog.py` with marketplace provider listings/providers/files endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new provider wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with marketplace provider tools.
+- Prepared patch version bump to `2.0.8` with changelog updates for release.

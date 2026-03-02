@@ -472,6 +472,20 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `list_marketplace_installations()`
 - `install_marketplace_listing(install_payload)`
 - `uninstall_marketplace_installation(installation_id)`
+- `list_marketplace_provider_listings()`
+- `create_marketplace_provider_listing(listing_spec)`
+- `get_marketplace_provider_listing(listing_id)`
+- `update_marketplace_provider_listing(listing_id, listing_changes)`
+- `delete_marketplace_provider_listing(listing_id)`
+- `list_marketplace_provider_providers()`
+- `create_marketplace_provider_provider(provider_spec)`
+- `get_marketplace_provider_provider(provider_id)`
+- `update_marketplace_provider_provider(provider_id, provider_changes)`
+- `delete_marketplace_provider_provider(provider_id)`
+- `list_marketplace_provider_files()`
+- `create_marketplace_provider_file(file_spec)`
+- `get_marketplace_provider_file(file_id)`
+- `delete_marketplace_provider_file(file_id)`
 
 ## Genie
 

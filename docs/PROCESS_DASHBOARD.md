@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 84
-- Remaining loops: 216
-- Current loop: 85 (queued)
+- Completed loops: 85
+- Remaining loops: 215
+- Current loop: 86 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 84
-- Current package version: 2.0.7
+- Last completed cycle: 85
+- Current package version: 2.0.8
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 85 on AWS track (round-robin sequence)
-2. Continue all-tools implementation for remaining MLflow permissions/webhooks completeness and next marketplace expansion
+1. Execute run 86 on Azure track (round-robin sequence)
+2. Continue all-tools implementation for marketplace provider exchanges and personalization slices
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.7` after commit/push and workflow verification
+4. Publish `2.0.8` after commit/push and workflow verification

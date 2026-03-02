@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.8] - 2026-03-02
+
+### Added
+
+- Marketplace provider listing wrappers:
+  - `list_marketplace_provider_listings`
+  - `create_marketplace_provider_listing`
+  - `get_marketplace_provider_listing`
+  - `update_marketplace_provider_listing`
+  - `delete_marketplace_provider_listing`
+- Marketplace provider provider wrappers:
+  - `list_marketplace_provider_providers`
+  - `create_marketplace_provider_provider`
+  - `get_marketplace_provider_provider`
+  - `update_marketplace_provider_provider`
+  - `delete_marketplace_provider_provider`
+- Marketplace provider file wrappers:
+  - `list_marketplace_provider_files`
+  - `create_marketplace_provider_file`
+  - `get_marketplace_provider_file`
+  - `delete_marketplace_provider_file`
+- Endpoint catalog entries for marketplace provider listings/providers/files routes.
+- Regression test coverage for marketplace provider wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include marketplace provider methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with marketplace provider usage coverage.
+- Bumped package version from `2.0.7` to `2.0.8`.
+
 ## [2.0.7] - 2026-03-02
 
 ### Added

@@ -3347,6 +3347,139 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # Marketplace provider slice
+    def list_marketplace_provider_listings(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/listings",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_marketplace_provider_listing(self, listing_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-provider/listings",
+            endpoint="",
+            api_version=api_version,
+            json_body=listing_spec,
+        )
+
+    def get_marketplace_provider_listing(self, listing_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(listing_id, "listing_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/listings",
+            endpoint=listing_id,
+            api_version=api_version,
+        )
+
+    def update_marketplace_provider_listing(
+        self, listing_id: str, listing_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(listing_id, "listing_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/listings",
+            endpoint=listing_id,
+            api_version=api_version,
+            json_body=listing_changes,
+        )
+
+    def delete_marketplace_provider_listing(self, listing_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(listing_id, "listing_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/listings",
+            endpoint=listing_id,
+            api_version=api_version,
+        )
+
+    def list_marketplace_provider_providers(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/providers",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_marketplace_provider_provider(self, provider_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-provider/providers",
+            endpoint="",
+            api_version=api_version,
+            json_body=provider_spec,
+        )
+
+    def get_marketplace_provider_provider(self, provider_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/providers",
+            endpoint=provider_id,
+            api_version=api_version,
+        )
+
+    def update_marketplace_provider_provider(
+        self, provider_id: str, provider_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/providers",
+            endpoint=provider_id,
+            api_version=api_version,
+            json_body=provider_changes,
+        )
+
+    def delete_marketplace_provider_provider(self, provider_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/providers",
+            endpoint=provider_id,
+            api_version=api_version,
+        )
+
+    def list_marketplace_provider_files(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/files",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_marketplace_provider_file(self, file_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-provider/files",
+            endpoint="",
+            api_version=api_version,
+            json_body=file_spec,
+        )
+
+    def get_marketplace_provider_file(self, file_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(file_id, "file_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/files",
+            endpoint=file_id,
+            api_version=api_version,
+        )
+
+    def delete_marketplace_provider_file(self, file_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(file_id, "file_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/files",
+            endpoint=file_id,
+            api_version=api_version,
+        )
+
     # Genie scope
     def list_genie_spaces(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(
