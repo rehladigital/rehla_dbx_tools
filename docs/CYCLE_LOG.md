@@ -1749,3 +1749,23 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace tools.
 - Prepared patch version bump to `2.0.10` with changelog updates for release.
+
+## Run 88 (Cycle 88 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: close remaining marketplace detail/update/delete gaps for consumer installations and provider resources.
+
+### Progress Notes
+
+- Added marketplace installation detail wrapper in `src/databricks_api/clients/workspace.py`:
+  - `get_marketplace_installation`
+- Added marketplace provider wrappers in `src/databricks_api/clients/workspace.py`:
+  - files: `update_marketplace_provider_file`
+  - exchange-filters: `get_marketplace_provider_exchange_filter`
+  - personalization-requests: `get_marketplace_provider_personalization_request`
+  - analytics dashboard: `delete_marketplace_provider_analytics_dashboard`
+- Updated `src/databricks_api/endpoints/catalog.py` with marketplace installation detail, provider file update, exchange-filter detail, personalization-request detail, and analytics-dashboard delete endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace tools.
+- Prepared patch version bump to `2.0.11` with changelog updates for release.

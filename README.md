@@ -171,17 +171,17 @@ Workspace (`client.workspace`):
 - `list_query_history`
 - `get_serving_endpoint_permissions`, `set_serving_endpoint_permissions`, `update_serving_endpoint_permissions`, `get_serving_endpoint_permission_levels`
 - `list_serving_endpoints`, `create_serving_endpoint`, `get_serving_endpoint`, `update_serving_endpoint_config`, `delete_serving_endpoint`, `query_serving_endpoint`
-- `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `install_marketplace_listing`, `uninstall_marketplace_installation`
+- `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `get_marketplace_installation`, `install_marketplace_listing`, `uninstall_marketplace_installation`
 - `list_marketplace_provider_listings`, `create_marketplace_provider_listing`, `get_marketplace_provider_listing`, `update_marketplace_provider_listing`, `delete_marketplace_provider_listing`
 - `list_marketplace_provider_providers`, `create_marketplace_provider_provider`, `get_marketplace_provider_provider`, `update_marketplace_provider_provider`, `delete_marketplace_provider_provider`
-- `list_marketplace_provider_files`, `create_marketplace_provider_file`, `get_marketplace_provider_file`, `delete_marketplace_provider_file`
+- `list_marketplace_provider_files`, `create_marketplace_provider_file`, `get_marketplace_provider_file`, `update_marketplace_provider_file`, `delete_marketplace_provider_file`
 - `list_marketplace_provider_exchanges`, `create_marketplace_provider_exchange`, `get_marketplace_provider_exchange`, `update_marketplace_provider_exchange`, `delete_marketplace_provider_exchange`
-- `list_marketplace_provider_exchange_filters`, `create_marketplace_provider_exchange_filter`, `update_marketplace_provider_exchange_filter`, `delete_marketplace_provider_exchange_filter`
-- `list_marketplace_provider_personalization_requests`, `update_marketplace_provider_personalization_request`
+- `list_marketplace_provider_exchange_filters`, `create_marketplace_provider_exchange_filter`, `get_marketplace_provider_exchange_filter`, `update_marketplace_provider_exchange_filter`, `delete_marketplace_provider_exchange_filter`
+- `list_marketplace_provider_personalization_requests`, `get_marketplace_provider_personalization_request`, `update_marketplace_provider_personalization_request`
 - `list_marketplace_consumer_personalization_requests`, `create_marketplace_consumer_personalization_request`, `get_marketplace_consumer_personalization_request`
 - `list_marketplace_consumer_providers`, `get_marketplace_consumer_provider`, `batch_get_marketplace_consumer_providers`
 - `list_marketplace_consumer_fulfillments`, `get_marketplace_consumer_fulfillment`
-- `get_marketplace_provider_analytics_dashboard`, `create_marketplace_provider_analytics_dashboard`, `update_marketplace_provider_analytics_dashboard`, `get_latest_marketplace_provider_analytics_dashboard`
+- `get_marketplace_provider_analytics_dashboard`, `create_marketplace_provider_analytics_dashboard`, `update_marketplace_provider_analytics_dashboard`, `get_latest_marketplace_provider_analytics_dashboard`, `delete_marketplace_provider_analytics_dashboard`
 - `list_genie_spaces`, `create_genie_space`, `get_genie_space`, `update_genie_space`, `delete_genie_space`
 - `list_global_init_scripts`, `create_global_init_script`, `get_global_init_script`, `update_global_init_script`, `delete_global_init_script`
 - `list_setting_keys_metadata`, `get_workspace_setting`, `update_workspace_setting`, `get_workspace_conf`, `set_workspace_conf`

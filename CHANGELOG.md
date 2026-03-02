@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.11] - 2026-03-02
+
+### Added
+
+- Marketplace installation detail wrapper:
+  - `get_marketplace_installation`
+- Marketplace provider file update wrapper:
+  - `update_marketplace_provider_file`
+- Marketplace provider exchange-filter detail wrapper:
+  - `get_marketplace_provider_exchange_filter`
+- Marketplace provider personalization-request detail wrapper:
+  - `get_marketplace_provider_personalization_request`
+- Marketplace provider analytics dashboard delete wrapper:
+  - `delete_marketplace_provider_analytics_dashboard`
+- Endpoint catalog entries for marketplace installation detail, provider file update, exchange-filter detail, personalization-request detail, and analytics-dashboard delete routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list for the expanded marketplace surface.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the new marketplace operations.
+- Bumped package version from `2.0.10` to `2.0.11`.
+
 ## [2.0.10] - 2026-03-02
 
 ### Added

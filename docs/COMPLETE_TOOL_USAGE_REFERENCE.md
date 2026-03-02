@@ -470,6 +470,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `get_marketplace_listing(listing_id)`
 - `search_marketplace_listings(search_payload)`
 - `list_marketplace_installations()`
+- `get_marketplace_installation(installation_id)`
 - `install_marketplace_listing(install_payload)`
 - `uninstall_marketplace_installation(installation_id)`
 - `list_marketplace_provider_listings()`
@@ -485,6 +486,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `list_marketplace_provider_files()`
 - `create_marketplace_provider_file(file_spec)`
 - `get_marketplace_provider_file(file_id)`
+- `update_marketplace_provider_file(file_id, file_changes)`
 - `delete_marketplace_provider_file(file_id)`
 - `list_marketplace_provider_exchanges()`
 - `create_marketplace_provider_exchange(exchange_spec)`
@@ -493,9 +495,11 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `delete_marketplace_provider_exchange(exchange_id)`
 - `list_marketplace_provider_exchange_filters()`
 - `create_marketplace_provider_exchange_filter(filter_spec)`
+- `get_marketplace_provider_exchange_filter(filter_id)`
 - `update_marketplace_provider_exchange_filter(filter_id, filter_changes)`
 - `delete_marketplace_provider_exchange_filter(filter_id)`
 - `list_marketplace_provider_personalization_requests()`
+- `get_marketplace_provider_personalization_request(request_id)`
 - `update_marketplace_provider_personalization_request(request_id, request_changes)`
 - `list_marketplace_consumer_personalization_requests()`
 - `create_marketplace_consumer_personalization_request(request_spec)`
@@ -509,6 +513,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `create_marketplace_provider_analytics_dashboard(provider_id, dashboard_spec)`
 - `update_marketplace_provider_analytics_dashboard(provider_id, dashboard_changes)`
 - `get_latest_marketplace_provider_analytics_dashboard(provider_id)`
+- `delete_marketplace_provider_analytics_dashboard(provider_id)`
 
 ## Genie
 

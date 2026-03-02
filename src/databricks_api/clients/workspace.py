@@ -3329,6 +3329,15 @@ class WorkspaceClient(BaseDatabricksClient):
             paginate=True,
         )
 
+    def get_marketplace_installation(self, installation_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(installation_id, "installation_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/installations",
+            endpoint=installation_id,
+            api_version=api_version,
+        )
+
     def install_marketplace_listing(self, installation_spec: dict[str, Any], api_version: str = "2.0") -> Any:
         return self.request_versioned(
             "POST",
@@ -3471,6 +3480,16 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def update_marketplace_provider_file(self, file_id: str, file_changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(file_id, "file_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/files",
+            endpoint=file_id,
+            api_version=api_version,
+            json_body=file_changes,
+        )
+
     def delete_marketplace_provider_file(self, file_id: str, api_version: str = "2.0") -> Any:
         self._require_non_empty_string(file_id, "file_id")
         return self.request_versioned(
@@ -3546,6 +3565,15 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body=filter_spec,
         )
 
+    def get_marketplace_provider_exchange_filter(self, filter_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(filter_id, "filter_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/exchange-filters",
+            endpoint=filter_id,
+            api_version=api_version,
+        )
+
     def update_marketplace_provider_exchange_filter(
         self, filter_id: str, filter_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
@@ -3574,6 +3602,15 @@ class WorkspaceClient(BaseDatabricksClient):
             endpoint="",
             api_version=api_version,
             paginate=True,
+        )
+
+    def get_marketplace_provider_personalization_request(self, request_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/personalization-requests",
+            endpoint=request_id,
+            api_version=api_version,
         )
 
     def update_marketplace_provider_personalization_request(
@@ -3703,6 +3740,15 @@ class WorkspaceClient(BaseDatabricksClient):
             "GET",
             "marketplace-provider/providers",
             endpoint=f"{provider_id}/analytics-dashboard/latest",
+            api_version=api_version,
+        )
+
+    def delete_marketplace_provider_analytics_dashboard(self, provider_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/providers",
+            endpoint=f"{provider_id}/analytics-dashboard",
             api_version=api_version,
         )
 
