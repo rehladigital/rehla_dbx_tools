@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.20] - 2026-03-02
+
+### Added
+
+- Delta Sharing relationship-link update wrappers:
+  - `update_sharing_provider_share`
+  - `update_share_recipient_share`
+- Endpoint catalog entries for provider/recipient share update routes.
+- Regression test coverage for share update wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-link update methods.
+- Bumped package version from `2.0.19` to `2.0.20`.
+
 ## [2.0.19] - 2026-03-02
 
 ### Added

@@ -4508,6 +4508,19 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def update_sharing_provider_share(
+        self, name: str, share_name: str, share_link_changes: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(share_name, "share_name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"providers/{name}/shares/{share_name}",
+            api_version=api_version,
+            json_body=share_link_changes,
+        )
+
     def list_share_recipients(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
             "GET",
@@ -4651,6 +4664,19 @@ class WorkspaceClient(BaseDatabricksClient):
             "unity-catalog",
             endpoint=f"recipients/{name}/shares/{share_name}",
             api_version=api_version,
+        )
+
+    def update_share_recipient_share(
+        self, name: str, share_name: str, share_link_changes: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(share_name, "share_name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"recipients/{name}/shares/{share_name}",
+            api_version=api_version,
+            json_body=share_link_changes,
         )
 
     def list_shares(self, api_version: str = "2.1") -> Any:

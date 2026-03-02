@@ -595,6 +595,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `get_sharing_provider_share(name, share_name)`
 - `create_sharing_provider_share(name, share_link_spec)`
 - `delete_sharing_provider_share(name, share_name)`
+- `update_sharing_provider_share(name, share_name, share_link_changes)`
 - `list_share_recipients()`
 - `create_share_recipient(recipient_spec)`
 - `get_share_recipient(name)`
@@ -609,6 +610,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `get_share_recipient_share(name, share_name)`
 - `create_share_recipient_share(name, share_link_spec)`
 - `delete_share_recipient_share(name, share_name)`
+- `update_share_recipient_share(name, share_name, share_link_changes)`
 - `list_shares()`
 - `create_share(share_spec)`
 - `get_share(name)`
