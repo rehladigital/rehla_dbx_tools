@@ -1629,3 +1629,22 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new SQL wrappers and validations.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with SQL wrapper usage.
 - Prepared patch version bump to `2.0.4` with changelog updates for release.
+
+## Run 82 (Cycle 82 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: start MLflow scope coverage with experiments and runs wrappers.
+
+### Progress Notes
+
+- Added MLflow experiments wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_mlflow_experiment`, `delete_mlflow_experiment`, `get_mlflow_experiment`, `get_mlflow_experiment_by_name`
+  - `list_mlflow_experiments`, `search_mlflow_experiments`, `restore_mlflow_experiment`, `update_mlflow_experiment`, `set_mlflow_experiment_tag`
+- Added MLflow runs wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_mlflow_run`, `delete_mlflow_run`, `restore_mlflow_run`, `get_mlflow_run`, `search_mlflow_runs`
+  - `log_mlflow_metric`, `log_mlflow_param`, `set_mlflow_run_tag`
+- Updated `src/databricks_api/endpoints/catalog.py` with MLflow experiments and runs endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for MLflow wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with MLflow tool usage.
+- Prepared patch version bump to `2.0.5` with changelog updates for release.

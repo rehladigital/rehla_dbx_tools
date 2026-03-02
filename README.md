@@ -128,6 +128,10 @@ Workspace (`client.workspace`):
 - `start_sql_warehouse`, `stop_sql_warehouse`
 - `get_sql_warehouse_permissions`, `set_sql_warehouse_permissions`, `update_sql_warehouse_permissions`, `get_sql_warehouse_permission_levels`
 - `execute_sql_statement`, `get_sql_statement`, `cancel_sql_statement`, `get_sql_statement_result_chunk`
+- `create_mlflow_experiment`, `delete_mlflow_experiment`, `get_mlflow_experiment`, `get_mlflow_experiment_by_name`
+- `list_mlflow_experiments`, `search_mlflow_experiments`, `restore_mlflow_experiment`, `update_mlflow_experiment`, `set_mlflow_experiment_tag`
+- `create_mlflow_run`, `delete_mlflow_run`, `restore_mlflow_run`, `get_mlflow_run`, `search_mlflow_runs`
+- `log_mlflow_metric`, `log_mlflow_param`, `set_mlflow_run_tag`
 - `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
 - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
 - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`

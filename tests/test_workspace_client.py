@@ -828,6 +828,26 @@ def test_quality_monitor_and_postgres_wrappers_route_expected_calls_and_validati
     with pytest.raises(ValidationError):
         client.get_sql_statement_result_chunk("stmt-1", -1)
     with pytest.raises(ValidationError):
+        client.delete_mlflow_experiment("")
+    with pytest.raises(ValidationError):
+        client.get_mlflow_experiment("")
+    with pytest.raises(ValidationError):
+        client.get_mlflow_experiment_by_name("")
+    with pytest.raises(ValidationError):
+        client.restore_mlflow_experiment("")
+    with pytest.raises(ValidationError):
+        client.update_mlflow_experiment("", {})
+    with pytest.raises(ValidationError):
+        client.set_mlflow_experiment_tag("", "team", "ml")
+    with pytest.raises(ValidationError):
+        client.set_mlflow_experiment_tag("exp-1", "", "ml")
+    with pytest.raises(ValidationError):
+        client.delete_mlflow_run("")
+    with pytest.raises(ValidationError):
+        client.restore_mlflow_run("")
+    with pytest.raises(ValidationError):
+        client.get_mlflow_run("")
+    with pytest.raises(ValidationError):
         client.get_instance_pool("")
     with pytest.raises(ValidationError):
         client.edit_instance_pool("", {})
@@ -1629,6 +1649,88 @@ def test_sql_warehouse_wrappers_route_expected_calls():
         client.get_sql_statement_result_chunk("stmt-1", 0)
         assert request_versioned.call_args.args == ("GET", "sql/statements")
         assert request_versioned.call_args.kwargs["endpoint"] == "stmt-1/result/chunks/0"
+
+
+def test_mlflow_experiments_and_runs_wrappers_route_expected_calls():
+    client = _workspace_client()
+    with patch.object(client, "request_versioned", return_value="ok") as request_versioned:
+        client.create_mlflow_experiment({"name": "/Shared/exp-1"})
+        assert request_versioned.call_args.args == ("POST", "mlflow")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "/Shared/exp-1"}
+
+        client.delete_mlflow_experiment("exp-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"experiment_id": "exp-1"}
+
+        client.get_mlflow_experiment("exp-1")
+        assert request_versioned.call_args.args == ("GET", "mlflow")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/get"
+        assert request_versioned.call_args.kwargs["params"] == {"experiment_id": "exp-1"}
+
+        client.get_mlflow_experiment_by_name("/Shared/exp-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/get-by-name"
+        assert request_versioned.call_args.kwargs["params"] == {"experiment_name": "/Shared/exp-1"}
+
+        client.list_mlflow_experiments(view_type="ACTIVE_ONLY", max_results=50)
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/list"
+        assert request_versioned.call_args.kwargs["params"] == {"view_type": "ACTIVE_ONLY", "max_results": 50}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.search_mlflow_experiments({"filter": "name LIKE 'exp%'"})
+        assert request_versioned.call_args.args == ("POST", "mlflow")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/search"
+        assert request_versioned.call_args.kwargs["json_body"] == {"filter": "name LIKE 'exp%'"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.restore_mlflow_experiment("exp-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/restore"
+        assert request_versioned.call_args.kwargs["json_body"] == {"experiment_id": "exp-1"}
+
+        client.update_mlflow_experiment("exp-1", {"new_name": "/Shared/exp-1-renamed"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/update"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "experiment_id": "exp-1",
+            "new_name": "/Shared/exp-1-renamed",
+        }
+
+        client.set_mlflow_experiment_tag("exp-1", "team", "platform")
+        assert request_versioned.call_args.kwargs["endpoint"] == "experiments/set-experiment-tag"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "experiment_id": "exp-1",
+            "key": "team",
+            "value": "platform",
+        }
+
+        client.create_mlflow_run({"experiment_id": "exp-1"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {"experiment_id": "exp-1"}
+
+        client.delete_mlflow_run("run-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"run_id": "run-1"}
+
+        client.restore_mlflow_run("run-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/restore"
+        assert request_versioned.call_args.kwargs["json_body"] == {"run_id": "run-1"}
+
+        client.get_mlflow_run("run-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/get"
+        assert request_versioned.call_args.kwargs["params"] == {"run_id": "run-1"}
+
+        client.search_mlflow_runs({"experiment_ids": ["exp-1"], "max_results": 25})
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/search"
+        assert request_versioned.call_args.kwargs["json_body"] == {"experiment_ids": ["exp-1"], "max_results": 25}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.log_mlflow_metric({"run_id": "run-1", "key": "rmse", "value": 0.11, "timestamp": 1, "step": 0})
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/log-metric"
+
+        client.log_mlflow_param({"run_id": "run-1", "key": "model", "value": "xgb"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/log-parameter"
+
+        client.set_mlflow_run_tag({"run_id": "run-1", "key": "stage", "value": "dev"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "runs/set-tag"
 
 
 def test_alerts_and_dashboards_wrappers_route_expected_calls():

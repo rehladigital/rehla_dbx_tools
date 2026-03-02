@@ -1362,6 +1362,181 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # MLflow scope (experiments and runs slice)
+    def create_mlflow_experiment(self, experiment_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="experiments/create",
+            api_version=api_version,
+            json_body=experiment_spec,
+        )
+
+    def delete_mlflow_experiment(self, experiment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(experiment_id, "experiment_id")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="experiments/delete",
+            api_version=api_version,
+            json_body={"experiment_id": experiment_id},
+        )
+
+    def get_mlflow_experiment(self, experiment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(experiment_id, "experiment_id")
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="experiments/get",
+            api_version=api_version,
+            params={"experiment_id": experiment_id},
+        )
+
+    def get_mlflow_experiment_by_name(self, experiment_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(experiment_name, "experiment_name")
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="experiments/get-by-name",
+            api_version=api_version,
+            params={"experiment_name": experiment_name},
+        )
+
+    def list_mlflow_experiments(
+        self, view_type: Optional[str] = None, max_results: Optional[int] = None, api_version: str = "2.0"
+    ) -> Any:
+        params: dict[str, Any] = {}
+        if view_type:
+            params["view_type"] = view_type
+        if max_results is not None:
+            params["max_results"] = max_results
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="experiments/list",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
+    def search_mlflow_experiments(self, search_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="experiments/search",
+            api_version=api_version,
+            json_body=search_spec,
+            paginate=True,
+        )
+
+    def restore_mlflow_experiment(self, experiment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(experiment_id, "experiment_id")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="experiments/restore",
+            api_version=api_version,
+            json_body={"experiment_id": experiment_id},
+        )
+
+    def update_mlflow_experiment(self, experiment_id: str, changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(experiment_id, "experiment_id")
+        payload = {"experiment_id": experiment_id, **changes}
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="experiments/update",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def set_mlflow_experiment_tag(self, experiment_id: str, key: str, value: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(experiment_id, "experiment_id")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="experiments/set-experiment-tag",
+            api_version=api_version,
+            json_body={"experiment_id": experiment_id, "key": key, "value": value},
+        )
+
+    def create_mlflow_run(self, run_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/create",
+            api_version=api_version,
+            json_body=run_spec,
+        )
+
+    def delete_mlflow_run(self, run_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(run_id, "run_id")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/delete",
+            api_version=api_version,
+            json_body={"run_id": run_id},
+        )
+
+    def restore_mlflow_run(self, run_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(run_id, "run_id")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/restore",
+            api_version=api_version,
+            json_body={"run_id": run_id},
+        )
+
+    def get_mlflow_run(self, run_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(run_id, "run_id")
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="runs/get",
+            api_version=api_version,
+            params={"run_id": run_id},
+        )
+
+    def search_mlflow_runs(self, search_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/search",
+            api_version=api_version,
+            json_body=search_spec,
+            paginate=True,
+        )
+
+    def log_mlflow_metric(self, metric_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/log-metric",
+            api_version=api_version,
+            json_body=metric_spec,
+        )
+
+    def log_mlflow_param(self, param_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/log-parameter",
+            api_version=api_version,
+            json_body=param_spec,
+        )
+
+    def set_mlflow_run_tag(self, tag_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="runs/set-tag",
+            api_version=api_version,
+            json_body=tag_spec,
+        )
+
     # Databricks SQL Alerts (alerts scope)
     def list_sql_alerts(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(

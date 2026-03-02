@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 81
-- Remaining loops: 219
-- Current loop: 82 (queued)
+- Completed loops: 82
+- Remaining loops: 218
+- Current loop: 83 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 81
-- Current package version: 2.0.4
+- Last completed cycle: 82
+- Current package version: 2.0.5
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 82 on AWS track (round-robin sequence)
-2. Continue all-tools implementation for `mlflow` scope slices
+1. Execute run 83 on Azure track (round-robin sequence)
+2. Continue all-tools implementation for `mlflow` model-registry and permissions slices
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.4` after commit/push and workflow verification
+4. Publish `2.0.5` after commit/push and workflow verification

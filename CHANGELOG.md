@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.5] - 2026-03-02
+
+### Added
+
+- MLflow experiments wrappers in workspace client:
+  - `create_mlflow_experiment`
+  - `delete_mlflow_experiment`
+  - `get_mlflow_experiment`
+  - `get_mlflow_experiment_by_name`
+  - `list_mlflow_experiments`
+  - `search_mlflow_experiments`
+  - `restore_mlflow_experiment`
+  - `update_mlflow_experiment`
+  - `set_mlflow_experiment_tag`
+- MLflow runs wrappers in workspace client:
+  - `create_mlflow_run`
+  - `delete_mlflow_run`
+  - `restore_mlflow_run`
+  - `get_mlflow_run`
+  - `search_mlflow_runs`
+  - `log_mlflow_metric`
+  - `log_mlflow_param`
+  - `set_mlflow_run_tag`
+- Endpoint catalog entries for MLflow experiments and runs routes.
+- Regression test coverage for MLflow wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include MLflow experiment/run methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with MLflow usage coverage.
+- Bumped package version from `2.0.4` to `2.0.5`.
+
 ## [2.0.4] - 2026-03-01
 
 ### Added

@@ -198,6 +198,26 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `cancel_sql_statement(statement_id)`
 - `get_sql_statement_result_chunk(statement_id, chunk_index)`
 
+## MLflow (Experiments and Runs)
+
+- `create_mlflow_experiment(experiment_spec)`
+- `delete_mlflow_experiment(experiment_id)`
+- `get_mlflow_experiment(experiment_id)`
+- `get_mlflow_experiment_by_name(experiment_name)`
+- `list_mlflow_experiments(view_type=..., max_results=...)`
+- `search_mlflow_experiments(search_spec)`
+- `restore_mlflow_experiment(experiment_id)`
+- `update_mlflow_experiment(experiment_id, changes)`
+- `set_mlflow_experiment_tag(experiment_id, key, value)`
+- `create_mlflow_run(run_spec)`
+- `delete_mlflow_run(run_id)`
+- `restore_mlflow_run(run_id)`
+- `get_mlflow_run(run_id)`
+- `search_mlflow_runs(search_spec)`
+- `log_mlflow_metric(metric_spec)`
+- `log_mlflow_param(param_spec)`
+- `set_mlflow_run_tag(tag_spec)`
+
 ## Dashboards (Lakeview)
 
 - `list_dashboards()`
