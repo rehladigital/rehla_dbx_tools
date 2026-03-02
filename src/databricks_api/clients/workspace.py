@@ -3711,6 +3711,9 @@ class WorkspaceClient(BaseDatabricksClient):
     def batch_get_marketplace_consumer_providers(self, provider_ids: list[str], api_version: str = "2.0") -> Any:
         if not provider_ids:
             raise ValidationError("provider_ids is required.")
+        for index, provider_id in enumerate(provider_ids):
+            if not isinstance(provider_id, str) or not provider_id.strip():
+                raise ValidationError(f"provider_ids[{index}] must be a non-empty string.")
         return self.request_versioned(
             "POST",
             "marketplace-consumer/providers",

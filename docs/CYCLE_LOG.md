@@ -1961,3 +1961,18 @@
 - Added regression coverage in `tests/test_workspace_client.py` for alias routing and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with installation alias methods.
 - Prepared patch version bump to `2.0.23` with changelog updates for release.
+
+## Run 101 (Cycle 101 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: Azure (round-robin assignment)
+- Objective: strengthen Marketplace consumer provider batch-get input validation behavior.
+
+### Progress Notes
+
+- Tightened validation in `src/databricks_api/clients/workspace.py` for `batch_get_marketplace_consumer_providers`:
+  - keeps non-empty-list requirement
+  - now also enforces each entry is a non-empty string
+- Added regression coverage in `tests/test_workspace_client.py` for invalid batch ID entries (empty string and null).
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit batch ID validation requirements.
+- Prepared patch version bump to `2.0.24` with changelog updates for release.

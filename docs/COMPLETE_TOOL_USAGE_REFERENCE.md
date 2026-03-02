@@ -512,6 +512,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `list_marketplace_consumer_providers()`
 - `get_marketplace_consumer_provider(provider_id)`
 - `batch_get_marketplace_consumer_providers(provider_ids)`
+  - Requires a non-empty list of non-empty string provider IDs.
 - `list_marketplace_consumer_fulfillments()`
 - `get_marketplace_consumer_fulfillment(fulfillment_id)`
 - `get_marketplace_provider_analytics_dashboard(provider_id)`

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.24] - 2026-03-02
+
+### Changed
+
+- Hardened `batch_get_marketplace_consumer_providers` input validation to require non-empty string IDs for every list entry.
+- Added regression tests covering invalid batch ID entries (empty string and null).
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit batch ID validation requirements.
+- Bumped package version from `2.0.23` to `2.0.24`.
+
 ## [2.0.23] - 2026-03-02
 
 ### Added
