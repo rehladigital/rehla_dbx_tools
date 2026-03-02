@@ -1648,3 +1648,25 @@
 - Added regression coverage in `tests/test_workspace_client.py` for MLflow wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with MLflow tool usage.
 - Prepared patch version bump to `2.0.5` with changelog updates for release.
+
+## Run 83 (Cycle 83 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: Azure (round-robin assignment)
+- Objective: continue MLflow scope with model registry and registered-model permissions.
+
+### Progress Notes
+
+- Added MLflow model registry wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_registered_model`, `delete_registered_model`, `get_registered_model`, `update_registered_model`
+  - `rename_registered_model`, `search_registered_models`, `set_registered_model_tag`, `delete_registered_model_tag`
+  - `get_latest_model_versions`
+- Added MLflow model-version wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_model_version`, `delete_model_version`, `get_model_version`, `search_model_versions`
+  - `update_model_version`, `set_model_version_tag`, `delete_model_version_tag`, `transition_model_version_stage`
+- Added registered model permissions wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_registered_model_permissions`, `set_registered_model_permissions`, `update_registered_model_permissions`, `get_registered_model_permission_levels`
+- Updated `src/databricks_api/endpoints/catalog.py` with MLflow model registry/model-version and permissions endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new MLflow tools.
+- Prepared patch version bump to `2.0.6` with changelog updates for release.

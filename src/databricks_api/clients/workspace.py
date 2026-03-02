@@ -1537,6 +1537,242 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body=tag_spec,
         )
 
+    # MLflow model registry slice
+    def create_registered_model(self, model_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="registered-models/create",
+            api_version=api_version,
+            json_body=model_spec,
+        )
+
+    def delete_registered_model(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="registered-models/delete",
+            api_version=api_version,
+            json_body={"name": name},
+        )
+
+    def get_registered_model(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="registered-models/get",
+            api_version=api_version,
+            params={"name": name},
+        )
+
+    def update_registered_model(self, name: str, changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        payload = {"name": name, **changes}
+        return self.request_versioned(
+            "PATCH",
+            "mlflow",
+            endpoint="registered-models/update",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def rename_registered_model(self, name: str, new_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(new_name, "new_name")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="registered-models/rename",
+            api_version=api_version,
+            json_body={"name": name, "new_name": new_name},
+        )
+
+    def search_registered_models(self, search_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="registered-models/search",
+            api_version=api_version,
+            params=search_spec,
+            paginate=True,
+        )
+
+    def set_registered_model_tag(self, name: str, key: str, value: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="registered-models/set-tag",
+            api_version=api_version,
+            json_body={"name": name, "key": key, "value": value},
+        )
+
+    def delete_registered_model_tag(self, name: str, key: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "DELETE",
+            "mlflow",
+            endpoint="registered-models/delete-tag",
+            api_version=api_version,
+            json_body={"name": name, "key": key},
+        )
+
+    def get_latest_model_versions(self, name: str, stages: Optional[list[str]] = None, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        params: dict[str, Any] = {"name": name}
+        if stages:
+            params["stages"] = stages
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="registered-models/get-latest-versions",
+            api_version=api_version,
+            params=params,
+        )
+
+    def create_model_version(self, version_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="model-versions/create",
+            api_version=api_version,
+            json_body=version_spec,
+        )
+
+    def delete_model_version(self, name: str, version: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="model-versions/delete",
+            api_version=api_version,
+            json_body={"name": name, "version": version},
+        )
+
+    def get_model_version(self, name: str, version: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="model-versions/get",
+            api_version=api_version,
+            params={"name": name, "version": version},
+        )
+
+    def search_model_versions(self, search_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="model-versions/search",
+            api_version=api_version,
+            params=search_spec,
+            paginate=True,
+        )
+
+    def update_model_version(self, name: str, version: str, changes: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        payload = {"name": name, "version": version, **changes}
+        return self.request_versioned(
+            "PATCH",
+            "mlflow",
+            endpoint="model-versions/update",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def set_model_version_tag(self, name: str, version: str, key: str, value: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="model-versions/set-tag",
+            api_version=api_version,
+            json_body={"name": name, "version": version, "key": key, "value": value},
+        )
+
+    def delete_model_version_tag(self, name: str, version: str, key: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        self._require_non_empty_string(key, "key")
+        return self.request_versioned(
+            "DELETE",
+            "mlflow",
+            endpoint="model-versions/delete-tag",
+            api_version=api_version,
+            json_body={"name": name, "version": version, "key": key},
+        )
+
+    def transition_model_version_stage(
+        self, name: str, version: str, stage: str, archive_existing_versions: bool = False, api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        self._require_non_empty_string(stage, "stage")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="model-versions/transition-stage",
+            api_version=api_version,
+            json_body={
+                "name": name,
+                "version": version,
+                "stage": stage,
+                "archive_existing_versions": archive_existing_versions,
+            },
+        )
+
+    # MLflow model registry permissions
+    def get_registered_model_permissions(self, model_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(model_name, "model_name")
+        return self.request_versioned(
+            "GET",
+            "permissions/registered-models",
+            endpoint=model_name,
+            api_version=api_version,
+        )
+
+    def set_registered_model_permissions(
+        self, model_name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(model_name, "model_name")
+        return self.request_versioned(
+            "PUT",
+            "permissions/registered-models",
+            endpoint=model_name,
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_registered_model_permissions(
+        self, model_name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(model_name, "model_name")
+        return self.request_versioned(
+            "PATCH",
+            "permissions/registered-models",
+            endpoint=model_name,
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_registered_model_permission_levels(self, model_name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(model_name, "model_name")
+        return self.request_versioned(
+            "GET",
+            "permissions/registered-models",
+            endpoint=f"{model_name}/permissionLevels",
+            api_version=api_version,
+        )
+
     # Databricks SQL Alerts (alerts scope)
     def list_sql_alerts(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(

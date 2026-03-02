@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.6] - 2026-03-02
+
+### Added
+
+- MLflow model registry wrappers in workspace client:
+  - `create_registered_model`
+  - `delete_registered_model`
+  - `get_registered_model`
+  - `update_registered_model`
+  - `rename_registered_model`
+  - `search_registered_models`
+  - `set_registered_model_tag`
+  - `delete_registered_model_tag`
+  - `get_latest_model_versions`
+- MLflow model version wrappers in workspace client:
+  - `create_model_version`
+  - `delete_model_version`
+  - `get_model_version`
+  - `search_model_versions`
+  - `update_model_version`
+  - `set_model_version_tag`
+  - `delete_model_version_tag`
+  - `transition_model_version_stage`
+- Registered model permissions wrappers:
+  - `get_registered_model_permissions`
+  - `set_registered_model_permissions`
+  - `update_registered_model_permissions`
+  - `get_registered_model_permission_levels`
+- Endpoint catalog entries for MLflow model registry/model-version and registered-model permissions routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include MLflow model registry and permissions methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with MLflow model registry and permissions usage coverage.
+- Bumped package version from `2.0.5` to `2.0.6`.
+
 ## [2.0.5] - 2026-03-02
 
 ### Added

@@ -217,6 +217,27 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `log_mlflow_metric(metric_spec)`
 - `log_mlflow_param(param_spec)`
 - `set_mlflow_run_tag(tag_spec)`
+- `create_registered_model(model_spec)`
+- `delete_registered_model(name)`
+- `get_registered_model(name)`
+- `update_registered_model(name, changes)`
+- `rename_registered_model(name, new_name)`
+- `search_registered_models(search_spec)`
+- `set_registered_model_tag(name, key, value)`
+- `delete_registered_model_tag(name, key)`
+- `get_latest_model_versions(name, stages=...)`
+- `create_model_version(version_spec)`
+- `delete_model_version(name, version)`
+- `get_model_version(name, version)`
+- `search_model_versions(search_spec)`
+- `update_model_version(name, version, changes)`
+- `set_model_version_tag(name, version, key, value)`
+- `delete_model_version_tag(name, version, key)`
+- `transition_model_version_stage(name, version, stage, archive_existing_versions=...)`
+- `get_registered_model_permissions(model_name)`
+- `set_registered_model_permissions(model_name, access_control_list)`
+- `update_registered_model_permissions(model_name, access_control_list)`
+- `get_registered_model_permission_levels(model_name)`
 
 ## Dashboards (Lakeview)
 

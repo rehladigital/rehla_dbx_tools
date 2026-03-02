@@ -848,6 +848,64 @@ def test_quality_monitor_and_postgres_wrappers_route_expected_calls_and_validati
     with pytest.raises(ValidationError):
         client.get_mlflow_run("")
     with pytest.raises(ValidationError):
+        client.delete_registered_model("")
+    with pytest.raises(ValidationError):
+        client.get_registered_model("")
+    with pytest.raises(ValidationError):
+        client.update_registered_model("", {})
+    with pytest.raises(ValidationError):
+        client.rename_registered_model("", "new")
+    with pytest.raises(ValidationError):
+        client.rename_registered_model("old", "")
+    with pytest.raises(ValidationError):
+        client.set_registered_model_tag("", "k", "v")
+    with pytest.raises(ValidationError):
+        client.set_registered_model_tag("model", "", "v")
+    with pytest.raises(ValidationError):
+        client.delete_registered_model_tag("", "k")
+    with pytest.raises(ValidationError):
+        client.delete_registered_model_tag("model", "")
+    with pytest.raises(ValidationError):
+        client.get_latest_model_versions("")
+    with pytest.raises(ValidationError):
+        client.delete_model_version("", "1")
+    with pytest.raises(ValidationError):
+        client.delete_model_version("model", "")
+    with pytest.raises(ValidationError):
+        client.get_model_version("", "1")
+    with pytest.raises(ValidationError):
+        client.get_model_version("model", "")
+    with pytest.raises(ValidationError):
+        client.update_model_version("", "1", {})
+    with pytest.raises(ValidationError):
+        client.update_model_version("model", "", {})
+    with pytest.raises(ValidationError):
+        client.set_model_version_tag("", "1", "k", "v")
+    with pytest.raises(ValidationError):
+        client.set_model_version_tag("model", "", "k", "v")
+    with pytest.raises(ValidationError):
+        client.set_model_version_tag("model", "1", "", "v")
+    with pytest.raises(ValidationError):
+        client.delete_model_version_tag("", "1", "k")
+    with pytest.raises(ValidationError):
+        client.delete_model_version_tag("model", "", "k")
+    with pytest.raises(ValidationError):
+        client.delete_model_version_tag("model", "1", "")
+    with pytest.raises(ValidationError):
+        client.transition_model_version_stage("", "1", "Staging")
+    with pytest.raises(ValidationError):
+        client.transition_model_version_stage("model", "", "Staging")
+    with pytest.raises(ValidationError):
+        client.transition_model_version_stage("model", "1", "")
+    with pytest.raises(ValidationError):
+        client.get_registered_model_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_registered_model_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_registered_model_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_registered_model_permission_levels("")
+    with pytest.raises(ValidationError):
         client.get_instance_pool("")
     with pytest.raises(ValidationError):
         client.edit_instance_pool("", {})
@@ -1731,6 +1789,100 @@ def test_mlflow_experiments_and_runs_wrappers_route_expected_calls():
 
         client.set_mlflow_run_tag({"run_id": "run-1", "key": "stage", "value": "dev"})
         assert request_versioned.call_args.kwargs["endpoint"] == "runs/set-tag"
+
+        client.create_registered_model({"name": "fraud-model"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model"}
+
+        client.delete_registered_model("fraud-model")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model"}
+
+        client.get_registered_model("fraud-model")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/get"
+        assert request_versioned.call_args.kwargs["params"] == {"name": "fraud-model"}
+
+        client.update_registered_model("fraud-model", {"description": "new desc"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/update"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model", "description": "new desc"}
+
+        client.rename_registered_model("fraud-model", "fraud-model-v2")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/rename"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model", "new_name": "fraud-model-v2"}
+
+        client.search_registered_models({"max_results": 10})
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/search"
+        assert request_versioned.call_args.kwargs["params"] == {"max_results": 10}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.set_registered_model_tag("fraud-model", "team", "ml")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/set-tag"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model", "key": "team", "value": "ml"}
+
+        client.delete_registered_model_tag("fraud-model", "team")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/delete-tag"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model", "key": "team"}
+
+        client.get_latest_model_versions("fraud-model", ["Staging", "Production"])
+        assert request_versioned.call_args.kwargs["endpoint"] == "registered-models/get-latest-versions"
+        assert request_versioned.call_args.kwargs["params"] == {"name": "fraud-model", "stages": ["Staging", "Production"]}
+
+        client.create_model_version({"name": "fraud-model", "source": "dbfs:/models/fraud"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/create"
+
+        client.delete_model_version("fraud-model", "1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "fraud-model", "version": "1"}
+
+        client.get_model_version("fraud-model", "1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/get"
+        assert request_versioned.call_args.kwargs["params"] == {"name": "fraud-model", "version": "1"}
+
+        client.search_model_versions({"filter": "name='fraud-model'"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/search"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.update_model_version("fraud-model", "1", {"description": "candidate"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/update"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "name": "fraud-model",
+            "version": "1",
+            "description": "candidate",
+        }
+
+        client.set_model_version_tag("fraud-model", "1", "owner", "team-a")
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/set-tag"
+
+        client.delete_model_version_tag("fraud-model", "1", "owner")
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/delete-tag"
+
+        client.transition_model_version_stage("fraud-model", "1", "Staging", archive_existing_versions=True)
+        assert request_versioned.call_args.kwargs["endpoint"] == "model-versions/transition-stage"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "name": "fraud-model",
+            "version": "1",
+            "stage": "Staging",
+            "archive_existing_versions": True,
+        }
+
+        acl = [{"group_name": "ml-engineers", "permission_level": "CAN_MANAGE"}]
+        client.get_registered_model_permissions("fraud-model")
+        assert request_versioned.call_args.args == ("GET", "permissions/registered-models")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model"
+
+        client.set_registered_model_permissions("fraud-model", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions/registered-models")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_registered_model_permissions("fraud-model", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions/registered-models")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_registered_model_permission_levels("fraud-model")
+        assert request_versioned.call_args.args == ("GET", "permissions/registered-models")
+        assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model/permissionLevels"
 
 
 def test_alerts_and_dashboards_wrappers_route_expected_calls():

@@ -132,6 +132,11 @@ Workspace (`client.workspace`):
 - `list_mlflow_experiments`, `search_mlflow_experiments`, `restore_mlflow_experiment`, `update_mlflow_experiment`, `set_mlflow_experiment_tag`
 - `create_mlflow_run`, `delete_mlflow_run`, `restore_mlflow_run`, `get_mlflow_run`, `search_mlflow_runs`
 - `log_mlflow_metric`, `log_mlflow_param`, `set_mlflow_run_tag`
+- `create_registered_model`, `delete_registered_model`, `get_registered_model`, `update_registered_model`, `rename_registered_model`, `search_registered_models`
+- `set_registered_model_tag`, `delete_registered_model_tag`, `get_latest_model_versions`
+- `create_model_version`, `delete_model_version`, `get_model_version`, `search_model_versions`, `update_model_version`
+- `set_model_version_tag`, `delete_model_version_tag`, `transition_model_version_stage`
+- `get_registered_model_permissions`, `set_registered_model_permissions`, `update_registered_model_permissions`, `get_registered_model_permission_levels`
 - `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
 - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
 - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`
