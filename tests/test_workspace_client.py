@@ -3151,6 +3151,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.get_share("")
     with pytest.raises(ValidationError):
+        client.create_share({})
+    with pytest.raises(ValidationError):
         client.list_share_providers("")
     with pytest.raises(ValidationError):
         client.get_share_provider("", "partner-a")
@@ -3192,6 +3194,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.delete_share_recipient_link("sales_share", "")
     with pytest.raises(ValidationError):
         client.update_share("", {})
+    with pytest.raises(ValidationError):
+        client.update_share("sales_share", {})
     with pytest.raises(ValidationError):
         client.delete_share("")
     with pytest.raises(ValidationError):

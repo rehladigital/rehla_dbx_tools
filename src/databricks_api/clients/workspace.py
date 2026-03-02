@@ -4707,6 +4707,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_share(self, share_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_dict(share_spec, "share_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4840,6 +4841,7 @@ class WorkspaceClient(BaseDatabricksClient):
 
     def update_share(self, name: str, share_changes: dict[str, Any], api_version: str = "2.1") -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(share_changes, "share_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",

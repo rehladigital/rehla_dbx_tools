@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.27] - 2026-03-02
+
+### Changed
+
+- Hardened Delta Sharing core share validation:
+  - `create_share` now requires a non-empty `share_spec` object
+  - `update_share` now requires a non-empty `share_changes` object
+- Added regression tests for empty object rejection in `create_share` and `update_share`.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share payload requirements.
+- Bumped package version from `2.0.26` to `2.0.27`.
+
 ## [2.0.26] - 2026-03-02
 
 ### Changed
