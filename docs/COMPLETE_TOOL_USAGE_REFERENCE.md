@@ -543,8 +543,10 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 
 - `list_genie_spaces()`
 - `create_genie_space(space_spec)`
+  - `space_spec` must be a non-empty object.
 - `get_genie_space(space_id)`
 - `update_genie_space(space_id, space_changes)`
+  - `space_changes` must be a non-empty object.
 - `delete_genie_space(space_id)`
 
 ## Global Init Scripts

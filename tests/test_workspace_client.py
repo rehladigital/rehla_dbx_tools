@@ -901,7 +901,11 @@ def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validati
     with pytest.raises(ValidationError):
         client.get_genie_space("")
     with pytest.raises(ValidationError):
+        client.create_genie_space({})
+    with pytest.raises(ValidationError):
         client.update_genie_space("", {})
+    with pytest.raises(ValidationError):
+        client.update_genie_space("space-1", {})
     with pytest.raises(ValidationError):
         client.delete_genie_space("")
     with pytest.raises(ValidationError):

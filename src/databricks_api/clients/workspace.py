@@ -3824,6 +3824,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_genie_space(self, space_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(space_spec, "space_spec")
         return self.request_versioned(
             "POST",
             "genie/spaces",
@@ -3843,6 +3844,7 @@ class WorkspaceClient(BaseDatabricksClient):
 
     def update_genie_space(self, space_id: str, space_changes: dict[str, Any], api_version: str = "2.0") -> Any:
         self._require_non_empty_string(space_id, "space_id")
+        self._require_non_empty_dict(space_changes, "space_changes")
         return self.request_versioned(
             "PATCH",
             "genie/spaces",

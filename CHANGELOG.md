@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.33] - 2026-03-02
+
+### Changed
+
+- Hardened Genie payload validation:
+  - `create_genie_space` now requires non-empty `space_spec`
+  - `update_genie_space` now requires non-empty `space_changes`
+- Added regression tests for empty payload rejection in Genie create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with Genie payload requirements.
+- Bumped package version from `2.0.32` to `2.0.33`.
+
 ## [2.0.32] - 2026-03-02
 
 ### Changed
