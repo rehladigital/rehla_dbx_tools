@@ -1851,3 +1851,18 @@
 - Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace methods.
 - Prepared patch version bump to `2.0.16` with changelog updates for release.
+
+## Run 94 (Cycle 94 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: complete marketplace provider personalization request lifecycle coverage.
+
+### Progress Notes
+
+- Added marketplace provider personalization wrapper in `src/databricks_api/clients/workspace.py`:
+  - `delete_marketplace_provider_personalization_request`
+- Updated `src/databricks_api/endpoints/catalog.py` with provider personalization delete endpoint key.
+- Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with provider personalization lifecycle method.
+- Prepared patch version bump to `2.0.17` with changelog updates for release.

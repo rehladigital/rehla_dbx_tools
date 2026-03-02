@@ -3625,6 +3625,15 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body=request_changes,
         )
 
+    def delete_marketplace_provider_personalization_request(self, request_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/personalization-requests",
+            endpoint=request_id,
+            api_version=api_version,
+        )
+
     def list_marketplace_consumer_personalization_requests(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(
             "GET",

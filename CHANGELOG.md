@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.17] - 2026-03-02
+
+### Added
+
+- Marketplace provider personalization lifecycle wrapper:
+  - `delete_marketplace_provider_personalization_request`
+- Endpoint catalog entry for provider personalization delete route.
+- Regression test coverage for provider personalization delete wrapper in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with provider personalization delete usage.
+- Bumped package version from `2.0.16` to `2.0.17`.
+
 ## [2.0.16] - 2026-03-02
 
 ### Added

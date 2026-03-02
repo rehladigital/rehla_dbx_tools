@@ -644,6 +644,10 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         assert request_versioned.call_args.kwargs["endpoint"] == "pr-1"
         assert request_versioned.call_args.kwargs["json_body"] == {"status": "APPROVED"}
 
+        client.delete_marketplace_provider_personalization_request("pr-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/personalization-requests")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pr-1"
+
         client.list_marketplace_consumer_personalization_requests()
         assert request_versioned.call_args.args == ("GET", "marketplace-consumer/personalization-requests")
         assert request_versioned.call_args.kwargs["endpoint"] == ""
@@ -768,6 +772,8 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         client.get_marketplace_provider_personalization_request("")
     with pytest.raises(ValidationError):
         client.update_marketplace_provider_personalization_request("", {})
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_provider_personalization_request("")
     with pytest.raises(ValidationError):
         client.get_marketplace_consumer_personalization_request("")
     with pytest.raises(ValidationError):

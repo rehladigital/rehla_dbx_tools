@@ -501,6 +501,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `list_marketplace_provider_personalization_requests()`
 - `get_marketplace_provider_personalization_request(request_id)`
 - `update_marketplace_provider_personalization_request(request_id, request_changes)`
+- `delete_marketplace_provider_personalization_request(request_id)`
 - `list_marketplace_consumer_personalization_requests()`
 - `create_marketplace_consumer_personalization_request(request_spec)`
 - `get_marketplace_consumer_personalization_request(request_id)`

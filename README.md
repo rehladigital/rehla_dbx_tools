@@ -177,7 +177,7 @@ Workspace (`client.workspace`):
 - `list_marketplace_provider_files`, `create_marketplace_provider_file`, `get_marketplace_provider_file`, `update_marketplace_provider_file`, `delete_marketplace_provider_file`
 - `list_marketplace_provider_exchanges`, `create_marketplace_provider_exchange`, `get_marketplace_provider_exchange`, `update_marketplace_provider_exchange`, `delete_marketplace_provider_exchange`
 - `list_marketplace_provider_exchange_filters`, `create_marketplace_provider_exchange_filter`, `get_marketplace_provider_exchange_filter`, `update_marketplace_provider_exchange_filter`, `delete_marketplace_provider_exchange_filter`
-- `list_marketplace_provider_personalization_requests`, `get_marketplace_provider_personalization_request`, `update_marketplace_provider_personalization_request`
+- `list_marketplace_provider_personalization_requests`, `get_marketplace_provider_personalization_request`, `update_marketplace_provider_personalization_request`, `delete_marketplace_provider_personalization_request`
 - `list_marketplace_consumer_personalization_requests`, `create_marketplace_consumer_personalization_request`, `get_marketplace_consumer_personalization_request`, `update_marketplace_consumer_personalization_request`, `delete_marketplace_consumer_personalization_request`
 - `list_marketplace_consumer_providers`, `get_marketplace_consumer_provider`, `batch_get_marketplace_consumer_providers`
 - `list_marketplace_consumer_fulfillments`, `get_marketplace_consumer_fulfillment`
