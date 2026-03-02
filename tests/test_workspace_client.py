@@ -3081,7 +3081,11 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.get_sharing_provider("")
     with pytest.raises(ValidationError):
+        client.create_sharing_provider({})
+    with pytest.raises(ValidationError):
         client.update_sharing_provider("", {})
+    with pytest.raises(ValidationError):
+        client.update_sharing_provider("partner-a", {})
     with pytest.raises(ValidationError):
         client.delete_sharing_provider("")
     with pytest.raises(ValidationError):
@@ -3115,7 +3119,11 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.get_share_recipient("")
     with pytest.raises(ValidationError):
+        client.create_share_recipient({})
+    with pytest.raises(ValidationError):
         client.update_share_recipient("", {})
+    with pytest.raises(ValidationError):
+        client.update_share_recipient("consumer-a", {})
     with pytest.raises(ValidationError):
         client.delete_share_recipient("")
     with pytest.raises(ValidationError):

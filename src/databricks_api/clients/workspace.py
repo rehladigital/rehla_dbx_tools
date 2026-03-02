@@ -4402,6 +4402,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_sharing_provider(self, provider_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_dict(provider_spec, "provider_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4421,6 +4422,7 @@ class WorkspaceClient(BaseDatabricksClient):
 
     def update_sharing_provider(self, name: str, provider_changes: dict[str, Any], api_version: str = "2.1") -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(provider_changes, "provider_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",
@@ -4547,6 +4549,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_share_recipient(self, recipient_spec: dict[str, Any], api_version: str = "2.1") -> Any:
+        self._require_non_empty_dict(recipient_spec, "recipient_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4566,6 +4569,7 @@ class WorkspaceClient(BaseDatabricksClient):
 
     def update_share_recipient(self, name: str, recipient_changes: dict[str, Any], api_version: str = "2.1") -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(recipient_changes, "recipient_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",
