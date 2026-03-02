@@ -4482,6 +4482,21 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def rotate_share_recipient_token(
+        self, name: str, rotation_spec: Optional[dict[str, Any]] = None, api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        kwargs: dict[str, Any] = {}
+        if rotation_spec is not None:
+            kwargs["json_body"] = rotation_spec
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint=f"recipients/{name}/rotate-token",
+            api_version=api_version,
+            **kwargs,
+        )
+
     def get_share_recipient_permissions(self, name: str, api_version: str = "2.0") -> Any:
         self._require_non_empty_string(name, "name")
         return self.request_versioned(

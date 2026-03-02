@@ -426,6 +426,7 @@ ENDPOINT_CATALOG: dict[str, dict[str, dict[str, str]]] = {
             "sharing_recipients_get": "/api/2.1/unity-catalog/recipients/{name}",
             "sharing_recipients_update": "/api/2.1/unity-catalog/recipients/{name}",
             "sharing_recipients_delete": "/api/2.1/unity-catalog/recipients/{name}",
+            "sharing_recipients_rotate_token": "/api/2.1/unity-catalog/recipients/{name}/rotate-token",
             "sharing_shares_list": "/api/2.1/unity-catalog/shares",
             "sharing_shares_create": "/api/2.1/unity-catalog/shares",
             "sharing_shares_get": "/api/2.1/unity-catalog/shares/{name}",

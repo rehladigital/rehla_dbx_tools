@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.14] - 2026-03-02
+
+### Added
+
+- Delta Sharing recipient token lifecycle wrapper:
+  - `rotate_share_recipient_token`
+- Endpoint catalog entry for recipient token rotation route.
+- Regression test coverage for recipient token rotation in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with recipient token rotation usage.
+- Bumped package version from `2.0.13` to `2.0.14`.
+
 ## [2.0.13] - 2026-03-02
 
 ### Added

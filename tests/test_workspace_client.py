@@ -2864,6 +2864,16 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
 
+        client.rotate_share_recipient_token("consumer-a")
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a/rotate-token"
+        assert "json_body" not in request_versioned.call_args.kwargs
+
+        client.rotate_share_recipient_token("consumer-a", {"existing_token_expire_in_seconds": 3600})
+        assert request_versioned.call_args.args == ("POST", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a/rotate-token"
+        assert request_versioned.call_args.kwargs["json_body"] == {"existing_token_expire_in_seconds": 3600}
+
         recipient_acl = [{"user_name": "analyst@databricks.com", "permission_level": "CAN_USE"}]
         client.get_share_recipient_permissions("consumer-a")
         assert request_versioned.call_args.args == ("GET", "permissions")
@@ -2962,6 +2972,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.update_share_recipient("", {})
     with pytest.raises(ValidationError):
         client.delete_share_recipient("")
+    with pytest.raises(ValidationError):
+        client.rotate_share_recipient_token("")
     with pytest.raises(ValidationError):
         client.get_share_recipient_permissions("")
     with pytest.raises(ValidationError):

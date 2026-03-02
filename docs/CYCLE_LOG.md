@@ -1804,3 +1804,18 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new Delta Sharing tools.
 - Prepared patch version bump to `2.0.13` with changelog updates for release.
+
+## Run 91 (Cycle 91 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: extend Delta Sharing recipient lifecycle with explicit token rotation support.
+
+### Progress Notes
+
+- Added recipient token rotation wrapper in `src/databricks_api/clients/workspace.py`:
+  - `rotate_share_recipient_token`
+- Updated `src/databricks_api/endpoints/catalog.py` with recipient rotate-token endpoint key.
+- Added regression coverage in `tests/test_workspace_client.py` for routing, optional payload, and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new Delta Sharing method.
+- Prepared patch version bump to `2.0.14` with changelog updates for release.
