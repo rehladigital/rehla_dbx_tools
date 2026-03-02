@@ -171,7 +171,7 @@ Workspace (`client.workspace`):
 - `list_query_history`
 - `get_serving_endpoint_permissions`, `set_serving_endpoint_permissions`, `update_serving_endpoint_permissions`, `get_serving_endpoint_permission_levels`
 - `list_serving_endpoints`, `create_serving_endpoint`, `get_serving_endpoint`, `update_serving_endpoint_config`, `delete_serving_endpoint`, `query_serving_endpoint`
-- `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `get_marketplace_installation`, `install_marketplace_listing`, `uninstall_marketplace_installation`
+- `list_marketplace_listings`, `get_marketplace_listing`, `search_marketplace_listings`, `list_marketplace_installations`, `get_marketplace_installation`, `install_marketplace_listing`, `create_marketplace_installation`, `uninstall_marketplace_installation`, `delete_marketplace_installation`
 - `list_marketplace_provider_listings`, `create_marketplace_provider_listing`, `get_marketplace_provider_listing`, `update_marketplace_provider_listing`, `delete_marketplace_provider_listing`
 - `list_marketplace_provider_providers`, `create_marketplace_provider_provider`, `get_marketplace_provider_provider`, `update_marketplace_provider_provider`, `delete_marketplace_provider_provider`
 - `list_marketplace_provider_files`, `create_marketplace_provider_file`, `get_marketplace_provider_file`, `update_marketplace_provider_file`, `delete_marketplace_provider_file`

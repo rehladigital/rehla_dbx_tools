@@ -3347,6 +3347,9 @@ class WorkspaceClient(BaseDatabricksClient):
             json_body=installation_spec,
         )
 
+    def create_marketplace_installation(self, installation_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.install_marketplace_listing(installation_spec=installation_spec, api_version=api_version)
+
     def uninstall_marketplace_installation(self, installation_id: str, api_version: str = "2.0") -> Any:
         self._require_non_empty_string(installation_id, "installation_id")
         return self.request_versioned(
@@ -3355,6 +3358,9 @@ class WorkspaceClient(BaseDatabricksClient):
             endpoint=installation_id,
             api_version=api_version,
         )
+
+    def delete_marketplace_installation(self, installation_id: str, api_version: str = "2.0") -> Any:
+        return self.uninstall_marketplace_installation(installation_id=installation_id, api_version=api_version)
 
     # Marketplace provider slice
     def list_marketplace_provider_listings(self, api_version: str = "2.0") -> Any:

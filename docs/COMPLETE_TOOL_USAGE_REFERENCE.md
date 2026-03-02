@@ -472,7 +472,9 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `list_marketplace_installations()`
 - `get_marketplace_installation(installation_id)`
 - `install_marketplace_listing(install_payload)`
+- `create_marketplace_installation(install_payload)`
 - `uninstall_marketplace_installation(installation_id)`
+- `delete_marketplace_installation(installation_id)`
 - `list_marketplace_provider_listings()`
 - `create_marketplace_provider_listing(listing_spec)`
 - `get_marketplace_provider_listing(listing_id)`

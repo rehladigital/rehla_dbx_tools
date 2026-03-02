@@ -1946,3 +1946,18 @@
 - Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-centric link lifecycle methods.
 - Prepared patch version bump to `2.0.22` with changelog updates for release.
+
+## Run 100 (Cycle 100 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: improve Marketplace API ergonomics with explicit installation CRUD naming aliases.
+
+### Progress Notes
+
+- Added Marketplace installation alias wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_marketplace_installation` (routes to installation create endpoint through existing install flow)
+  - `delete_marketplace_installation` (routes to installation delete endpoint through existing uninstall flow)
+- Added regression coverage in `tests/test_workspace_client.py` for alias routing and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with installation alias methods.
+- Prepared patch version bump to `2.0.23` with changelog updates for release.

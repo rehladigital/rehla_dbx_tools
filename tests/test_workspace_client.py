@@ -511,9 +511,18 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         assert request_versioned.call_args.kwargs["endpoint"] == ""
         assert request_versioned.call_args.kwargs["json_body"] == {"listing_id": "listing-1"}
 
+        client.create_marketplace_installation({"listing_id": "listing-2"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-consumer/installations")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"listing_id": "listing-2"}
+
         client.uninstall_marketplace_installation("inst-1")
         assert request_versioned.call_args.args == ("DELETE", "marketplace-consumer/installations")
         assert request_versioned.call_args.kwargs["endpoint"] == "inst-1"
+
+        client.delete_marketplace_installation("inst-2")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-consumer/installations")
+        assert request_versioned.call_args.kwargs["endpoint"] == "inst-2"
 
         client.list_marketplace_provider_listings()
         assert request_versioned.call_args.args == ("GET", "marketplace-provider/listings")
@@ -738,6 +747,8 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         client.get_marketplace_installation("")
     with pytest.raises(ValidationError):
         client.uninstall_marketplace_installation("")
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_installation("")
     with pytest.raises(ValidationError):
         client.get_marketplace_provider_listing("")
     with pytest.raises(ValidationError):

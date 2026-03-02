@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.23] - 2026-03-02
+
+### Added
+
+- Marketplace installation CRUD aliases for simpler, consistent naming:
+  - `create_marketplace_installation` (alias of `install_marketplace_listing`)
+  - `delete_marketplace_installation` (alias of `uninstall_marketplace_installation`)
+- Regression test coverage for Marketplace installation alias routing and validation behavior.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the new alias methods.
+- Bumped package version from `2.0.22` to `2.0.23`.
+
 ## [2.0.22] - 2026-03-02
 
 ### Added
