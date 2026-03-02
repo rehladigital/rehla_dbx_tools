@@ -1835,3 +1835,19 @@
 - Added regression coverage in `tests/test_workspace_client.py` for routing, pagination, and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with these Delta Sharing methods.
 - Prepared patch version bump to `2.0.15` with changelog updates for release.
+
+## Run 93 (Cycle 93 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: complete marketplace consumer personalization request lifecycle coverage.
+
+### Progress Notes
+
+- Added marketplace consumer personalization wrappers in `src/databricks_api/clients/workspace.py`:
+  - `update_marketplace_consumer_personalization_request`
+  - `delete_marketplace_consumer_personalization_request`
+- Updated `src/databricks_api/endpoints/catalog.py` with consumer personalization update/delete endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace methods.
+- Prepared patch version bump to `2.0.16` with changelog updates for release.

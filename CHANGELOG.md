@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.16] - 2026-03-02
+
+### Added
+
+- Marketplace consumer personalization lifecycle wrappers:
+  - `update_marketplace_consumer_personalization_request`
+  - `delete_marketplace_consumer_personalization_request`
+- Endpoint catalog entries for consumer personalization update/delete routes.
+- Regression test coverage for consumer personalization update/delete wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the new marketplace consumer personalization methods.
+- Bumped package version from `2.0.15` to `2.0.16`.
+
 ## [2.0.15] - 2026-03-02
 
 ### Added

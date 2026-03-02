@@ -271,6 +271,8 @@ ENDPOINT_CATALOG: dict[str, dict[str, dict[str, str]]] = {
             "marketplace_consumer_personalization_requests_list": "/api/2.0/marketplace-consumer/personalization-requests",
             "marketplace_consumer_personalization_requests_create": "/api/2.0/marketplace-consumer/personalization-requests",
             "marketplace_consumer_personalization_requests_get": "/api/2.0/marketplace-consumer/personalization-requests/{request_id}",
+            "marketplace_consumer_personalization_requests_update": "/api/2.0/marketplace-consumer/personalization-requests/{request_id}",
+            "marketplace_consumer_personalization_requests_delete": "/api/2.0/marketplace-consumer/personalization-requests/{request_id}",
             "marketplace_consumer_providers_list": "/api/2.0/marketplace-consumer/providers",
             "marketplace_consumer_providers_get": "/api/2.0/marketplace-consumer/providers/{provider_id}",
             "marketplace_consumer_providers_batch_get": "/api/2.0/marketplace-consumer/providers/batch-get",
