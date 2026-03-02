@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rehla_dbx_tools"
-version = "2.0.14"
+version = "2.0.15"
 description = "Rehla FlightDeck for Databricks: a production-focused unified API toolkit for AWS workspace and account automation."
 readme = "README.md"
 requires-python = ">=3.9"

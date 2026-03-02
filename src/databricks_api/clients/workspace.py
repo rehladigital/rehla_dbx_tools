@@ -4436,6 +4436,16 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def list_sharing_provider_shares(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"providers/{name}/shares",
+            api_version=api_version,
+            paginate=True,
+        )
+
     def list_share_recipients(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
             "GET",
@@ -4537,6 +4547,16 @@ class WorkspaceClient(BaseDatabricksClient):
             "permissions",
             endpoint=f"recipients/{name}/permissionLevels",
             api_version=api_version,
+        )
+
+    def list_share_recipient_shares(self, name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "unity-catalog",
+            endpoint=f"recipients/{name}/shares",
+            api_version=api_version,
+            paginate=True,
         )
 
     def list_shares(self, api_version: str = "2.1") -> Any:

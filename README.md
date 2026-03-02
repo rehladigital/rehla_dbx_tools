@@ -156,8 +156,8 @@ Workspace (`client.workspace`):
 - `list_uc_external_locations`, `create_uc_external_location`, `get_uc_external_location`, `update_uc_external_location`, `delete_uc_external_location`
 - `list_vector_search_endpoints`, `create_vector_search_endpoint`, `get_vector_search_endpoint`, `update_vector_search_endpoint`, `delete_vector_search_endpoint`
 - `list_vector_search_indexes`, `create_vector_search_index`, `get_vector_search_index`, `delete_vector_search_index`, `query_vector_search_index`
-- `list_sharing_providers`, `create_sharing_provider`, `get_sharing_provider`, `update_sharing_provider`, `delete_sharing_provider`, `get_sharing_provider_permissions`, `set_sharing_provider_permissions`, `update_sharing_provider_permissions`, `get_sharing_provider_permission_levels`
-- `list_share_recipients`, `create_share_recipient`, `get_share_recipient`, `update_share_recipient`, `delete_share_recipient`, `rotate_share_recipient_token`, `get_share_recipient_permissions`, `set_share_recipient_permissions`, `update_share_recipient_permissions`, `get_share_recipient_permission_levels`
+- `list_sharing_providers`, `create_sharing_provider`, `get_sharing_provider`, `update_sharing_provider`, `delete_sharing_provider`, `get_sharing_provider_permissions`, `set_sharing_provider_permissions`, `update_sharing_provider_permissions`, `get_sharing_provider_permission_levels`, `list_sharing_provider_shares`
+- `list_share_recipients`, `create_share_recipient`, `get_share_recipient`, `update_share_recipient`, `delete_share_recipient`, `rotate_share_recipient_token`, `get_share_recipient_permissions`, `set_share_recipient_permissions`, `update_share_recipient_permissions`, `get_share_recipient_permission_levels`, `list_share_recipient_shares`
 - `list_shares`, `create_share`, `get_share`, `update_share`, `delete_share`, `get_share_permissions`, `set_share_permissions`, `update_share_permissions`, `get_share_permission_levels`
 - `list_sql_warehouses`, `get_sql_warehouse`
 - `list_instance_pools`, `get_instance_pool`
