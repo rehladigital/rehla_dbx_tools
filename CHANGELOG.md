@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.34] - 2026-03-02
+
+### Changed
+
+- Hardened Global Init Script payload validation:
+  - `create_global_init_script` now requires non-empty `script_spec`
+  - `update_global_init_script` now requires non-empty `script_changes`
+- Added regression tests for empty payload rejection in global init script create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with global init script payload requirements.
+- Bumped package version from `2.0.33` to `2.0.34`.
+
 ## [2.0.33] - 2026-03-02
 
 ### Changed

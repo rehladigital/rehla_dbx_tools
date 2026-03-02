@@ -2120,3 +2120,18 @@
 - Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in Genie create/update flows.
 - Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit Genie payload requirements.
 - Prepared patch version bump to `2.0.33` with changelog updates for release.
+
+## Run 111 (Cycle 111 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: harden Global Init Script payload validation for create/update operations.
+
+### Progress Notes
+
+- Strengthened payload validation in `src/databricks_api/clients/workspace.py` for:
+  - `create_global_init_script`
+  - `update_global_init_script`
+- Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in global init script create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit global init script payload requirements.
+- Prepared patch version bump to `2.0.34` with changelog updates for release.

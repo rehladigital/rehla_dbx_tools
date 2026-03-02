@@ -911,7 +911,11 @@ def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validati
     with pytest.raises(ValidationError):
         client.get_global_init_script("")
     with pytest.raises(ValidationError):
+        client.create_global_init_script({})
+    with pytest.raises(ValidationError):
         client.update_global_init_script("", {})
+    with pytest.raises(ValidationError):
+        client.update_global_init_script("script-1", {})
     with pytest.raises(ValidationError):
         client.delete_global_init_script("")
 

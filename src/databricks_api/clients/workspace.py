@@ -3873,6 +3873,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_global_init_script(self, script_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(script_spec, "script_spec")
         return self.request_versioned(
             "POST",
             "global-init-scripts",
@@ -3892,6 +3893,7 @@ class WorkspaceClient(BaseDatabricksClient):
 
     def update_global_init_script(self, script_id: str, script_changes: dict[str, Any], api_version: str = "2.0") -> Any:
         self._require_non_empty_string(script_id, "script_id")
+        self._require_non_empty_dict(script_changes, "script_changes")
         return self.request_versioned(
             "PATCH",
             "global-init-scripts",

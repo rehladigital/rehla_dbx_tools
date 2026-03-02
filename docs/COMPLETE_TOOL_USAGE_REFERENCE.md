@@ -553,8 +553,10 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 
 - `list_global_init_scripts()`
 - `create_global_init_script(script_spec)`
+  - `script_spec` must be a non-empty object.
 - `get_global_init_script(script_id)`
 - `update_global_init_script(script_id, script_changes)`
+  - `script_changes` must be a non-empty object.
 - `delete_global_init_script(script_id)`
 
 ## Settings and Workspace Conf
