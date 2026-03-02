@@ -788,13 +788,21 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
     with pytest.raises(ValidationError):
         client.get_marketplace_provider_exchange("")
     with pytest.raises(ValidationError):
+        client.create_marketplace_provider_exchange({})
+    with pytest.raises(ValidationError):
         client.update_marketplace_provider_exchange("", {})
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_exchange("ex-1", {})
     with pytest.raises(ValidationError):
         client.delete_marketplace_provider_exchange("")
     with pytest.raises(ValidationError):
         client.get_marketplace_provider_exchange_filter("")
     with pytest.raises(ValidationError):
+        client.create_marketplace_provider_exchange_filter({})
+    with pytest.raises(ValidationError):
         client.update_marketplace_provider_exchange_filter("", {})
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_exchange_filter("f-1", {})
     with pytest.raises(ValidationError):
         client.delete_marketplace_provider_exchange_filter("")
     with pytest.raises(ValidationError):

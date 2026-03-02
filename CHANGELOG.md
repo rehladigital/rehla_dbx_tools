@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.31] - 2026-03-02
+
+### Changed
+
+- Hardened Marketplace exchange/filter payload validation:
+  - `create_marketplace_provider_exchange` and `update_marketplace_provider_exchange` now require non-empty objects
+  - `create_marketplace_provider_exchange_filter` and `update_marketplace_provider_exchange_filter` now require non-empty objects
+- Added regression tests for empty payload rejection in Marketplace exchange and exchange-filter create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with exchange/filter payload requirements.
+- Bumped package version from `2.0.30` to `2.0.31`.
+
 ## [2.0.30] - 2026-03-02
 
 ### Changed

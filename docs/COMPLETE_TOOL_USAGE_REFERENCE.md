@@ -501,13 +501,17 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `delete_marketplace_provider_file(file_id)`
 - `list_marketplace_provider_exchanges()`
 - `create_marketplace_provider_exchange(exchange_spec)`
+  - `exchange_spec` must be a non-empty object.
 - `get_marketplace_provider_exchange(exchange_id)`
 - `update_marketplace_provider_exchange(exchange_id, exchange_changes)`
+  - `exchange_changes` must be a non-empty object.
 - `delete_marketplace_provider_exchange(exchange_id)`
 - `list_marketplace_provider_exchange_filters()`
 - `create_marketplace_provider_exchange_filter(filter_spec)`
+  - `filter_spec` must be a non-empty object.
 - `get_marketplace_provider_exchange_filter(filter_id)`
 - `update_marketplace_provider_exchange_filter(filter_id, filter_changes)`
+  - `filter_changes` must be a non-empty object.
 - `delete_marketplace_provider_exchange_filter(filter_id)`
 - `list_marketplace_provider_personalization_requests()`
 - `get_marketplace_provider_personalization_request(request_id)`

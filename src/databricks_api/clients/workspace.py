@@ -3528,6 +3528,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_marketplace_provider_exchange(self, exchange_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(exchange_spec, "exchange_spec")
         return self.request_versioned(
             "POST",
             "marketplace-provider/exchanges",
@@ -3549,6 +3550,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, exchange_id: str, exchange_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(exchange_id, "exchange_id")
+        self._require_non_empty_dict(exchange_changes, "exchange_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/exchanges",
@@ -3576,6 +3578,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_marketplace_provider_exchange_filter(self, filter_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(filter_spec, "filter_spec")
         return self.request_versioned(
             "POST",
             "marketplace-provider/exchange-filters",
@@ -3597,6 +3600,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, filter_id: str, filter_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(filter_id, "filter_id")
+        self._require_non_empty_dict(filter_changes, "filter_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/exchange-filters",
