@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.32] - 2026-03-02
+
+### Changed
+
+- Hardened Marketplace personalization/analytics payload validation:
+  - `update_marketplace_provider_personalization_request` now requires non-empty `request_changes`
+  - `create_marketplace_consumer_personalization_request` now requires non-empty `request_spec`
+  - `update_marketplace_consumer_personalization_request` now requires non-empty `request_changes`
+  - `create_marketplace_provider_analytics_dashboard` now requires non-empty `dashboard_spec`
+  - `update_marketplace_provider_analytics_dashboard` now requires non-empty `dashboard_changes`
+- Added regression tests for empty payload rejection across these personalization and analytics flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with personalization/analytics payload requirements.
+- Bumped package version from `2.0.31` to `2.0.32`.
+
 ## [2.0.31] - 2026-03-02
 
 ### Changed

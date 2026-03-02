@@ -3640,6 +3640,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, request_id: str, request_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(request_id, "request_id")
+        self._require_non_empty_dict(request_changes, "request_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/personalization-requests",
@@ -3669,6 +3670,7 @@ class WorkspaceClient(BaseDatabricksClient):
     def create_marketplace_consumer_personalization_request(
         self, request_spec: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
+        self._require_non_empty_dict(request_spec, "request_spec")
         return self.request_versioned(
             "POST",
             "marketplace-consumer/personalization-requests",
@@ -3690,6 +3692,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, request_id: str, request_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(request_id, "request_id")
+        self._require_non_empty_dict(request_changes, "request_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-consumer/personalization-requests",
@@ -3770,6 +3773,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, provider_id: str, dashboard_spec: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(provider_id, "provider_id")
+        self._require_non_empty_dict(dashboard_spec, "dashboard_spec")
         return self.request_versioned(
             "POST",
             "marketplace-provider/providers",
@@ -3782,6 +3786,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, provider_id: str, dashboard_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(provider_id, "provider_id")
+        self._require_non_empty_dict(dashboard_changes, "dashboard_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/providers",

@@ -516,11 +516,14 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `list_marketplace_provider_personalization_requests()`
 - `get_marketplace_provider_personalization_request(request_id)`
 - `update_marketplace_provider_personalization_request(request_id, request_changes)`
+  - `request_changes` must be a non-empty object.
 - `delete_marketplace_provider_personalization_request(request_id)`
 - `list_marketplace_consumer_personalization_requests()`
 - `create_marketplace_consumer_personalization_request(request_spec)`
+  - `request_spec` must be a non-empty object.
 - `get_marketplace_consumer_personalization_request(request_id)`
 - `update_marketplace_consumer_personalization_request(request_id, request_changes)`
+  - `request_changes` must be a non-empty object.
 - `delete_marketplace_consumer_personalization_request(request_id)`
 - `list_marketplace_consumer_providers()`
 - `get_marketplace_consumer_provider(provider_id)`
@@ -530,7 +533,9 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `get_marketplace_consumer_fulfillment(fulfillment_id)`
 - `get_marketplace_provider_analytics_dashboard(provider_id)`
 - `create_marketplace_provider_analytics_dashboard(provider_id, dashboard_spec)`
+  - `dashboard_spec` must be a non-empty object.
 - `update_marketplace_provider_analytics_dashboard(provider_id, dashboard_changes)`
+  - `dashboard_changes` must be a non-empty object.
 - `get_latest_marketplace_provider_analytics_dashboard(provider_id)`
 - `delete_marketplace_provider_analytics_dashboard(provider_id)`
 

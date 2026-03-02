@@ -810,11 +810,17 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
     with pytest.raises(ValidationError):
         client.update_marketplace_provider_personalization_request("", {})
     with pytest.raises(ValidationError):
+        client.update_marketplace_provider_personalization_request("pr-1", {})
+    with pytest.raises(ValidationError):
         client.delete_marketplace_provider_personalization_request("")
+    with pytest.raises(ValidationError):
+        client.create_marketplace_consumer_personalization_request({})
     with pytest.raises(ValidationError):
         client.get_marketplace_consumer_personalization_request("")
     with pytest.raises(ValidationError):
         client.update_marketplace_consumer_personalization_request("", {})
+    with pytest.raises(ValidationError):
+        client.update_marketplace_consumer_personalization_request("pr-2", {})
     with pytest.raises(ValidationError):
         client.delete_marketplace_consumer_personalization_request("")
     with pytest.raises(ValidationError):
@@ -832,7 +838,11 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
     with pytest.raises(ValidationError):
         client.create_marketplace_provider_analytics_dashboard("", {})
     with pytest.raises(ValidationError):
+        client.create_marketplace_provider_analytics_dashboard("pp-1", {})
+    with pytest.raises(ValidationError):
         client.update_marketplace_provider_analytics_dashboard("", {})
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_analytics_dashboard("pp-1", {})
     with pytest.raises(ValidationError):
         client.get_latest_marketplace_provider_analytics_dashboard("")
     with pytest.raises(ValidationError):
