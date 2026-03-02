@@ -808,6 +808,26 @@ def test_quality_monitor_and_postgres_wrappers_route_expected_calls_and_validati
     with pytest.raises(ValidationError):
         client.delete_sql_warehouse("")
     with pytest.raises(ValidationError):
+        client.start_sql_warehouse("")
+    with pytest.raises(ValidationError):
+        client.stop_sql_warehouse("")
+    with pytest.raises(ValidationError):
+        client.get_sql_warehouse_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_sql_warehouse_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_sql_warehouse_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_sql_warehouse_permission_levels("")
+    with pytest.raises(ValidationError):
+        client.get_sql_statement("")
+    with pytest.raises(ValidationError):
+        client.cancel_sql_statement("")
+    with pytest.raises(ValidationError):
+        client.get_sql_statement_result_chunk("", 0)
+    with pytest.raises(ValidationError):
+        client.get_sql_statement_result_chunk("stmt-1", -1)
+    with pytest.raises(ValidationError):
         client.get_instance_pool("")
     with pytest.raises(ValidationError):
         client.edit_instance_pool("", {})
@@ -1565,6 +1585,50 @@ def test_sql_warehouse_wrappers_route_expected_calls():
         client.delete_sql_warehouse("wh-1")
         assert request_versioned.call_args.args == ("DELETE", "sql/warehouses")
         assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
+
+        client.start_sql_warehouse("wh-1")
+        assert request_versioned.call_args.args == ("POST", "sql/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1/start"
+
+        client.stop_sql_warehouse("wh-1")
+        assert request_versioned.call_args.args == ("POST", "sql/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1/stop"
+
+        acl = [{"user_name": "user@example.com", "permission_level": "CAN_USE"}]
+        client.get_sql_warehouse_permissions("wh-1")
+        assert request_versioned.call_args.args == ("GET", "permissions/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
+
+        client.set_sql_warehouse_permissions("wh-1", acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.update_sql_warehouse_permissions("wh-1", acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": acl}
+
+        client.get_sql_warehouse_permission_levels("wh-1")
+        assert request_versioned.call_args.args == ("GET", "permissions/warehouses")
+        assert request_versioned.call_args.kwargs["endpoint"] == "wh-1/permissionLevels"
+
+        client.execute_sql_statement({"statement": "SELECT 1", "warehouse_id": "wh-1"})
+        assert request_versioned.call_args.args == ("POST", "sql/statements")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"statement": "SELECT 1", "warehouse_id": "wh-1"}
+
+        client.get_sql_statement("stmt-1")
+        assert request_versioned.call_args.args == ("GET", "sql/statements")
+        assert request_versioned.call_args.kwargs["endpoint"] == "stmt-1"
+
+        client.cancel_sql_statement("stmt-1")
+        assert request_versioned.call_args.args == ("POST", "sql/statements")
+        assert request_versioned.call_args.kwargs["endpoint"] == "stmt-1/cancel"
+
+        client.get_sql_statement_result_chunk("stmt-1", 0)
+        assert request_versioned.call_args.args == ("GET", "sql/statements")
+        assert request_versioned.call_args.kwargs["endpoint"] == "stmt-1/result/chunks/0"
 
 
 def test_alerts_and_dashboards_wrappers_route_expected_calls():

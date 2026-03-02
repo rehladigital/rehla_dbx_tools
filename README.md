@@ -125,6 +125,9 @@ Workspace (`client.workspace`):
 - `get_object_permissions`, `set_object_permissions`, `update_object_permissions`, `get_object_permission_levels`
 - `list_sql_alerts`, `create_sql_alert`, `get_sql_alert`, `update_sql_alert`, `delete_sql_alert`
 - `list_sql_queries`, `create_sql_query`, `get_sql_query`, `update_sql_query`, `delete_sql_query`
+- `start_sql_warehouse`, `stop_sql_warehouse`
+- `get_sql_warehouse_permissions`, `set_sql_warehouse_permissions`, `update_sql_warehouse_permissions`, `get_sql_warehouse_permission_levels`
+- `execute_sql_statement`, `get_sql_statement`, `cancel_sql_statement`, `get_sql_statement_result_chunk`
 - `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
 - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
 - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`

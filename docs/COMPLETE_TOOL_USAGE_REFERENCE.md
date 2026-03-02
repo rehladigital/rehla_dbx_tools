@@ -168,6 +168,12 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `create_sql_warehouse(warehouse_spec)`
 - `edit_sql_warehouse(warehouse_id, warehouse_changes)`
 - `delete_sql_warehouse(warehouse_id)`
+- `start_sql_warehouse(warehouse_id)`
+- `stop_sql_warehouse(warehouse_id)`
+- `get_sql_warehouse_permissions(warehouse_id)`
+- `set_sql_warehouse_permissions(warehouse_id, access_control_list)`
+- `update_sql_warehouse_permissions(warehouse_id, access_control_list)`
+- `get_sql_warehouse_permission_levels(warehouse_id)`
 
 ## SQL Alerts
 
@@ -184,6 +190,13 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `get_sql_query(query_id)`
 - `update_sql_query(query_id, query_changes)`
 - `delete_sql_query(query_id)`
+
+## Statement Execution
+
+- `execute_sql_statement(statement_payload)`
+- `get_sql_statement(statement_id)`
+- `cancel_sql_statement(statement_id)`
+- `get_sql_statement_result_chunk(statement_id, chunk_index)`
 
 ## Dashboards (Lakeview)
 

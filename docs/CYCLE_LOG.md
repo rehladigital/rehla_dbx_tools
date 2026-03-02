@@ -1610,3 +1610,22 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validations.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with workspace object tooling.
 - Prepared patch version bump to `2.0.3` with changelog updates for release.
+
+## Run 81 (Cycle 81 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: expand remaining SQL scope coverage with warehouse permissions and statement execution wrappers.
+
+### Progress Notes
+
+- Added SQL warehouse lifecycle wrappers in `src/databricks_api/clients/workspace.py`:
+  - `start_sql_warehouse`, `stop_sql_warehouse`
+- Added SQL warehouse permissions wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_sql_warehouse_permissions`, `set_sql_warehouse_permissions`, `update_sql_warehouse_permissions`, `get_sql_warehouse_permission_levels`
+- Added SQL statement execution wrappers in `src/databricks_api/clients/workspace.py`:
+  - `execute_sql_statement`, `get_sql_statement`, `cancel_sql_statement`, `get_sql_statement_result_chunk`
+- Updated `src/databricks_api/endpoints/catalog.py` with SQL warehouse/permissions/statement routes.
+- Added regression coverage in `tests/test_workspace_client.py` for all new SQL wrappers and validations.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with SQL wrapper usage.
+- Prepared patch version bump to `2.0.4` with changelog updates for release.

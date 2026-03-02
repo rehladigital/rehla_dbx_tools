@@ -1264,6 +1264,104 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def start_sql_warehouse(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
+        return self.request_versioned(
+            "POST",
+            "sql/warehouses",
+            endpoint=f"{warehouse_id}/start",
+            api_version=api_version,
+        )
+
+    def stop_sql_warehouse(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
+        return self.request_versioned(
+            "POST",
+            "sql/warehouses",
+            endpoint=f"{warehouse_id}/stop",
+            api_version=api_version,
+        )
+
+    def get_sql_warehouse_permissions(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
+        return self.request_versioned(
+            "GET",
+            "permissions/warehouses",
+            endpoint=warehouse_id,
+            api_version=api_version,
+        )
+
+    def set_sql_warehouse_permissions(
+        self, warehouse_id: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
+        return self.request_versioned(
+            "PUT",
+            "permissions/warehouses",
+            endpoint=warehouse_id,
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_sql_warehouse_permissions(
+        self, warehouse_id: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
+        return self.request_versioned(
+            "PATCH",
+            "permissions/warehouses",
+            endpoint=warehouse_id,
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_sql_warehouse_permission_levels(self, warehouse_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(warehouse_id, "warehouse_id")
+        return self.request_versioned(
+            "GET",
+            "permissions/warehouses",
+            endpoint=f"{warehouse_id}/permissionLevels",
+            api_version=api_version,
+        )
+
+    def execute_sql_statement(self, statement_payload: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "sql/statements",
+            endpoint="",
+            api_version=api_version,
+            json_body=statement_payload,
+        )
+
+    def get_sql_statement(self, statement_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(statement_id, "statement_id")
+        return self.request_versioned(
+            "GET",
+            "sql/statements",
+            endpoint=statement_id,
+            api_version=api_version,
+        )
+
+    def cancel_sql_statement(self, statement_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(statement_id, "statement_id")
+        return self.request_versioned(
+            "POST",
+            "sql/statements",
+            endpoint=f"{statement_id}/cancel",
+            api_version=api_version,
+        )
+
+    def get_sql_statement_result_chunk(self, statement_id: str, chunk_index: int, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(statement_id, "statement_id")
+        if chunk_index < 0:
+            raise ValidationError("chunk_index must be >= 0.")
+        return self.request_versioned(
+            "GET",
+            "sql/statements",
+            endpoint=f"{statement_id}/result/chunks/{chunk_index}",
+            api_version=api_version,
+        )
+
     # Databricks SQL Alerts (alerts scope)
     def list_sql_alerts(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(

@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 80
-- Remaining loops: 220
-- Current loop: 81 (queued)
+- Completed loops: 81
+- Remaining loops: 219
+- Current loop: 82 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 80
-- Current package version: 2.0.3
+- Last completed cycle: 81
+- Current package version: 2.0.4
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 81 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for remaining `sql` scope operations
+1. Execute run 82 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for `mlflow` scope slices
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.3` after commit/push and workflow verification
+4. Publish `2.0.4` after commit/push and workflow verification

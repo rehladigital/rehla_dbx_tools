@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.4] - 2026-03-01
+
+### Added
+
+- Databricks SQL warehouse lifecycle wrappers:
+  - `start_sql_warehouse`
+  - `stop_sql_warehouse`
+- Databricks SQL warehouse permissions wrappers:
+  - `get_sql_warehouse_permissions`
+  - `set_sql_warehouse_permissions`
+  - `update_sql_warehouse_permissions`
+  - `get_sql_warehouse_permission_levels`
+- Databricks SQL statement execution wrappers:
+  - `execute_sql_statement`
+  - `get_sql_statement`
+  - `cancel_sql_statement`
+  - `get_sql_statement_result_chunk`
+- Endpoint catalog entries for SQL warehouse start/stop, warehouse permissions, and statement execution routes.
+- Regression test coverage for these SQL wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include SQL warehouse permissions and statement execution methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with SQL warehouse permissions and statement execution usage coverage.
+- Bumped package version from `2.0.3` to `2.0.4`.
+
 ## [2.0.3] - 2026-03-01
 
 ### Added
