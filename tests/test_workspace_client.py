@@ -2866,6 +2866,10 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a/shares"
         assert request_versioned.call_args.kwargs["paginate"] is True
 
+        client.get_sharing_provider_share("partner-a", "sales_share")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a/shares/sales_share"
+
         client.list_share_recipients()
         assert request_versioned.call_args.args == ("GET", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "recipients"
@@ -2921,6 +2925,10 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         assert request_versioned.call_args.args == ("GET", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a/shares"
         assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_share_recipient_share("consumer-a", "sales_share")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a/shares/sales_share"
 
         client.list_shares()
         assert request_versioned.call_args.args == ("GET", "unity-catalog")
@@ -2998,6 +3006,10 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.list_sharing_provider_shares("")
     with pytest.raises(ValidationError):
+        client.get_sharing_provider_share("", "sales_share")
+    with pytest.raises(ValidationError):
+        client.get_sharing_provider_share("partner-a", "")
+    with pytest.raises(ValidationError):
         client.get_share_recipient("")
     with pytest.raises(ValidationError):
         client.update_share_recipient("", {})
@@ -3015,6 +3027,10 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.get_share_recipient_permission_levels("")
     with pytest.raises(ValidationError):
         client.list_share_recipient_shares("")
+    with pytest.raises(ValidationError):
+        client.get_share_recipient_share("", "sales_share")
+    with pytest.raises(ValidationError):
+        client.get_share_recipient_share("consumer-a", "")
     with pytest.raises(ValidationError):
         client.get_share("")
     with pytest.raises(ValidationError):
