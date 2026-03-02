@@ -238,6 +238,19 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `set_registered_model_permissions(model_name, access_control_list)`
 - `update_registered_model_permissions(model_name, access_control_list)`
 - `get_registered_model_permission_levels(model_name)`
+- `create_model_registry_webhook(webhook_spec)`
+- `list_model_registry_webhooks(model_name=..., events=..., max_results=..., page_token=...)`
+- `update_model_registry_webhook(webhook_id, webhook_changes)`
+- `delete_model_registry_webhook(webhook_id)`
+- `test_model_registry_webhook(webhook_id)`
+- `create_model_registry_comment(name, version, comment)`
+- `update_model_registry_comment(comment_id, comment)`
+- `delete_model_registry_comment(comment_id)`
+- `create_model_version_transition_request(name, version, stage, comment=...)`
+- `list_model_version_transition_requests(name, version)`
+- `approve_model_version_transition_request(request_id, comment=...)`
+- `reject_model_version_transition_request(request_id, comment=...)`
+- `delete_model_version_transition_request(request_id)`
 
 ## Dashboards (Lakeview)
 

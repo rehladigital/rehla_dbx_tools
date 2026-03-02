@@ -1670,3 +1670,23 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new MLflow tools.
 - Prepared patch version bump to `2.0.6` with changelog updates for release.
+
+## Run 84 (Cycle 84 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: continue MLflow scope with webhooks, comments, and transition requests.
+
+### Progress Notes
+
+- Added MLflow registry webhook wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_model_registry_webhook`, `list_model_registry_webhooks`, `update_model_registry_webhook`, `delete_model_registry_webhook`, `test_model_registry_webhook`
+- Added MLflow registry comment wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_model_registry_comment`, `update_model_registry_comment`, `delete_model_registry_comment`
+- Added MLflow transition-request wrappers in `src/databricks_api/clients/workspace.py`:
+  - `create_model_version_transition_request`, `list_model_version_transition_requests`
+  - `approve_model_version_transition_request`, `reject_model_version_transition_request`, `delete_model_version_transition_request`
+- Updated `src/databricks_api/endpoints/catalog.py` with MLflow webhook/comment/transition-request endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new MLflow tools.
+- Prepared patch version bump to `2.0.7` with changelog updates for release.

@@ -906,6 +906,40 @@ def test_quality_monitor_and_postgres_wrappers_route_expected_calls_and_validati
     with pytest.raises(ValidationError):
         client.get_registered_model_permission_levels("")
     with pytest.raises(ValidationError):
+        client.update_model_registry_webhook("", {})
+    with pytest.raises(ValidationError):
+        client.delete_model_registry_webhook("")
+    with pytest.raises(ValidationError):
+        client.test_model_registry_webhook("")
+    with pytest.raises(ValidationError):
+        client.create_model_registry_comment("", "1", "nice")
+    with pytest.raises(ValidationError):
+        client.create_model_registry_comment("model", "", "nice")
+    with pytest.raises(ValidationError):
+        client.create_model_registry_comment("model", "1", "")
+    with pytest.raises(ValidationError):
+        client.update_model_registry_comment("", "updated")
+    with pytest.raises(ValidationError):
+        client.update_model_registry_comment("c-1", "")
+    with pytest.raises(ValidationError):
+        client.delete_model_registry_comment("")
+    with pytest.raises(ValidationError):
+        client.create_model_version_transition_request("", "1", "Staging")
+    with pytest.raises(ValidationError):
+        client.create_model_version_transition_request("model", "", "Staging")
+    with pytest.raises(ValidationError):
+        client.create_model_version_transition_request("model", "1", "")
+    with pytest.raises(ValidationError):
+        client.list_model_version_transition_requests("", "1")
+    with pytest.raises(ValidationError):
+        client.list_model_version_transition_requests("model", "")
+    with pytest.raises(ValidationError):
+        client.approve_model_version_transition_request("")
+    with pytest.raises(ValidationError):
+        client.reject_model_version_transition_request("")
+    with pytest.raises(ValidationError):
+        client.delete_model_version_transition_request("")
+    with pytest.raises(ValidationError):
         client.get_instance_pool("")
     with pytest.raises(ValidationError):
         client.edit_instance_pool("", {})
@@ -1883,6 +1917,68 @@ def test_mlflow_experiments_and_runs_wrappers_route_expected_calls():
         client.get_registered_model_permission_levels("fraud-model")
         assert request_versioned.call_args.args == ("GET", "permissions/registered-models")
         assert request_versioned.call_args.kwargs["endpoint"] == "fraud-model/permissionLevels"
+
+        client.create_model_registry_webhook({"model_name": "fraud-model", "events": ["MODEL_VERSION_CREATED"]})
+        assert request_versioned.call_args.kwargs["endpoint"] == "registry-webhooks/create"
+
+        client.list_model_registry_webhooks(model_name="fraud-model", max_results=20)
+        assert request_versioned.call_args.kwargs["endpoint"] == "registry-webhooks/list"
+        assert request_versioned.call_args.kwargs["params"] == {"model_name": "fraud-model", "max_results": 20}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.update_model_registry_webhook("wh-1", {"status": "ACTIVE"})
+        assert request_versioned.call_args.kwargs["endpoint"] == "registry-webhooks/update"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "wh-1", "status": "ACTIVE"}
+
+        client.delete_model_registry_webhook("wh-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registry-webhooks/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "wh-1"}
+
+        client.test_model_registry_webhook("wh-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "registry-webhooks/test"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "wh-1"}
+
+        client.create_model_registry_comment("fraud-model", "1", "Looks good")
+        assert request_versioned.call_args.kwargs["endpoint"] == "comments/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "name": "fraud-model",
+            "version": "1",
+            "comment": "Looks good",
+        }
+
+        client.update_model_registry_comment("c-1", "Updated note")
+        assert request_versioned.call_args.kwargs["endpoint"] == "comments/update"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "c-1", "comment": "Updated note"}
+
+        client.delete_model_registry_comment("c-1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "comments/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "c-1"}
+
+        client.create_model_version_transition_request("fraud-model", "1", "Production", comment="promote")
+        assert request_versioned.call_args.kwargs["endpoint"] == "transition-requests/create"
+        assert request_versioned.call_args.kwargs["json_body"] == {
+            "name": "fraud-model",
+            "version": "1",
+            "stage": "Production",
+            "comment": "promote",
+        }
+
+        client.list_model_version_transition_requests("fraud-model", "1")
+        assert request_versioned.call_args.kwargs["endpoint"] == "transition-requests/list"
+        assert request_versioned.call_args.kwargs["params"] == {"name": "fraud-model", "version": "1"}
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.approve_model_version_transition_request("tr-1", comment="approved")
+        assert request_versioned.call_args.kwargs["endpoint"] == "transition-requests/approve"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "tr-1", "comment": "approved"}
+
+        client.reject_model_version_transition_request("tr-2", comment="needs evidence")
+        assert request_versioned.call_args.kwargs["endpoint"] == "transition-requests/reject"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "tr-2", "comment": "needs evidence"}
+
+        client.delete_model_version_transition_request("tr-3")
+        assert request_versioned.call_args.kwargs["endpoint"] == "transition-requests/delete"
+        assert request_versioned.call_args.kwargs["json_body"] == {"id": "tr-3"}
 
 
 def test_alerts_and_dashboards_wrappers_route_expected_calls():

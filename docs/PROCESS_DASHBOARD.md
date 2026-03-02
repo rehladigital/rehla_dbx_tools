@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 83
-- Remaining loops: 217
-- Current loop: 84 (queued)
+- Completed loops: 84
+- Remaining loops: 216
+- Current loop: 85 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 83
-- Current package version: 2.0.6
+- Last completed cycle: 84
+- Current package version: 2.0.7
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 84 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for remaining `mlflow` operations (webhooks/comments/transitions)
+1. Execute run 85 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for remaining MLflow permissions/webhooks completeness and next marketplace expansion
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.6` after commit/push and workflow verification
+4. Publish `2.0.7` after commit/push and workflow verification

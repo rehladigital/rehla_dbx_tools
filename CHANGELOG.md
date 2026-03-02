@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.7] - 2026-03-02
+
+### Added
+
+- MLflow registry webhooks wrappers:
+  - `create_model_registry_webhook`
+  - `list_model_registry_webhooks`
+  - `update_model_registry_webhook`
+  - `delete_model_registry_webhook`
+  - `test_model_registry_webhook`
+- MLflow model-registry comment wrappers:
+  - `create_model_registry_comment`
+  - `update_model_registry_comment`
+  - `delete_model_registry_comment`
+- MLflow transition-request wrappers:
+  - `create_model_version_transition_request`
+  - `list_model_version_transition_requests`
+  - `approve_model_version_transition_request`
+  - `reject_model_version_transition_request`
+  - `delete_model_version_transition_request`
+- Endpoint catalog entries for MLflow webhooks/comments/transition-request routes.
+- Regression test coverage for these wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include MLflow webhooks/comments/transition-request methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with MLflow webhooks/comments/transition-request usage coverage.
+- Bumped package version from `2.0.6` to `2.0.7`.
+
 ## [2.0.6] - 2026-03-02
 
 ### Added

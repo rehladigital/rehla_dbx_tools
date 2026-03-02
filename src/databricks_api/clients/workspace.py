@@ -1773,6 +1773,180 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    # MLflow registry webhooks/comments/transition requests slice
+    def create_model_registry_webhook(self, webhook_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="registry-webhooks/create",
+            api_version=api_version,
+            json_body=webhook_spec,
+        )
+
+    def list_model_registry_webhooks(
+        self,
+        *,
+        model_name: Optional[str] = None,
+        events: Optional[list[str]] = None,
+        max_results: Optional[int] = None,
+        page_token: Optional[str] = None,
+        api_version: str = "2.0",
+    ) -> Any:
+        params: dict[str, Any] = {}
+        if model_name:
+            params["model_name"] = model_name
+        if events:
+            params["events"] = events
+        if max_results is not None:
+            params["max_results"] = max_results
+        if page_token:
+            params["page_token"] = page_token
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="registry-webhooks/list",
+            api_version=api_version,
+            params=params or None,
+            paginate=True,
+        )
+
+    def update_model_registry_webhook(
+        self, webhook_id: str, webhook_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(webhook_id, "webhook_id")
+        payload = {"id": webhook_id, **webhook_changes}
+        return self.request_versioned(
+            "PATCH",
+            "mlflow",
+            endpoint="registry-webhooks/update",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def delete_model_registry_webhook(self, webhook_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(webhook_id, "webhook_id")
+        return self.request_versioned(
+            "DELETE",
+            "mlflow",
+            endpoint="registry-webhooks/delete",
+            api_version=api_version,
+            json_body={"id": webhook_id},
+        )
+
+    def test_model_registry_webhook(self, webhook_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(webhook_id, "webhook_id")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="registry-webhooks/test",
+            api_version=api_version,
+            json_body={"id": webhook_id},
+        )
+
+    def create_model_registry_comment(
+        self, name: str, version: str, comment: str, api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        self._require_non_empty_string(comment, "comment")
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="comments/create",
+            api_version=api_version,
+            json_body={"name": name, "version": version, "comment": comment},
+        )
+
+    def update_model_registry_comment(self, comment_id: str, comment: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(comment_id, "comment_id")
+        self._require_non_empty_string(comment, "comment")
+        return self.request_versioned(
+            "PATCH",
+            "mlflow",
+            endpoint="comments/update",
+            api_version=api_version,
+            json_body={"id": comment_id, "comment": comment},
+        )
+
+    def delete_model_registry_comment(self, comment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(comment_id, "comment_id")
+        return self.request_versioned(
+            "DELETE",
+            "mlflow",
+            endpoint="comments/delete",
+            api_version=api_version,
+            json_body={"id": comment_id},
+        )
+
+    def create_model_version_transition_request(
+        self, name: str, version: str, stage: str, comment: Optional[str] = None, api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        self._require_non_empty_string(stage, "stage")
+        payload: dict[str, Any] = {"name": name, "version": version, "stage": stage}
+        if comment:
+            payload["comment"] = comment
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="transition-requests/create",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def list_model_version_transition_requests(self, name: str, version: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(version, "version")
+        return self.request_versioned(
+            "GET",
+            "mlflow",
+            endpoint="transition-requests/list",
+            api_version=api_version,
+            params={"name": name, "version": version},
+            paginate=True,
+        )
+
+    def approve_model_version_transition_request(
+        self, request_id: str, comment: Optional[str] = None, api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        payload: dict[str, Any] = {"id": request_id}
+        if comment:
+            payload["comment"] = comment
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="transition-requests/approve",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def reject_model_version_transition_request(
+        self, request_id: str, comment: Optional[str] = None, api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        payload: dict[str, Any] = {"id": request_id}
+        if comment:
+            payload["comment"] = comment
+        return self.request_versioned(
+            "POST",
+            "mlflow",
+            endpoint="transition-requests/reject",
+            api_version=api_version,
+            json_body=payload,
+        )
+
+    def delete_model_version_transition_request(self, request_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        return self.request_versioned(
+            "DELETE",
+            "mlflow",
+            endpoint="transition-requests/delete",
+            api_version=api_version,
+            json_body={"id": request_id},
+        )
+
     # Databricks SQL Alerts (alerts scope)
     def list_sql_alerts(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(

@@ -137,6 +137,9 @@ Workspace (`client.workspace`):
 - `create_model_version`, `delete_model_version`, `get_model_version`, `search_model_versions`, `update_model_version`
 - `set_model_version_tag`, `delete_model_version_tag`, `transition_model_version_stage`
 - `get_registered_model_permissions`, `set_registered_model_permissions`, `update_registered_model_permissions`, `get_registered_model_permission_levels`
+- `create_model_registry_webhook`, `list_model_registry_webhooks`, `update_model_registry_webhook`, `delete_model_registry_webhook`, `test_model_registry_webhook`
+- `create_model_registry_comment`, `update_model_registry_comment`, `delete_model_registry_comment`
+- `create_model_version_transition_request`, `list_model_version_transition_requests`, `approve_model_version_transition_request`, `reject_model_version_transition_request`, `delete_model_version_transition_request`
 - `list_dashboards`, `create_dashboard`, `get_dashboard`, `update_dashboard`, `trash_dashboard`, `publish_dashboard`, `unpublish_dashboard`
 - `list_apps`, `create_app`, `get_app`, `update_app`, `delete_app`, `start_app`, `stop_app`
 - `get_app_permissions`, `set_app_permissions`, `update_app_permissions`, `get_app_permission_levels`
