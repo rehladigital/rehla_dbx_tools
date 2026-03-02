@@ -2971,6 +2971,24 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.get_share("sales_share")
         assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
 
+        client.list_share_providers("sales_share")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share/providers"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_share_provider("sales_share", "partner-a")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share/providers/partner-a"
+
+        client.list_share_recipients_for_share("sales_share")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share/recipients"
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_share_recipient_for_share("sales_share", "consumer-a")
+        assert request_versioned.call_args.args == ("GET", "unity-catalog")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share/recipients/consumer-a"
+
         client.update_share("sales_share", {"comment": "updated"})
         assert request_versioned.call_args.args == ("PATCH", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
@@ -3081,6 +3099,18 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.update_share_recipient_share("consumer-a", "", {})
     with pytest.raises(ValidationError):
         client.get_share("")
+    with pytest.raises(ValidationError):
+        client.list_share_providers("")
+    with pytest.raises(ValidationError):
+        client.get_share_provider("", "partner-a")
+    with pytest.raises(ValidationError):
+        client.get_share_provider("sales_share", "")
+    with pytest.raises(ValidationError):
+        client.list_share_recipients_for_share("")
+    with pytest.raises(ValidationError):
+        client.get_share_recipient_for_share("", "consumer-a")
+    with pytest.raises(ValidationError):
+        client.get_share_recipient_for_share("sales_share", "")
     with pytest.raises(ValidationError):
         client.update_share("", {})
     with pytest.raises(ValidationError):

@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.21] - 2026-03-02
+
+### Added
+
+- Delta Sharing share-centric relationship wrappers:
+  - `list_share_providers`
+  - `get_share_provider`
+  - `list_share_recipients_for_share`
+  - `get_share_recipient_for_share`
+- Endpoint catalog entries for share providers/recipients list/detail routes.
+- Regression test coverage for these share-centric wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-centric relationship methods.
+- Bumped package version from `2.0.20` to `2.0.21`.
+
 ## [2.0.20] - 2026-03-02
 
 ### Added

@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 97
-- Remaining loops: 203
-- Current loop: 98 (queued)
+- Completed loops: 98
+- Remaining loops: 202
+- Current loop: 99 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 97
-- Current package version: 2.0.20
+- Last completed cycle: 98
+- Current package version: 2.0.21
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 98 on Azure track (round-robin sequence)
+1. Execute run 99 on GCP track (round-robin sequence)
 2. Continue all-tools implementation for adjacent data sharing routes and residual marketplace endpoint coverage
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.20` after commit/push and workflow verification
+4. Publish `2.0.21` after commit/push and workflow verification

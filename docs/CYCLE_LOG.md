@@ -1914,3 +1914,19 @@
 - Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-link update methods.
 - Prepared patch version bump to `2.0.20` with changelog updates for release.
+
+## Run 98 (Cycle 98 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: Azure (round-robin assignment)
+- Objective: expand Delta Sharing from the share-centric side with provider/recipient relationship lookups.
+
+### Progress Notes
+
+- Added share-centric wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_share_providers`, `get_share_provider`
+  - `list_share_recipients_for_share`, `get_share_recipient_for_share`
+- Updated `src/databricks_api/endpoints/catalog.py` with share providers/recipients list/detail endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-centric relationship methods.
+- Prepared patch version bump to `2.0.21` with changelog updates for release.
