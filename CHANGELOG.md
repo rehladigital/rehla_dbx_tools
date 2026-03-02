@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.29] - 2026-03-02
+
+### Changed
+
+- Hardened Marketplace payload validation for key request-body methods:
+  - `search_marketplace_listings` now requires non-empty `search_payload`
+  - `install_marketplace_listing` / `create_marketplace_installation` now require non-empty `installation_spec`
+  - `create_marketplace_provider_listing` now requires non-empty `listing_spec`
+  - `update_marketplace_provider_listing` now requires non-empty `listing_changes`
+- Added regression tests for empty payload rejection across these Marketplace flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with Marketplace payload requirements.
+- Bumped package version from `2.0.28` to `2.0.29`.
+
 ## [2.0.28] - 2026-03-02
 
 ### Changed

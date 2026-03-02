@@ -2040,3 +2040,20 @@
 - Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in provider/recipient create/update flows.
 - Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit provider/recipient payload requirements.
 - Prepared patch version bump to `2.0.28` with changelog updates for release.
+
+## Run 106 (Cycle 106 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: harden Marketplace payload validation for key request-body operations.
+
+### Progress Notes
+
+- Strengthened payload validation in `src/databricks_api/clients/workspace.py` for:
+  - `search_marketplace_listings`
+  - `install_marketplace_listing` (and alias `create_marketplace_installation`)
+  - `create_marketplace_provider_listing`
+  - `update_marketplace_provider_listing`
+- Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in these Marketplace flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit Marketplace payload requirements.
+- Prepared patch version bump to `2.0.29` with changelog updates for release.

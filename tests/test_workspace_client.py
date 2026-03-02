@@ -744,7 +744,13 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
     with pytest.raises(ValidationError):
         client.get_marketplace_listing("")
     with pytest.raises(ValidationError):
+        client.search_marketplace_listings({})
+    with pytest.raises(ValidationError):
         client.get_marketplace_installation("")
+    with pytest.raises(ValidationError):
+        client.install_marketplace_listing({})
+    with pytest.raises(ValidationError):
+        client.create_marketplace_installation({})
     with pytest.raises(ValidationError):
         client.uninstall_marketplace_installation("")
     with pytest.raises(ValidationError):
@@ -752,7 +758,11 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
     with pytest.raises(ValidationError):
         client.get_marketplace_provider_listing("")
     with pytest.raises(ValidationError):
+        client.create_marketplace_provider_listing({})
+    with pytest.raises(ValidationError):
         client.update_marketplace_provider_listing("", {})
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_listing("pl-1", {})
     with pytest.raises(ValidationError):
         client.delete_marketplace_provider_listing("")
     with pytest.raises(ValidationError):

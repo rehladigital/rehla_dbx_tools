@@ -3317,6 +3317,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def search_marketplace_listings(self, search_payload: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(search_payload, "search_payload")
         return self.request_versioned(
             "POST",
             "marketplace-consumer/listings",
@@ -3344,6 +3345,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def install_marketplace_listing(self, installation_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(installation_spec, "installation_spec")
         return self.request_versioned(
             "POST",
             "marketplace-consumer/installations",
@@ -3378,6 +3380,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_marketplace_provider_listing(self, listing_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(listing_spec, "listing_spec")
         return self.request_versioned(
             "POST",
             "marketplace-provider/listings",
@@ -3399,6 +3402,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, listing_id: str, listing_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(listing_id, "listing_id")
+        self._require_non_empty_dict(listing_changes, "listing_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/listings",
