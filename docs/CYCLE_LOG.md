@@ -1788,3 +1788,19 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new Delta Sharing tools.
 - Prepared patch version bump to `2.0.12` with changelog updates for release.
+
+## Run 90 (Cycle 90 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: continue adjacent data-sharing coverage with provider permissions wrappers.
+
+### Progress Notes
+
+- Added Delta Sharing provider permissions wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_sharing_provider_permissions`, `set_sharing_provider_permissions`
+  - `update_sharing_provider_permissions`, `get_sharing_provider_permission_levels`
+- Updated `src/databricks_api/endpoints/catalog.py` with provider permissions endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new Delta Sharing tools.
+- Prepared patch version bump to `2.0.13` with changelog updates for release.

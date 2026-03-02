@@ -4394,6 +4394,48 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def get_sharing_provider_permissions(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"providers/{name}",
+            api_version=api_version,
+        )
+
+    def set_sharing_provider_permissions(
+        self, name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"providers/{name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_sharing_provider_permissions(
+        self, name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"providers/{name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_sharing_provider_permission_levels(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"providers/{name}/permissionLevels",
+            api_version=api_version,
+        )
+
     def list_share_recipients(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
             "GET",

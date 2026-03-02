@@ -2823,6 +2823,25 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
 
+        provider_acl = [{"group_name": "data-share-admins", "permission_level": "CAN_MANAGE"}]
+        client.get_sharing_provider_permissions("partner-a")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
+
+        client.set_sharing_provider_permissions("partner-a", provider_acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": provider_acl}
+
+        client.update_sharing_provider_permissions("partner-a", provider_acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": provider_acl}
+
+        client.get_sharing_provider_permission_levels("partner-a")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "providers/partner-a/permissionLevels"
+
         client.list_share_recipients()
         assert request_versioned.call_args.args == ("GET", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "recipients"
@@ -2929,6 +2948,14 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.update_sharing_provider("", {})
     with pytest.raises(ValidationError):
         client.delete_sharing_provider("")
+    with pytest.raises(ValidationError):
+        client.get_sharing_provider_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_sharing_provider_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_sharing_provider_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_sharing_provider_permission_levels("")
     with pytest.raises(ValidationError):
         client.get_share_recipient("")
     with pytest.raises(ValidationError):

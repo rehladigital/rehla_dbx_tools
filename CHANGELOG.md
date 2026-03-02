@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.13] - 2026-03-02
+
+### Added
+
+- Delta Sharing provider permissions wrappers:
+  - `get_sharing_provider_permissions`
+  - `set_sharing_provider_permissions`
+  - `update_sharing_provider_permissions`
+  - `get_sharing_provider_permission_levels`
+- Endpoint catalog entries for provider permissions and permission-level routes.
+- Regression test coverage for the new provider permission wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list with sharing provider permission methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with the provider permission operations.
+- Bumped package version from `2.0.12` to `2.0.13`.
+
 ## [2.0.12] - 2026-03-02
 
 ### Added
