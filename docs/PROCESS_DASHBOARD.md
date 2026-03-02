@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 85
-- Remaining loops: 215
-- Current loop: 86 (queued)
+- Completed loops: 86
+- Remaining loops: 214
+- Current loop: 87 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 85
-- Current package version: 2.0.8
+- Last completed cycle: 86
+- Current package version: 2.0.9
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 86 on Azure track (round-robin sequence)
-2. Continue all-tools implementation for marketplace provider exchanges and personalization slices
+1. Execute run 87 on GCP track (round-robin sequence)
+2. Continue all-tools implementation for marketplace provider analytics and remaining provider-side routes
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.8` after commit/push and workflow verification
+4. Publish `2.0.9` after commit/push and workflow verification

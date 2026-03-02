@@ -575,6 +575,72 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/files")
         assert request_versioned.call_args.kwargs["endpoint"] == "pf-1"
 
+        client.list_marketplace_provider_exchanges()
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/exchanges")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_marketplace_provider_exchange({"name": "global-exchange"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-provider/exchanges")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "global-exchange"}
+
+        client.get_marketplace_provider_exchange("ex-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/exchanges")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ex-1"
+
+        client.update_marketplace_provider_exchange("ex-1", {"name": "global-exchange-v2"})
+        assert request_versioned.call_args.args == ("PATCH", "marketplace-provider/exchanges")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ex-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "global-exchange-v2"}
+
+        client.delete_marketplace_provider_exchange("ex-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/exchanges")
+        assert request_versioned.call_args.kwargs["endpoint"] == "ex-1"
+
+        client.list_marketplace_provider_exchange_filters()
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/exchange-filters")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_marketplace_provider_exchange_filter({"name": "us-only"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-provider/exchange-filters")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "us-only"}
+
+        client.update_marketplace_provider_exchange_filter("f-1", {"name": "na-only"})
+        assert request_versioned.call_args.args == ("PATCH", "marketplace-provider/exchange-filters")
+        assert request_versioned.call_args.kwargs["endpoint"] == "f-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"name": "na-only"}
+
+        client.delete_marketplace_provider_exchange_filter("f-1")
+        assert request_versioned.call_args.args == ("DELETE", "marketplace-provider/exchange-filters")
+        assert request_versioned.call_args.kwargs["endpoint"] == "f-1"
+
+        client.list_marketplace_provider_personalization_requests()
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/personalization-requests")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.update_marketplace_provider_personalization_request("pr-1", {"status": "APPROVED"})
+        assert request_versioned.call_args.args == ("PATCH", "marketplace-provider/personalization-requests")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pr-1"
+        assert request_versioned.call_args.kwargs["json_body"] == {"status": "APPROVED"}
+
+        client.list_marketplace_consumer_personalization_requests()
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/personalization-requests")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.create_marketplace_consumer_personalization_request({"listing_id": "listing-1", "message": "Need demo"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-consumer/personalization-requests")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["json_body"] == {"listing_id": "listing-1", "message": "Need demo"}
+
+        client.get_marketplace_consumer_personalization_request("pr-2")
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/personalization-requests")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pr-2"
+
     with pytest.raises(ValidationError):
         client.get_serving_endpoint_permissions("")
     with pytest.raises(ValidationError):
@@ -611,6 +677,20 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         client.get_marketplace_provider_file("")
     with pytest.raises(ValidationError):
         client.delete_marketplace_provider_file("")
+    with pytest.raises(ValidationError):
+        client.get_marketplace_provider_exchange("")
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_exchange("", {})
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_provider_exchange("")
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_exchange_filter("", {})
+    with pytest.raises(ValidationError):
+        client.delete_marketplace_provider_exchange_filter("")
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_personalization_request("", {})
+    with pytest.raises(ValidationError):
+        client.get_marketplace_consumer_personalization_request("")
 
 
 def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validation():

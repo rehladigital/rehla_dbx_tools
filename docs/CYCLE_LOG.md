@@ -1709,3 +1709,23 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new provider wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with marketplace provider tools.
 - Prepared patch version bump to `2.0.8` with changelog updates for release.
+
+## Run 86 (Cycle 86 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: Azure (round-robin assignment)
+- Objective: extend marketplace provider scope with exchanges and personalization operations.
+
+### Progress Notes
+
+- Added marketplace provider exchange wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_provider_exchanges`, `create_marketplace_provider_exchange`, `get_marketplace_provider_exchange`, `update_marketplace_provider_exchange`, `delete_marketplace_provider_exchange`
+- Added marketplace provider exchange-filter wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_provider_exchange_filters`, `create_marketplace_provider_exchange_filter`, `update_marketplace_provider_exchange_filter`, `delete_marketplace_provider_exchange_filter`
+- Added marketplace personalization wrappers in `src/databricks_api/clients/workspace.py`:
+  - provider: `list_marketplace_provider_personalization_requests`, `update_marketplace_provider_personalization_request`
+  - consumer: `list_marketplace_consumer_personalization_requests`, `create_marketplace_consumer_personalization_request`, `get_marketplace_consumer_personalization_request`
+- Updated `src/databricks_api/endpoints/catalog.py` with marketplace exchange/filter/personalization endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace tools.
+- Prepared patch version bump to `2.0.9` with changelog updates for release.

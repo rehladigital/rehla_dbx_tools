@@ -486,6 +486,20 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `create_marketplace_provider_file(file_spec)`
 - `get_marketplace_provider_file(file_id)`
 - `delete_marketplace_provider_file(file_id)`
+- `list_marketplace_provider_exchanges()`
+- `create_marketplace_provider_exchange(exchange_spec)`
+- `get_marketplace_provider_exchange(exchange_id)`
+- `update_marketplace_provider_exchange(exchange_id, exchange_changes)`
+- `delete_marketplace_provider_exchange(exchange_id)`
+- `list_marketplace_provider_exchange_filters()`
+- `create_marketplace_provider_exchange_filter(filter_spec)`
+- `update_marketplace_provider_exchange_filter(filter_id, filter_changes)`
+- `delete_marketplace_provider_exchange_filter(filter_id)`
+- `list_marketplace_provider_personalization_requests()`
+- `update_marketplace_provider_personalization_request(request_id, request_changes)`
+- `list_marketplace_consumer_personalization_requests()`
+- `create_marketplace_consumer_personalization_request(request_spec)`
+- `get_marketplace_consumer_personalization_request(request_id)`
 
 ## Genie
 

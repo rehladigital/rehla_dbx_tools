@@ -3480,6 +3480,143 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def list_marketplace_provider_exchanges(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/exchanges",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_marketplace_provider_exchange(self, exchange_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-provider/exchanges",
+            endpoint="",
+            api_version=api_version,
+            json_body=exchange_spec,
+        )
+
+    def get_marketplace_provider_exchange(self, exchange_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(exchange_id, "exchange_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/exchanges",
+            endpoint=exchange_id,
+            api_version=api_version,
+        )
+
+    def update_marketplace_provider_exchange(
+        self, exchange_id: str, exchange_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(exchange_id, "exchange_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/exchanges",
+            endpoint=exchange_id,
+            api_version=api_version,
+            json_body=exchange_changes,
+        )
+
+    def delete_marketplace_provider_exchange(self, exchange_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(exchange_id, "exchange_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/exchanges",
+            endpoint=exchange_id,
+            api_version=api_version,
+        )
+
+    def list_marketplace_provider_exchange_filters(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/exchange-filters",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_marketplace_provider_exchange_filter(self, filter_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-provider/exchange-filters",
+            endpoint="",
+            api_version=api_version,
+            json_body=filter_spec,
+        )
+
+    def update_marketplace_provider_exchange_filter(
+        self, filter_id: str, filter_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(filter_id, "filter_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/exchange-filters",
+            endpoint=filter_id,
+            api_version=api_version,
+            json_body=filter_changes,
+        )
+
+    def delete_marketplace_provider_exchange_filter(self, filter_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(filter_id, "filter_id")
+        return self.request_versioned(
+            "DELETE",
+            "marketplace-provider/exchange-filters",
+            endpoint=filter_id,
+            api_version=api_version,
+        )
+
+    def list_marketplace_provider_personalization_requests(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/personalization-requests",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def update_marketplace_provider_personalization_request(
+        self, request_id: str, request_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/personalization-requests",
+            endpoint=request_id,
+            api_version=api_version,
+            json_body=request_changes,
+        )
+
+    def list_marketplace_consumer_personalization_requests(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/personalization-requests",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def create_marketplace_consumer_personalization_request(
+        self, request_spec: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        return self.request_versioned(
+            "POST",
+            "marketplace-consumer/personalization-requests",
+            endpoint="",
+            api_version=api_version,
+            json_body=request_spec,
+        )
+
+    def get_marketplace_consumer_personalization_request(self, request_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(request_id, "request_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/personalization-requests",
+            endpoint=request_id,
+            api_version=api_version,
+        )
+
     # Genie scope
     def list_genie_spaces(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(

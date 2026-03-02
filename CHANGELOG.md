@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.9] - 2026-03-02
+
+### Added
+
+- Marketplace provider exchanges wrappers:
+  - `list_marketplace_provider_exchanges`
+  - `create_marketplace_provider_exchange`
+  - `get_marketplace_provider_exchange`
+  - `update_marketplace_provider_exchange`
+  - `delete_marketplace_provider_exchange`
+- Marketplace provider exchange-filters wrappers:
+  - `list_marketplace_provider_exchange_filters`
+  - `create_marketplace_provider_exchange_filter`
+  - `update_marketplace_provider_exchange_filter`
+  - `delete_marketplace_provider_exchange_filter`
+- Marketplace personalization wrappers:
+  - provider: `list_marketplace_provider_personalization_requests`, `update_marketplace_provider_personalization_request`
+  - consumer: `list_marketplace_consumer_personalization_requests`, `create_marketplace_consumer_personalization_request`, `get_marketplace_consumer_personalization_request`
+- Endpoint catalog entries for marketplace provider exchanges, exchange-filters, and personalization-request routes.
+- Regression test coverage for these marketplace wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include marketplace exchanges and personalization methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with marketplace exchanges and personalization usage coverage.
+- Bumped package version from `2.0.8` to `2.0.9`.
+
 ## [2.0.8] - 2026-03-02
 
 ### Added
