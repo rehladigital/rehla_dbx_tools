@@ -3101,6 +3101,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.create_sharing_provider_share("", {"share_name": "sales_share"})
     with pytest.raises(ValidationError):
+        client.create_sharing_provider_share("partner-a", {})
+    with pytest.raises(ValidationError):
         client.delete_sharing_provider_share("", "sales_share")
     with pytest.raises(ValidationError):
         client.delete_sharing_provider_share("partner-a", "")
@@ -3108,6 +3110,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.update_sharing_provider_share("", "sales_share", {})
     with pytest.raises(ValidationError):
         client.update_sharing_provider_share("partner-a", "", {})
+    with pytest.raises(ValidationError):
+        client.update_sharing_provider_share("partner-a", "sales_share", {})
     with pytest.raises(ValidationError):
         client.get_share_recipient("")
     with pytest.raises(ValidationError):
@@ -3133,6 +3137,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.create_share_recipient_share("", {"share_name": "sales_share"})
     with pytest.raises(ValidationError):
+        client.create_share_recipient_share("consumer-a", {})
+    with pytest.raises(ValidationError):
         client.delete_share_recipient_share("", "sales_share")
     with pytest.raises(ValidationError):
         client.delete_share_recipient_share("consumer-a", "")
@@ -3140,6 +3146,8 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.update_share_recipient_share("", "sales_share", {})
     with pytest.raises(ValidationError):
         client.update_share_recipient_share("consumer-a", "", {})
+    with pytest.raises(ValidationError):
+        client.update_share_recipient_share("consumer-a", "sales_share", {})
     with pytest.raises(ValidationError):
         client.get_share("")
     with pytest.raises(ValidationError):

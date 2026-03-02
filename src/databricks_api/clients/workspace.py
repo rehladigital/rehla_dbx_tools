@@ -4504,6 +4504,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, name: str, share_link_spec: dict[str, Any], api_version: str = "2.1"
     ) -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(share_link_spec, "share_link_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4527,6 +4528,7 @@ class WorkspaceClient(BaseDatabricksClient):
     ) -> Any:
         self._require_non_empty_string(name, "name")
         self._require_non_empty_string(share_name, "share_name")
+        self._require_non_empty_dict(share_link_changes, "share_link_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",
@@ -4662,6 +4664,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, name: str, share_link_spec: dict[str, Any], api_version: str = "2.1"
     ) -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(share_link_spec, "share_link_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4685,6 +4688,7 @@ class WorkspaceClient(BaseDatabricksClient):
     ) -> Any:
         self._require_non_empty_string(name, "name")
         self._require_non_empty_string(share_name, "share_name")
+        self._require_non_empty_dict(share_link_changes, "share_link_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",

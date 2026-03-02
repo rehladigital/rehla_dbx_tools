@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.26] - 2026-03-02
+
+### Changed
+
+- Hardened Delta Sharing provider/recipient share-link validation to require non-empty payload objects for:
+  - `create_sharing_provider_share`, `update_sharing_provider_share`
+  - `create_share_recipient_share`, `update_share_recipient_share`
+- Added regression tests for empty share-link payload rejection across provider-share and recipient-share create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with provider/recipient share-link payload requirements.
+- Bumped package version from `2.0.25` to `2.0.26`.
+
 ## [2.0.25] - 2026-03-02
 
 ### Changed

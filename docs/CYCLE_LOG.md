@@ -1993,3 +1993,20 @@
 - Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in share link create/update flows.
 - Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit share link payload validation requirements.
 - Prepared patch version bump to `2.0.25` with changelog updates for release.
+
+## Run 103 (Cycle 103 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: AWS (round-robin assignment)
+- Objective: harden Delta Sharing provider/recipient share-link payload validation for create/update operations.
+
+### Progress Notes
+
+- Strengthened payload validation in `src/databricks_api/clients/workspace.py` for:
+  - `create_sharing_provider_share`
+  - `update_sharing_provider_share`
+  - `create_share_recipient_share`
+  - `update_share_recipient_share`
+- Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in provider-share and recipient-share create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit share-link payload requirements.
+- Prepared patch version bump to `2.0.26` with changelog updates for release.
