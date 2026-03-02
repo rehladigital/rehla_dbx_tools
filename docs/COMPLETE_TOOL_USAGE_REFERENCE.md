@@ -589,11 +589,19 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `get_share_recipient(name)`
 - `update_share_recipient(name, recipient_changes)`
 - `delete_share_recipient(name)`
+- `get_share_recipient_permissions(name)`
+- `set_share_recipient_permissions(name, access_control_list)`
+- `update_share_recipient_permissions(name, access_control_list)`
+- `get_share_recipient_permission_levels(name)`
 - `list_shares()`
 - `create_share(share_spec)`
 - `get_share(name)`
 - `update_share(name, share_changes)`
 - `delete_share(name)`
+- `get_share_permissions(name)`
+- `set_share_permissions(name, access_control_list)`
+- `update_share_permissions(name, access_control_list)`
+- `get_share_permission_levels(name)`
 
 ## 5) Account Tools (`client.account`)
 

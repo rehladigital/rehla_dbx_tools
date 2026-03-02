@@ -2845,6 +2845,25 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
 
+        recipient_acl = [{"user_name": "analyst@databricks.com", "permission_level": "CAN_USE"}]
+        client.get_share_recipient_permissions("consumer-a")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
+
+        client.set_share_recipient_permissions("consumer-a", recipient_acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": recipient_acl}
+
+        client.update_share_recipient_permissions("consumer-a", recipient_acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": recipient_acl}
+
+        client.get_share_recipient_permission_levels("consumer-a")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "recipients/consumer-a/permissionLevels"
+
         client.list_shares()
         assert request_versioned.call_args.args == ("GET", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "shares"
@@ -2866,6 +2885,25 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
         client.delete_share("sales_share")
         assert request_versioned.call_args.args == ("DELETE", "unity-catalog")
         assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+
+        share_acl = [{"group_name": "finance", "permission_level": "CAN_READ"}]
+        client.get_share_permissions("sales_share")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+
+        client.set_share_permissions("sales_share", share_acl)
+        assert request_versioned.call_args.args == ("PUT", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": share_acl}
+
+        client.update_share_permissions("sales_share", share_acl)
+        assert request_versioned.call_args.args == ("PATCH", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share"
+        assert request_versioned.call_args.kwargs["json_body"] == {"access_control_list": share_acl}
+
+        client.get_share_permission_levels("sales_share")
+        assert request_versioned.call_args.args == ("GET", "permissions")
+        assert request_versioned.call_args.kwargs["endpoint"] == "shares/sales_share/permissionLevels"
 
     with pytest.raises(ValidationError):
         client.list_files_directory("")
@@ -2898,11 +2936,27 @@ def test_files_and_sharing_wrappers_route_expected_calls_and_validation():
     with pytest.raises(ValidationError):
         client.delete_share_recipient("")
     with pytest.raises(ValidationError):
+        client.get_share_recipient_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_share_recipient_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_share_recipient_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_share_recipient_permission_levels("")
+    with pytest.raises(ValidationError):
         client.get_share("")
     with pytest.raises(ValidationError):
         client.update_share("", {})
     with pytest.raises(ValidationError):
         client.delete_share("")
+    with pytest.raises(ValidationError):
+        client.get_share_permissions("")
+    with pytest.raises(ValidationError):
+        client.set_share_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.update_share_permissions("", [])
+    with pytest.raises(ValidationError):
+        client.get_share_permission_levels("")
 
 
 def test_instance_profile_wrappers_route_expected_calls_and_validation():

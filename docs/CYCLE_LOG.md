@@ -1769,3 +1769,22 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace tools.
 - Prepared patch version bump to `2.0.11` with changelog updates for release.
+
+## Run 89 (Cycle 89 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: Azure (round-robin assignment)
+- Objective: extend adjacent data-sharing coverage with explicit permissions wrappers for shares and recipients.
+
+### Progress Notes
+
+- Added Delta Sharing recipient permissions wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_share_recipient_permissions`, `set_share_recipient_permissions`
+  - `update_share_recipient_permissions`, `get_share_recipient_permission_levels`
+- Added Delta Sharing share permissions wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_share_permissions`, `set_share_permissions`
+  - `update_share_permissions`, `get_share_permission_levels`
+- Updated `src/databricks_api/endpoints/catalog.py` with recipient/share permissions endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new Delta Sharing tools.
+- Prepared patch version bump to `2.0.12` with changelog updates for release.

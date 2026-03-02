@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.12] - 2026-03-02
+
+### Added
+
+- Delta Sharing recipient permissions wrappers:
+  - `get_share_recipient_permissions`
+  - `set_share_recipient_permissions`
+  - `update_share_recipient_permissions`
+  - `get_share_recipient_permission_levels`
+- Delta Sharing share permissions wrappers:
+  - `get_share_permissions`
+  - `set_share_permissions`
+  - `update_share_permissions`
+  - `get_share_permission_levels`
+- Endpoint catalog entries for recipient/share permissions and permission-level routes.
+- Regression test coverage for all new sharing permission wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list with the sharing permission methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with these new Delta Sharing operations.
+- Bumped package version from `2.0.11` to `2.0.12`.
+
 ## [2.0.11] - 2026-03-02
 
 ### Added

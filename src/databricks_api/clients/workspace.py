@@ -4440,6 +4440,48 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def get_share_recipient_permissions(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"recipients/{name}",
+            api_version=api_version,
+        )
+
+    def set_share_recipient_permissions(
+        self, name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"recipients/{name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_share_recipient_permissions(
+        self, name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"recipients/{name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_share_recipient_permission_levels(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"recipients/{name}/permissionLevels",
+            api_version=api_version,
+        )
+
     def list_shares(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
             "GET",
@@ -4483,5 +4525,45 @@ class WorkspaceClient(BaseDatabricksClient):
             "DELETE",
             "unity-catalog",
             endpoint=f"shares/{name}",
+            api_version=api_version,
+        )
+
+    def get_share_permissions(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"shares/{name}",
+            api_version=api_version,
+        )
+
+    def set_share_permissions(self, name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PUT",
+            "permissions",
+            endpoint=f"shares/{name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def update_share_permissions(
+        self, name: str, access_control_list: list[dict[str, Any]], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "PATCH",
+            "permissions",
+            endpoint=f"shares/{name}",
+            api_version=api_version,
+            json_body={"access_control_list": access_control_list},
+        )
+
+    def get_share_permission_levels(self, name: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "GET",
+            "permissions",
+            endpoint=f"shares/{name}/permissionLevels",
             api_version=api_version,
         )
