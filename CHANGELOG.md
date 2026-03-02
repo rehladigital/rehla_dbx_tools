@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.19] - 2026-03-02
+
+### Added
+
+- Delta Sharing relationship-link lifecycle wrappers:
+  - `create_sharing_provider_share`
+  - `delete_sharing_provider_share`
+  - `create_share_recipient_share`
+  - `delete_share_recipient_share`
+- Endpoint catalog entries for provider/recipient share create/delete routes.
+- Regression test coverage for share create/delete wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-link create/delete methods.
+- Bumped package version from `2.0.18` to `2.0.19`.
+
 ## [2.0.18] - 2026-03-02
 
 ### Added

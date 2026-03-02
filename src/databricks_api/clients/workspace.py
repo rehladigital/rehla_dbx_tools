@@ -4486,6 +4486,28 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def create_sharing_provider_share(
+        self, name: str, share_link_spec: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint=f"providers/{name}/shares",
+            api_version=api_version,
+            json_body=share_link_spec,
+        )
+
+    def delete_sharing_provider_share(self, name: str, share_name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(share_name, "share_name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"providers/{name}/shares/{share_name}",
+            api_version=api_version,
+        )
+
     def list_share_recipients(self, api_version: str = "2.1") -> Any:
         return self.request_versioned(
             "GET",
@@ -4604,6 +4626,28 @@ class WorkspaceClient(BaseDatabricksClient):
         self._require_non_empty_string(share_name, "share_name")
         return self.request_versioned(
             "GET",
+            "unity-catalog",
+            endpoint=f"recipients/{name}/shares/{share_name}",
+            api_version=api_version,
+        )
+
+    def create_share_recipient_share(
+        self, name: str, share_link_spec: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint=f"recipients/{name}/shares",
+            api_version=api_version,
+            json_body=share_link_spec,
+        )
+
+    def delete_share_recipient_share(self, name: str, share_name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(share_name, "share_name")
+        return self.request_versioned(
+            "DELETE",
             "unity-catalog",
             endpoint=f"recipients/{name}/shares/{share_name}",
             api_version=api_version,
