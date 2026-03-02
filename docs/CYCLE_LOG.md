@@ -1976,3 +1976,20 @@
 - Added regression coverage in `tests/test_workspace_client.py` for invalid batch ID entries (empty string and null).
 - Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit batch ID validation requirements.
 - Prepared patch version bump to `2.0.24` with changelog updates for release.
+
+## Run 102 (Cycle 102 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: harden Delta Sharing share link lifecycle payload validation.
+
+### Progress Notes
+
+- Added non-empty payload validation in `src/databricks_api/clients/workspace.py` for:
+  - `create_share_provider_link`
+  - `update_share_provider_link`
+  - `create_share_recipient_link`
+  - `update_share_recipient_link`
+- Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in share link create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit share link payload validation requirements.
+- Prepared patch version bump to `2.0.25` with changelog updates for release.

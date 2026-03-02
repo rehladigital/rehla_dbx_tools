@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.25] - 2026-03-02
+
+### Changed
+
+- Added non-empty object validation for Delta Sharing share link lifecycle payloads:
+  - `create_share_provider_link`, `update_share_provider_link`
+  - `create_share_recipient_link`, `update_share_recipient_link`
+- Added regression tests for empty payload rejection in share provider/recipient link create/update operations.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share link payload validation requirements.
+- Bumped package version from `2.0.24` to `2.0.25`.
+
 ## [2.0.24] - 2026-03-02
 
 ### Changed

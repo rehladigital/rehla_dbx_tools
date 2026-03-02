@@ -627,6 +627,7 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `create_share_recipient_link(name, recipient_link_spec)`
 - `update_share_recipient_link(name, recipient_name, recipient_link_changes)`
 - `delete_share_recipient_link(name, recipient_name)`
+  - `provider_link_spec`, `provider_link_changes`, `recipient_link_spec`, and `recipient_link_changes` must be non-empty objects.
 - `update_share(name, share_changes)`
 - `delete_share(name)`
 - `get_share_permissions(name)`

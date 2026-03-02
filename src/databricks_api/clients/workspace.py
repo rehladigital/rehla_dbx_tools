@@ -24,6 +24,11 @@ class WorkspaceClient(BaseDatabricksClient):
         if not value or not str(value).strip():
             raise ValidationError(f"{field_name} is required.")
 
+    @staticmethod
+    def _require_non_empty_dict(value: dict[str, Any], field_name: str) -> None:
+        if not isinstance(value, dict) or not value:
+            raise ValidationError(f"{field_name} is required and must be a non-empty object.")
+
     def list_jobs(self, api_version: str = "2.1", limit: int = 25) -> Any:
         self._require_positive_int(limit, "limit")
         return self.request_versioned(
@@ -4739,6 +4744,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, name: str, provider_link_spec: dict[str, Any], api_version: str = "2.1"
     ) -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(provider_link_spec, "provider_link_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4752,6 +4758,7 @@ class WorkspaceClient(BaseDatabricksClient):
     ) -> Any:
         self._require_non_empty_string(name, "name")
         self._require_non_empty_string(provider_name, "provider_name")
+        self._require_non_empty_dict(provider_link_changes, "provider_link_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",
@@ -4794,6 +4801,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, name: str, recipient_link_spec: dict[str, Any], api_version: str = "2.1"
     ) -> Any:
         self._require_non_empty_string(name, "name")
+        self._require_non_empty_dict(recipient_link_spec, "recipient_link_spec")
         return self.request_versioned(
             "POST",
             "unity-catalog",
@@ -4807,6 +4815,7 @@ class WorkspaceClient(BaseDatabricksClient):
     ) -> Any:
         self._require_non_empty_string(name, "name")
         self._require_non_empty_string(recipient_name, "recipient_name")
+        self._require_non_empty_dict(recipient_link_changes, "recipient_link_changes")
         return self.request_versioned(
             "PATCH",
             "unity-catalog",
