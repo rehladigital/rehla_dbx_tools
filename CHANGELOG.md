@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.10] - 2026-03-02
+
+### Added
+
+- Marketplace consumer provider wrappers:
+  - `list_marketplace_consumer_providers`
+  - `get_marketplace_consumer_provider`
+  - `batch_get_marketplace_consumer_providers`
+- Marketplace consumer fulfillment wrappers:
+  - `list_marketplace_consumer_fulfillments`
+  - `get_marketplace_consumer_fulfillment`
+- Marketplace provider analytics dashboard wrappers:
+  - `get_marketplace_provider_analytics_dashboard`
+  - `create_marketplace_provider_analytics_dashboard`
+  - `update_marketplace_provider_analytics_dashboard`
+  - `get_latest_marketplace_provider_analytics_dashboard`
+- Endpoint catalog entries for consumer providers/fulfillments and provider analytics dashboard routes.
+- Regression test coverage for these marketplace wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README available-tools list to include consumer providers, fulfillments, and provider analytics dashboard methods.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with these new marketplace usage methods.
+- Bumped package version from `2.0.9` to `2.0.10`.
+
 ## [2.0.9] - 2026-03-02
 
 ### Added

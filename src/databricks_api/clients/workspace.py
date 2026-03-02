@@ -3617,6 +3617,95 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def list_marketplace_consumer_providers(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/providers",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_marketplace_consumer_provider(self, provider_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/providers",
+            endpoint=provider_id,
+            api_version=api_version,
+        )
+
+    def batch_get_marketplace_consumer_providers(self, provider_ids: list[str], api_version: str = "2.0") -> Any:
+        if not provider_ids:
+            raise ValidationError("provider_ids is required.")
+        return self.request_versioned(
+            "POST",
+            "marketplace-consumer/providers",
+            endpoint="batch-get",
+            api_version=api_version,
+            json_body={"ids": provider_ids},
+        )
+
+    def list_marketplace_consumer_fulfillments(self, api_version: str = "2.0") -> Any:
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/fulfillments",
+            endpoint="",
+            api_version=api_version,
+            paginate=True,
+        )
+
+    def get_marketplace_consumer_fulfillment(self, fulfillment_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(fulfillment_id, "fulfillment_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-consumer/fulfillments",
+            endpoint=fulfillment_id,
+            api_version=api_version,
+        )
+
+    def get_marketplace_provider_analytics_dashboard(self, provider_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/providers",
+            endpoint=f"{provider_id}/analytics-dashboard",
+            api_version=api_version,
+        )
+
+    def create_marketplace_provider_analytics_dashboard(
+        self, provider_id: str, dashboard_spec: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "POST",
+            "marketplace-provider/providers",
+            endpoint=f"{provider_id}/analytics-dashboard",
+            api_version=api_version,
+            json_body=dashboard_spec,
+        )
+
+    def update_marketplace_provider_analytics_dashboard(
+        self, provider_id: str, dashboard_changes: dict[str, Any], api_version: str = "2.0"
+    ) -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "PATCH",
+            "marketplace-provider/providers",
+            endpoint=f"{provider_id}/analytics-dashboard",
+            api_version=api_version,
+            json_body=dashboard_changes,
+        )
+
+    def get_latest_marketplace_provider_analytics_dashboard(self, provider_id: str, api_version: str = "2.0") -> Any:
+        self._require_non_empty_string(provider_id, "provider_id")
+        return self.request_versioned(
+            "GET",
+            "marketplace-provider/providers",
+            endpoint=f"{provider_id}/analytics-dashboard/latest",
+            api_version=api_version,
+        )
+
     # Genie scope
     def list_genie_spaces(self, api_version: str = "2.0") -> Any:
         return self.request_versioned(

@@ -179,6 +179,9 @@ Workspace (`client.workspace`):
 - `list_marketplace_provider_exchange_filters`, `create_marketplace_provider_exchange_filter`, `update_marketplace_provider_exchange_filter`, `delete_marketplace_provider_exchange_filter`
 - `list_marketplace_provider_personalization_requests`, `update_marketplace_provider_personalization_request`
 - `list_marketplace_consumer_personalization_requests`, `create_marketplace_consumer_personalization_request`, `get_marketplace_consumer_personalization_request`
+- `list_marketplace_consumer_providers`, `get_marketplace_consumer_provider`, `batch_get_marketplace_consumer_providers`
+- `list_marketplace_consumer_fulfillments`, `get_marketplace_consumer_fulfillment`
+- `get_marketplace_provider_analytics_dashboard`, `create_marketplace_provider_analytics_dashboard`, `update_marketplace_provider_analytics_dashboard`, `get_latest_marketplace_provider_analytics_dashboard`
 - `list_genie_spaces`, `create_genie_space`, `get_genie_space`, `update_genie_space`, `delete_genie_space`
 - `list_global_init_scripts`, `create_global_init_script`, `get_global_init_script`, `update_global_init_script`, `delete_global_init_script`
 - `list_setting_keys_metadata`, `get_workspace_setting`, `update_workspace_setting`, `get_workspace_conf`, `set_workspace_conf`

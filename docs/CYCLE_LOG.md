@@ -1729,3 +1729,23 @@
 - Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace tools.
 - Prepared patch version bump to `2.0.9` with changelog updates for release.
+
+## Run 87 (Cycle 87 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: extend marketplace coverage with consumer providers/fulfillments and provider analytics dashboard routes.
+
+### Progress Notes
+
+- Added marketplace consumer provider wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_consumer_providers`, `get_marketplace_consumer_provider`, `batch_get_marketplace_consumer_providers`
+- Added marketplace consumer fulfillment wrappers in `src/databricks_api/clients/workspace.py`:
+  - `list_marketplace_consumer_fulfillments`, `get_marketplace_consumer_fulfillment`
+- Added marketplace provider analytics dashboard wrappers in `src/databricks_api/clients/workspace.py`:
+  - `get_marketplace_provider_analytics_dashboard`, `create_marketplace_provider_analytics_dashboard`
+  - `update_marketplace_provider_analytics_dashboard`, `get_latest_marketplace_provider_analytics_dashboard`
+- Updated `src/databricks_api/endpoints/catalog.py` with consumer providers/fulfillments and provider analytics dashboard endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for all new wrappers and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with new marketplace tools.
+- Prepared patch version bump to `2.0.10` with changelog updates for release.

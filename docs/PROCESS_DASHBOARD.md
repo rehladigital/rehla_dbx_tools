@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 86
-- Remaining loops: 214
-- Current loop: 87 (queued)
+- Completed loops: 87
+- Remaining loops: 213
+- Current loop: 88 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 86
-- Current package version: 2.0.9
+- Last completed cycle: 87
+- Current package version: 2.0.10
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 87 on GCP track (round-robin sequence)
-2. Continue all-tools implementation for marketplace provider analytics and remaining provider-side routes
+1. Execute run 88 on AWS track (round-robin sequence)
+2. Continue all-tools implementation for remaining marketplace consumer/provider coverage and adjacent data sharing routes
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.9` after commit/push and workflow verification
+4. Publish `2.0.10` after commit/push and workflow verification

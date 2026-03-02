@@ -641,6 +641,47 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         assert request_versioned.call_args.args == ("GET", "marketplace-consumer/personalization-requests")
         assert request_versioned.call_args.kwargs["endpoint"] == "pr-2"
 
+        client.list_marketplace_consumer_providers()
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_marketplace_consumer_provider("cp-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cp-1"
+
+        client.batch_get_marketplace_consumer_providers(["cp-1", "cp-2"])
+        assert request_versioned.call_args.args == ("POST", "marketplace-consumer/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "batch-get"
+        assert request_versioned.call_args.kwargs["json_body"] == {"ids": ["cp-1", "cp-2"]}
+
+        client.list_marketplace_consumer_fulfillments()
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/fulfillments")
+        assert request_versioned.call_args.kwargs["endpoint"] == ""
+        assert request_versioned.call_args.kwargs["paginate"] is True
+
+        client.get_marketplace_consumer_fulfillment("cf-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-consumer/fulfillments")
+        assert request_versioned.call_args.kwargs["endpoint"] == "cf-1"
+
+        client.get_marketplace_provider_analytics_dashboard("pp-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1/analytics-dashboard"
+
+        client.create_marketplace_provider_analytics_dashboard("pp-1", {"title": "Adoption"})
+        assert request_versioned.call_args.args == ("POST", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1/analytics-dashboard"
+        assert request_versioned.call_args.kwargs["json_body"] == {"title": "Adoption"}
+
+        client.update_marketplace_provider_analytics_dashboard("pp-1", {"title": "Adoption V2"})
+        assert request_versioned.call_args.args == ("PATCH", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1/analytics-dashboard"
+        assert request_versioned.call_args.kwargs["json_body"] == {"title": "Adoption V2"}
+
+        client.get_latest_marketplace_provider_analytics_dashboard("pp-1")
+        assert request_versioned.call_args.args == ("GET", "marketplace-provider/providers")
+        assert request_versioned.call_args.kwargs["endpoint"] == "pp-1/analytics-dashboard/latest"
+
     with pytest.raises(ValidationError):
         client.get_serving_endpoint_permissions("")
     with pytest.raises(ValidationError):
@@ -691,6 +732,20 @@ def test_marketplace_and_model_serving_wrappers_route_expected_calls_and_validat
         client.update_marketplace_provider_personalization_request("", {})
     with pytest.raises(ValidationError):
         client.get_marketplace_consumer_personalization_request("")
+    with pytest.raises(ValidationError):
+        client.get_marketplace_consumer_provider("")
+    with pytest.raises(ValidationError):
+        client.batch_get_marketplace_consumer_providers([])
+    with pytest.raises(ValidationError):
+        client.get_marketplace_consumer_fulfillment("")
+    with pytest.raises(ValidationError):
+        client.get_marketplace_provider_analytics_dashboard("")
+    with pytest.raises(ValidationError):
+        client.create_marketplace_provider_analytics_dashboard("", {})
+    with pytest.raises(ValidationError):
+        client.update_marketplace_provider_analytics_dashboard("", {})
+    with pytest.raises(ValidationError):
+        client.get_latest_marketplace_provider_analytics_dashboard("")
 
 
 def test_genie_and_global_init_script_wrappers_route_expected_calls_and_validation():
