@@ -1930,3 +1930,19 @@
 - Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
 - Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-centric relationship methods.
 - Prepared patch version bump to `2.0.21` with changelog updates for release.
+
+## Run 99 (Cycle 99 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: GCP (round-robin assignment)
+- Objective: complete share-centric Delta Sharing link lifecycle with provider/recipient create/update/delete operations.
+
+### Progress Notes
+
+- Added share-centric link lifecycle wrappers in `src/databricks_api/clients/workspace.py`:
+  - providers: `create_share_provider_link`, `update_share_provider_link`, `delete_share_provider_link`
+  - recipients: `create_share_recipient_link`, `update_share_recipient_link`, `delete_share_recipient_link`
+- Updated `src/databricks_api/endpoints/catalog.py` with share provider/recipient create/update/delete endpoint keys.
+- Added regression coverage in `tests/test_workspace_client.py` for routing and validation paths.
+- Updated `README.md` and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-centric link lifecycle methods.
+- Prepared patch version bump to `2.0.22` with changelog updates for release.

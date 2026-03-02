@@ -4726,6 +4726,41 @@ class WorkspaceClient(BaseDatabricksClient):
             api_version=api_version,
         )
 
+    def create_share_provider_link(
+        self, name: str, provider_link_spec: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint=f"shares/{name}/providers",
+            api_version=api_version,
+            json_body=provider_link_spec,
+        )
+
+    def update_share_provider_link(
+        self, name: str, provider_name: str, provider_link_changes: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(provider_name, "provider_name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"shares/{name}/providers/{provider_name}",
+            api_version=api_version,
+            json_body=provider_link_changes,
+        )
+
+    def delete_share_provider_link(self, name: str, provider_name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(provider_name, "provider_name")
+        return self.request_versioned(
+            "DELETE",
+            "unity-catalog",
+            endpoint=f"shares/{name}/providers/{provider_name}",
+            api_version=api_version,
+        )
+
     def list_share_recipients_for_share(self, name: str, api_version: str = "2.1") -> Any:
         self._require_non_empty_string(name, "name")
         return self.request_versioned(
@@ -4741,6 +4776,41 @@ class WorkspaceClient(BaseDatabricksClient):
         self._require_non_empty_string(recipient_name, "recipient_name")
         return self.request_versioned(
             "GET",
+            "unity-catalog",
+            endpoint=f"shares/{name}/recipients/{recipient_name}",
+            api_version=api_version,
+        )
+
+    def create_share_recipient_link(
+        self, name: str, recipient_link_spec: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        return self.request_versioned(
+            "POST",
+            "unity-catalog",
+            endpoint=f"shares/{name}/recipients",
+            api_version=api_version,
+            json_body=recipient_link_spec,
+        )
+
+    def update_share_recipient_link(
+        self, name: str, recipient_name: str, recipient_link_changes: dict[str, Any], api_version: str = "2.1"
+    ) -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(recipient_name, "recipient_name")
+        return self.request_versioned(
+            "PATCH",
+            "unity-catalog",
+            endpoint=f"shares/{name}/recipients/{recipient_name}",
+            api_version=api_version,
+            json_body=recipient_link_changes,
+        )
+
+    def delete_share_recipient_link(self, name: str, recipient_name: str, api_version: str = "2.1") -> Any:
+        self._require_non_empty_string(name, "name")
+        self._require_non_empty_string(recipient_name, "recipient_name")
+        return self.request_versioned(
+            "DELETE",
             "unity-catalog",
             endpoint=f"shares/{name}/recipients/{recipient_name}",
             api_version=api_version,

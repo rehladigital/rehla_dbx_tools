@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.22] - 2026-03-02
+
+### Added
+
+- Delta Sharing share-centric link lifecycle wrappers:
+  - `create_share_provider_link`
+  - `update_share_provider_link`
+  - `delete_share_provider_link`
+  - `create_share_recipient_link`
+  - `update_share_recipient_link`
+  - `delete_share_recipient_link`
+- Endpoint catalog entries for share provider/recipient create/update/delete routes.
+- Regression test coverage for all new share-centric link lifecycle wrappers in `tests/test_workspace_client.py`.
+
+### Changed
+
+- Updated README and `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with share-centric link lifecycle methods.
+- Bumped package version from `2.0.21` to `2.0.22`.
+
 ## [2.0.21] - 2026-03-02
 
 ### Added

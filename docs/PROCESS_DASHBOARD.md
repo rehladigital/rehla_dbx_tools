@@ -7,14 +7,14 @@
 - Detailed execution log: `docs/CYCLE_LOG.md`
 - Context snapshot: `docs/LOOP_CONTEXT.md`
 - Campaign target: 300 loops
-- Completed loops: 98
-- Remaining loops: 202
-- Current loop: 99 (queued)
+- Completed loops: 99
+- Remaining loops: 201
+- Current loop: 100 (queued)
 
 ## Current Snapshot
 
-- Last completed cycle: 98
-- Current package version: 2.0.21
+- Last completed cycle: 99
+- Current package version: 2.0.22
 - Last pushed commit: `pending-push`
 
 ## Recent Releases
@@ -27,7 +27,7 @@
 
 ## Next Queue
 
-1. Execute run 99 on GCP track (round-robin sequence)
+1. Execute run 100 on AWS track (round-robin sequence)
 2. Continue all-tools implementation for adjacent data sharing routes and residual marketplace endpoint coverage
 3. Keep wrapper + tests + docs updates together per cycle
-4. Publish `2.0.21` after commit/push and workflow verification
+4. Publish `2.0.22` after commit/push and workflow verification
