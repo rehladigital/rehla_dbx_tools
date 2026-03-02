@@ -487,13 +487,17 @@ client = DatabricksApiClient.from_windows_sso(host="https://dbc-xxxx.cloud.datab
 - `delete_marketplace_provider_listing(listing_id)`
 - `list_marketplace_provider_providers()`
 - `create_marketplace_provider_provider(provider_spec)`
+  - `provider_spec` must be a non-empty object.
 - `get_marketplace_provider_provider(provider_id)`
 - `update_marketplace_provider_provider(provider_id, provider_changes)`
+  - `provider_changes` must be a non-empty object.
 - `delete_marketplace_provider_provider(provider_id)`
 - `list_marketplace_provider_files()`
 - `create_marketplace_provider_file(file_spec)`
+  - `file_spec` must be a non-empty object.
 - `get_marketplace_provider_file(file_id)`
 - `update_marketplace_provider_file(file_id, file_changes)`
+  - `file_changes` must be a non-empty object.
 - `delete_marketplace_provider_file(file_id)`
 - `list_marketplace_provider_exchanges()`
 - `create_marketplace_provider_exchange(exchange_spec)`

@@ -2057,3 +2057,18 @@
 - Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in these Marketplace flows.
 - Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit Marketplace payload requirements.
 - Prepared patch version bump to `2.0.29` with changelog updates for release.
+
+## Run 107 (Cycle 107 of 300 campaign)
+
+- Date: 2026-03-02
+- Cloud track: Azure (round-robin assignment)
+- Objective: harden Marketplace provider/file payload validation for create/update operations.
+
+### Progress Notes
+
+- Strengthened payload validation in `src/databricks_api/clients/workspace.py` for:
+  - `create_marketplace_provider_provider` and `update_marketplace_provider_provider`
+  - `create_marketplace_provider_file` and `update_marketplace_provider_file`
+- Added regression coverage in `tests/test_workspace_client.py` for empty payload rejection in provider/file create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with explicit provider/file payload requirements.
+- Prepared patch version bump to `2.0.30` with changelog updates for release.

@@ -3430,6 +3430,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_marketplace_provider_provider(self, provider_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(provider_spec, "provider_spec")
         return self.request_versioned(
             "POST",
             "marketplace-provider/providers",
@@ -3451,6 +3452,7 @@ class WorkspaceClient(BaseDatabricksClient):
         self, provider_id: str, provider_changes: dict[str, Any], api_version: str = "2.0"
     ) -> Any:
         self._require_non_empty_string(provider_id, "provider_id")
+        self._require_non_empty_dict(provider_changes, "provider_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/providers",
@@ -3478,6 +3480,7 @@ class WorkspaceClient(BaseDatabricksClient):
         )
 
     def create_marketplace_provider_file(self, file_spec: dict[str, Any], api_version: str = "2.0") -> Any:
+        self._require_non_empty_dict(file_spec, "file_spec")
         return self.request_versioned(
             "POST",
             "marketplace-provider/files",
@@ -3497,6 +3500,7 @@ class WorkspaceClient(BaseDatabricksClient):
 
     def update_marketplace_provider_file(self, file_id: str, file_changes: dict[str, Any], api_version: str = "2.0") -> Any:
         self._require_non_empty_string(file_id, "file_id")
+        self._require_non_empty_dict(file_changes, "file_changes")
         return self.request_versioned(
             "PATCH",
             "marketplace-provider/files",

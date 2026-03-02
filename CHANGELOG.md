@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.30] - 2026-03-02
+
+### Changed
+
+- Hardened Marketplace provider/file payload validation:
+  - `create_marketplace_provider_provider` and `update_marketplace_provider_provider` now require non-empty objects
+  - `create_marketplace_provider_file` and `update_marketplace_provider_file` now require non-empty objects
+- Added regression tests for empty payload rejection in Marketplace provider and file create/update flows.
+- Updated `docs/COMPLETE_TOOL_USAGE_REFERENCE.md` with provider/file payload requirements.
+- Bumped package version from `2.0.29` to `2.0.30`.
+
 ## [2.0.29] - 2026-03-02
 
 ### Changed
